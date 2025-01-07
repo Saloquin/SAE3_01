@@ -9,9 +9,11 @@ class Uti extends Model
 {
     use HasFactory;
 
+
+    public $timestamps = false;
+
     protected $table = 'UTILISATEUR';
     protected $primaryKey = 'UTI_ID';
-
     protected $fillable = [
         'NIV_ID',
         'CLU_ID',
@@ -35,5 +37,15 @@ class Uti extends Model
     public static function getTeacher()
     {
         return self::where('UTI_EST_INIT', 1)->get();
+    }
+
+    public function club()
+    {
+        return $this->belongsTo(Club::class, 'CLU_ID');
+    }
+
+    public function level()
+    {
+        return $this->belongsTo(Level::class, 'NIV_ID');
     }
 }
