@@ -16,6 +16,15 @@ use App\Models\Session;
 */
 
 Route::get('/', function () {
+    return 'bonjour';
+});
+
+Route::get('/test', function () {
+    
+    return 'au revoir';
+});
+
+Route::get('/welcome', function(){
     return view('welcome');
 });
 
