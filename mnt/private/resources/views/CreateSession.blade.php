@@ -5,51 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Création d'un cours de plongée</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="./tailwind.config.js"></script>
     <link rel="stylesheet" href="./style/style.css">
 </head>
-<body class="flex items-center flex-col">
-    <h1 class="mb-[7vh] triomphe text-[6vw] lg:text-[2vw]">Création d'un cours de plongée</h1>
-    <form action="{{ url('/TraitementCreationSession')}}" method="post">
+<body class="flex items-center flex-col bg-gray-100 p-6">
+    <h1 class="mb-10 text-4xl font-bold text-blue-600">Création d'un cours de plongée</h1>
+    <form action="{{ url('SessionManager/TraitementCreationSession')}}" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 w-full max-w-lg">
         @csrf
-        <!-- Students List -->
-        <p class="lg:text-[1vw] text-[3vw]">Élèves</p>
-        <select class="mb-[3vh] border-[0.1vw] rounded p-[0.2vw]" name="student[]" multiple>
-            <?php
-            foreach ($student as $student): ?>
-                <option value="<?= $student->UTI_ID; ?>">
-                    <?= htmlspecialchars($student->UTI_NOM . " " . $student->UTI_PRENOM); ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
+        <!-- Date Selector -->
+        <div class="mb-4">
+            <label for="date" class="block text-gray-700 font-bold mb-2">Date de la session</label>
+            <input type="date" id="date" name="date" class="shadow border rounded w-full py-2 px-3 text-gray-700" required>
+        </div>
 
-        <!-- Initiators List -->
-        <p class="lg:text-[1vw] text-[3vw]">Initiateur</p>
-        <select class="mb-[3vh] border-[0.1vw] rounded p-[0.2vw]" name="teacher[]" multiple>
-            <?php
-            foreach ($initiator as $initiator): ?>
-                <option value="<?= $initiator->UTI_ID; ?>">
-                    <?= htmlspecialchars($initiator->UTI_NOM . " " . $initiator->UTI_PRENOM); ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
+        <!-- Students Section -->
+        <div id="students-section" class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2">Élèves</label>
+            <div class="flex items-center space-x-2 mb-2">
+                <select class="shadow border rounded w-full py-2 px-3 text-gray-700" name="student[]">
+                    <?php foreach ($student as $stu): ?>
+                        <option value="<?= $stu->UTI_ID; ?>">
+                            <?= htmlspecialchars($stu->UTI_NOM . " " . $stu->UTI_PRENOM); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded shadow" onclick="addField('students-section', 'student[]')">+ Ajouter</button>
+            </div>
+        </div>
 
-        <!-- Competencies List -->
-        <p class="lg:text-[1vw] text-[3vw]">Aptitudes</p>
-        <select class="mb-[3vh] border-[0.1vw] rounded p-[0.2vw]" name="competence[]" multiple>
-            <?php
-            foreach ($skills as $competence): ?>
-                <option value="<?= $competence->APT_ID; ?>">
-                    <?= htmlspecialchars($competence->APT_LIBELLE); ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
+        <!-- Initiators Section -->
+        <div id="initiators-section" class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2">Initiateur</label>
+            <div class="flex items-center space-x-2 mb-2">
+                <select class="shadow border rounded w-full py-2 px-3 text-gray-700" name="teacher[]">
+                    <?php foreach ($initiator as $init): ?>
+                        <option value="<?= $init->UTI_ID; ?>">
+                            <?= htmlspecialchars($init->UTI_NOM . " " . $init->UTI_PRENOM); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded shadow" onclick="addField('initiators-section', 'teacher[]')">+ Ajouter</button>
+            </div>
+        </div>
+
+        <!-- Competencies Section -->
+        <div id="competencies-section" class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2">Aptitudes</label>
+            <div class="flex items-center space-x-2 mb-2">
+                <select class="shadow border rounded w-full py-2 px-3 text-gray-700" name="competence[]">
+                    <?php foreach ($skills as $skill): ?>
+                        <option value="<?= $skill->APT_ID; ?>">
+                            <?= htmlspecialchars($skill->APT_LIBELLE); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded shadow" onclick="addField('competencies-section', 'competence[]')">+ Ajouter</button>
+            </div>
+        </div>
 
         <!-- Submit Button -->
         <div class="flex justify-center">
-            <button type="submit" class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Créer</button>
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Créer</button>
         </div>
     </form>
+
+    <!-- Script for dynamic field addition -->
+    <script>
+        function addField(sectionId, fieldName) {
+            const section = document.getElementById(sectionId);
+            const newField = document.createElement('div');
+            newField.className = 'flex items-center space-x-2 mb-2';
+            newField.innerHTML = `
+                <select class="shadow border rounded w-full py-2 px-3 text-gray-700" name="${fieldName}">
+                    ${section.querySelector('select').innerHTML}
+                </select>
+                <button type="button" class="bg-red-500 text-white px-4 py-2 rounded shadow" onclick="this.parentElement.remove()">- Retirer</button>
+            `;
+            section.appendChild(newField);
+        }
+    </script>
 </body>
 </html>
-

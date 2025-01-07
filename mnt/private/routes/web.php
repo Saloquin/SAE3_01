@@ -47,6 +47,6 @@ Route::get('/student_panel', function () { return view('student_panel');});
 Route::get('/class_details', function () { return view('class_details');});
 Route::get('/account_management', function () { return view('account_management');});
 
-Route::get('/CreationSession', [SessionController::class, 'index']);
+Route::get('SessionManager/CreationSession', [SessionController::class, 'index']);
 
-Route::post('/TraitementCreationSession', [SessionController::class, 'executeRequest']);
+Route::post('SessionManager/TraitementCreationSession', [SessionController::class, 'executeRequest']);
