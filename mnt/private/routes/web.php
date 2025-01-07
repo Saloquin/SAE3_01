@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return 'bonjour';
+    return view('connexion');
 });
 
 Route::get('/test', function () {
-    
+
     return 'au revoir';
 });
 

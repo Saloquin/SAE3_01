@@ -1,0 +1,16 @@
+@font-face {
+    font-family: "Triomphe";
+    src: url('../assets/fonts/Triomphe-Regular-autoinstr.ttf');
+    font-weight: normal;
+    font-style : normal;
+}
+
+.triomphe {
+    font-family: 'Triomphe';
+}
+
+.background {
+    background-image: url("../assets/connexion_background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
