@@ -129,13 +129,13 @@ class ProfileController extends Controller
             'UTI_MDP' => $password, 
         ]);
         
-       /* Mail::to($validated['UTI_MAIL'])->send(new UserCreatedMail([
+       Mail::to($validated['UTI_MAIL'])->send(new UserCreatedMail([
             'name' => $validated['UTI_PRENOM'] . ' ' . $validated['UTI_NOM'],
             'email' => $validated['UTI_MAIL'],
             'password' => $password,
-        ]));*/
+        ]));
         
-        return redirect()->route('profile')->with('success', "L'utilisateur a été créé. son mot de passe est ".$password);
+        return redirect()->route('profile')->with('success', "L'utilisateur a été créé.");
     }
 
     
