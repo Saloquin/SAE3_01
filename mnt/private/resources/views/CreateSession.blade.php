@@ -10,9 +10,9 @@
 </head>
 <body class="flex items-center flex-col">
     <h1 class="mb-[7vh] triomphe text-[6vw] lg:text-[2vw]">Course Creation</h1>
-    <form action="" method="post">
+    <form action="TraitementCreationSession" method="post">
         <!-- Students List -->
-        <p class="lg:text-[1vw] text-[3vw]">Students</p>
+        <p class="lg:text-[1vw] text-[3vw]">Élèves</p>
         <select class="mb-[3vh] border-[0.1vw] rounded p-[0.2vw]" name="student" multiple>
             <?php
             foreach ($student as $student): ?>
@@ -23,7 +23,7 @@
         </select>
 
         <!-- Initiators List -->
-        <p class="lg:text-[1vw] text-[3vw]">Initiators</p>
+        <p class="lg:text-[1vw] text-[3vw]">Initiateur</p>
         <select class="mb-[3vh] border-[0.1vw] rounded p-[0.2vw]" name="teacher" multiple>
             <?php
             foreach ($initiator as $initiator): ?>
@@ -34,7 +34,7 @@
         </select>
 
         <!-- Competencies List -->
-        <p class="lg:text-[1vw] text-[3vw]">Competencies</p>
+        <p class="lg:text-[1vw] text-[3vw]">Aptitudes</p>
         <select class="mb-[3vh] border-[0.1vw] rounded p-[0.2vw]" name="competence" multiple>
             <?php
             foreach ($skills as $competence): ?>
@@ -46,7 +46,7 @@
 
         <!-- Submit Button -->
         <div class="flex justify-center">
-            <button type="submit" class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Créai</button>
+            <button type="submit" class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Créer</button>
         </div>
     </form>
 </body>
