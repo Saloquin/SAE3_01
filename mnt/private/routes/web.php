@@ -42,6 +42,7 @@ Route::post('/login', [Connexion::class, 'login']);
 Route::get('/director_panel', function () { return view('director_panel');});
 Route::get('/teacher_panel', function () { return view('teacher_panel');});
 Route::get('/manager_panel', function () { return view('manager_panel');});
+Route::get('/student_panel', function () { return view('student_panel');});
 
 Route::get('/CreationSession', [SessionController::class, 'index']);
 

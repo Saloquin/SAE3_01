@@ -14,12 +14,12 @@ require_once('../resources/includes/header.php');
 ?>
 
 <body class="flex flex-col items-center triomphe">
-<p class=" triomphe text-[6vw] lg:text-[2vw]">Panel manager</p>
+<p class=" triomphe text-[6vw] lg:text-[2vw]">Panel élève</p>
 <p class="mb-[7vh] triomphe text-[6vw] lg:text-[2vw]">Titouan JEAN</p>
 
 <div class="mb-[10vh]">calendrier</div>
 
-<button class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Synthèse formation</button>
+<button class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Mes compétences</button>
 
 <?php
 require_once('../resources/includes/footer.php');
