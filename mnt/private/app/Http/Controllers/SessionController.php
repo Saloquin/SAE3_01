@@ -6,6 +6,8 @@ use App\Models\Session;
 use App\Models\Skill;
 use App\Models\Uti;
 
+use Illuminate\Http\Request;
+
 class SessionController extends Controller
 {
     public function index() {
@@ -15,17 +17,23 @@ class SessionController extends Controller
         return view('CreateSession', ['skills' => $skill, 'student' => $student, 'initiator' => $initiator]);
     }
 
-    public function executeRequest() {
-        $skill = Skill::getSkillByFormationLevel();
-        $student = Uti::getStudent();
-
-        // Session::insertSession($for_id, $cou_date, $uti_id_elv1, $uti_id_elv2, $uti_id_init);
-
-        print_r($_POST);
-        print_r("<br>");
-
-        return "ok";
-
-        // return view('CreateSession', ['skills' => $skill, 'student' => $student, 'initiator' => $initiator]);
+    public function executeRequest(Request $request) {
+        $studentId = $request->input('student');
+        print_r($studentId);
+        $teacherId = $request->input('teacher');
+        $competenceId = $request->input('competence');
+    
+        if (empty($studentId) || empty($teacherId) || empty($competenceId)) {
+            return redirect()->back()->with('error', 'Tous les champs doivent être remplis.');
+        }
+    
+        $cou_date = now();
+        $for_id = 1;
+        
+        Session::insertSession($for_id, $cou_date, $studentId[0], $studentId[1] ?? null, $teacherId[0]);
+    
+        //return redirect('/')->with('success', 'La session a été créée avec succès.');
     }
+    
+    
 }

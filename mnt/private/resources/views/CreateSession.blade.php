@@ -10,7 +10,8 @@
 </head>
 <body class="flex items-center flex-col">
     <h1 class="mb-[7vh] triomphe text-[6vw] lg:text-[2vw]">Course Creation</h1>
-    <form action="TraitementCreationSession" method="post">
+    <form action="{{ url('/TraitementCreationSession')}}" method="post">
+        @csrf
         <!-- Students List -->
         <p class="lg:text-[1vw] text-[3vw]">Élèves</p>
         <select class="mb-[3vh] border-[0.1vw] rounded p-[0.2vw]" name="student" multiple>
