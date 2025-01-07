@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Connexion;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
 use App\Models\Session;
@@ -15,12 +16,16 @@ use App\Models\Session;
 |
 */
 
-Route::get('/', function () {
-    return 'bonjour';
+Route::get('/', [Connexion::class, 'show']);
+
+Route::post('/login', [Connexion::class, 'login']);
+
+Route::get('/director_panel', function () {
+    return view('director_panel');
 });
 
 Route::get('/test', function () {
-    
+
     return 'au revoir';
 });
 
