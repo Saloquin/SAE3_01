@@ -23,7 +23,7 @@ Route::get('/home', function () {
 });
 
 Route::get('/test', function () {
-    
+
     return 'au revoir';
 });
 
@@ -39,9 +39,9 @@ Route::get('/', [Connexion::class, 'show']);
 
 Route::post('/login', [Connexion::class, 'login']);
 
-Route::get('/director_panel', function () {
-    return view('director_panel');
-});
+Route::get('/director_panel', function () { return view('director_panel');});
+Route::get('/teacher_panel', function () { return view('teacher_panel');});
+Route::get('/manager_panel', function () { return view('manager_panel');});
 
 Route::get('/CreationSession', [SessionController::class, 'index']);
 
