@@ -126,7 +126,7 @@ class ProfileController extends Controller
             'NIV_ID' => $validated['lvl'], 
             'UTI_EST_INIT' => $validated['init'],  
             'CLU_ID' => $validated['clubId'],  
-            'UTI_MDP' => $password, 
+            'UTI_MDP' => md5($password), 
         ]);
         
        Mail::to($validated['UTI_MAIL'])->send(new UserCreatedMail([
