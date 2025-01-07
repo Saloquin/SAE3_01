@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SessionController;
+use App\Models\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// pour tester la connexion à la db
+Route::get('/test', function () {
+    Session::insertSession();
+
+    return "hello";
+});
+
+Route::get('/CreationSession', [SessionController::class, 'index']);
