@@ -28,13 +28,13 @@ class Connexion extends Controller
                 // rediriger vers panel rf
             }
 
-            $res = DB::select('select count(*) as nb from initier where for_id = ? and uti_id = ?',[$formation->FOR_ID,$_SESSION['id']]);
+            $res = DB::select('select count(*) as nb from INITIER where for_id = ? and uti_id = ?',[$formation->FOR_ID,$_SESSION['id']]);
             if($res[0]->nb){
                 echo 'initiateur';
                 exit;
                 // rediriger vers panel initier
             }
-            $res = DB::select('select count(*) as nb from apprendre where for_id = ? and uti_id = ?',[$formation->FOR_ID,$_SESSION['id']]);
+            $res = DB::select('select count(*) as nb from APPRENDRE where for_id = ? and uti_id = ?',[$formation->FOR_ID,$_SESSION['id']]);
             if($res[0]->nb){
                 echo 'eleve';
                 exit;
@@ -52,7 +52,7 @@ class Connexion extends Controller
         $licence = $request->input('licence');
         $password = $request->input('password');
         if(isset($licence) && isset($password)){
-            $res = DB::select('select * from UTILISATEUR where uti_id = ? and uti_mdp = ?',[$licence,$password]);
+            $res = DB::select('select * from UTILISATEUR where uti_id = ? and uti_mdp = ?',[$licence,md5($password)]);
             if(isset($res[0])){
                 $_SESSION['active_formations'] = DB::select('select * from FORMATION where clu_id = ? and datediff(sysdate(), for_annee) between 0 and 365.25', [$res[0]->CLU_ID]);
                 $_SESSION['id'] = $res[0]->UTI_ID;

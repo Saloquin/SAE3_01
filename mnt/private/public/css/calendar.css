@@ -1,0 +1,128 @@
+/* styles.css */
+
+/* Reset margin/padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Full-screen layout */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height of viewport */
+    background-color: #f0f0f0;
+    margin: 0;
+    overflow: hidden; /* Prevent overflow */
+}
+
+/* Calendar Container */
+.calendar {
+    width: 100%;
+    height: 100%;
+    max-width: 800px; /* Limit max width */
+    max-height: 600px; /* Limit max height */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: white;
+    padding: 20px;
+    overflow: hidden; /* Prevent scrolling */
+}
+
+/* Calendar Header (Month & Navigation Buttons) */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.calendar-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Days of Week (Header Row) */
+.days-of-week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Days Grid */
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 5px;
+    flex-grow: 1;
+    align-items: stretch; /* Ensure cells stretch to fill the available space */
+    overflow-y: auto; /* Allow scrolling if needed */
+}
+
+/* Day Box */
+.day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;  /* Increase height */
+    width: 80px;   /* Increase width */
+    border-radius: 10px;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 1.25rem;
+    transition: background-color 0.3s, transform 0.3s;
+    border: 1px solid #ccc;
+    margin: 5px;
+    user-select: none; /* Prevent text selection */
+}
+
+/* Hover Effect */
+.day:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05);  /* Slight zoom on hover */
+}
+
+/* Active Day (Clicked Day) */
+.day.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Message Box */
+#message {
+    text-align: center;
+    font-size: 1.25rem;
+    color: #333;
+    font-weight: bold;
+    padding-top: 20px;
+}
+
+/* Navigation Buttons (Prev / Next) */
+button {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+}
+
+button:focus {
+    outline: none;
+}
+
+.day.highlight {
+    background-color: #ff5733;  /* Light red or any color of your choice */
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+}
