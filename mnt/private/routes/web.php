@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Connexion;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,8 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('connexion');
+Route::get('/', [Connexion::class, 'show']);
+
+Route::post('/login', [Connexion::class, 'login']);
+
+Route::get('/director_panel', function () {
+    return view('director_panel');
 });
 
 Route::get('/test', function () {
