@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Creation - Diving Journal</title>
+    <title>Création d'un cours de plongée</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="./tailwind.config.js"></script>
     <link rel="stylesheet" href="./style/style.css">
 </head>
 <body class="flex items-center flex-col">
-    <h1 class="mb-[7vh] triomphe text-[6vw] lg:text-[2vw]">Course Creation</h1>
+    <h1 class="mb-[7vh] triomphe text-[6vw] lg:text-[2vw]">Création d'un cours de plongée</h1>
     <form action="{{ url('/TraitementCreationSession')}}" method="post">
         @csrf
         <!-- Students List -->
         <p class="lg:text-[1vw] text-[3vw]">Élèves</p>
-        <select class="mb-[3vh] border-[0.1vw] rounded p-[0.2vw]" name="student" multiple>
+        <select class="mb-[3vh] border-[0.1vw] rounded p-[0.2vw]" name="student[]" multiple>
             <?php
             foreach ($student as $student): ?>
                 <option value="<?= $student->UTI_ID; ?>">
@@ -25,7 +25,7 @@
 
         <!-- Initiators List -->
         <p class="lg:text-[1vw] text-[3vw]">Initiateur</p>
-        <select class="mb-[3vh] border-[0.1vw] rounded p-[0.2vw]" name="teacher" multiple>
+        <select class="mb-[3vh] border-[0.1vw] rounded p-[0.2vw]" name="teacher[]" multiple>
             <?php
             foreach ($initiator as $initiator): ?>
                 <option value="<?= $initiator->UTI_ID; ?>">
@@ -36,11 +36,11 @@
 
         <!-- Competencies List -->
         <p class="lg:text-[1vw] text-[3vw]">Aptitudes</p>
-        <select class="mb-[3vh] border-[0.1vw] rounded p-[0.2vw]" name="competence" multiple>
+        <select class="mb-[3vh] border-[0.1vw] rounded p-[0.2vw]" name="competence[]" multiple>
             <?php
             foreach ($skills as $competence): ?>
                 <option value="<?= $competence->APT_ID; ?>">
-                    <?= htmlspecialchars($competence->APT_LIBELLE);  ?>
+                    <?= htmlspecialchars($competence->APT_LIBELLE); ?>
                 </option>
             <?php endforeach; ?>
         </select>
