@@ -36,3 +36,5 @@ Route::get('/test', function () {
 });
 
 Route::get('/CreationSession', [SessionController::class, 'index']);
+
+Route::post('/TraitementCreationSession', [SessionController::class, 'executeRequest']);
