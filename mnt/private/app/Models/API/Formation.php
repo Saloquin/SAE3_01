@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\API;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,9 +9,9 @@ class Formation extends Model
 {
     use HasFactory;
 
-    protected $table = 'formation';
+    protected $table = 'FORMATION';
     protected $primaryKey = 'FOR_ID';
-    public $timestamps = false;
+
     protected $fillable = [
         'NIV_ID',
         'UTI_ID',

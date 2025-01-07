@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\API;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,9 +10,9 @@ class Level extends Model
 {
     use HasFactory;
 
-    protected $table = 'niveau';
+    protected $table = 'NIVEAU';
     protected $primaryKey = 'NIV_ID';
-    public $timestamps = false;
+
     protected $fillable = [
         'NIV_DESCRIPTION',
     ];

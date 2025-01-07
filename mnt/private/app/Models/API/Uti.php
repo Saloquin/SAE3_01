@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\API;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -32,14 +32,18 @@ class Uti extends Model
         return self::where('UTI_EST_INIT', 0)->get();
     }
 
-    public static function getStudentByFormation()
-    {
-        return self::where('UTI_EST_INIT', 0)
-                    ->where('NIV_ID', 0)->get();
-    }
-
     public static function getTeacher()
     {
         return self::where('UTI_EST_INIT', 1)->get();
+    }
+
+    public function club()
+    {
+        return $this->belongsTo(Club::class, 'CLU_ID');
+    }
+
+    public function level()
+    {
+        return $this->belongsTo(Level::class, 'NIV_ID');
     }
 }

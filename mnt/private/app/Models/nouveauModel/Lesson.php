@@ -5,22 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Learn extends Model
+class Lesson extends Model
 {
     use HasFactory;
 
-    protected $table = 'apprendre';
+    protected $table = 'cours';
+    protected $primaryKey = 'COU_ID';
     public $timestamps = false;
-    
     protected $fillable = [
-        'UTI_ID',
         'FOR_ID',
+        'COU_DATE',
     ];
-
-    public function student()
-    {
-        return $this->belongsTo(Uti::class, 'UTI_ID');
-    }
 
     public function formation()
     {

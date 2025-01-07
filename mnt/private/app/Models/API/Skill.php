@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\API;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,8 +10,8 @@ class Skill extends Model
 {
     use HasFactory;
     protected $primaryKey = 'APT_ID';
-    protected $table = 'aptitude';
-    public $timestamps = false;
+    protected $table = 'APTITUDE';
+
     protected $fillable = [
 		'COM_ID' ,
 		'NIV_ID',

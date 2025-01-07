@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\API;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,9 +9,9 @@ class Learn extends Model
 {
     use HasFactory;
 
-    protected $table = 'apprendre';
+    protected $table = 'APPRENDRE';
     public $timestamps = false;
-    
+
     protected $fillable = [
         'UTI_ID',
         'FOR_ID',

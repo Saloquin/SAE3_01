@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\API;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Learn extends Model
+class Teach extends Model
 {
     use HasFactory;
 
-    protected $table = 'apprendre';
+    protected $table = 'INITIER';
     public $timestamps = false;
-    
+
     protected $fillable = [
         'UTI_ID',
         'FOR_ID',
     ];
 
-    public function student()
+    public function teacher()
     {
         return $this->belongsTo(Uti::class, 'UTI_ID');
     }
