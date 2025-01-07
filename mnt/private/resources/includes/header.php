@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <title>S3.01</title>
-    <link rel="stylesheet" href="../css/style/style.css" >
+    <link rel="stylesheet" href="{{URL::to('css/app.css')}}">
 </head>
 <body>
     <div class="header">
         <div id="logo">
             <a href="#">
                 <figure>
-                    <img src="../css/images/logo.png" alt="Home">
+                    <img src="./assets/logo.png" alt="Home">
                 </figure>
             </a>
         </div>
@@ -20,7 +20,7 @@
         <div id="profile">
             <a href="#">
                 <figure>
-                    <img src="../css/images/profile.png" alt="Profile">
+                    <img src="./assets/profile.png" alt="Profile">
                     <p id="account_name">  </p>
                 </figure>
             </a>
