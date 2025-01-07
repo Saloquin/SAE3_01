@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view(view: 'welcome');
 });
+
+
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::post('/addStudent', [ProfileController::class, 'insertStudent'])->name('addStudent');
+Route::post('/addTeacher', [ProfileController::class, 'insertTeacher'])->name('addTeacher');
