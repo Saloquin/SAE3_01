@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\InitiatorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,5 @@ Route::post('/addTeacher', [ProfileController::class, 'insertTeacher'])->name('a
 
 Route::get('/CreationSession', [SessionController::class, 'index']);
 Route::post('/TraitementCreationSession', [SessionController::class, 'executeRequest']);
+
+Route::get('/GererAptitudes', [InitiatorController::class, 'showSessions']);
