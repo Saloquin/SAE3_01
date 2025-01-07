@@ -9,11 +9,9 @@ class Uti extends Model
 {
     use HasFactory;
 
-
-    public $timestamps = false;
-
     protected $table = 'UTILISATEUR';
     protected $primaryKey = 'UTI_ID';
+
     protected $fillable = [
         'NIV_ID',
         'CLU_ID',
@@ -34,18 +32,18 @@ class Uti extends Model
         return self::where('UTI_EST_INIT', 0)->get();
     }
 
+    public static function getStudentByFormation()
+    {
+        return self::where('UTI_EST_INIT', 0)
+                    ->where('NIV_ID', 0)->get();
+    }
+
     public static function getTeacher()
     {
         return self::where('UTI_EST_INIT', 1)->get();
     }
-
-    public function club()
-    {
-        return $this->belongsTo(Club::class, 'CLU_ID');
-    }
-
-    public function level()
-    {
-        return $this->belongsTo(Level::class, 'NIV_ID');
+    public static function getInitiatorById($id){
+        return self::where('uti_id', $id)
+                    ->where('uti_est_init', 1)->get();
     }
 }
