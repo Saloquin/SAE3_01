@@ -17,22 +17,32 @@ use App\Models\Session;
 |
 */
 
+Route::get('/', function () {
+    return 'bonjour';
+});
 
 Route::get('/home', function () {
     return view('home');
 });
 
 Route::get('/test', function () {
-    
+
     return 'au revoir';
 });
 
+Route::get('/home', function () {
+    return view('home');
+});
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::post('/addStudent', [ProfileController::class, 'insertStudent'])->name('addStudent');
 Route::post('/addTeacher', [ProfileController::class, 'insertTeacher'])->name('addTeacher');
 Route::post('/addRespForm', [ProfileController::class, 'insertResponsable'])->name('addRespForm');
 Route::post('/addUser', [ProfileController::class, 'insertUser'])->name('addUser');
+Route::get('/test', function () {
+
+    return 'au revoir';
+});
 
 
 Route::get('/', [Connexion::class, 'show']);
@@ -46,3 +56,7 @@ Route::get('/director_panel', function () {
 Route::get('/CreationSession', [SessionController::class, 'index']);
 
 Route::post('/TraitementCreationSession', [SessionController::class, 'executeRequest']);
+
+Route::get('director_panel', function(){
+    return view('director_panel');
+});
