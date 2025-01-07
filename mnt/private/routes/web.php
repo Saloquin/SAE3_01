@@ -18,6 +18,14 @@ use App\Models\Session;
 */
 
 
+Route::get('/home', function () {
+    return view('home');
+});
+
+Route::get('/test', function () {
+    
+    return 'au revoir';
+});
 
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
