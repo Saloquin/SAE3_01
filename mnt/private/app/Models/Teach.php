@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Learn extends Model
+class Teach extends Model
 {
     use HasFactory;
 
-    protected $table = 'apprendre';
+    protected $table = 'initier';
     public $timestamps = false;
 
     protected $fillable = [
@@ -17,7 +17,7 @@ class Learn extends Model
         'FOR_ID',
     ];
 
-    public function student()
+    public function teacher()
     {
         return $this->belongsTo(Uti::class, 'UTI_ID');
     }

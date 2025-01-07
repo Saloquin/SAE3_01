@@ -11,7 +11,7 @@ class Formation extends Model
 
     protected $table = 'formation';
     protected $primaryKey = 'FOR_ID';
-
+    public $timestamps = false;
     protected $fillable = [
         'NIV_ID',
         'UTI_ID',

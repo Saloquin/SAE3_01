@@ -12,7 +12,7 @@ class Level extends Model
 
     protected $table = 'niveau';
     protected $primaryKey = 'NIV_ID';
-
+    public $timestamps = false;
     protected $fillable = [
         'NIV_DESCRIPTION',
     ];

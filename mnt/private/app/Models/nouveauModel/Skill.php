@@ -8,10 +8,9 @@ use Illuminate\Support\Facades\DB;
 
 class Skill extends Model
 {
-    use HasFactory;
     protected $primaryKey = 'APT_ID';
     protected $table = 'aptitude';
-    public $timestamps = false;
+
     protected $fillable = [
 		'COM_ID' ,
 		'NIV_ID',

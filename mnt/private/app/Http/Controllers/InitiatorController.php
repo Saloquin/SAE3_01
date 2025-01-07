@@ -8,7 +8,8 @@ use App\Models\Initiator;
 class InitiatorController extends Controller
 {
     public function showSessions(Request $request) {
-        Initiator::editProgression(1, 3, 1, "acquise", "lâche pas l'école");
+        // (c'était juste pour tester (et ça fonctionne))
+        Initiator::editProgression(2, 3, 1, "acquise", "lâche pas l'école");
 
         return "ouais";
     }

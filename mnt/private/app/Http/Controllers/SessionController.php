@@ -38,14 +38,14 @@ class SessionController extends Controller
             $studentId2 = $studentId[$i + 1] ?? null;
             $initiatorId = $teacherId[intdiv($i, 2)];
 
-            Session::insertSession($for_id, $cou_date, $studentId1, $studentId2, $initiatorId);
+            Session::insertSession($for_id, $cou_date, $studentId1, $studentId2, $initiatorId, $competenceId);
 
             $i++;
         }
-    
-        return redirect('/')->with('success', 'La session a été créée avec succès.');
 
-        // GÉRER APTITUDES
+        // Session::insertSession($for_id, $cou_date, $studentId1, $studentId2, $initiatorId);
+    
+        return redirect('/CreationSession')->with('success', 'La session a été créée avec succès.');
     }
     
     
