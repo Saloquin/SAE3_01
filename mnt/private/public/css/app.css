@@ -1,6 +1,6 @@
 @font-face {
     font-family: "FFESSM";
-    src: url(./Font/Triomphe-Regular-autoinstr.ttf);
+    src: url(../assets/fonts/Triomphe-Regular-autoinstr.ttf);
 }
 
 * {
@@ -16,8 +16,8 @@
     height: 200px;
 }
 
-#logo figure img {
-    max-width: 200px; 
+#logo a figure img {
+    max-width: 160px; 
 }
 
 #logo {
