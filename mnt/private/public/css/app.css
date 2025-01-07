@@ -1,8 +1,3 @@
-@font-face {
-    font-family: "FFESSM";
-    src: url(../assets/fonts/Triomphe-Regular-autoinstr.ttf);
-}
-
 * {
     font-family: "FFESSM";
     --navy-blue: #006daa;
@@ -75,4 +70,22 @@ footer small {
 
 iframe[seamless] {
     border: none;
+}
+
+@font-face {
+font-family: "Triomphe";
+    src: url('../assets/fonts/Triomphe-Regular-autoinstr.ttf');
+    font-weight: normal;
+    font-style : normal;
+}
+
+.triomphe {
+    font-family: 'Triomphe';
+}
+
+
+.background {
+    background-image: url("../assets/connexion_background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
