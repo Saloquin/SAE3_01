@@ -14,7 +14,7 @@
             </a>
         </div>
         <div  id="title">
-            <h1> Journal de plongée </h1>
+            <h1 class="triomphe"> Journal de plongée </h1>
         </div>
         <div id="profile">
             <a href="#">
