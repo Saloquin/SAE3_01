@@ -22,3 +22,6 @@ Route::get('/', function () {
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::post('/addStudent', [ProfileController::class, 'insertStudent'])->name('addStudent');
 Route::post('/addTeacher', [ProfileController::class, 'insertTeacher'])->name('addTeacher');
+
+Route::get('/CreationSession', [SessionController::class, 'index']);
+Route::post('/TraitementCreationSession', [SessionController::class, 'executeRequest']);

@@ -18,7 +18,7 @@ class Club extends Model
         'CLU_VILLE',
     ];
 
-    public function user()
+    public function DT()
     {
         return $this->belongsTo(Uti::class, 'UTI_ID');
     }

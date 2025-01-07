@@ -6,8 +6,12 @@
     <title>Profile</title>
 </head>
 <body>
-    
-    
+    <h1>Profile</h1>
+    @if (session('success'))
+        <div>
+            {{ session('success') }}
+        </div>
+    @endif
      <h2>Students</h2>   
      <form action="{{ route('addStudent') }}" method="POST">
         @csrf

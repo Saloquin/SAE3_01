@@ -36,4 +36,14 @@ class Uti extends Model
     {
         return self::where('UTI_EST_INIT', 1)->get();
     }
+
+    public function club()
+    {
+        return $this->belongsTo(Club::class, 'CLU_ID');
+    }
+
+    public function level()
+    {
+        return $this->belongsTo(Level::class, 'NIV_ID');
+    }
 }

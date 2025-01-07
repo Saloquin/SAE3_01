@@ -14,14 +14,18 @@ class ProfileController extends Controller
 
     public function index()
 {
-    $students = Uti::getStudent();
-    $teachers = Uti::getTeacher();
+    $clubId = 1;
+    $students = Uti::getStudent()->where('CLU_ID', $clubId);
+    $teachers = Uti::getTeacher()->where('CLU_ID', $clubId);
 
-    $formations = Formation::with('level')->get();
+    $formations = Formation::with(['level', 'club'])->where('CLU_ID', $clubId)->get();
+
 
     // Retourner la vue avec les données
     return view('profile', compact('students', 'teachers', 'formations'));
 }
+
+
 public function insertStudent(Request $request)
 {
     $request->validate([
