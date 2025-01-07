@@ -30,7 +30,7 @@ Route::get('/welcome', function(){
 
 // pour tester la connexion à la db
 Route::get('/test', function () {
-    Session::insertSession(1, '07-01-2025', 1, null, 2);
+    // Session::insertSession(1, '07-01-2025', 1, null, 2);
 
     return "hello";
 });
