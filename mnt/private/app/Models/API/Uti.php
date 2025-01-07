@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\API;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,11 +9,9 @@ class Uti extends Model
 {
     use HasFactory;
 
-
-    public $timestamps = false;
-
     protected $table = 'UTILISATEUR';
     protected $primaryKey = 'UTI_ID';
+
     protected $fillable = [
         'NIV_ID',
         'CLU_ID',
