@@ -52,7 +52,7 @@ class Connexion extends Controller
         $licence = $request->input('licence');
         $password = $request->input('password');
         if(isset($licence) && isset($password)){
-            $res = DB::select('select * from UTILISATEUR where uti_id = ? and uti_mdp = ?',[$licence,$password]);
+            $res = DB::select('select * from UTILISATEUR where uti_id = ? and uti_mdp = ?',[$licence,md5($password)]);
             if(isset($res[0])){
                 $_SESSION['active_formations'] = DB::select('select * from FORMATION where clu_id = ? and datediff(sysdate(), for_annee) between 0 and 365.25', [$res[0]->CLU_ID]);
                 $_SESSION['id'] = $res[0]->UTI_ID;
