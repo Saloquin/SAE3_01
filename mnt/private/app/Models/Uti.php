@@ -11,7 +11,7 @@ class Uti extends Model
 
     protected $table = 'utilisateur';
     protected $primaryKey = 'UTI_ID';
-
+    public $timestamps = false;
     protected $fillable = [
         'NIV_ID',
         'CLU_ID',

@@ -11,8 +11,7 @@ class Mastery extends Model
 
     protected $table = 'maitriser';
     protected $primaryKey = ['COU_ID', 'UTI_ID', 'APT_ID'];
-    public $incrementing = false; // Disable auto-increment as this table uses a composite primary key.
-
+    public $timestamps = false;
     protected $fillable = [
         'COU_ID',
         'UTI_ID',
@@ -28,11 +27,11 @@ class Mastery extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'UTI_ID');
+        return $this->belongsTo(Uti::class, 'UTI_ID');
     }
 
     public function aptitude()
     {
-        return $this->belongsTo(Aptitude::class, 'APT_ID');
+        return $this->belongsTo(Skill::class, 'APT_ID');
     }
 }

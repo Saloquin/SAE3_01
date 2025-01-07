@@ -11,7 +11,7 @@ class Competence extends Model
 
     protected $table = 'competence';
     protected $primaryKey = 'COM_ID';
-
+    public $timestamps = false;
     protected $fillable = [
         'NIV_ID',
         'COM_LIBELLE',

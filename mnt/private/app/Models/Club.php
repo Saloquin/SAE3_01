@@ -11,7 +11,7 @@ class Club extends Model
 
     protected $table = 'club';
     protected $primaryKey = 'CLU_ID';
-
+    public $timestamps = false;
     protected $fillable = [
         'UTI_ID',
         'CLU_NOM',

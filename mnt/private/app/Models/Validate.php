@@ -11,7 +11,7 @@ class Validation extends Model
 
     protected $table = 'valider';
     protected $primaryKey = ['UTI_ID', 'APT_ID'];
-    public $incrementing = false; // Disable auto-increment as this table uses a composite primary key.
+    public $timestamps = false;
 
     protected $fillable = [
         'UTI_ID',
@@ -26,6 +26,6 @@ class Validation extends Model
 
     public function aptitude()
     {
-        return $this->belongsTo(Aptitude::class, 'APT_ID');
+        return $this->belongsTo(Skill::class, 'APT_ID');
     }
 }

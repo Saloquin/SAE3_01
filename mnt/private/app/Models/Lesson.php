@@ -11,7 +11,7 @@ class Lesson extends Model
 
     protected $table = 'cours';
     protected $primaryKey = 'COU_ID';
-
+    public $timestamps = false;
     protected $fillable = [
         'FOR_ID',
         'COU_DATE',

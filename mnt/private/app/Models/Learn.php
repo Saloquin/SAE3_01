@@ -11,7 +11,7 @@ class Learn extends Model
 
     protected $table = 'apprendre';
     public $timestamps = false;
-
+    
     protected $fillable = [
         'UTI_ID',
         'FOR_ID',
