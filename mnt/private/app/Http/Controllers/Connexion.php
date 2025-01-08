@@ -9,6 +9,7 @@ class Connexion extends Controller
 {
     public function show(){
         session_start();
+        session_unset();
         if(isset($_SESSION['id'])){
             $this->redirect();
         }
