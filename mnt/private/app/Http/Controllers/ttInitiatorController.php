@@ -2,23 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ttInitiatorModel;
+use App\Models\ttModel;
 use Illuminate\Support\Facades\DB;
 use App\Models\Uti;
 
 
 use Illuminate\Http\Request;
 
+session_start();
+
 class ttInitiatorController extends Controller
 {
 
-    function show($days,$data){
-        return view('ttInitiatorView', compact('days'), compact('data'));
-    }
-
-    function tt(){
+    function show(){
         //var_dump(Uti::getInitiatorById(2));
-        $tt = ttInitiatorModel::getCoursById(2);
+        $tt = ttModel::getSessionInitiatorById($_SESSION['id']);
         $arr = [];
         $arr2 = [];
         $i = 0;
@@ -33,9 +31,10 @@ class ttInitiatorController extends Controller
             array_push($arr2[$i], $row->uti_nom2);
             array_push($arr2[$i], $row->uti_prenom2);
             array_push($arr2[$i], $row->niv);
+            array_push($arr2[$i], $row->cou_id);
             $i += 1;
         }
-        return $this->show($arr,$arr2);
+        return view('ttInitiatorView', compact('arr'), compact('arr2'));
     }
 
 }

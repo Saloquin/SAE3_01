@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TT</title>
     <link rel="stylesheet" href="{{ asset('css/calendar.css') }}">
     <script>
-        const tt = 0;
+        const tt = 1;
     </script>
 </head>
+
 <body>
     <div class="flex">
     <div class="calendar">
@@ -19,14 +21,14 @@
         </div>
         <div class="calendar-body">
             <div class="days-of-week">
-            <div>Dim</div>
+                <div>Dim</div>
                 <div>Lun</div>
                 <div>Mar</div>
                 <div>Mer</div>
                 <div>Jeu</div>
                 <div>Ven</div>
                 <div>Sam</div>
-               
+
             </div>
             <div class="days" id="days"></div>
         </div>
@@ -37,9 +39,8 @@
     <div id="message"></div>
     <script>
         var sessionData = @json($arr);
-        var info = @json($arr2);
-      
     </script>
     <script src="{{ asset('js/tt.js') }}"></script>
 </body>
+
 </html>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Connexion;
 use App\Http\Controllers\edtInitiateurController;
 use App\Http\Controllers\ttInitiatorController;
+use App\Http\Controllers\ttStudentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SessionController;
@@ -67,9 +68,6 @@ Route::get('director_panel', function(){
     return view('director_panel');
 });
 
-Route::get('/edt', [ttInitiatorController::class, 'tt']);
-
-Route::get('/tt', function(){
-    return view('ttInitiatorView');
-});
+Route::get('/initiateur/edt', [ttInitiatorController::class, 'show']);
+Route::get('/eleve/edt', [ttStudentController::class, 'show']);
 
