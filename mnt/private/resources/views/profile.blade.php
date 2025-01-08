@@ -32,7 +32,7 @@
         </select>
         <button type="submit">Submit</button>
     </form>
-    
+    <!-- ajout des ini -->
     <h3>Teachers</h3>
     <form action="{{ route('addTeacher') }}" method="POST">
         @csrf
@@ -71,55 +71,6 @@
         </select>
         <button type="submit">Submit</button>
     </form>
-
-    <h2>Creer un compte pour mon club</h2>
-
-    <form action="{{ route('addUser') }}" method="POST">
-        @csrf
-    
-        <div>
-            <label for="UTI_NOM">Nom</label>
-            <input type="text" name="UTI_NOM" id="UTI_NOM" value="{{ old('UTI_NOM') }}" required>
-            @error('UTI_NOM')
-                <div>{{ $message }}</div>
-            @enderror
-        </div>
-    
-        <div>
-            <label for="UTI_PRENOM">Prénom</label>
-            <input type="text" name="UTI_PRENOM" id="UTI_PRENOM"  required>
-            @error('UTI_PRENOM')
-                <div>{{ $message }}</div>
-            @enderror
-        </div>
-    
-        <div>
-            <label for="UTI_MAIL">Email</label>
-            <input type="email" name="UTI_MAIL" id="UTI_MAIL"  required>
-            @error('UTI_MAIL')
-                <div>{{ $message }}</div>
-            @enderror
-        </div>
-
-        <label for="lvl">Sélectionner un niveau :</label>
-        <select name="lvl" id="lvl">
-            @foreach ($levels as $level)
-                <option value="{{ $level->NIV_ID }}">{{ $level->NIV_DESCRIPTION }}</option>
-            @endforeach
-        </select>
-    
-        <div>
-            <label for="init">Initiateur</label>
-            <input type="radio" id="oui" name="init" value="1" required>
-            <label for="active_yes">Oui</label>
-            <input type="radio" id="non" name="init" value="0" required>
-            <label for="active_no">Non</label>
-        </div>
-        <input type="hidden" name="clubId" value="{{ $clubId }}">
-        <button type="submit">Créer un compte</button>
-    </form>
-    
-    <!-- fin DT -->
 
 </body>
 </html>

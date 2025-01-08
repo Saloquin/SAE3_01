@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\Connexion;
+use App\Http\Controllers\edtInitiateurController;
+use App\Http\Controllers\ttInitiatorController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\DirectorAddAccountController;
 use App\Models\Session;
 
 /*
@@ -17,47 +20,52 @@ use App\Models\Session;
 |
 */
 
+//NAVIGATION
 
-Route::get('/home', function () {
-    return view('home');
-});
+Route::get('', [Connexion::class, 'show']);   //Connection
+Route::get('profile', [Profile::class, 'show']);
 
-Route::get('/test', function () {
+// Director
+Route::get('directeur', [Director::class, 'show']);
+Route::get('directeur/gestion-formation', [Director::class, 'show']);
+Route::get('directeur/valider-niveau', [LevelConfirmation::class, 'show']);
+Route::get('directeur/gestion-utilisateur', [UserManagement::class, 'show']);
+Route::get('directeur/ajouter-utilisateur', [AddUser::class, 'show']);
+Route::get('directeur/ajouter-formation', [AddTraining::class, 'show']);
+Route::get('directeur/modifier-formation', [EditTraining::class, 'show']);
 
-    return 'au revoir';
-});
+// Training Manager
+Route::get('responsable-formation', [SessionController::class, 'show']);
+Route::get('responsable-formation/gestion-seance', [SessionManagement::class, 'show']);    //Creation session
+Route::get('responsable-formation/gestion-aptitude', [SkillsManagement::class, 'show']);
+Route::get('responsable-formation/details-formation', [TrainingDetails::class, 'show']);
 
+// Trainer
+Route::get('initiateur', [InitiatorController::class, 'show']);
+Route::get('initiateur/evaluation-seance', [SessionRating::class, 'show']);
+Route::get('initiateur/liste-eleves', [TraineeList::class, 'show']);
 
-Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-Route::post('/addStudent', [ProfileController::class, 'insertStudent'])->name('addStudent');
-Route::post('/addTeacher', [ProfileController::class, 'insertTeacher'])->name('addTeacher');
-Route::post('/addRespForm', [ProfileController::class, 'insertResponsable'])->name('addRespForm');
-Route::post('/addUser', [ProfileController::class, 'insertUser'])->name('addUser');
+// Trainee
+Route::get('eleve', [SessionController::class, 'show']);
+Route::get('eleve/details-seance', [SessionDetails::class, 'show']);
+Route::get('eleve/details-aptitudes', [SessionController::class, 'show']);
 
+//BACK-END
 
-Route::get('/', [Connexion::class, 'show']);
-
+//connection
 Route::post('/login', [Connexion::class, 'login']);
 
-Route::get('/director_panel', function () { return view('director_panel');});
-Route::get('/teacher_panel', function () { return view('teacher_panel');});
-Route::get('/manager_panel', function () { return view('manager_panel');});
-Route::get('/student_panel', function () { return view('student_panel');});
-Route::get('/class_details_student', function () { return view('class_details_student');});
-Route::get('/class_details_manager', function () { return view('class_details_manager');});
-Route::get('/account_management', function () { return view('account_management');});
-Route::get('/day_details', function () { return view('day_details');});
-Route::get('/users_list', function () { return view('users_list');});
-Route::get('/class_management', function () { return view('class_management');});
-Route::get('/student_report', function () { return view('student_report');});
-Route::get('/formation_report', function () { return view('formation_report');});
-Route::get('/teachers_list', function () { return view('teachers_list');});
-Route::get('/students_list', function () { return view('students_list');});
-Route::get('/user_creation', function () { return view('user_creation');});
-Route::get('/formation_creation', function () { return view('formation_creation');});
-Route::get('/formation_validation', function () { return view('formation_validation');});
-Route::get('/formation_management', function () { return view('formation_management');});
+//director
 
-Route::get('/CreationSession', [SessionController::class, 'index']);
+Route::post('/addStudent', [DirectorController::class, 'insertStudent'])->name('addStudent');
+Route::post('/addTeacher', [DirectorController::class, 'insertTeacher'])->name('addTeacher');
+Route::post('/addRespForm', [DirectorController::class, 'insertResponsable'])->name('addRespForm');
 
-Route::post('/TraitementCreationSession', [SessionController::class, 'executeRequest']);
+
+Route::post('/director/addUser', [DirectorAddAccountController::class, 'insertUser'])->name('addUser');
+Route::get('/director/accountCreation', [DirectorAddAccountController::class, 'index'])->name('DirectorAccountCreation');
+
+Route::post('SessionManager/TraitementCreationSession', [SessionController::class, 'executeRequest']);
+
+
+Route::get('/edt', [ttInitiatorController::class, 'tt']);

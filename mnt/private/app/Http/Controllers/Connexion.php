@@ -18,32 +18,30 @@ class Connexion extends Controller
     private function redirect(){
         if(DB::select('select count(*) as nb from CLUB where uti_id = ?',[$_SESSION['id']])[0]->nb){
             $_SESSION['director'] = true;
-            header('location: director_panel');
+            header('location: director');
             exit;
         }
         foreach ($_SESSION['active_formations'] as $formation) {
             if($formation->UTI_ID == $_SESSION['id']){
-                echo 'rf';
                 $_SESSION['rf'] = true;
-
+                header('Location: responsable');
                 exit;
-                // rediriger vers panel rf
+                // redirect to training manageur home
             }
 
-            $res = DB::select('select count(*) as nb from initier where for_id = ? and uti_id = ?',[$formation->FOR_ID,$_SESSION['id']]);
+            $res = DB::select('select count(*) as nb from INITIER where for_id = ? and uti_id = ?',[$formation->FOR_ID,$_SESSION['id']]);
             if($res[0]->nb){
-                echo 'initiateur';
                 $_SESSION['teacher'] = true;
-
+                header('Location: initiateur');
                 exit;
-                // rediriger vers panel initier
+                // redirect to initiator home
             }
-            $res = DB::select('select count(*) as nb from apprendre where for_id = ? and uti_id = ?',[$formation->FOR_ID,$_SESSION['id']]);
+            $res = DB::select('select count(*) as nb from APPRENDRE where for_id = ? and uti_id = ?',[$formation->FOR_ID,$_SESSION['id']]);
             if($res[0]->nb){
-                echo 'eleve';
                 $_SESSION['student'] = true;
+                header('Location: eleve');
                 exit;
-                // rediriger vers panel élève
+                // redirect to student home
             }
         }
         // renvoyer vers page pas de formation
@@ -57,7 +55,7 @@ class Connexion extends Controller
         $licence = $request->input('licence');
         $password = $request->input('password');
         if(isset($licence) && isset($password)){
-            $res = DB::select('select * from UTILISATEUR where uti_id = ? and uti_mdp = ?',[$licence,$password]);
+            $res = DB::select('select * from UTILISATEUR where uti_id = ? and uti_mdp = ?',[$licence,md5($password)]);
             if(isset($res[0])){
                 $_SESSION['active_formations'] = DB::select('select * from FORMATION where clu_id = ? and datediff(sysdate(), for_annee) between 0 and 365.25', [$res[0]->CLU_ID]);
                 $_SESSION['id'] = $res[0]->UTI_ID;
