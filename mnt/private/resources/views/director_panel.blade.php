@@ -13,6 +13,7 @@
 require_once('../resources/includes/header.php');
 ?>
 
+
 <body class="flex flex-col items-center triomphe">
 <button class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Gestion des comptes</button>
 <button class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Gestion des formations</button>
