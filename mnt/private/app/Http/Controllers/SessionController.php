@@ -21,8 +21,9 @@ class SessionController extends Controller
         $studentId = $request->input('student');
         $teacherId = $request->input('teacher');
         $competenceId = $request->input('competence');
+        $date = $request->input('date');
     
-        if (empty($studentId) || empty($teacherId) || empty($competenceId)) {
+        if (empty($studentId) || empty($teacherId) || empty($competenceId) || empty($date)) {
             return redirect()->back()->with('error', 'Tous les champs doivent être remplis.');
         }
     
@@ -30,23 +31,21 @@ class SessionController extends Controller
             return redirect()->back()->with('error', "Il ne peut y avoir que deux élèves maximum par initiateur.");
         }
         
-        $cou_date = now();
         $for_id = 1;
-        
-        for ($i = 0; $i < count($studentId); $i++) {
+    
+        for ($i = 0, $teacherIndex = 0; $i < count($studentId); $i += 2) {
             $studentId1 = $studentId[$i];
             $studentId2 = $studentId[$i + 1] ?? null;
-            $initiatorId = $teacherId[intdiv($i, 2)];
-
-            Session::insertSession($for_id, $cou_date, $studentId1, $studentId2, $initiatorId);
-
-            $i++;
+            $initiatorId = $teacherId[$teacherIndex];
+            $aptitudes = $competenceId;
+                
+            Session::insertSession($for_id, $date, $studentId1, $studentId2, $initiatorId, $aptitudes);
+    
+            if (($i / 2 + 1) % 2 == 0) {
+                $teacherIndex++;
+            }
         }
     
         return redirect('/')->with('success', 'La session a été créée avec succès.');
-
-        // GÉRER APTITUDES
     }
-    
-    
 }
