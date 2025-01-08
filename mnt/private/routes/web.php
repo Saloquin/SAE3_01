@@ -41,9 +41,9 @@ Route::get('profile', [Profile::class, 'show']);
 Route::get('directeur', [Director::class, 'show']); // TODO : add navbar in controller
 Route::get('directeur/gestion-formation', [Director::class, 'show']);
 Route::get('directeur/valider-niveau', [LevelConfirmation::class, 'show']);
-Route::get('directeur/gestion-utilisateur', [UserManagement::class, 'show']); // TODO : add navbar in controller
+Route::get('directeur/gestion-utilisateur', [UserManagement::class, 'show']);
 Route::get('directeur/ajouter-utilisateur', [AddUser::class, 'show']); // TODO : add navbar in controller
-Route::get('directeur/ajouter-formation', [AddTraining::class, 'show']); // TODO : add navbar in controller
+Route::get('directeur/ajouter-formation', [AddTraining::class, 'show']);
 Route::get('directeur/modifier-formation', [EditTraining::class, 'show']); // TODO : add navbar in controller
 
 // Training Manager
