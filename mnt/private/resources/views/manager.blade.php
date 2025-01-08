@@ -8,6 +8,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="./js/tailwind.config.js"></script>
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/calendar.css') }}">
+    <script>
+        const tt = 2;
+    </script>
 </head>
 <?php
 require_once('../resources/includes/header.php');
@@ -21,7 +26,39 @@ require_once('../resources/includes/header.php');
 <button class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Liste des élèves</button>
 <button class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Liste des élèves à valider</button>
 
-<div class="mb-[10vh]">calendrier</div>
+<div class="flex">
+    <div class="calendar">
+        <div class="calendar-header">
+            <button id="prevMonth">&lt;</button>
+            <span id="monthYear">October 2025</span>
+            <button id="nextMonth">&gt;</button>
+        </div>
+        <div class="calendar-body">
+            <div class="days-of-week">
+                <div>Dim</div>
+                <div>Lun</div>
+                <div>Mar</div>
+                <div>Mer</div>
+                <div>Jeu</div>
+                <div>Ven</div>
+                <div>Sam</div>
+
+            </div>
+            <div class="days" id="days"></div>
+        </div>
+    </div>
+    </div>
+
+    <form id="formulaire" action="/initiateur/evaluation-seance" method="POST" style="display: none;">
+        @csrf
+    </form>
+
+    <div id="message"></div>
+    <script>
+        var sessionData = @json($arr);
+        console.log("json: " + sessionData);
+    </script>
+    <script src="{{ asset('js/tt.js') }}"></script>
 
 <button class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Synthèse formation</button>
 

@@ -15,6 +15,7 @@ use App\Http\Controllers\TrainingDetails;
 use App\Http\Controllers\ttInitiatorController;
 use App\Http\Controllers\Trainee;
 use App\Http\Controllers\Initiator;
+use App\Http\Controllers\Manager;
 use App\Http\Controllers\UserManagement;
 use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\SessionManagement;

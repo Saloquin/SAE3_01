@@ -28,4 +28,11 @@ class ttModel extends Model
             join UTILISATEUR u on g.uti_id_init = u.uti_id
             where (g.UTI_ID_ELV1 = ? or g.UTI_ID_ELV2 = ?) and m.uti_id = ?', [$id, $id, $id]); 
     }
+
+    public static function getCourseById($id){
+        return DB::select('SELECT c.cou_date, c.cou_id from COURS c
+            join FORMATION f on f.for_id = c.for_id
+            where f.uti_id = ?', [$id] 
+        );
+    }
 }
