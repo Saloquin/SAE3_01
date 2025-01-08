@@ -37,29 +37,29 @@ Route::get('', [Connexion::class, 'show']);   //Connection
 Route::get('profile', [Profile::class, 'show']);
 
 // Director
-Route::get('directeur', [Director::class, 'show']);
+Route::get('directeur', [Director::class, 'show']); // TODO : add navbar in controller
 Route::get('directeur/gestion-formation', [Director::class, 'show']);
 Route::get('directeur/valider-niveau', [LevelConfirmation::class, 'show']);
-Route::get('directeur/gestion-utilisateur', [UserManagement::class, 'show']);
-Route::get('directeur/ajouter-utilisateur', [AddUser::class, 'show']);
-Route::get('directeur/ajouter-formation', [AddTraining::class, 'show']);
-Route::get('directeur/modifier-formation', [EditTraining::class, 'show']);
+Route::get('directeur/gestion-utilisateur', [UserManagement::class, 'show']); // TODO : add navbar in controller
+Route::get('directeur/ajouter-utilisateur', [AddUser::class, 'show']); // TODO : add navbar in controller
+Route::get('directeur/ajouter-formation', [AddTraining::class, 'show']); // TODO : add navbar in controller
+Route::get('directeur/modifier-formation', [EditTraining::class, 'show']); // TODO : add navbar in controller
 
 // Training Manager
-Route::get('responsable-formation', [Manager::class, 'show']);
+Route::get('responsable-formation', [Manager::class, 'show']); // TODO : add navbar in controller
 Route::get('responsable-formation/gestion-seance', [SessionManagement::class, 'show']);    //Creation session
 Route::get('responsable-formation/gestion-aptitude', [SkillsManagement::class, 'show']);
-Route::get('responsable-formation/details-formation', [TrainingDetails::class, 'show']);
+Route::get('responsable-formation/details-formation', [TrainingDetails::class, 'show']); // TODO : add navbar in controller
 
 // Trainer
-Route::get('initiateur', [Initiator::class, 'show']);
-Route::get('initiateur/evaluation-seance', [SessionRating::class, 'show']);
+Route::get('initiateur', [Initiator::class, 'show']); // TODO : add navbar in controller
+Route::get('initiateur/evaluation-seance', [SessionRating::class, 'show']); // TODO : add navbar in controller
 Route::get('initiateur/liste-eleves', [TraineeList::class, 'show']);
 
 // Trainee
-Route::get('eleve', [Trainee::class, 'show']);
+Route::get('eleve', [Trainee::class, 'show']);  // TODO : add navbar in controller
 Route::get('eleve/details-seance', [SessionDetails::class, 'show']);
-Route::get('eleve/details-aptitudes', [SkillsDetails::class, 'show']);
+Route::get('eleve/details-aptitudes', [SkillsDetails::class, 'show']); // TODO : add navbar in controller
 
 //BACK-END
 
