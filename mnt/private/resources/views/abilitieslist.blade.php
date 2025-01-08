@@ -41,6 +41,7 @@
 
     <div class="flex justify-around mb-[5vh]">
         <form action="" method="post">
+            @csrf
             <select name="ability" id="">
                 <option value="1">A13</option>
                 <option value="1">A14</option>

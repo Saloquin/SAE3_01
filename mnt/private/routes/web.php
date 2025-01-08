@@ -45,6 +45,7 @@ Route::get('profile', [Profile::class, 'show']);
 // Admin
 Route::get('admin/gestion-competences', [SkillsList::class, 'show']);
 Route::get('admin/details-competence', [AbilitiesList::class, 'show']);
+Route::post('admin/details-competence', [AbilitiesList::class, 'show']);
 Route::get('admin/ajouter-competence', [AddSkill::class, 'show']);
 Route::get('admin/ajouter-aptitude', [AddAbility::class, 'show']);
 
