@@ -1,3 +1,5 @@
+/*********************** GENERAL ***********************/
+
 * {
     --navy-blue: #006daa;
     --dark-blue: #005c8f;
@@ -15,12 +17,16 @@ body {
     padding-bottom: 30px;
   }
 
+/*********************** HEADER ***********************/
+
 .header {
     background: linear-gradient( var(--navy-blue), var(--dark-blue));
     margin: 0 auto;
     width: 100%;
     min-height: 80px;
 }
+
+/************ LOGO ************/
 
 #logo img, #profile img {
     max-width: 6vw;
@@ -39,6 +45,8 @@ body {
 #logo {
     grid-column: 1;
 }
+
+/************ TITRE ************/
 
 #title {
     grid-column: 2;
@@ -62,6 +70,8 @@ body {
     letter-spacing: 2px;
 }
 
+/************ ICONE DR PROFIL ************/
+
 #profile {
     margin-top: 5px;
     grid-column: 3;
@@ -75,6 +85,8 @@ body {
 #profile img {
     margin: auto;
 }
+
+/*********************** FOOTER ***********************/
 
 footer {
     background-color: var(--navy-blue);
@@ -98,6 +110,8 @@ iframe[seamless] {
     border: none;
 }
 
+/*********************** TYPOGRAPHY ***********************/
+
 @font-face {
 font-family: "Triomphe";
     src: url('../assets/fonts/Triomphe-Regular-autoinstr.ttf');
@@ -109,12 +123,15 @@ font-family: "Triomphe";
     font-family: 'Triomphe';
 }
 
+/*********************** LOGIN PAGE ***********************/
 
 .background {
     background-image: url("../assets/connexion_background.png");
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+/*********************** TABLE ***********************/
 
 .table_header {
     font-size: 2vw;
@@ -125,6 +142,8 @@ font-family: "Triomphe";
     font-size: 1.5vw;
     font-family: 'Triomphe';
 }
+
+/*********************** MEDIA ***********************/
 
 @media (min-width: 1024px) {
     .table_header {
