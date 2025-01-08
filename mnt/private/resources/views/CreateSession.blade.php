@@ -5,219 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Création d'un cours de plongée</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="./style/style.css">
 </head>
-<body class="flex items-center flex-col bg-gray-100 p-6">
-    <h1 class="mb-10 text-4xl font-bold text-blue-600">Création d'une séance de plongée</h1>
-    <form action="{{ url('SessionManager/TraitementCreationSession') }}" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 w-full max-w-5xl">
+<body class="flex items-center flex-col bg-blue-50 p-6">
+    <h1 class="mb-10 text-4xl font-bold text-blue-700">Création d'une séance de plongée</h1>
+
+    @if(session('error'))
+        <div class="bg-red-500 text-white px-4 py-3 mb-6 rounded">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @if(session('success'))
+        <div class="bg-green-500 text-white px-4 py-3 mb-6 rounded">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <form action="{{ url('SessionManager/TraitementCreationSession') }}" method="post" class="bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 w-full max-w-4xl">
         @csrf
         <div class="mb-6">
-            <label for="date" class="block text-gray-700 font-bold mb-2">Date de la session</label>
-            <input type="date" id="date" name="date" class="shadow border rounded w-full py-2 px-3 text-gray-700" required>
+            <label for="date" class="block text-gray-800 font-semibold mb-2">Date de la session</label>
+            <input type="date" id="date" name="date" value="{{ old('date') }}" class="shadow border rounded w-full py-2 px-3 text-gray-800" required>
         </div>
 
         <div class="mb-6">
-            <h2 class="text-gray-700 font-bold mb-4">Élèves et leurs aptitudes</h2>
-            <table class="table-auto w-full bg-gray-50 rounded shadow">
-                <thead>
-                    <tr class="bg-gray-200">
-                        <th class="px-4 py-2">Élève</th>
-                        <th class="px-4 py-2">Aptitudes</th>
-                        <th class="px-4 py-2">Initiateur</th>
-                        <th class="px-4 py-2">Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="students-table-body">
-                </tbody>
-            </table>
-            <button type="button" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded shadow" onclick="addStudentRow()">Ajouter un élève</button>
+            <h2 class="text-blue-700 font-semibold mb-4">Élèves et leurs aptitudes</h2>
+            <div class="overflow-x-auto bg-blue-50 rounded-lg shadow-lg">
+                <table class="table-auto w-full text-sm text-left text-gray-700">
+                    <thead class="text-xs text-white uppercase bg-blue-600">
+                        <tr>
+                            <th class="px-6 py-3">Élève</th>
+                            <th class="px-6 py-3">Aptitudes</th>
+                            <th class="px-6 py-3">Initiateur</th>
+                            <th class="px-6 py-3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="students-table-body">
+                        <!-- Les lignes seront ajoutées dynamiquement avec JS -->
+                    </tbody>
+                </table>
+            </div>
+            <button type="button" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-blue-700" id="addStudentButton">Ajouter un élève</button>
         </div>
 
-        <div class="flex justify-center">
-            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Créer</button>
+        <div class="flex justify-center mt-6">
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition duration-300">Créer</button>
         </div>
     </form>
 
-    <script>
-        /*
-        const studentsData = @json($student);
-        const skillsData = @json($skills);
-        const initiatorsData = @json($initiator);
-        */
+    <script id="studentsData" type="application/json">@json($student)</script>
+    <script id="skillsData" type="application/json">@json($skills)</script>
+    <script id="initiatorsData" type="application/json">@json($initiator)</script>
+    <script id="oldStudents" type="application/json">@json(old('student', []))</script>
+    <script id="oldCompetences" type="application/json">@json(old('competences', []))</script>
+    <script id="oldInitiators" type="application/json">@json(old('initiator', []))</script>
+    <script src="{{ asset('js/CreateSession.js') }}"></script>
 
-        console.log(skillsData);
-
-        const usedStudents = new Set();
-        const initiatorCounts = {};
-
-        function addStudentRow() {
-            const tableBody = document.getElementById('students-table-body');
-            const row = document.createElement('tr');
-            row.className = "student-row";
-
-            const studentCell = document.createElement('td');
-            studentCell.className = "px-4 py-2";
-            const studentSelect = document.createElement('select');
-            studentSelect.className = "shadow border rounded w-full py-2 px-3 text-gray-700";
-            studentSelect.name = "student[]";
-
-            const defaultOption = document.createElement('option');
-            defaultOption.value = "";
-            defaultOption.textContent = "-- Sélectionnez un élève --";
-            studentSelect.appendChild(defaultOption);
-
-            studentsData.forEach(student => {
-                const option = document.createElement('option');
-                option.value = student.UTI_ID;
-                option.textContent = `${student.UTI_NOM} ${student.UTI_PRENOM}`;
-                studentSelect.appendChild(option);
-            });
-
-            studentCell.appendChild(studentSelect);
-
-            const aptitudeCell = document.createElement('td');
-            aptitudeCell.className = "px-4 py-2";
-            const addAptitudeButton = document.createElement('button');
-            addAptitudeButton.type = "button";
-            addAptitudeButton.textContent = "Ajouter une aptitude";
-            addAptitudeButton.className = "bg-green-500 text-white px-4 py-2 rounded shadow";
-            addAptitudeButton.onclick = () => {
-                const studentId = studentSelect.value;
-                if (studentId) {
-                    addAptitude(aptitudeCell, studentId);  
-                }
-            };
-
-            aptitudeCell.appendChild(addAptitudeButton);
-
-            const initiatorCell = document.createElement('td');
-            initiatorCell.className = "px-4 py-2";
-            const initiatorSelect = document.createElement('select');
-            initiatorSelect.className = "shadow border rounded w-full py-2 px-3 text-gray-700";
-            initiatorSelect.name = "initiator[]";
-            initiatorSelect.disabled = true;  
-
-            const initiatorDefaultOption = document.createElement('option');
-            initiatorDefaultOption.value = "";
-            initiatorDefaultOption.textContent = "-- Sélectionnez un initiateur --";
-            initiatorSelect.appendChild(initiatorDefaultOption);
-
-            initiatorsData.forEach(initiator => {
-                const count = initiatorCounts[initiator.UTI_ID] || 0;
-                if (count < 2) {  
-                    const option = document.createElement('option');
-                    option.value = initiator.UTI_ID;
-                    option.textContent = `${initiator.UTI_NOM} ${initiator.UTI_PRENOM}`;
-                    initiatorSelect.appendChild(option);
-                }
-            });
-
-            studentSelect.onchange = () => {
-                const previousValue = studentSelect.getAttribute('data-previous-value');
-                if (previousValue) {
-                    usedStudents.delete(previousValue); 
-                }
-
-                const currentValue = studentSelect.value;
-                if (currentValue) {
-                    usedStudents.add(currentValue);
-                }
-
-                studentSelect.setAttribute('data-previous-value', currentValue); 
-                updateStudentOptions(); 
-                initiatorSelect.disabled = !currentValue;
-                updateInitiatorOptions(initiatorSelect);
-            };
-
-            initiatorCell.appendChild(initiatorSelect);
-
-            const actionCell = document.createElement('td');
-            actionCell.className = "px-4 py-2 text-center";
-            const removeButton = document.createElement('button');
-            removeButton.type = "button";
-            removeButton.textContent = "Supprimer";
-            removeButton.className = "bg-red-500 text-white px-4 py-2 rounded shadow";
-            removeButton.onclick = () => {
-                usedStudents.delete(studentSelect.value); 
-                const initiatorId = initiatorSelect.value;
-                if (initiatorId) {
-                    initiatorCounts[initiatorId] = Math.max(0, (initiatorCounts[initiatorId] || 0) - 1);
-                }
-                row.remove();
-                updateStudentOptions();
-                updateInitiatorOptions(initiatorSelect);
-            };
-
-            actionCell.appendChild(removeButton);
-
-            row.appendChild(studentCell);
-            row.appendChild(aptitudeCell);
-            row.appendChild(initiatorCell);
-            row.appendChild(actionCell);
-
-            tableBody.appendChild(row);
-
-            updateStudentOptions(); 
-        }
-
-        function addAptitude(cell, studentId) {
-            const aptitudeRow = document.createElement('div');
-            aptitudeRow.className = "flex items-center space-x-2 mt-2";
-
-            const select = document.createElement('select');
-            select.className = "shadow border rounded w-full py-2 px-3 text-gray-700";
-            select.name = `competences[${studentId}][]`; 
-
-            skillsData.forEach(skill => {
-                const option = document.createElement('option');
-                option.value = skill.APT_ID;
-                option.textContent = skill.APT_LIBELLE;
-                select.appendChild(option);
-            });
-
-            const removeButton = document.createElement('button');
-            removeButton.type = "button";
-            removeButton.textContent = "Retirer";
-            removeButton.className = "bg-red-500 text-white px-4 py-2 rounded shadow";
-            removeButton.onclick = () => aptitudeRow.remove();
-
-            aptitudeRow.appendChild(select);
-            aptitudeRow.appendChild(removeButton);
-
-            cell.insertBefore(aptitudeRow, cell.lastElementChild);
-        }
-
-        function updateStudentOptions() {
-            const studentSelects = document.querySelectorAll('select[name="student[]"]');
-            studentSelects.forEach(studentSelect => {
-                let selected = studentSelect.selectedOptions[0].value
-                const studentOptions = studentSelect.querySelectorAll('option');
-                studentOptions.forEach(option => {
-                    const studentId = option.value;
-                    if (usedStudents.has(studentId) && studentId!=selected) {
-                        option.disabled = true;
-                    } else {
-                        option.disabled = false;
-                    }
-                });
-            });
-        }
-
-        function updateInitiatorOptions(select) {
-            const initiatorSelects = document.querySelectorAll('select[name="initiator[]"]');
-            initiatorSelects.forEach(initiatorSelect => {
-                const initiatorOptions = initiatorSelect.querySelectorAll('option');
-                initiatorOptions.forEach(option => {
-                    const initiatorId = option.value;
-                    const count = initiatorCounts[initiatorId] || 0;
-                    if (count >= 2) {
-                        option.disabled = true; 
-                    } else {
-                        option.disabled = false; 
-                    }
-                });
-            });
-        }
-    </script>
 </body>
 </html>

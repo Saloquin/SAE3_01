@@ -30,27 +30,37 @@ class SessionController extends Controller
         $date = $request->input('date');
 
         if (empty($studentIds) || empty($initiatorIds) || empty($competences) || empty($date)) {
-            return redirect()->back()->with('error', 'Tous les champs doivent être remplis.');
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Tous les champs doivent être remplis.');
         }
 
         if (count($studentIds) != count($initiatorIds)) {
-            return redirect()->back()->with('error', 'Chaque élève doit être assigné à un initiateur.');
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Chaque élève doit être assigné à un initiateur.');
         }
 
         foreach ($studentIds as $studentId) {
             if (!isset($competences[$studentId]) || empty($competences[$studentId])) {
-                return redirect()->back()->with('error', 'Chaque étudiant doit avoir des aptitudes.');
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'Chaque étudiant doit avoir des aptitudes.');
             }
         }
 
-        $initiatorCounts = array_count_values($initiatorIds);
+        $filteredInitiators = array_filter($initiatorIds, fn($value) => is_string($value) || is_int($value));
+        $initiatorCounts = array_count_values($filteredInitiators);
+
         foreach ($initiatorCounts as $initiatorId => $count) {
             if ($count > 2) {
-                return redirect()->back()->with('error', "L'initiateur avec l'ID $initiatorId est assigné à plus de 2 étudiants.");
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', "L'initiateur avec l'ID $initiatorId est assigné à plus de 2 étudiants.");
             }
         }
 
-        $for_id = 2; 
+        $for_id = 1; 
         Lesson::insertLesson($for_id, $date);
 
         $usedStudents = []; 
@@ -80,6 +90,7 @@ class SessionController extends Controller
             $usedStudents[] = $studentId1;
         }
 
-        return redirect('/')->with('success', 'La session a été créée avec succès.');
+        return redirect('SessionManager/CreationSession')->with('success', 'La session a été créée avec succès.');
     }
+
 }

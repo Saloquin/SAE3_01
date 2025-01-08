@@ -3,7 +3,6 @@
 use App\Http\Controllers\Connexion;
 use App\Http\Controllers\edtInitiateurController;
 use App\Http\Controllers\ttInitiatorController;
-use App\Http\Controllers\InitiatorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SessionController;
@@ -68,16 +67,9 @@ Route::get('director_panel', function(){
     return view('director_panel');
 });
 
-// Route::get('/edt', [ttInitiatorController::class, 'tt']);
+Route::get('/edt', [ttInitiatorController::class, 'tt']);
 
 Route::get('/tt', function(){
     return view('ttInitiatorView');
 });
 
-Route::get('/valider_aptitudes', function() {
-    return view('valider_aptitudes');
-});
-
-Route::get('/valider_aptitudes', [InitiatorController::class, 'showSkillsEditionPage']);
-
-Route::post('/traitement_validation_aptitudes', [InitiatorController::class, 'updateStudentSkillForSession']);

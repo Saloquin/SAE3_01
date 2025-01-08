@@ -9,11 +9,14 @@ use App\Models\Lesson;
 class InitiatorController extends Controller
 {
     public function showSkillsEditionPage(Request $request) {
-        // $sessionId = $request->input('cou_id');
-        $sessionId = 1;
+        $sessionId = $request->input('cou_id');
+
+        if (!$sessionId) {
+            return "Erreur : id de la séance non trouvé";
+        }
+
         $session = Lesson::getSessionById($sessionId);
-        // $studentsIds = Lesson::getStudentsOfInitiatorAtSession($sessionId, $request->session()->get('id'));
-        $studentsIds = Lesson::getStudentsOfInitiatorAtSession($sessionId, 1);
+        $studentsIds = Lesson::getStudentsOfInitiatorAtSession($sessionId, $request->session()->get('id'));
         $studentId1 = $studentsIds[0];
         $studentId2 = $studentsIds[1];
         $student1 = Student::getStudentById($studentId1);
