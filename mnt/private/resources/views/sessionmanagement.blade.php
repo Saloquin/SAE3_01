@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Création d'un cours de plongée</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+
 </head>
+
+<?php
+require_once('../resources/includes/header.php');
+?>
+
 <body class="flex items-center flex-col bg-blue-50 p-6">
     <h1 class="mb-10 text-4xl font-bold text-blue-700">Création d'une séance de plongée</h1>
 
@@ -21,7 +28,7 @@
         </div>
     @endif
 
-    <form action="{{ url('SessionManager/TraitementCreationSession') }}" method="post" class="bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 w-full max-w-4xl">
+    <form action="{{ url('responsable-formation/TraitementCreationSession') }}" method="post" class="bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 w-full max-w-4xl">
         @csrf
         <div class="mb-6">
             <label for="date" class="block text-gray-800 font-semibold mb-2">Date de la session</label>
@@ -41,7 +48,6 @@
                         </tr>
                     </thead>
                     <tbody id="students-table-body">
-                        <!-- Les lignes seront ajoutées dynamiquement avec JS -->
                     </tbody>
                 </table>
             </div>
@@ -62,4 +68,9 @@
     <script src="{{ asset('js/CreateSession.js') }}"></script>
 
 </body>
+
+<?php
+require_once('../resources/includes/footer.php');
+?>
+
 </html>
