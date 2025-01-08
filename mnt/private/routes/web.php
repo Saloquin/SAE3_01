@@ -1,15 +1,25 @@
 <?php
 
-use App\Http\Controllers\Connexion;
-use App\Http\Controllers\edtInitiateurController;
-use App\Http\Controllers\ttInitiatorController;
-use App\Http\Controllers\trainee;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\initiator;
+use App\Http\Controllers\AddTraining;
+use App\Http\Controllers\AddUser;
+use App\Http\Controllers\Connexion;
+use App\Http\Controllers\EditTraining;
+use App\Http\Controllers\LevelConfirmation;
+use App\Http\Controllers\Profile;
+use App\Http\Controllers\SessionDetails;
+use App\Http\Controllers\SessionRating;
+use App\Http\Controllers\SkillsManagement;
+use App\Http\Controllers\TraineeList;
+use App\Http\Controllers\TrainingDetails;
+use App\Http\Controllers\ttInitiatorController;
+use App\Http\Controllers\Trainee;
+use App\Http\Controllers\Initiator;
+use App\Http\Controllers\UserManagement;
 use App\Http\Controllers\DirectorController;
-use App\Http\Controllers\SessionController;
+use App\Http\Controllers\SessionManagement;
 use App\Http\Controllers\DirectorAddAccountController;
-use App\Models\Session;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -67,7 +77,7 @@ Route::post('/addRespForm', [DirectorController::class, 'insertResponsable'])->n
 Route::post('/director/addUser', [DirectorAddAccountController::class, 'insertUser'])->name('addUser');
 Route::get('/director/accountCreation', [DirectorAddAccountController::class, 'index'])->name('DirectorAccountCreation');
 
-Route::post('SessionManager/TraitementCreationSession', [SessionController::class, 'executeRequest']);
+Route::post('responsable-formation/TraitementCreationSession', [SessionManagement::class, 'executeRequest']);
 
 
 Route::get('/initiateur/edt', [ttInitiatorController::class, 'show']);
