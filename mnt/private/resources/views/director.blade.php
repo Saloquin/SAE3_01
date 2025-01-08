@@ -1,66 +1,74 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion du compte - Journal de Plongée</title>
+    <title>Panel directeur - Journal de Plongée</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="./tailwind.config.js"></script>
+    <script src="./js/tailwind.config.js"></script>
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 
-<?php
-require_once('../resources/includes/header.php');
-?>
 
-<body class="triomphe flex flex-col items-center">
-<p class="  text-[6vw] lg:text-[2vw] mb-[8vh]">Gestion du compte</p>
 
-<form action="" method="post" class="mb-[3vh]">
-    <div class="flex flex-row mb-[2vh]">
-        <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Licence</p>
-        <p class=" text-[3vw] lg:text-[1.3vw] ">ABCD</p>
-    </div>
-    <div class="flex flex-row mb-[2vh]">
-        <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Nom</p>
-        <p class=" text-[3vw] lg:text-[1.3vw]">Jean</p>
-    </div>
-    <div class="flex flex-row mb-[2vh]">
-        <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Prénom</p>
-        <p class=" text-[3vw] lg:text-[1.3vw]">Titouan</p>
-    </div>
-    <div class="flex flex-row mb-[2vh]">
-        <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Date de naissance</p>
-        <p class=" text-[3vw] lg:text-[1.3vw]">19/08/2004</p>
-    </div>
-    <div class="flex flex-row mb-[2vh]">
-        <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Certificat médical</p>
-        <p class=" text-[3vw] lg:text-[1.3vw]">6/12/2024</p>
-    </div>
-    <div class="flex flex-row mb-[2vh]">
-        <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Niveau</p>
-        <p class=" text-[3vw] lg:text-[1.3vw]">N1</p>
-    </div>
-    <div class="flex flex-row mb-[2vh]">
-        <label for="mail" class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">E-Mail</label>
-        <input type="text" name="mail" value="titouan@gmail.com" class="lg:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] pl-[0.5vw] py-[0.5vh] ml-[0.5vw] min-w-[15vw]">
-    </div>
-    <div class="flex flex-row mb-[5vh]">
-        <label for="password" class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Mot de passe</label>
-        <input type="password" name="password" value="abcd" class="lg:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] pl-[0.5vw] py-[0.5vh] ml-[0.5vw] min-w-[15vw]">
+<body class="flex flex-col items-center triomphe">
+<button class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Gestion des comptes</button>
+<button class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Gestion des formations</button>
+
+
+<p class=" triomphe text-[6vw] lg:text-[2vw]">Panel directeur</p>
+<p class="mb-[7vh] triomphe text-[6vw] lg:text-[2vw]">Titouan JEAN</p>
+
+<div class=" flex flex-col justify-between ">
+    <div class="flex flex-row justify-between mb-[1vh]">
+        <p class="triomphe text-[3vw] lg:text-[1.3vw]">Liste des formations</p>
+        <button class=" triomphe lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Ajouter une formation</button>
     </div>
 
-    <div class="flex justify-center">
-        <button class=" lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Modifier</button>
-    </div>
-</form>
-
-<button class=" lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#DD281F] px-[1vw] py-[0.8vh] text-white">Déconnexion</button>
-
-</body>
+    <table class="border-[0.1vw] rounded-[0.5vw] border-[#1962A1] mb-[10vh] border-separate border-spacing-[0.5vw]">
+        <thead>
+        <tr>
+            <th class="text-[2vw] lg:text-[1vw] triomphe">Niveau</th>
+            <th class="text-[2vw] lg:text-[1vw] triomphe">Date de début</th>
+            <th class="text-[2vw] lg:text-[1vw] triomphe">Responsable</th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach($formations as $formation)
+                <tr>
+                    <td class="text-[0.8vw] triomphe">{{ $formation->NIV_ID }}</td>
+                    <td class="text-[0.8vw] triomphe">{{ $formation->FOR_ANNEE }}</td>
+                    <td class="text-[0.8vw] triomphe">{{$formation->responsable->UTI_PRENOM}} {{ $formation->responsable->UTI_NOM }}</td>
+                    <td>
+                        <form action="{{route('directeur.gestion-initiateur')}}" method="post">
+                            @csrf
+                            <input type="hidden" name="FOR_ID" value="{{ $formation->FOR_ID }}">
+                            <button type="submit" class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Liste des initiateurs</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{{route('directeur.gestion-eleve')}}" method="post">
+                            @csrf
+                            <input type="hidden" name="FOR_ID" value="{{ $formation->FOR_ID }}">
+                            <button type="submit" class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Liste des élèves</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{{route('directeur.gestion-responsable')}}" method="post">
+                            @csrf
+                            <input type="hidden" name="FOR_ID" value="{{ $formation->FOR_ID }}">
+                            <button type="submit" class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Changer de responsable</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 
 <?php
 require_once('../resources/includes/footer.php');
 ?>
-
+</body>
 </html>

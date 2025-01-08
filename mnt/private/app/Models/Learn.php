@@ -11,7 +11,9 @@ class Learn extends Model
 
     protected $table = 'apprendre';
     public $timestamps = false;
+    public $incrementing = false;
     
+    protected $primaryKey = ['FOR_ID', 'UTI_ID'];
     protected $fillable = [
         'UTI_ID',
         'FOR_ID',

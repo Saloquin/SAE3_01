@@ -21,7 +21,7 @@ class Uti extends Model
         'UTI_MDP',
         'UTI_DATE_ARCHIVAGE',
         'UTI_EST_INIT',
-        'UTI_LICENSE',
+        'UTI_LICENCE',
         'UTI_DATE_NAISS',
         'UTI_DATE_CERTIF',
         'UTI_CP',
@@ -61,5 +61,18 @@ class Uti extends Model
     public function level()
     {
         return $this->belongsTo(Level::class, 'NIV_ID');
+    
     }
+
+    public function learnings()
+    {
+        return $this->hasMany(Learn::class, 'UTI_ID');
+    }
+
+    public function teaching()
+    {
+        return $this->hasMany(Teach::class, 'UTI_ID');
+    }
+
+    
 }

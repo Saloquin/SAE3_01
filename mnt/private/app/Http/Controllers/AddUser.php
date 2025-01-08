@@ -6,22 +6,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 use App\Models\Uti;
-use App\Models\Formation;
-use App\Models\Learn;
-use App\Models\Teach;
 use App\Models\Level;
 use App\Mail\UserCreatedMail;
 use Illuminate\Support\Facades\Mail;
 
-class DirectorAddAccountController extends Controller
-{
+Class AddUser extends Controller{
 
-    public function index()
+    public function show()
     {
         session_start();
         $clubId = Uti::find($_SESSION["id"])->CLU_ID;
         $levels = Level::whereNotNull('NIV_DESCRIPTION')->get();
-        return view('director.accountCreation', compact('clubId','levels'));
+        return view('adduser', compact('clubId','levels'));
     }
 
 
@@ -35,21 +31,26 @@ class DirectorAddAccountController extends Controller
             'UTI_MAIL' => 'required|email|unique:utilisateur,UTI_MAIL|max:255',  
             'lvl' => 'required|exists:niveau,NIV_ID',  
             'init' => 'required|boolean',  
-            'clubId' => 'required|exists:club,CLU_ID', 
             'UTI_DATE_NAISSANCE' => 'required|date',
             'UTI_DATE_CERTIFICAT' => 'required|date',
             'UTI_CODE_POSTAL' => 'required|string',
             'UTI_VILLE' => 'required|string',
             'UTI_RUE' => 'required|string',
+            'clubId' => 'required|exists:club,CLU_ID', 
         ]);
+        
         if ($validated['lvl'] < 2 && $validated['init'] == 1) {
-            return redirect()->route('director.accountCreation')->with('failed', "L'utilisateur ne peut pas être un initiateur si son niveau est inférieur à 2.");
+            return redirect()->route('directeur.ajouter-utilisateur')->with('failed', "L'utilisateur ne peut pas être un initiateur si son niveau est inférieur à 2.");
 
         }
 
         if (!ctype_digit($validated['UTI_CODE_POSTAL'])) {
-            return redirect()->route('director.accountCreation')->with('failed', "Le code postal doit contenir uniquement des chiffres.");
+            return redirect()->route('directeur.ajouter-utilisateur')->with('failed', "Le code postal doit contenir uniquement des chiffres.");
         }
+
+        do {
+            $license = 'A' .'-'. rand(10, 99) .'-'. rand(100000, 999999);
+        } while (Uti::where('UTI_LICENCE', $license)->exists());
 
         
 
@@ -68,6 +69,7 @@ class DirectorAddAccountController extends Controller
             'UTI_CP' => $validated['UTI_CODE_POSTAL'],
             'UTI_VILLE' => $validated['UTI_VILLE'],
             'UTI_RUE' => $validated['UTI_RUE'],
+            'UTI_LICENCE' => $license,
         ]);
         
        Mail::to($validated['UTI_MAIL'])->send(new UserCreatedMail([
@@ -76,10 +78,7 @@ class DirectorAddAccountController extends Controller
             'password' => $password,
         ]));
         
-        return redirect()->route('director.accountCreation')->with('success', "L'utilisateur a été créé.");
+        return redirect()->route('directeur.ajouter-utilisateur')->with('success', "L'utilisateur a été créé.");
     }
 
-    
-
-       
 }
