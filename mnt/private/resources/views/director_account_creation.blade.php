@@ -10,7 +10,7 @@
 <body>
     <h2>Creer un compte pour mon club</h2>
 
-    <form action="{{ route('addUser') }}" method="POST">
+    <form action="{{ route('/director/addUser') }}" method="POST">
         @csrf
 
         <div>
