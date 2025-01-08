@@ -32,7 +32,7 @@
         </select>
         <button type="submit">Submit</button>
     </form>
-    
+    <!-- ajout des ini -->
     <h3>Teachers</h3>
     <form action="{{ route('addTeacher') }}" method="POST">
         @csrf
@@ -92,7 +92,23 @@
                 <div>{{ $message }}</div>
             @enderror
         </div>
-    
+        
+
+        <div>
+            <label for="UTI_VILLE">Ville</label>
+            <input type="text" name="UTI_VILLE" id="UTI_VILLE"  required>
+        </div>
+
+        <div>
+            <label for="UTI_CODE_POSTAL">Code Postal</label>
+            <input type="text" name="UTI_CODE_POSTAL" id="UTI_CODE_POSTAL"  required>
+        </div>
+        
+        <div>
+            <label for="UTI_RUE">Rue</label>
+            <input type="text" name="UTI_RUE" id="UTI_RUE"  required>
+        </div>
+
         <div>
             <label for="UTI_MAIL">Email</label>
             <input type="email" name="UTI_MAIL" id="UTI_MAIL"  required>
@@ -103,11 +119,24 @@
 
         <label for="lvl">Sélectionner un niveau :</label>
         <select name="lvl" id="lvl">
+            <option value="0">Pas de niveau</option>
             @foreach ($levels as $level)
                 <option value="{{ $level->NIV_ID }}">{{ $level->NIV_DESCRIPTION }}</option>
             @endforeach
         </select>
-    
+
+
+        <div>
+            <label for="UTI_DATE_NAISSANCE">Date de naissance</label>
+            <input type="date" name="UTI_DATE_NAISSANCE" id="UTI_DATE_NAISSANCE" min="{{now()->subyear(120)->format('Y-m-d') }}" max="{{ now()->subyear(16)->format('Y-m-d') }}" required>
+        </div>
+
+        <div>
+            <label for="UTI_DATE_CERTIFICAT">Date de certificat médical</label>
+            <input type="date" name="UTI_DATE_CERTIFICAT" id="UTI_DATE_CERTIFICAT" min="{{ now()->subYear()->format('Y-m-d') }}" max="{{ now()->addDay()->format('Y-m-d') }}" required>
+        </div>
+
+
         <div>
             <label for="init">Initiateur</label>
             <input type="radio" id="oui" name="init" value="1" required>
