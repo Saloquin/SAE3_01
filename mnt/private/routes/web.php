@@ -43,10 +43,13 @@ Route::get('/director_panel', function () { return view('director_panel');});
 Route::get('/teacher_panel', function () { return view('teacher_panel');});
 Route::get('/manager_panel', function () { return view('manager_panel');});
 Route::get('/student_panel', function () { return view('student_panel');});
-
 Route::get('/class_details', function () { return view('class_details');});
 Route::get('/account_management', function () { return view('account_management');});
 Route::get('/day_details', function () { return view('day_details');});
+Route::get('/users_list', function () { return view('users_list');});
+Route::get('/class_management', function () { return view('class_management');});
+Route::get('/student_report', function () { return view('student_report');});
+Route::get('/formation_report', function () { return view('formation_report');});
 
 Route::get('/CreationSession', [SessionController::class, 'index']);
 

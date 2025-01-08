@@ -40,12 +40,15 @@ require_once('../resources/includes/header.php');
             <td class="text-[0.8vw] triomphe">01/09/2024</td>
             <td><button class=" triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Liste des initiateurs</button></td>
             <td><button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Liste des élèves</button></td>
+            <td><button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Détails</button></td>
+
         </tr>
         <tr class="">
             <td class="triomphe text-[0.8vw]">2</td>
             <td class="triomphe text-[0.8vw]">04/09/2024</td>
             <td><button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Liste des initiateurs</button></td>
             <td><button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Liste des élèves</button></td>
+            <td><button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Détails</button></td>
         </tr>
         </tbody>
     </table>
