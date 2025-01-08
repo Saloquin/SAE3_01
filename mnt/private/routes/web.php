@@ -4,8 +4,9 @@ use App\Http\Controllers\Connexion;
 use App\Http\Controllers\edtInitiateurController;
 use App\Http\Controllers\ttInitiatorController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\DirectorAddAccountController;
 use App\Models\Session;
 
 /*
@@ -22,8 +23,11 @@ use App\Models\Session;
 //NAVIGATION
 
 Route::get('/', [Connexion::class, 'show']);                                                                    //Connection
-Route::get('/profile', [ProfileController::class, 'index'])->name('profile');                                   //Profile
+Route::get('/director', [DirectorController::class, 'index'])->name('profile');                                  //director
 Route::get('SessionManager/CreationSession', [SessionController::class, 'index']);                              //Creation session
+
+
+
 
 
 //BACK-END
@@ -32,12 +36,15 @@ Route::get('SessionManager/CreationSession', [SessionController::class, 'index']
 Route::post('/login', [Connexion::class, 'login']);
 
 
-//profil
-Route::post('/addStudent', [ProfileController::class, 'insertStudent'])->name('addStudent');
-Route::post('/addTeacher', [ProfileController::class, 'insertTeacher'])->name('addTeacher');
-Route::post('/addRespForm', [ProfileController::class, 'insertResponsable'])->name('addRespForm');
-Route::post('/addUser', [ProfileController::class, 'insertUser'])->name('addUser');
+//director
 
+Route::post('/addStudent', [DirectorController::class, 'insertStudent'])->name('addStudent');
+Route::post('/addTeacher', [DirectorController::class, 'insertTeacher'])->name('addTeacher');
+Route::post('/addRespForm', [DirectorController::class, 'insertResponsable'])->name('addRespForm');
+
+
+Route::post('/director/addUser', [DirectorAddAccountController::class, 'insertUser'])->name('addUser');
+Route::get('/director/accountCreation', [DirectorAddAccountController::class, 'index'])->name('DirectorAccountCreation');
 
 Route::post('SessionManager/TraitementCreationSession', [SessionController::class, 'executeRequest']);
 
