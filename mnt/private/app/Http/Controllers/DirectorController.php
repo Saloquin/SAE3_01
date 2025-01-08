@@ -13,7 +13,7 @@ use App\Models\Level;
 use App\Mail\UserCreatedMail;
 use Illuminate\Support\Facades\Mail;
 
-class ProfileController extends Controller
+class DirectorController extends Controller
 {
 
     public function index()
