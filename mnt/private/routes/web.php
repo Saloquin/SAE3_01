@@ -22,13 +22,33 @@ use App\Models\Session;
 
 //NAVIGATION
 
-Route::get('/', [Connexion::class, 'show']);                                                                    //Connection
-Route::get('/director', [DirectorController::class, 'index'])->name('profile');                                  //director
-Route::get('SessionManager/CreationSession', [SessionController::class, 'index']);                              //Creation session
+Route::get('', [Connexion::class, 'show']);   //Connection
+Route::get('profile', [Profile::class, 'show']);
 
+// Director
+Route::get('directeur', [Director::class, 'show']);
+Route::get('directeur/gestion-formation', [Director::class, 'show']);
+Route::get('directeur/valider-niveau', [LevelConfirmation::class, 'show']);
+Route::get('directeur/gestion-utilisateur', [UserManagement::class, 'show']);
+Route::get('directeur/ajouter-utilisateur', [AddUser::class, 'show']);
+Route::get('directeur/ajouter-formation', [AddTraining::class, 'show']);
+Route::get('directeur/modifier-formation', [EditTraining::class, 'show']);
 
+// Training Manager
+Route::get('responsable-formation', [SessionController::class, 'show']);
+Route::get('responsable-formation/gestion-seance', [SessionManagement::class, 'show']);    //Creation session
+Route::get('responsable-formation/gestion-aptitude', [SkillsManagement::class, 'show']);
+Route::get('responsable-formation/details-formation', [TrainingDetails::class, 'show']);
 
+// Trainer
+Route::get('initiateur', [InitiatorController::class, 'show']);
+Route::get('initiateur/evaluation-seance', [SessionRating::class, 'show']);
+Route::get('initiateur/liste-eleves', [TraineeList::class, 'show']);
 
+// Trainee
+Route::get('eleve', [SessionController::class, 'show']);
+Route::get('eleve/details-seance', [SessionDetails::class, 'show']);
+Route::get('eleve/details-aptitudes', [SessionController::class, 'show']);
 
 //BACK-END
 
@@ -50,4 +70,3 @@ Route::post('SessionManager/TraitementCreationSession', [SessionController::clas
 
 
 Route::get('/edt', [ttInitiatorController::class, 'tt']);
-
