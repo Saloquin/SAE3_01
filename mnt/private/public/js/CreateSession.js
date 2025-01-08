@@ -1,4 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const tableHeader = document.getElementById('students-table-header');
+    const tableBody = document.getElementById('students-table-body');
+
+    function updateTableHeaderVisibility() {
+        console.log(tableBody.children.length)
+        tableHeader.style.display = tableBody.children.length > 0 ? '' : 'none';
+        document.getElementById('student-table-title').style.display = tableBody.children.length > 0 ? '' : 'none'
+    }
+
     const studentsData = JSON.parse(document.getElementById('studentsData').textContent);
     const skillsData = JSON.parse(document.getElementById('skillsData').textContent);
     const initiatorsData = JSON.parse(document.getElementById('initiatorsData').textContent);
@@ -11,6 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const buttonStudent = document.getElementById('addStudentButton')
     buttonStudent.addEventListener('click', () => addStudentRow())
+
+    updateTableHeaderVisibility()
     
     function addStudentRow() {
         const tableBody = document.getElementById('students-table-body');
@@ -108,6 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
             row.remove();
             updateStudentOptions();
             updateInitiatorOptions(initiatorSelect);
+            updateTableHeaderVisibility();
         };
 
         actionCell.appendChild(removeButton);
@@ -118,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
         row.appendChild(actionCell);
 
         tableBody.appendChild(row);
-
+        updateTableHeaderVisibility();
         updateStudentOptions();
     }
 
