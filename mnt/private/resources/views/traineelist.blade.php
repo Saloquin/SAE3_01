@@ -74,7 +74,7 @@ require_once('../resources/includes/header.php');
 
 <div class="flex justify-around">
     <form action="" method="post">
-        <select class="triomphe lg:text-[1vw] text-[3vw] rounded-[0.25vw] px-[1vw] py-[0.8vh] mr-[5vw]" name="teacher" id="teacher">
+        <select class="triomphe lg:text-[1vw] text-[3vw] rounded-[0.25vw] px-[1vw] py-[0.8vh] mr-[5vw]" name="trainee" id="trainee">
             <option value="1">Jean Apprend</option>
             <option value="2">Michel Eleve</option>
             <option value="3">Titouan Travaille</option>
