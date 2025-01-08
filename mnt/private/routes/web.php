@@ -19,18 +19,26 @@ use App\Models\Session;
 |
 */
 
+//NAVIGATION
 
-//CONNECTION
-Route::get('/', [Connexion::class, 'show']);
+Route::get('/', [Connexion::class, 'show']);                                                                    //Connection
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');                                   //Profile
+Route::get('SessionManager/CreationSession', [SessionController::class, 'index']);                              //Creation session
+
+
+//BACK-END
+
+//connection
 Route::post('/login', [Connexion::class, 'login']);
 
-Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+
+//profil
 Route::post('/addStudent', [ProfileController::class, 'insertStudent'])->name('addStudent');
 Route::post('/addTeacher', [ProfileController::class, 'insertTeacher'])->name('addTeacher');
 Route::post('/addRespForm', [ProfileController::class, 'insertResponsable'])->name('addRespForm');
 Route::post('/addUser', [ProfileController::class, 'insertUser'])->name('addUser');
 
-Route::get('SessionManager/CreationSession', [SessionController::class, 'index']);
+
 Route::post('SessionManager/TraitementCreationSession', [SessionController::class, 'executeRequest']);
 
 
