@@ -46,7 +46,7 @@ body {
     grid-column: 1;
 }
 
-/************ TITRE ************/
+/************ TITLE ************/
 
 #title {
     grid-column: 2;
@@ -70,7 +70,7 @@ body {
     letter-spacing: 2px;
 }
 
-/************ ICONE DR PROFIL ************/
+/************ PROFILE ICON ************/
 
 #profile {
     margin-top: 5px;
