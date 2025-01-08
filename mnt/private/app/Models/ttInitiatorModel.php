@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class ttInitiatorModel extends Model
 {
     use HasFactory;
-
+    public $timestamps = false;
 
     public static function getCoursById($id){
         return DB::select('SELECT cou_date, uti_id_elv1, uti_id_elv2, u.niv_id+1, u.uti_nom, u.uti_prenom, u2.uti_nom as uti_nom2, u2.uti_prenom as uti_prenom2, u.niv_id+1 as niv FROM COURS c 

@@ -16,7 +16,7 @@
         </div>
     @endif
      <h3>Students</h3>   
-     <form action="{{ route('addStudent') }}" method="POST">
+     <form action="{{ route('director.addStudent') }}" method="POST">
         @csrf
         @foreach ($students as $student)
             <div>
@@ -34,7 +34,7 @@
     </form>
     <!-- ajout des ini -->
     <h3>Teachers</h3>
-    <form action="{{ route('addTeacher') }}" method="POST">
+    <form action="{{ route('director.addTeacher') }}" method="POST">
         @csrf
         @foreach ($teachers as $teacher)
             <div>
@@ -53,7 +53,7 @@
 
     <h2>Definir un chef de formation</h2>
     
-    <form action="{{ route('addRespForm') }}" method="POST">
+    <form action="{{ route('director.addRespForm') }}" method="POST">
         @csrf
         
         <label for="responsable">Sélectionner un Initiateur :</label>

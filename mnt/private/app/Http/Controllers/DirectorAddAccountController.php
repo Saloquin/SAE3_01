@@ -21,7 +21,7 @@ class DirectorAddAccountController extends Controller
         session_start();
         $clubId = Uti::find($_SESSION["id"])->CLU_ID;
         $levels = Level::whereNotNull('NIV_DESCRIPTION')->get();
-        return view('director_account_creation', compact('clubId','levels'));
+        return view('director.accountCreation', compact('clubId','levels'));
     }
 
 
@@ -43,12 +43,12 @@ class DirectorAddAccountController extends Controller
             'UTI_RUE' => 'required|string',
         ]);
         if ($validated['lvl'] < 2 && $validated['init'] == 1) {
-            return redirect()->route('profile')->with('failed', "L'utilisateur ne peut pas être un initiateur si son niveau est inférieur à 2.");
+            return redirect()->route('director.accountCreation')->with('failed', "L'utilisateur ne peut pas être un initiateur si son niveau est inférieur à 2.");
 
         }
 
         if (!ctype_digit($validated['UTI_CODE_POSTAL'])) {
-            return redirect()->route('profile')->with('failed', "Le code postal doit contenir uniquement des chiffres.");
+            return redirect()->route('director.accountCreation')->with('failed', "Le code postal doit contenir uniquement des chiffres.");
         }
 
         
@@ -76,7 +76,7 @@ class DirectorAddAccountController extends Controller
             'password' => $password,
         ]));
         
-        return redirect()->route('profile')->with('success', "L'utilisateur a été créé.");
+        return redirect()->route('director.accountCreation')->with('success', "L'utilisateur a été créé.");
     }
 
     

@@ -9,8 +9,13 @@
 
 <body>
     <h2>Creer un compte pour mon club</h2>
-
-    <form action="{{ route('addUser') }}" method="POST">
+    @if (session('success') || session('failed'))
+        <div>
+            {{ session('success') }}
+            {{ session('failed') }}
+        </div>
+    @endif
+    <form action="/director/addUser" method="POST">
         @csrf
 
         <div>

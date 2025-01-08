@@ -23,7 +23,7 @@ use App\Models\Session;
 //NAVIGATION
 
 Route::get('/', [Connexion::class, 'show']);                                                                    //Connection
-Route::get('/profile', [ProfileController::class, 'index'])->name('profile');                                   //Profile
+Route::get('/director', [DirectorController::class, 'index'])->name('director');                                   //director
 Route::get('SessionManager/CreationSession', [SessionController::class, 'index']);                              //Creation session
 
 
@@ -37,10 +37,10 @@ Route::post('/login', [Connexion::class, 'login']);
 
 
 //director
-Route::get('/director', [DirectorController::class, 'index'])->name('profile');
-Route::post('/addStudent', [DirectorController::class, 'insertStudent'])->name('addStudent');
-Route::post('/addTeacher', [DirectorController::class, 'insertTeacher'])->name('addTeacher');
-Route::post('/addRespForm', [DirectorController::class, 'insertResponsable'])->name('addRespForm');
+
+Route::post('/director/addStudent', [DirectorController::class, 'insertStudent'])->name('addStudent');
+Route::post('/director/addTeacher', [DirectorController::class, 'insertTeacher'])->name('addTeacher');
+Route::post('/director/addRespForm', [DirectorController::class, 'insertResponsable'])->name('addRespForm');
 
 
 Route::post('/director/addUser', [DirectorAddAccountController::class, 'insertUser'])->name('addUser');
