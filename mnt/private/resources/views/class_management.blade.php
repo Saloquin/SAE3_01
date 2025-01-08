@@ -143,7 +143,7 @@ require_once('../resources/includes/header.php');
 </div>
 
 <div class="flex flex-row">
-    <button class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white mr-[5vw]">Modifier</button>
+    <button type="submit" class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white mr-[5vw]">Modifier</button>
     <button class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#DD281F] px-[1vw] py-[0.8vh] text-white">Annuler</button>
 </div>
 

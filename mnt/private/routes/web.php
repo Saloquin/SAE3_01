@@ -50,6 +50,8 @@ Route::get('/users_list', function () { return view('users_list');});
 Route::get('/class_management', function () { return view('class_management');});
 Route::get('/student_report', function () { return view('student_report');});
 Route::get('/formation_report', function () { return view('formation_report');});
+Route::get('/teachers_list', function () { return view('teachers_list');});
+Route::get('/students_list', function () { return view('students_list');});
 
 Route::get('/CreationSession', [SessionController::class, 'index']);
 
