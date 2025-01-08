@@ -5,7 +5,7 @@ use App\Http\Controllers\edtInitiateurController;
 use App\Http\Controllers\ttInitiatorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DirectorController;
-use App\Http\Controllers\SessionController;
+use App\Http\Controllers\SessionManagement;
 use App\Http\Controllers\DirectorAddAccountController;
 use App\Models\Session;
 
@@ -65,7 +65,7 @@ Route::post('/addRespForm', [DirectorController::class, 'insertResponsable'])->n
 Route::post('/director/addUser', [DirectorAddAccountController::class, 'insertUser'])->name('addUser');
 Route::get('/director/accountCreation', [DirectorAddAccountController::class, 'index'])->name('DirectorAccountCreation');
 
-Route::post('SessionManager/TraitementCreationSession', [SessionController::class, 'executeRequest']);
+Route::post('responsable-formation/TraitementCreationSession', [SessionManagement::class, 'executeRequest']);
 
 
 Route::get('/edt', [ttInitiatorController::class, 'tt']);
