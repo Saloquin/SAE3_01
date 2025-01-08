@@ -15,18 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [Connexion::class, 'show']);
-
 Route::post('/login', [Connexion::class, 'login']);
 
-Route::get('/director_panel', function () {
-    return view('director_panel');
-});
-
-Route::get('/test', function () {
-
-    return 'au revoir';
-});
-
-Route::get('/welcome', function(){
-    return view('welcome');
-});
+Route::get('/director_panel', function () {return view('director_panel');}); // remove with director controleur
