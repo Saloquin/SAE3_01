@@ -13,6 +13,8 @@ use App\Http\Controllers\SkillsManagement;
 use App\Http\Controllers\TraineeList;
 use App\Http\Controllers\TrainingDetails;
 use App\Http\Controllers\ttInitiatorController;
+use App\Http\Controllers\Trainee;
+use App\Http\Controllers\Initiator;
 use App\Http\Controllers\UserManagement;
 use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\SessionManagement;
@@ -78,4 +80,6 @@ Route::get('/director/accountCreation', [DirectorAddAccountController::class, 'i
 Route::post('responsable-formation/TraitementCreationSession', [SessionManagement::class, 'executeRequest']);
 
 
-Route::get('/edt', [ttInitiatorController::class, 'tt']);
+Route::get('/initiateur/edt', [ttInitiatorController::class, 'show']);
+Route::get('/eleve/edt', [ttStudentController::class, 'show']);
+
