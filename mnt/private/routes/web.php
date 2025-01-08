@@ -5,7 +5,7 @@ use App\Http\Controllers\edtInitiateurController;
 use App\Http\Controllers\ttInitiatorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DirectorController;
-use App\Http\Controllers\SessionController;
+use App\Http\Controllers\SessionManagement;
 use App\Http\Controllers\DirectorAddAccountController;
 use App\Models\Session;
 
