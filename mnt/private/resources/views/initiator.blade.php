@@ -46,6 +46,9 @@ require_once('../resources/includes/header.php');
     </div>
     </div>
 
+    <form id="formulaire" action="/initiateur/evaluation-seance" method="POST" style="display: none;">
+        @csrf
+    </form>
 
     <div id="message"></div>
     <script>
