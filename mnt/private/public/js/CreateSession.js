@@ -123,6 +123,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function addAptitude(cell, studentId) {
+        const existingAptitudes = cell.querySelectorAll('select[name^="competences["]');
+        if (existingAptitudes.length >= 3) {
+            alert("Un élève ne peut avoir que 3 aptitudes au maximum.");
+            return;
+        }
+
         const aptitudeRow = document.createElement('div');
         aptitudeRow.className = "flex items-center space-x-2 mt-2";
 
