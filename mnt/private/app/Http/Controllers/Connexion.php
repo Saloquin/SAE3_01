@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class Connexion extends Controller
-{
+Class Connexion extends Controller{
+
     public function show(){
         session_start();
         session_unset();
@@ -70,4 +70,5 @@ class Connexion extends Controller
         echo 'pas rempli';
         exit;
     }
+
 }
