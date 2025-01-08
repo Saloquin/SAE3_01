@@ -11,7 +11,7 @@
 }
 
 #logo a figure img {
-    max-width: 160px; 
+    max-width: 160px;
 }
 
 #logo {
@@ -87,4 +87,23 @@ font-family: "Triomphe";
     background-image: url("../assets/connexion_background.png");
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.table_header {
+    font-size: 2vw;
+    font-family: 'Triomphe';
+}
+
+.table_cell {
+    font-size: 1.5vw;
+    font-family: 'Triomphe';
+}
+
+@media (min-width: 1024px) {
+    .table_header {
+        font-size: 1vw;
+    }
+    .table_cell {
+        font-size: 0.8vw;
+    }
 }

@@ -17,6 +17,9 @@ require_once('../resources/includes/header.php');
 <p class=" triomphe text-[6vw] lg:text-[2vw]">Panel manager</p>
 <p class="mb-[7vh] triomphe text-[6vw] lg:text-[2vw]">Titouan JEAN</p>
 
+<button class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Liste des initiateurs</button>
+<button class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Liste des élèves</button>
+
 <div class="mb-[10vh]">calendrier</div>
 
 <button class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Synthèse formation</button>

@@ -30,6 +30,18 @@ require_once('../resources/includes/header.php');
         <p class=" text-[3vw] lg:text-[1.3vw]">Titouan</p>
     </div>
     <div class="flex flex-row mb-[2vh]">
+        <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Date de naissance</p>
+        <p class=" text-[3vw] lg:text-[1.3vw]">19/08/2004</p>
+    </div>
+    <div class="flex flex-row mb-[2vh]">
+        <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Certificat médical</p>
+        <p class=" text-[3vw] lg:text-[1.3vw]">6/12/2024</p>
+    </div>
+    <div class="flex flex-row mb-[2vh]">
+        <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Niveau</p>
+        <p class=" text-[3vw] lg:text-[1.3vw]">N1</p>
+    </div>
+    <div class="flex flex-row mb-[2vh]">
         <label for="mail" class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">E-Mail</label>
         <input type="text" name="mail" value="titouan@gmail.com" class="lg:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] pl-[0.5vw] py-[0.5vh] ml-[0.5vw] min-w-[15vw]">
     </div>

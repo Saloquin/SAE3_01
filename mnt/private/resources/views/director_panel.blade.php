@@ -14,6 +14,10 @@ require_once('../resources/includes/header.php');
 ?>
 
 <body class="flex flex-col items-center triomphe">
+<button class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Gestion des comptes</button>
+<button class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Gestion des formations</button>
+
+
 <p class=" triomphe text-[6vw] lg:text-[2vw]">Panel directeur</p>
 <p class="mb-[7vh] triomphe text-[6vw] lg:text-[2vw]">Titouan JEAN</p>
 
@@ -46,8 +50,6 @@ require_once('../resources/includes/header.php');
         </tbody>
     </table>
 </div>
-
-<button class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Gestion des comptes</button>
 
 <?php
 require_once('../resources/includes/footer.php');
