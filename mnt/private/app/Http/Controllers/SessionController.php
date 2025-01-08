@@ -9,53 +9,75 @@ use Illuminate\Http\Request;
 
 class SessionController extends Controller
 {
-    public function createSession()
-    {
-        $skills = Skill::getSkillByFormationLevel();
-        $students = Uti::getStudent();
-        $initiators = Uti::getTeacher();
-        
-        return view('CreateSession', ['skills' => $skills, 'student' => $students, 'initiator' => $initiators]);
-    }
-
     public function executeRequest(Request $request)
     {
         $studentIds = $request->input('student');
         $initiatorIds = $request->input('initiator');
         $competences = $request->input('competences');
         $date = $request->input('date');
-    
+
         if (empty($studentIds) || empty($initiatorIds) || empty($competences) || empty($date)) {
-            return redirect()->back()->with('error', 'Tous les champs doivent être remplis.');
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Tous les champs doivent être remplis.');
         }
-    
-        if (count($studentIds) > count($initiatorIds) * 2) {
-            return redirect()->back()->with('error', "Il ne peut y avoir que deux élèves maximum par initiateur.");
+
+        if (count($studentIds) != count($initiatorIds)) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Chaque élève doit être assigné à un initiateur.');
         }
-    
-        $for_id = 1;
-        $teacherIndex = 0;
-    
-        for ($i = 0; $i < count($studentIds); $i += 2) {
-            $studentId1 = $studentIds[$i];
-            $studentId2 = $studentIds[$i + 1] ?? null;
-            $initiatorId = $initiatorIds[$teacherIndex];
-            
-            $aptitudes1 = $competences[$studentId1] ?? [];
-            $aptitudes2 = $studentId2 ? ($competences[$studentId2] ?? []) : [];
-            var_dump($studentId1);
-            var_dump($aptitudes1);
-            var_dump($studentId1);
-            var_dump($aptitudes2);
-    
-            /*Lesson::insertLesson($for_id, $date, $studentId1, $studentId2, $initiatorId, $aptitudes1, $aptitudes2);*/
-    
-            if (($i / 2 + 1) % 2 == 0) {
-                $teacherIndex++;
+
+        foreach ($studentIds as $studentId) {
+            if (!isset($competences[$studentId]) || empty($competences[$studentId])) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'Chaque étudiant doit avoir des aptitudes.');
             }
         }
-    
-        /*return redirect('/')->with('success', 'La session a été créée avec succès.');*/
+
+        $filteredInitiators = array_filter($initiatorIds, fn($value) => is_string($value) || is_int($value));
+        $initiatorCounts = array_count_values($filteredInitiators);
+
+        foreach ($initiatorCounts as $initiatorId => $count) {
+            if ($count > 2) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', "L'initiateur avec l'ID $initiatorId est assigné à plus de 2 étudiants.");
+            }
+        }
+
+        $for_id = 1; 
+        Lesson::insertLesson($for_id, $date);
+
+        $usedStudents = []; 
+        for ($i = 0; $i < count($studentIds); $i++) {
+            if (in_array($studentIds[$i], $usedStudents)) {
+                continue; 
+            }
+
+            $studentId1 = $studentIds[$i];
+            $initiatorId = $initiatorIds[$i];
+            $aptitudes1 = $competences[$studentId1] ?? [];
+
+            $studentId2 = null;
+            $aptitudes2 = [];
+
+            for ($j = $i + 1; $j < count($studentIds); $j++) {
+                if ($initiatorIds[$j] === $initiatorId && !in_array($studentIds[$j], $usedStudents)) {
+                    $studentId2 = $studentIds[$j];
+                    $aptitudes2 = $competences[$studentId2] ?? [];
+                    $usedStudents[] = $studentId2; 
+                    break;
+                }
+            }
+
+            Lesson::insertGroup($studentId1, $studentId2, $initiatorId, $aptitudes1, $aptitudes2);
+
+            $usedStudents[] = $studentId1;
+        }
+
+        return redirect('responsable-formation/gestion-seance')->with('success', 'La session a été créée avec succès.');
     }
-    
+
 }

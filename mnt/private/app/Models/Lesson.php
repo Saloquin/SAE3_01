@@ -23,16 +23,9 @@ class Lesson extends Model
         return $this->belongsTo(Formation::class, 'FOR_ID');
     }
 
-    public static function insertLesson($for_id, $cou_date, $uti_id_elv1, $uti_id_elv2, $uti_id_init, $aptitudes1, $aptitudes2)
+    public static function insertGroup($uti_id_elv1, $uti_id_elv2, $uti_id_init, $aptitudes1, $aptitudes2)
     {
-        $cou_id = intval(DB::table('COURS')->max('COU_ID')) + 1;
-
-        DB::table('COURS')->insert([
-            'COU_ID' => $cou_id,
-            'FOR_ID' => $for_id,
-            'COU_DATE' => $cou_date,
-        ]);
-
+        $cou_id = intval(DB::table('COURS')->max('COU_ID'));
         DB::table('GROUPE')->insert([
             'COU_ID' => $cou_id,
             'UTI_ID_ELV1' => $uti_id_elv1,
@@ -57,5 +50,19 @@ class Lesson extends Model
                 ]);
             }
         }
+
+    }
+
+    public static function insertLesson($for_id, $cou_date)
+    {
+        $cou_id = intval(DB::table('COURS')->max('COU_ID')) + 1;
+
+        DB::table('COURS')->insert([
+            'COU_ID' => $cou_id,
+            'FOR_ID' => $for_id,
+            'COU_DATE' => $cou_date,
+        ]);
+
+       
     }
 }
