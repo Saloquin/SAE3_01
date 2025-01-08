@@ -23,6 +23,12 @@ class Uti extends Model
         'UTI_MDP',
         'UTI_DATE_ARCHIVAGE',
         'UTI_EST_INIT',
+        'UTI_LICENSE',
+        'UTI_DATE_NAISS',
+        'UTI_DATE_CERTIF',
+        'UTI_CP',
+        'UTI_VILLE',
+        'UTI_RUE'
     ];
 
     protected $hidden = [
