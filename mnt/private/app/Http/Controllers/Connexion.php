@@ -17,12 +17,14 @@ class Connexion extends Controller
 
     private function redirect(){
         if(DB::select('select count(*) as nb from CLUB where uti_id = ?',[$_SESSION['id']])[0]->nb){
+            $_SESSION['director'] = true;
             header('location: director_panel');
             exit;
         }
         foreach ($_SESSION['active_formations'] as $formation) {
             if($formation->UTI_ID == $_SESSION['id']){
                 echo 'rf';
+                $_SESSION['rf'] = true;
 
                 exit;
                 // rediriger vers panel rf
@@ -31,12 +33,15 @@ class Connexion extends Controller
             $res = DB::select('select count(*) as nb from initier where for_id = ? and uti_id = ?',[$formation->FOR_ID,$_SESSION['id']]);
             if($res[0]->nb){
                 echo 'initiateur';
+                $_SESSION['teacher'] = true;
+
                 exit;
                 // rediriger vers panel initier
             }
             $res = DB::select('select count(*) as nb from apprendre where for_id = ? and uti_id = ?',[$formation->FOR_ID,$_SESSION['id']]);
             if($res[0]->nb){
                 echo 'eleve';
+                $_SESSION['student'] = true;
                 exit;
                 // rediriger vers panel élève
             }
