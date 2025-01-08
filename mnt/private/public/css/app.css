@@ -3,18 +3,29 @@
     --dark-blue: #005c8f;
 }
 
+html {
+    height: 100%;
+  }
+
+body {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    padding-bottom: 30px;
+  }
+
 .header {
     background: linear-gradient( var(--navy-blue), var(--dark-blue));
     margin: 0 auto;
     width: 100%;
-    height: 12vw;
-    min-height: 90px;
+    min-height: 80px;
 }
 
-#logo img {
-    max-width: 10vw;
-    min-width: 65px;
-    height: 10%;
+#logo img, #profile img {
+    max-width: 6vw;
+    min-width: 50px;
+    height: 4%;
 }
 
 #logo a {
@@ -45,9 +56,10 @@
     text-align: center;
     margin-top: auto;
     margin-bottom: auto;
-    font-size: 5vw;
+    font-size: 30px;
     min-width: 100px;
     text-justify: auto;
+    letter-spacing: 2px;
 }
 
 #profile {
@@ -61,9 +73,6 @@
 }
 
 #profile img {
-    max-width: 10vw;
-    min-width: 65px;
-    height: 10%;
     margin: auto;
 }
 
@@ -74,11 +83,15 @@ footer {
     bottom: 0;
     height: 30px;
     width: 100%;
+    margin-top: 10px;
 }
 
 footer small {
     height: 30px;
     line-height: 30px;
+    font-size: 8px;
+    text-justify: auto;
+    letter-spacing: 1px;
 }
 
 iframe[seamless] {
