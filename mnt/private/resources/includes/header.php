@@ -12,7 +12,7 @@
         <div id="logo">
             <a href="#">
                 <figure>
-                    <img src="./assets/logo.png" alt="Home" class=" w-16 md:w-32 lg:w-48 ">
+                    <img src="../assets/logo.png" alt="Home" class=" w-16 md:w-32 lg:w-48 ">
                 </figure>
             </a>
         </div>
@@ -20,9 +20,9 @@
             <h1 class="triomphe"> Journal de plongée </h1>
         </div>
         <div id="profile">
-            <a href="#">
+            <a href="../profile">
                 <figure>
-                    <img src="./assets/profile.png" alt="Profile">
+                    <img src="../assets/profile.png" alt="Profile">
                     <p id="account_name">  </p>
                 </figure>
             </a>

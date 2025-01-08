@@ -39,15 +39,16 @@ use App\Models\Session;
 
 //NAVIGATION
 
-Route::get('', [Connexion::class, 'show'])->name('connexion.show');   //Connection
-Route::get('profile', [Profile::class, 'show'])->name('profile.show');
+Route::get('', [Connexion::class, 'show']);
+Route::get('connexion', [Connexion::class, 'show'])->name('connexion');   //Connection
+Route::get('profile', [Profile::class, 'show'])->name('profile');
 
 // Director
 Route::get('directeur', [Director::class, 'show'])->name('directeur.show');
 Route::get('directeur/gestion-formation', [Director::class, 'show'])->name('directeur.gestion-formation');
 Route::get('directeur/valider-niveau', [LevelConfirmation::class, 'show'])->name('directeur.valider-niveau');
 Route::get('directeur/gestion-utilisateur', [UserManagement::class, 'show'])->name('directeur.gestion-utilisateur');
-Route::get('directeur/ajouter-utilisateur', [AddUser::class, 'show'])->name('directeur.ajouter-utilisateur');  // <-- Ici
+Route::get('directeur/ajouter-utilisateur', [AddUser::class, 'show'])->name('directeur.ajouter-utilisateur');
 Route::get('directeur/ajouter-formation', [AddTraining::class, 'show'])->name('directeur.ajouter-formation');
 Route::get('directeur/modifier-formation', [EditTraining::class, 'show'])->name('directeur.modifier-formation');
 
@@ -68,10 +69,12 @@ Route::get('eleve', [Trainee::class, 'show'])->name('eleve.show');
 Route::get('eleve/details-seance', [SessionDetails::class, 'show'])->name('eleve.details-seance');
 Route::get('eleve/details-aptitudes', [SkillsDetails::class, 'show'])->name('eleve.details-aptitudes');
 
+Route::get('/edt', [ttInitiatorController::class, 'tt'])->name('ttInitiatorController.tt');
 // BACK-END
 
 // Connexion et authentification
 Route::post('/login', [Connexion::class, 'login'])->name('login');
+Route::post('/logout', [Profile::class, 'logout'])->name('logout');
 
 // Director routes
 Route::post('addStudent', [AddUser::class, 'insertUser'])->name('addStudent');
@@ -84,6 +87,7 @@ Route::post('directeur/gestion-initiateur', [InitiatorListFormation::class, 'sho
 Route::post('directeur/ajoute-initiateur-formation', [InitiatorListFormation::class, 'add'])->name('directeur.ajoute-initiateur-formation');
 Route::post('directeur/supprime-initiateur-formation', [InitiatorListFormation::class, 'remove'])->name('directeur.supprime-initiateur-formation');
 
+Route::post('directeur/ajoute-formation', [AddTraining::class, 'add'])->name('directeur.ajoute-formation');
 
 Route::post('directeur/gestion-responsable', [UserManagement::class, 'show'])->name('directeur.gestion-responsable');
 
@@ -91,4 +95,3 @@ Route::get('/director/accountCreation', [DirectorAddAccountController::class, 'i
 Route::post('SessionManager/TraitementCreationSession', [SessionController::class, 'executeRequest'])->name('sessionManager.traitementCreationSession');
 
 // Test route (ttInitiatorController)
-Route::get('/edt', [ttInitiatorController::class, 'tt'])->name('ttInitiatorController.tt');
