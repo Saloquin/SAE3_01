@@ -52,4 +52,14 @@ class Uti extends Model
         return self::where('uti_id', $id)
                     ->where('uti_est_init', 1)->get();
     }
+
+    public function club()
+    {
+        return $this->belongsTo(Club::class, 'CLU_ID');
+    }
+
+    public function level()
+    {
+        return $this->belongsTo(Level::class, 'NIV_ID');
+    }
 }
