@@ -21,7 +21,7 @@
         </div>
     @endif
 
-    <form action="{{ url('SessionManager/TraitementCreationSession') }}" method="post" class="bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 w-full max-w-4xl">
+    <form action="{{ url('responsable-formation/TraitementCreationSession') }}" method="post" class="bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 w-full max-w-4xl">
         @csrf
         <div class="mb-6">
             <label for="date" class="block text-gray-800 font-semibold mb-2">Date de la session</label>

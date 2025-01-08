@@ -65,7 +65,7 @@ Route::post('/addRespForm', [DirectorController::class, 'insertResponsable'])->n
 Route::post('/director/addUser', [DirectorAddAccountController::class, 'insertUser'])->name('addUser');
 Route::get('/director/accountCreation', [DirectorAddAccountController::class, 'index'])->name('DirectorAccountCreation');
 
-Route::post('SessionManager/TraitementCreationSession', [SessionController::class, 'executeRequest']);
+Route::post('responsable-formation/TraitementCreationSession', [SessionManagement::class, 'executeRequest']);
 
 
 Route::get('/edt', [ttInitiatorController::class, 'tt']);
