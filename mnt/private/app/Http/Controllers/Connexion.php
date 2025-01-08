@@ -9,6 +9,7 @@ class Connexion extends Controller
 {
     public function show(){
         session_start();
+        session_unset();
         if(isset($_SESSION['id'])){
             $this->redirect();
         }
@@ -17,11 +18,13 @@ class Connexion extends Controller
 
     private function redirect(){
         if(DB::select('select count(*) as nb from CLUB where uti_id = ?',[$_SESSION['id']])[0]->nb){
-            header('location: director_panel');
+            $_SESSION['director'] = true;
+            header('location: director');
             exit;
         }
         foreach ($_SESSION['active_formations'] as $formation) {
             if($formation->UTI_ID == $_SESSION['id']){
+                $_SESSION['rf'] = true;
                 header('Location: responsable');
                 exit;
                 // redirect to training manageur home
@@ -29,12 +32,14 @@ class Connexion extends Controller
 
             $res = DB::select('select count(*) as nb from INITIER where for_id = ? and uti_id = ?',[$formation->FOR_ID,$_SESSION['id']]);
             if($res[0]->nb){
+                $_SESSION['teacher'] = true;
                 header('Location: initiateur');
                 exit;
                 // redirect to initiator home
             }
             $res = DB::select('select count(*) as nb from APPRENDRE where for_id = ? and uti_id = ?',[$formation->FOR_ID,$_SESSION['id']]);
             if($res[0]->nb){
+                $_SESSION['student'] = true;
                 header('Location: eleve');
                 exit;
                 // redirect to student home
