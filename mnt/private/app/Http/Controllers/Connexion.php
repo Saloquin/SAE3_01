@@ -22,23 +22,22 @@ class Connexion extends Controller
         }
         foreach ($_SESSION['active_formations'] as $formation) {
             if($formation->UTI_ID == $_SESSION['id']){
-                echo 'rf';
-
+                header('Location: responsable');
                 exit;
-                // rediriger vers panel rf
+                // redirect to training manageur home
             }
 
             $res = DB::select('select count(*) as nb from INITIER where for_id = ? and uti_id = ?',[$formation->FOR_ID,$_SESSION['id']]);
             if($res[0]->nb){
-                echo 'initiateur';
+                header('Location: initiateur');
                 exit;
-                // rediriger vers panel initier
+                // redirect to initiator home
             }
             $res = DB::select('select count(*) as nb from APPRENDRE where for_id = ? and uti_id = ?',[$formation->FOR_ID,$_SESSION['id']]);
             if($res[0]->nb){
-                echo 'eleve';
+                header('Location: eleve');
                 exit;
-                // rediriger vers panel élève
+                // redirect to student home
             }
         }
         // renvoyer vers page pas de formation
