@@ -3,9 +3,13 @@
 use App\Http\Controllers\Connexion;
 use App\Http\Controllers\edtInitiateurController;
 use App\Http\Controllers\ttInitiatorController;
+use App\Http\Controllers\ttStudentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\supAdminController;
+use App\Http\Controllers\addAptController;
+use App\Http\Controllers\addCompController;
 use App\Models\Session;
 
 /*
@@ -67,9 +71,9 @@ Route::get('director_panel', function(){
     return view('director_panel');
 });
 
-Route::get('/edt', [ttInitiatorController::class, 'tt']);
-
-Route::get('/tt', function(){
-    return view('ttInitiatorView');
-});
-
+Route::get('/initiateur/edt', [ttInitiatorController::class, 'show']);
+Route::get('/eleve/edt', [ttStudentController::class, 'show']);
+Route::get('/superadmin', [supAdminController::class, 'show'])->name('superadmin');
+Route::get('/superadmin/ajoutcompetence', [addCompController::class, 'show'])->name('superadmin.addcomp');
+Route::post('/superadmin/ajoutcompetence/form', [addCompController::class, 'add'])->name('superadmin.addcompform');
+Route::get('/superadmin/ajoutaptitude', [addAptController::class, 'show'])->name('superadmin.addapt');

@@ -9,7 +9,12 @@ class Connexion extends Controller
 {
     public function show(){
         session_start();
+        
         if(isset($_SESSION['id'])){
+            if($_SESSION['id'] == 10001){
+                header('Location: superadmin');
+                exit;
+            }
             $this->redirect();
         }
         return view('connexion');
@@ -30,7 +35,7 @@ class Connexion extends Controller
 
             $res = DB::select('select count(*) as nb from INITIER where for_id = ? and uti_id = ?',[$formation->FOR_ID,$_SESSION['id']]);
             if($res[0]->nb){
-                echo 'initiateur';
+                header('Location: edt');
                 exit;
                 // rediriger vers panel initier
             }
@@ -53,10 +58,16 @@ class Connexion extends Controller
         $password = $request->input('password');
         if(isset($licence) && isset($password)){
             $res = DB::select('select * from UTILISATEUR where uti_id = ? and uti_mdp = ?',[$licence,md5($password)]);
+            if($licence == 10001){
+                $_SESSION['id'] = $res[0]->UTI_ID;
+                header('Location: superadmin');
+                exit;
+            }
             if(isset($res[0])){
                 $_SESSION['active_formations'] = DB::select('select * from FORMATION where clu_id = ? and datediff(sysdate(), for_annee) between 0 and 365.25', [$res[0]->CLU_ID]);
                 $_SESSION['id'] = $res[0]->UTI_ID;
                 $this->redirect();
+                exit;
             }
             // remettre page co avec msg d'erreur pas de compte
             echo 'pas de compte';

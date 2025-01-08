@@ -17,6 +17,7 @@ body {
     background-color: #f0f0f0;
     margin: 0;
     overflow: hidden; /* Prevent overflow */
+    flex-direction: column;
 }
 
 /* Calendar Container */
@@ -125,4 +126,49 @@ button:focus {
     color: white;
     font-weight: bold;
     border-radius: 8px;
+}
+
+/* Media Query for when the calendar is too large (Mobile View) */
+@media (max-width: 800px) {
+    .calendar {
+        max-width: 95%;  /* Reduce max width */
+        max-height: 500px;  /* Reduce max height */
+        padding: 0px;  /* Reduce padding */
+        border: none; /* Remove border */
+        border-radius: 0; /* Remove border radius */
+        gap: 0px;
+    }
+
+    /* Adjusting the days grid */
+    .days {
+        grid-gap: 0; /* Remove gap between days */
+        /*grid-template-columns: repeat(7, 1fr); /* 7 equal-width columns */
+        padding: 0px;
+        margin: 0px;
+        grid-gap: 0px;
+    }
+
+    /* Day Box */
+    .day {
+        height: 60px;  /* Make the height more rectangular */
+        width: 40px;   /* Reduce the width to make it rectangular */
+        font-size: 1rem;  /* Adjust font size */
+        border-radius: 0px; /* Optional: Adjust border-radius for a more rectangular look */
+        grid-gap: 0px;
+    }
+
+
+    /* Reduce font size for weekdays and days */
+    .days-of-week {
+        font-size: 1rem; /* Smaller font size for the weekday headers */
+    }
+
+    .day.active {
+        font-size: 1rem;
+        border-radius: 0px;
+    }
+
+    .day.highlight{
+        border-radius: 0px;
+    }
 }

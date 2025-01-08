@@ -33,8 +33,6 @@
     <div id="message"></div>
     <script>
         var specialDates = @json($arr);
-        var info = @json($arr2);
-      
     </script>
     <script src="{{ asset('js/tt.js') }}"></script>
 </body>
