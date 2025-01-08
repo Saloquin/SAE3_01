@@ -1,5 +1,78 @@
+* {
+    --navy-blue: #006daa;
+    --dark-blue: #005c8f;
+}
+
+.header {
+    background: linear-gradient( var(--navy-blue), var(--dark-blue));
+    margin: 0 auto;
+    width: 100%;
+    height: 200px;
+}
+
+#logo a figure img {
+    max-width: 160px; 
+}
+
+#logo {
+    grid-column: 1;
+}
+
+.header, div {
+    display: grid;
+}
+
+#title {
+    grid-column: 2;
+    position: relative;
+    color : white;
+}
+
+#title::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+#title, h1 {
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 60px;
+}
+
+#profile {
+    text-align: right;
+    margin-top: 20px;
+    grid-column: 3;
+}
+
+#profile p {
+    text-align: right;
+    margin-right: 19px;
+    margin-top: 0px;
+}
+
+footer {
+    background-color: var(--navy-blue);
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+}
+
+footer small {
+    height: 100px;
+    line-height: 100px;
+}
+
+iframe[seamless] {
+    border: none;
+}
+
 @font-face {
-    font-family: "Triomphe";
+font-family: "Triomphe";
     src: url('../assets/fonts/Triomphe-Regular-autoinstr.ttf');
     font-weight: normal;
     font-style : normal;
@@ -8,6 +81,7 @@
 .triomphe {
     font-family: 'Triomphe';
 }
+
 
 .background {
     background-image: url("../assets/connexion_background.png");
