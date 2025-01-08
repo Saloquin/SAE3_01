@@ -52,6 +52,10 @@ Route::get('/student_report', function () { return view('student_report');});
 Route::get('/formation_report', function () { return view('formation_report');});
 Route::get('/teachers_list', function () { return view('teachers_list');});
 Route::get('/students_list', function () { return view('students_list');});
+Route::get('/user_creation', function () { return view('user_creation');});
+Route::get('/formation_creation', function () { return view('formation_creation');});
+Route::get('/formation_validation', function () { return view('formation_validation');});
+Route::get('/formation_management', function () { return view('formation_management');});
 
 Route::get('/CreationSession', [SessionController::class, 'index']);
 
