@@ -21,4 +21,14 @@ class Student extends Model
 
         return $users;
     }
+
+    public static function getStudentById($studentId){
+        if (!$studentId) {
+            return null;
+        }
+
+        $student = DB::select('select * from UTILISATEUR where uti_id = ?', [$studentId])[0];
+
+        return $student;
+    }
 }

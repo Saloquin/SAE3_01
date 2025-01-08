@@ -26,6 +26,30 @@ class Session extends Model
             }
         }
     }
+
+    public static function getStudentSkillsAtSession($cou_id, $uti_id) {
+        if (!$uti_id) {
+            return array();
+        }
+
+        $skillsIds = DB::select("select apt_id from MAITRISER where cou_id = ? and uti_id = ?", [$cou_id, $uti_id]);
+
+        $skills = array();
+
+        foreach ($skillsIds as $skillId) {
+            $skill = DB::select("select * from APTITUDE where apt_id = ?", [$skillId]);
+
+            array_push($skills, $skill);
+        }
+        
+        return $skills;
+    }
+
+    public static function getStudentsOfInitiatorAtSession($cou_id, $uti_id_init) {
+        $res = DB::select("select * from GROUPE where cou_id = ? and uti_id_init = ?", [$cou_id, $uti_id_init])[0];
+        
+        return [$res->uti_id_elv1, $res->uti_id_elv2];
+    }
     
     
 }
