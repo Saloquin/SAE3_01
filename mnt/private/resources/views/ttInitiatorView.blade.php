@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TT</title>
     <link rel="stylesheet" href="{{ asset('css/calendar.css') }}">
+    <script>
+        const tt = 0;
+    </script>
 </head>
 <body>
-<div class="calendar">
+    <div class="flex">
+    <div class="calendar">
         <div class="calendar-header">
             <button id="prevMonth">&lt;</button>
             <span id="monthYear">October 2025</span>
@@ -27,11 +31,13 @@
             <div class="days" id="days"></div>
         </div>
     </div>
+    </div>
+
 
     <div id="message"></div>
     <script>
-        var specialDates = @json($days);
-        var info = @json($data);
+        var sessionData = @json($arr);
+        var info = @json($arr2);
       
     </script>
     <script src="{{ asset('js/tt.js') }}"></script>

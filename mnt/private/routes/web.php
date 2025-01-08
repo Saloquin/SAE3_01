@@ -1,10 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AddTraining;
 use App\Http\Controllers\AddUser;
 use App\Http\Controllers\Connexion;
 use App\Http\Controllers\EditTraining;
-use App\Http\Controllers\edtInitiateurController;
 use App\Http\Controllers\LevelConfirmation;
 use App\Http\Controllers\Profile;
 use App\Http\Controllers\SessionDetails;
@@ -13,12 +13,13 @@ use App\Http\Controllers\SkillsManagement;
 use App\Http\Controllers\TraineeList;
 use App\Http\Controllers\TrainingDetails;
 use App\Http\Controllers\ttInitiatorController;
+use App\Http\Controllers\Trainee;
+use App\Http\Controllers\Initiator;
 use App\Http\Controllers\UserManagement;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\SessionManagement;
 use App\Http\Controllers\DirectorAddAccountController;
-use App\Models\Session;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -79,4 +80,6 @@ Route::get('/director/accountCreation', [DirectorAddAccountController::class, 'i
 Route::post('responsable-formation/TraitementCreationSession', [SessionManagement::class, 'executeRequest']);
 
 
-Route::get('/edt', [ttInitiatorController::class, 'tt']);
+Route::get('/initiateur/edt', [ttInitiatorController::class, 'show']);
+Route::get('/eleve/edt', [ttStudentController::class, 'show']);
+

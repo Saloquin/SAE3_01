@@ -61,6 +61,7 @@ Class Connexion extends Controller{
                 $_SESSION['active_formations'] = DB::select('select * from FORMATION where clu_id = ? and datediff(sysdate(), for_annee) between 0 and 365.25', [$res[0]->CLU_ID]);
                 $_SESSION['id'] = $res[0]->UTI_ID;
                 $this->redirect();
+                exit;
             }
             // remettre page co avec msg d'erreur pas de compte
             echo 'pas de compte';
