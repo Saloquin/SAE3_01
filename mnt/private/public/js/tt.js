@@ -62,9 +62,7 @@ function editCourse(date){
         const infoData = info[index];
         if (elem == date){
             console.log(infoData[8]);
-            const form = document.createElement('form');
-            form.action = 'verify_id.html'; 
-            form.method = 'POST';
+            const form = document.getElementById('formulaire');
         
             const idInput = document.createElement('input');
             idInput.type = 'hidden';

@@ -105,7 +105,6 @@ class Lesson extends Model
         if (!$cou_id) {
             return array();
         }
-
         $res = DB::select("select * from GROUPE where cou_id = ? and uti_id_init = ?", [$cou_id, $uti_id_init])[0];
         
         return [$res->UTI_ID_ELV1, $res->UTI_ID_ELV2];
