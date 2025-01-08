@@ -55,7 +55,6 @@ Route::get('eleve/details-aptitudes', [SessionController::class, 'show']);
 //connection
 Route::post('/login', [Connexion::class, 'login']);
 
-
 //director
 
 Route::post('/addStudent', [DirectorController::class, 'insertStudent'])->name('addStudent');
