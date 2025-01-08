@@ -1,8 +1,19 @@
 <?php
 
+use App\Http\Controllers\AddTraining;
+use App\Http\Controllers\AddUser;
 use App\Http\Controllers\Connexion;
+use App\Http\Controllers\EditTraining;
 use App\Http\Controllers\edtInitiateurController;
+use App\Http\Controllers\LevelConfirmation;
+use App\Http\Controllers\Profile;
+use App\Http\Controllers\SessionDetails;
+use App\Http\Controllers\SessionRating;
+use App\Http\Controllers\SkillsManagement;
+use App\Http\Controllers\TraineeList;
+use App\Http\Controllers\TrainingDetails;
 use App\Http\Controllers\ttInitiatorController;
+use App\Http\Controllers\UserManagement;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\SessionManagement;
