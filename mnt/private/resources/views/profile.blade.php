@@ -3,74 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Gestion du compte - Journal de Plongée</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./tailwind.config.js"></script>
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
-<body>
-    <h1>Profil</h1>
-    <!-- DT -->
-    <h2>Ajouter dans une formation</h2>
-    @if (session('success') || session('failed'))
-        <div>
-            {{ session('success') }}
-            {{ session('failed') }}
-        </div>
-    @endif
-     <h3>Students</h3>   
-     <form action="{{ route('addStudent') }}" method="POST">
-        @csrf
-        @foreach ($students as $student)
-            <div>
-                <input type="checkbox" id="student_{{ $student->UTI_ID }}" name="students[]" value="{{ $student->UTI_ID }}">
-                <label for="student_{{ $student->UTI_ID }}">{{ $student->UTI_PRENOM }} {{ $student->UTI_NOM ?? 'Nom non disponible' }}</label>
-            </div>
-        @endforeach
-        <label for="formation_student">Sélectionner une formation :</label>
-        <select name="formation" id="formation_student">
-            @foreach ($formations as $formation)
-                <option value="{{ $formation->FOR_ID }}">{{ $formation->FOR_ANNEE }} - {{ $formation->level->NIV_DESCRIPTION }}</option>
-            @endforeach
-        </select>
-        <button type="submit">Submit</button>
-    </form>
-    <!-- ajout des ini -->
-    <h3>Teachers</h3>
-    <form action="{{ route('addTeacher') }}" method="POST">
-        @csrf
-        @foreach ($teachers as $teacher)
-            <div>
-                <input type="checkbox" id="teacher_{{ $teacher->UTI_ID }}" name="teachers[]" value="{{ $teacher->UTI_ID }}">
-                <label for="teacher_{{ $teacher->UTI_ID }}">{{ $teacher->UTI_PRENOM }} {{ $teacher->UTI_NOM ?? 'Nom non disponible' }}</label>
-            </div>
-        @endforeach
-        <label for="formation_teacher">Sélectionner une formation :</label>
-        <select name="formation" id="formation_teacher">
-            @foreach ($formations as $formation)
-                <option value="{{ $formation->FOR_ID }}">{{ $formation->FOR_ANNEE }} - {{ $formation->level->NIV_DESCRIPTION }}</option>
-            @endforeach
-        </select>
-        <button type="submit">Submit</button>
-    </form>
 
-    <h2>Definir un chef de formation</h2>
-    
-    <form action="{{ route('addRespForm') }}" method="POST">
-        @csrf
-        
-        <label for="responsable">Sélectionner un Initiateur :</label>
-        <select name="responsable" id="responsable">
-            @foreach ($teachers as $teacher)
-                <option value="{{ $teacher->UTI_ID }}">{{ $teacher->UTI_PRENOM }}-{{ $teacher->UTI_NOM }} - {{ $teacher->level->NIV_DESCRIPTION }}</option>
-            @endforeach
-        </select>
+<?php
+require_once('../resources/includes/header.php');
+?>
 
-        <label for="formation_teacher">Sélectionner une formation :</label>
-        <select name="formation" id="formation_teacher">
-            @foreach ($formations as $formation)
-                <option value="{{ $formation->FOR_ID }}">{{ $formation->FOR_ANNEE }} - {{ $formation->level->NIV_DESCRIPTION }}</option>
-            @endforeach
-        </select>
-        <button type="submit">Submit</button>
-    </form>
+<body class="triomphe flex flex-col items-center">
+<p class="  text-[6vw] lg:text-[2vw] mb-[8vh]">Gestion du compte</p>
+
+<form action="" method="post" class="mb-[3vh]">
+    <div class="flex flex-row mb-[2vh]">
+        <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Licence</p>
+        <p class=" text-[3vw] lg:text-[1.3vw] ">ABCD</p>
+    </div>
+    <div class="flex flex-row mb-[2vh]">
+        <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Nom</p>
+        <p class=" text-[3vw] lg:text-[1.3vw]">Jean</p>
+    </div>
+    <div class="flex flex-row mb-[2vh]">
+        <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Prénom</p>
+        <p class=" text-[3vw] lg:text-[1.3vw]">Titouan</p>
+    </div>
+    <div class="flex flex-row mb-[2vh]">
+        <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Date de naissance</p>
+        <p class=" text-[3vw] lg:text-[1.3vw]">19/08/2004</p>
+    </div>
+    <div class="flex flex-row mb-[2vh]">
+        <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Certificat médical</p>
+        <p class=" text-[3vw] lg:text-[1.3vw]">6/12/2024</p>
+    </div>
+    <div class="flex flex-row mb-[2vh]">
+        <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Niveau</p>
+        <p class=" text-[3vw] lg:text-[1.3vw]">N1</p>
+    </div>
+    <div class="flex flex-row mb-[2vh]">
+        <label for="mail" class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">E-Mail</label>
+        <input type="text" name="mail" value="titouan@gmail.com" class="lg:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] pl-[0.5vw] py-[0.5vh] ml-[0.5vw] min-w-[15vw]">
+    </div>
+    <div class="flex flex-row mb-[5vh]">
+        <label for="password" class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Mot de passe</label>
+        <input type="password" name="password" value="abcd" class="lg:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] pl-[0.5vw] py-[0.5vh] ml-[0.5vw] min-w-[15vw]">
+    </div>
+
+    <div class="flex justify-center">
+        <button class=" lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Modifier</button>
+    </div>
+</form>
+
+<button class=" lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#DD281F] px-[1vw] py-[0.8vh] text-white">Déconnexion</button>
 
 </body>
+
+<?php
+require_once('../resources/includes/footer.php');
+?>
+
 </html>

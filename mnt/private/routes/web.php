@@ -35,20 +35,20 @@ Route::get('directeur/ajouter-formation', [AddTraining::class, 'show']);
 Route::get('directeur/modifier-formation', [EditTraining::class, 'show']);
 
 // Training Manager
-Route::get('responsable-formation', [SessionController::class, 'show']);
+Route::get('responsable-formation', [Manager::class, 'show']);
 Route::get('responsable-formation/gestion-seance', [SessionManagement::class, 'show']);    //Creation session
 Route::get('responsable-formation/gestion-aptitude', [SkillsManagement::class, 'show']);
 Route::get('responsable-formation/details-formation', [TrainingDetails::class, 'show']);
 
 // Trainer
-Route::get('initiateur', [InitiatorController::class, 'show']);
+Route::get('initiateur', [Initiator::class, 'show']);
 Route::get('initiateur/evaluation-seance', [SessionRating::class, 'show']);
 Route::get('initiateur/liste-eleves', [TraineeList::class, 'show']);
 
 // Trainee
-Route::get('eleve', [SessionController::class, 'show']);
+Route::get('eleve', [Trainee::class, 'show']);
 Route::get('eleve/details-seance', [SessionDetails::class, 'show']);
-Route::get('eleve/details-aptitudes', [SessionController::class, 'show']);
+Route::get('eleve/details-aptitudes', [SkillsDetails::class, 'show']);
 
 //BACK-END
 
