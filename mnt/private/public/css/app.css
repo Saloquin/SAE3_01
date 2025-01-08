@@ -25,10 +25,6 @@
     display: grid;
     }
 
-#logo a figure img {
-    max-width: 160px;
-}
-
 #logo {
     grid-column: 1;
 }
