@@ -1,19 +1,199 @@
-// Wait for the DOM to load before executing the script
-document.addEventListener('DOMContentLoaded', () => {
-    // Get references to form elements
-    const form = document.getElementById('sessionForm');
-    const studentsSelect = document.getElementById('students');
-    const teachersSelect = document.getElementById('teachers');
-    const createButton = document.getElementById('createButton');
+document.addEventListener("DOMContentLoaded", () => {
+    const studentsData = JSON.parse(document.getElementById('studentsData').textContent);
+    const skillsData = JSON.parse(document.getElementById('skillsData').textContent);
+    const initiatorsData = JSON.parse(document.getElementById('initiatorsData').textContent);
 
-    form.addEventListener('submit', (event) => {
-        const selectedStudents = Array.from(studentsSelect.selectedOptions).length;
-        const selectedTeachers = Array.from(teachersSelect.selectedOptions).length;
+    const usedStudents = new Set();
+    const initiatorCounts = {};
+    const oldStudents = JSON.parse(document.getElementById('oldStudents').textContent);
+    const oldCompetences = JSON.parse(document.getElementById('oldCompetences').textContent);
+    const oldInitiators = JSON.parse(document.getElementById('oldInitiators').textContent);
 
-        if (selectedStudents / 2 > selectedTeachers) {
-            alert('Le nombre de formateurs doit être au moins égal à la moitié du nombre d\'élèves.');
-            event.preventDefault(); 
-        }
+    const buttonStudent = document.getElementById('addStudentButton')
+    buttonStudent.addEventListener('click', () => addStudentRow())
+    
+    function addStudentRow() {
+        const tableBody = document.getElementById('students-table-body');
+        const row = document.createElement('tr');
+        row.className = "student-row";
+
+        const studentCell = document.createElement('td');
+        studentCell.className = "px-4 py-2";
+        const studentSelect = document.createElement('select');
+        studentSelect.className = "shadow border rounded w-full py-2 px-3 text-gray-700";
+        studentSelect.name = "student[]";
+
+        const defaultOption = document.createElement('option');
+        defaultOption.value = "";
+        defaultOption.textContent = "-- Sélectionnez un élève --";
+        studentSelect.appendChild(defaultOption);
+
+        studentsData.forEach(student => {
+            const option = document.createElement('option');
+            option.value = student.UTI_ID;
+            option.textContent = `${student.UTI_NOM} ${student.UTI_PRENOM}`;
+            studentSelect.appendChild(option);
+        });
+
+        studentCell.appendChild(studentSelect);
+
+        const aptitudeCell = document.createElement('td');
+        aptitudeCell.className = "px-4 py-2";
+        const addAptitudeButton = document.createElement('button');
+        addAptitudeButton.type = "button";
+        addAptitudeButton.textContent = "Ajouter une aptitude";
+        addAptitudeButton.className = "bg-green-500 text-white px-4 py-2 rounded shadow";
+        addAptitudeButton.onclick = () => {
+            const studentId = studentSelect.value;
+            if (studentId) {
+                addAptitude(aptitudeCell, studentId);
+            }
+        };
+
+        aptitudeCell.appendChild(addAptitudeButton);
+
+        const initiatorCell = document.createElement('td');
+        initiatorCell.className = "px-4 py-2";
+        const initiatorSelect = document.createElement('select');
+        initiatorSelect.className = "shadow border rounded w-full py-2 px-3 text-gray-700";
+        initiatorSelect.name = "initiator[]";
+        initiatorSelect.disabled = true;
+
+        const initiatorDefaultOption = document.createElement('option');
+        initiatorDefaultOption.value = "";
+        initiatorDefaultOption.textContent = "-- Sélectionnez un initiateur --";
+        initiatorSelect.appendChild(initiatorDefaultOption);
+
+        initiatorsData.forEach(initiator => {
+            const count = initiatorCounts[initiator.UTI_ID] || 0;
+            if (count < 2) {
+                const option = document.createElement('option');
+                option.value = initiator.UTI_ID;
+                option.textContent = `${initiator.UTI_NOM} ${initiator.UTI_PRENOM}`;
+                initiatorSelect.appendChild(option);
+            }
+        });
+
+        studentSelect.onchange = () => {
+            const previousValue = studentSelect.getAttribute('data-previous-value');
+            if (previousValue) {
+                usedStudents.delete(previousValue);
+            }
+
+            const currentValue = studentSelect.value;
+            if (currentValue) {
+                usedStudents.add(currentValue);
+            }
+
+            studentSelect.setAttribute('data-previous-value', currentValue);
+            updateStudentOptions();
+            initiatorSelect.disabled = !currentValue;
+            updateInitiatorOptions(initiatorSelect);
+        };
+
+        initiatorCell.appendChild(initiatorSelect);
+
+        const actionCell = document.createElement('td');
+        actionCell.className = "px-4 py-2 text-center";
+        const removeButton = document.createElement('button');
+        removeButton.type = "button";
+        removeButton.textContent = "Supprimer";
+        removeButton.className = "bg-red-500 text-white px-4 py-2 rounded shadow";
+        removeButton.onclick = () => {
+            usedStudents.delete(studentSelect.value);
+            const initiatorId = initiatorSelect.value;
+            if (initiatorId) {
+                initiatorCounts[initiatorId] = Math.max(0, (initiatorCounts[initiatorId] || 0) - 1);
+            }
+            row.remove();
+            updateStudentOptions();
+            updateInitiatorOptions(initiatorSelect);
+        };
+
+        actionCell.appendChild(removeButton);
+
+        row.appendChild(studentCell);
+        row.appendChild(aptitudeCell);
+        row.appendChild(initiatorCell);
+        row.appendChild(actionCell);
+
+        tableBody.appendChild(row);
+
+        updateStudentOptions();
+    }
+
+    function addAptitude(cell, studentId) {
+        const aptitudeRow = document.createElement('div');
+        aptitudeRow.className = "flex items-center space-x-2 mt-2";
+
+        const select = document.createElement('select');
+        select.className = "shadow border rounded w-full py-2 px-3 text-gray-700";
+        select.name = `competences[${studentId}][]`;
+
+        skillsData.forEach(skill => {
+            const option = document.createElement('option');
+            option.value = skill.APT_ID;
+            option.textContent = skill.APT_LIBELLE;
+            select.appendChild(option);
+        });
+
+        const removeButton = document.createElement('button');
+        removeButton.type = "button";
+        removeButton.textContent = "Retirer";
+        removeButton.className = "bg-red-500 text-white px-4 py-2 rounded shadow";
+        removeButton.onclick = () => aptitudeRow.remove();
+
+        aptitudeRow.appendChild(select);
+        aptitudeRow.appendChild(removeButton);
+
+        cell.insertBefore(aptitudeRow, cell.lastElementChild);
+    }
+
+    function updateStudentOptions() {
+        const studentSelects = document.querySelectorAll('select[name="student[]"]');
+        studentSelects.forEach(studentSelect => {
+            let selected = studentSelect.selectedOptions[0].value
+            const studentOptions = studentSelect.querySelectorAll('option');
+            studentOptions.forEach(option => {
+                const studentId = option.value;
+                if (usedStudents.has(studentId) && studentId != selected) {
+                    option.disabled = true;
+                } else {
+                    option.disabled = false;
+                }
+            });
+        });
+    }
+
+    function updateInitiatorOptions(select) {
+        const initiatorSelects = document.querySelectorAll('select[name="initiator[]"]');
+        initiatorSelects.forEach(initiatorSelect => {
+            const initiatorOptions = initiatorSelect.querySelectorAll('option');
+            initiatorOptions.forEach(option => {
+                const initiatorId = option.value;
+                const count = initiatorCounts[initiatorId] || 0;
+                if (count >= 2) {
+                    option.disabled = true;
+                } else {
+                    option.disabled = false;
+                }
+            });
+        });
+    }
+
+    oldStudents.forEach((studentId, index) => {
+        addStudentRow();
+        const studentSelect = document.querySelectorAll('select[name="student[]"]')[index];
+        const initiatorSelect = document.querySelectorAll('select[name="initiator[]"]')[index];
+        const studentCompetences = oldCompetences[studentId] || [];
+        const initiatorId = oldInitiators[index] || "";
+
+        studentSelect.value = studentId;
+        initiatorSelect.value = initiatorId;
+
+        studentCompetences.forEach(competence => {
+            const cell = studentSelect.closest('tr').children[1];
+            addAptitude(cell, studentId);
+        });
     });
 });
-

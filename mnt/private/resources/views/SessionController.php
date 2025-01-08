@@ -48,14 +48,14 @@ class SessionController extends Controller
             var_dump($studentId1);
             var_dump($aptitudes2);
     
-            /*Lesson::insertLesson($for_id, $date, $studentId1, $studentId2, $initiatorId, $aptitudes1, $aptitudes2);*/
+            Lesson::insertLesson($for_id, $date, $studentId1, $studentId2, $initiatorId, $aptitudes1, $aptitudes2);
     
             if (($i / 2 + 1) % 2 == 0) {
                 $teacherIndex++;
             }
         }
     
-        /*return redirect('/')->with('success', 'La session a été créée avec succès.');*/
+        return redirect('/')->with('success', 'La session a été créée avec succès.');
     }
     
 }
