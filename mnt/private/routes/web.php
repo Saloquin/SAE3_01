@@ -10,6 +10,7 @@ use App\Http\Controllers\Profile;
 use App\Http\Controllers\SessionDetails;
 use App\Http\Controllers\SessionRating;
 use App\Http\Controllers\SkillsManagement;
+use App\Http\Controllers\SkillsDetails;
 use App\Http\Controllers\TraineeList;
 use App\Http\Controllers\TrainingDetails;
 use App\Http\Controllers\ttInitiatorController;
