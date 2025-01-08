@@ -7,7 +7,7 @@ use App\Models\ttModel;
 
 session_start();
 
-class ttStudentController extends Controller
+class Trainee extends Controller
 {
     function show(){
         //var_dump(Uti::getInitiatorById(2));
@@ -19,6 +19,6 @@ class ttStudentController extends Controller
             array_push($arr, $row->uti_nom);
             array_push($arr, $row->uti_prenom);
         }
-        return view('ttStudentView', compact('arr'));
+        return view('trainee', compact('arr'));
     }
 }

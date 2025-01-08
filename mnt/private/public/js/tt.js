@@ -15,7 +15,7 @@ for (let i = 0; i < sessionData.length; i += 4) {
     };
     data.push(record);
 }
-
+console.log(data);
 // Get current date and initialize the month/year
 let currentDate = new Date();
 let currentMonth = currentDate.getMonth();

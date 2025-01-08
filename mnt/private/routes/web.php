@@ -3,8 +3,9 @@
 use App\Http\Controllers\Connexion;
 use App\Http\Controllers\edtInitiateurController;
 use App\Http\Controllers\ttInitiatorController;
-use App\Http\Controllers\ttStudentController;
+use App\Http\Controllers\trainee;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\initiator;
 use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\DirectorAddAccountController;
