@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\AbilitiesList;
+use App\Http\Controllers\AddAbility;
+use App\Http\Controllers\AddSkill;
+use App\Http\Controllers\SkillsDetails;
+use App\Http\Controllers\SkillsList;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AddTraining;
 use App\Http\Controllers\AddUser;
@@ -36,6 +41,12 @@ use App\Http\Controllers\DirectorAddAccountController;
 
 Route::get('', [Connexion::class, 'show']);   //Connection
 Route::get('profile', [Profile::class, 'show']);
+
+// Admin
+Route::get('admin/gestion-competences', [SkillsList::class, 'show']);
+Route::get('admin/details-competence', [AbilitiesList::class, 'show']);
+Route::get('admin/ajouter-competence', [AddSkill::class, 'show']);
+Route::get('admin/ajouter-aptitude', [AddAbility::class, 'show']);
 
 // Director
 Route::get('directeur', [Director::class, 'show']); // TODO : add navbar in controller
