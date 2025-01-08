@@ -6,6 +6,11 @@
     <title>Création d'un cours de plongée</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
+<?php
+require_once('../resources/includes/header.php');
+?>
+
 <body class="flex items-center flex-col bg-blue-50 p-6">
     <h1 class="mb-10 text-4xl font-bold text-blue-700">Création d'une séance de plongée</h1>
 
@@ -61,4 +66,9 @@
     <script src="{{ asset('js/CreateSession.js') }}"></script>
 
 </body>
+
+<?php
+require_once('../resources/includes/footer.php');
+?>
+
 </html>
