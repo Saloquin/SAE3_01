@@ -75,6 +75,7 @@ Route::get('initiateur/evaluation-seance', [SessionRating::class, 'show'])->name
 Route::get('initiateur/liste-eleves', [TraineeList::class, 'show'])->name('initiateur.liste-eleves');
 Route::post('initiateur/liste-eleves', [TraineeList::class, 'show'])->name('initiateur.liste-eleves');
 Route::post('initiateur/evaluation-seance', [SessionRating::class, 'show']);
+Route::post('/traitement_validation_aptitudes', [SessionRating::class, 'updateStudentSkillForSession']); // ne pas supprimer PITIÉ
 
 // Trainee
 Route::get('eleve', [Trainee::class, 'show'])->name('eleve.show');

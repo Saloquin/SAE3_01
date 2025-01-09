@@ -33,7 +33,7 @@ Class SessionRating extends Controller{
         $skills2 = Lesson::getStudentSkillsAtSession($sessionId, $studentId2);
 
         return view('valider_aptitudes', ['sessionId' => $sessionId, 'session' => $session, 'studentId1' => $studentId1, 'studentId2' => $studentId2,
-            'student1' => $student1, 'student2' => $student2, 'skills1' => $skills1, 'skills2' => $skills2]);
+                                          'student1' => $student1, 'student2' => $student2, 'skills1' => $skills1, 'skills2' => $skills2]);
     }
 
     public function updateStudentSkillForSession(Request $request) {
