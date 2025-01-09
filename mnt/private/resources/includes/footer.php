@@ -9,7 +9,7 @@
 </head>
 <body>
     <footer id="footer">
-        <small> Copyright @ . Tous droits réservés </small>
+        <small> Copyright @ Journal de Plongée. </small>
     </footer>
 </body>
 </html>

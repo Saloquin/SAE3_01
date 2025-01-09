@@ -96,9 +96,7 @@ function rateCourse(date){
     sessionData.forEach((elem, index) => {
         const infoData = info[index];
         if (elem == date){
-            const form = document.createElement('form');
-            form.action = 'verify_id.html'; 
-            form.method = 'POST';
+            const form = document.getElementById('formulaire');
         
             const idInput = document.createElement('input');
             idInput.type = 'hidden';

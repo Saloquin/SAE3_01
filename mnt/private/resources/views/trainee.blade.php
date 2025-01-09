@@ -13,9 +13,6 @@
         const tt = 1;
     </script>
 </head>
-<?php
-require_once('../resources/includes/header.php');
-?>
 
 <body class="flex flex-col items-center triomphe">
 <p class=" triomphe text-[6vw] lg:text-[2vw]">Panel élève</p>
@@ -50,8 +47,6 @@ require_once('../resources/includes/header.php');
         var sessionData = @json($arr);
     </script>
     <script src="{{ asset('js/tt.js') }}"></script>
-
-<button class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Mes compétences</button>
 
 <?php
 require_once('../resources/includes/footer.php');

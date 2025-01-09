@@ -13,13 +13,12 @@ use App\Models\Level;
 use App\Mail\UserCreatedMail;
 use Illuminate\Support\Facades\Mail;
 
-class DirectorController extends Controller
+class ProfileController extends Controller
 {
 
     public function index()
     {
-        session_start();
-        $clubId = Uti::find($_SESSION["id"])->CLU_ID;
+        $clubId = 1;
         $students = Uti::getStudent()->where('CLU_ID', $clubId);
         $teachers = Uti::getTeacher()->where('CLU_ID', $clubId);
         $levels = Level::whereNotNull('NIV_DESCRIPTION')->get();
@@ -110,25 +109,15 @@ class DirectorController extends Controller
             'UTI_MAIL' => 'required|email|unique:utilisateur,UTI_MAIL|max:255',  
             'lvl' => 'required|exists:niveau,NIV_ID',  
             'init' => 'required|boolean',  
-            'clubId' => 'required|exists:club,CLU_ID', 
-            'UTI_DATE_NAISSANCE' => 'required|date',
-            'UTI_DATE_CERTIFICAT' => 'required|date',
-            'UTI_CODE_POSTAL' => 'required|string',
-            'UTI_VILLE' => 'required|string',
-            'UTI_RUE' => 'required|string',
+            'clubId' => 'required|exists:club,CLU_ID' 
         ]);
+        
         if ($validated['lvl'] < 2 && $validated['init'] == 1) {
             return redirect()->route('profile')->with('failed', "L'utilisateur ne peut pas être un initiateur si son niveau est inférieur à 2.");
 
         }
 
-        if (!ctype_digit($validated['UTI_CODE_POSTAL'])) {
-            return redirect()->route('profile')->with('failed', "Le code postal doit contenir uniquement des chiffres.");
-        }
-
-        
-
-        $password = Str::random(16);
+        $password = Str::random(8);
         
         Uti::create([
             'UTI_NOM' => $validated['UTI_NOM'],
@@ -137,21 +126,16 @@ class DirectorController extends Controller
             'NIV_ID' => $validated['lvl'], 
             'UTI_EST_INIT' => $validated['init'],  
             'CLU_ID' => $validated['clubId'],  
-            'UTI_MDP' => md5($password),
-            'UTI_DATE_NAISS' => $validated['UTI_DATE_NAISSANCE'],
-            'UTI_DATE_CERTIF' => $validated['UTI_DATE_CERTIFICAT'],
-            'UTI_CP' => $validated['UTI_CODE_POSTAL'],
-            'UTI_VILLE' => $validated['UTI_VILLE'],
-            'UTI_RUE' => $validated['UTI_RUE'],
+            'UTI_MDP' => $password, 
         ]);
         
-       Mail::to($validated['UTI_MAIL'])->send(new UserCreatedMail([
+       /* Mail::to($validated['UTI_MAIL'])->send(new UserCreatedMail([
             'name' => $validated['UTI_PRENOM'] . ' ' . $validated['UTI_NOM'],
             'email' => $validated['UTI_MAIL'],
             'password' => $password,
-        ]));
+        ]));*/
         
-        return redirect()->route('profile')->with('success', "L'utilisateur a été créé.");
+        return redirect()->route('profile')->with('success', "L'utilisateur a été créé. son mot de passe est ".$password);
     }
 
     
