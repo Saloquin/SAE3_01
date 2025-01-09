@@ -109,6 +109,17 @@ iframe[seamless] {
     border: none;
 }
 
+footer div{
+    padding: auto;
+}
+
+#github{
+    display: block;
+    margin: auto;
+    margin-bottom: 10px;
+    max-width: 20px;
+}
+
 /*********************** TYPOGRAPHY ***********************/
 
 @font-face {
