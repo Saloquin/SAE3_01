@@ -14,10 +14,7 @@
 
 <body class="flex flex-col items-center triomphe">
 
-    <?php
-require_once('../resources/includes/header.php');
-?>
-    
+
     <p class=" triomphe text-[6vw] lg:text-[2vw] mb-[10vh]">Gestion des utilisateurs</p>
 
     <div class=" flex flex-col justify-between ">
@@ -59,7 +56,7 @@ require_once('../resources/includes/header.php');
                         <td class="table_cell">{{ $user->UTI_CP }}</td>
                         <td class="table_cell">{{ $user->UTI_RUE }}</td>
                         <td>
-                            <form action="{{ route('directeur.modifier-utilisateur') }}" method="post">
+                            <form action="{{ route('directeur.gestion-utilisateur') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="UTI_ID" value="{{ $user->UTI_ID }}">
                                 <button type="submit"

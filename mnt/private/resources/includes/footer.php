@@ -8,7 +8,7 @@
     <script src="./js/tailwind.config.js"></script>
 </head>
 <body>
-    <footer id="footer">
+    <footer>
         <small> Copyright @ Journal de Plongée. </small>
     </footer>
 </body>

@@ -10,11 +10,15 @@ class addAptController extends Controller
 {
     public function show(){
         session_start();
+
+        if(!isset($_SESSION['id'])){
+            header('Location: /connexion');
+            exit;
+        }
+
         require_once('../resources/includes/header.php');
-        if(isset($_SESSION['director'])){ require_once('../resources/includes/navbar/navbar_director.php'); }
-        if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
-        if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
-        if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
+        require_once('../resources/includes/navbar/navbar_admin.php');
+
         $req = Competence::getCompetencies();
         //var_dump($levels);
         $comp = [];
@@ -23,7 +27,7 @@ class addAptController extends Controller
             array_push($comp, $str);
         }
         return view('addAptView', compact('comp'));
-    } 
+    }
 
     public function add(Request $request){
         $selection = $request->input('selection');
@@ -35,8 +39,8 @@ class addAptController extends Controller
             session()->flash('error', 'Une erreur est survenue lors de l\'ajout.');
         }
         //dd($selection+1, $text);
-        return redirect()->route('superadmin');
-        
-        
+        return redirect()->route('superadmin.addapt');
+
+
     }
 }

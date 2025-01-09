@@ -11,6 +11,11 @@ Class SessionRating extends Controller{
     public function show(Request $request) {
         session_start();
 
+        if(!isset($_SESSION['id'])){
+            header('Location: /connexion');
+            exit;
+        }
+
         require_once('../resources/includes/header.php');
         if(isset($_SESSION['director'])){ require_once('../resources/includes/navbar/navbar_director.php'); }
         if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
@@ -33,7 +38,7 @@ Class SessionRating extends Controller{
         $skills2 = Lesson::getStudentSkillsAtSession($sessionId, $studentId2);
 
         return view('valider_aptitudes', ['sessionId' => $sessionId, 'session' => $session, 'studentId1' => $studentId1, 'studentId2' => $studentId2,
-            'student1' => $student1, 'student2' => $student2, 'skills1' => $skills1, 'skills2' => $skills2]);
+                                          'student1' => $student1, 'student2' => $student2, 'skills1' => $skills1, 'skills2' => $skills2]);
     }
 
     public function updateStudentSkillForSession(Request $request) {

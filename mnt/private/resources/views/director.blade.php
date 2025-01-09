@@ -11,13 +11,11 @@
 
 <body class="flex flex-col items-center triomphe">
 
-
-
     <p class=" triomphe text-[6vw] lg:text-[2vw]">Panel directeur</p>
     <p class="mb-[7vh] triomphe text-[6vw] lg:text-[2vw]">{{$me->UTI_PRENOM}} {{$me->UTI_NOM}}</p>
 
-    <div class=" flex flex-col justify-between ">
-        <div class="flex flex-row justify-between mb-[1vh]">
+    <div class=" flex flex-col">
+        <div class="flex lg:flex-row flex-col lg:justify-between items-center mb-[1vh]">
             <p class="triomphe text-[3vw] lg:text-[1.3vw]">Liste des formations</p>
             <form action="{{route('directeur.ajouter-formation')}}" method="get">
                 @csrf
@@ -59,12 +57,12 @@
                             <form action="{{route('directeur.gestion-eleve')}}" method="post">
                                 @csrf
                                 <input type="hidden" name="FOR_ID" value="{{ $formation->FOR_ID }}">
-                                <button type="submit"
+                               <button type="submit"
                                     class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Liste
                                     des élèves</button>
                             </form>
                         </td>
-                        
+
                     <td>
                         <form action="{{route('directeur.gestion-responsable')}}" method="post" >
                             @csrf

@@ -14,6 +14,12 @@ class TraineeListFormation extends Controller
     public function show(Request $request)
     {
         session_start();
+
+        if(!isset($_SESSION['id'])){
+            header('Location: /connexion');
+            exit;
+        }
+
         require_once('../resources/includes/header.php');
         if(isset($_SESSION['director'])){ require_once('../resources/includes/navbar/navbar_director.php'); }
         if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
@@ -62,6 +68,8 @@ class TraineeListFormation extends Controller
             'UTI_ID' => 'required|exists:UTILISATEUR,UTI_ID',
         ]);
 
+
+
         $formationId = $request->input('FOR_ID');
         $studentId = $request->input('UTI_ID');
 
@@ -73,31 +81,20 @@ class TraineeListFormation extends Controller
             return $this->show($request);
         }
 
-        $learnCount = Learn::where('FOR_ID', $formationId)->count();
-        if ($learnCount >= 10) {
-            return $this->show($request);
-        }
-
         Learn::create([
             'UTI_ID' => $studentId,
             'FOR_ID' => $formationId,
         ]);
 
+
         $formation = Formation::find($formationId);
         $listSkills = DB::select("select apt_id, apt_libelle from APTITUDE join COMPETENCE using(com_id) where niv_id = ? order by com_id, apt_id", [$formation->NIV_ID]);
         foreach ($listSkills as $skill) {
-            $existingValidation = DB::table('VALIDER')
-            ->where('UTI_ID', $studentId)
-            ->where('APT_ID', $skill->apt_id)
-            ->first();
-
-            if (!$existingValidation) {
             DB::table('VALIDER')->insert([
                 'UTI_ID' => $studentId,
                 'APT_ID' => $skill->apt_id,
                 'VAL_STATUT' => 'en cours',
             ]);
-            }
         }
         return $this->show($request);
     }
