@@ -95,7 +95,7 @@ class TraineeListFormation extends Controller
             DB::table('VALIDER')->insert([
                 'UTI_ID' => $studentId,
                 'APT_ID' => $skill->apt_id,
-                'VAL_STATUT' => 'en cours',
+                'VAL_STATUT' => 'En cours',
             ]);
             }
         }
