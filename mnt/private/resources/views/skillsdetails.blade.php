@@ -93,9 +93,6 @@
                 $code .= '</tr>';
                 $j++;
             }
-            }else{
-                echo 'Aucun cours';
-            }
             echo $code;
             ?>
         </tbody>
