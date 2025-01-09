@@ -20,6 +20,7 @@ use App\Http\Controllers\SessionManagement;
 use App\Http\Controllers\SkillsManagement;
 use App\Http\Controllers\SkillsDetails;
 use App\Http\Controllers\TraineeList;
+use App\Http\Controllers\Trainee;
 use App\Http\Controllers\TrainingDetails;
 use App\Http\Controllers\Initiator;
 use App\Http\Controllers\SessionRating;
@@ -51,17 +52,16 @@ use App\Http\Controllers\UpdtCompController;
 //NAVIGATION
 
 Route::get('', [Connexion::class, 'show']);
-Route::get('connexion', [Connexion::class, 'show'])->name('connexion');   //Connection
+Route::get('connexion', [Connexion::class, 'show'])->name('connexion');
 Route::get('profile', [Profile::class, 'show'])->name('profile');
-
 Route::get('edit-profile', [EditProfile::class, 'show'])->name('edit-profile');
+
 // Admin
 Route::get('admin', [SkillsList::class, 'show']);
 Route::get('admin/details-competence', [AbilitiesList::class, 'show']);
 Route::post('admin/details-competence', [AbilitiesList::class, 'show']);
 Route::get('admin/ajouter-competence', [AddSkill::class, 'show']);
 Route::get('admin/ajouter-aptitude', [AddAbility::class, 'show']);
-
 
 // Director
 Route::get('directeur', [Director::class, 'show'])->name('directeur');
@@ -70,9 +70,6 @@ Route::get('directeur/valider-niveau', [LevelConfirmation::class, 'show'])->name
 Route::get('directeur/gestion-utilisateur', [UserManagement::class, 'show'])->name('directeur.gestion-utilisateur');
 Route::get('directeur/ajouter-utilisateur', [AddUser::class, 'show'])->name('directeur.ajouter-utilisateur');
 Route::get('directeur/ajouter-formation', [AddTraining::class, 'show'])->name('directeur.ajouter-formation');
-Route::get('directeur/modifier-formation', [EditTraining::class, 'show'])->name('directeur.modifier-formation');
-
-
 
 // Training Manager
 Route::get('responsable-formation', [Manager::class, 'show'])->name('responsable.show');
