@@ -9,10 +9,6 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 
-<?php
-require_once('../resources/includes/header.php');
-?>
-
 <body class="flex flex-col items-center triomphe">
 <p class=" triomphe text-[6vw] lg:text-[2vw]">Synthèse des aptitudes et des compétences</p>
 <p class="mb-[7vh] triomphe text-[6vw] lg:text-[2vw]">Groupe Formation N1</p>

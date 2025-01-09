@@ -49,7 +49,7 @@ class Uti extends Model
     public static function getStudentByFormation()
     {
         return self::where('UTI_EST_INIT', 0)
-                    ->where('NIV_ID', 0)->get();
+            ->where('NIV_ID', 0)->get();
     }
 
     public static function getTeacher()
@@ -58,7 +58,7 @@ class Uti extends Model
     }
     public static function getInitiatorById($id){
         return self::where('uti_id', $id)
-                    ->where('uti_est_init', 1)->get();
+            ->where('uti_est_init', 1)->get();
     }
 
     public function club()
@@ -69,7 +69,7 @@ class Uti extends Model
     public function level()
     {
         return $this->belongsTo(Level::class, 'NIV_ID');
-    
+
     }
 
     public function learnings()
@@ -82,5 +82,5 @@ class Uti extends Model
         return $this->hasMany(Teach::class, 'UTI_ID');
     }
 
-    
+
 }

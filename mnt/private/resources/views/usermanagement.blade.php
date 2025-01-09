@@ -13,6 +13,7 @@
 
 
 <body class="flex flex-col items-center triomphe">
+
     <?php
 require_once('../resources/includes/header.php');
 ?>
