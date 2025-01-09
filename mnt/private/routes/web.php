@@ -90,7 +90,7 @@ Route::get('eleve', [Trainee::class, 'show'])->name('eleve.show');
 Route::get('eleve/details-seance', [SessionDetails::class, 'show'])->name('eleve.details-seance');
 Route::get('eleve/details-aptitudes', [SkillsDetails::class, 'show'])->name('eleve.details-aptitudes');
 
-Route::get('/edt', [ttInitiatorController::class, 'tt'])->name('ttInitiatorController.tt');
+//Route::get('/edt', [ttInitiatorController::class, 'tt'])->name('ttInitiatorController.tt');
 
 
 
@@ -118,7 +118,7 @@ Route::post('directeur/modifier-utilisateur', [EditUser::class, 'show'])->name('
 
 Route::post('directeur/gestion-responsable', [Director::class, 'editResponsable'])->name('directeur.gestion-responsable');
 
-Route::post('SessionManager/TraitementCreationSession', [SessionController::class, 'executeRequest'])->name('sessionManager.traitementCreationSession');
+//Route::post('SessionManager/TraitementCreationSession', [SessionController::class, 'executeRequest'])->name('sessionManager.traitementCreationSession');
 
 //Superadmin
 Route::get('/superadmin', [supAdminController::class, 'show'])->name('superadmin');
@@ -132,7 +132,7 @@ Route::get('director_panel', function(){
     return view('director_panel');
 });
 
-Route::get('/edt', [ttInitiatorController::class, 'tt']);
+//Route::get('/edt', [ttInitiatorController::class, 'tt']);
 
 Route::get('/tt', function(){
     return view('ttInitiatorView');
