@@ -23,6 +23,7 @@ body{
     margin: 0;
     overflow: hidden; /* Prevent overflow */
     flex-direction: column;
+    flex: 1;
 }
 
 /* Calendar Container */
