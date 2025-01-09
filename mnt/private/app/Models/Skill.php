@@ -39,8 +39,8 @@ class Skill extends Model
         return $result;
     }
 
-    public static function getSkillByFormationLevel(){
-        $users = DB::select('select * from APTITUDE where COM_ID in (SELECT COM_ID FROM FORMATION WHERE NIV_ID = ?)', [1]);
+    public static function getSkillByFormationLevel($formationLevel){
+        $users = DB::select('select * from APTITUDE where COM_ID in (SELECT COM_ID FROM FORMATION WHERE NIV_ID = ?)', [$formationLevel]);
         return $users;
     }
 
