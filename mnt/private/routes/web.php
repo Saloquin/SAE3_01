@@ -24,7 +24,6 @@ use App\Http\Controllers\TrainingDetails;
 use App\Http\Controllers\Initiator;
 use App\Http\Controllers\SessionRating;
 use App\Http\Controllers\SessionDetails;
-use App\Http\Controllers\SkillsDetails;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\DirectorController;
