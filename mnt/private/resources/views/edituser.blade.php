@@ -9,10 +9,6 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 
-<?php
-require_once('../resources/includes/header.php');
-?>
-
 <body class="triomphe flex flex-col items-center">
     @if (session('success') || session('failed'))
         <div class="flex flex-row mb-[2vh]">
