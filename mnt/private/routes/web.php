@@ -18,11 +18,13 @@ use App\Http\Controllers\EditTraining;
 use App\Http\Controllers\Manager;
 use App\Http\Controllers\SessionManagement;
 use App\Http\Controllers\SkillsManagement;
+use App\Http\Controllers\SkillsDetails;
+use App\Http\Controllers\TraineeList;
+use App\Http\Controllers\Trainee;
 use App\Http\Controllers\TrainingDetails;
 use App\Http\Controllers\Initiator;
 use App\Http\Controllers\SessionRating;
 use App\Http\Controllers\SessionDetails;
-use App\Http\Controllers\SkillsDetails;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\DirectorController;
@@ -33,8 +35,8 @@ use App\Http\Controllers\addAptController;
 use App\Http\Controllers\addCompController;
 use App\Http\Controllers\EditProfile;
 use App\Http\Controllers\EditUser;
-use App\Http\Controllers\Trainee;
-use App\Http\Controllers\TraineeList;
+use App\Http\Controllers\UpdtAptController;
+use App\Http\Controllers\UpdtCompController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,18 +52,16 @@ use App\Http\Controllers\TraineeList;
 //NAVIGATION
 
 Route::get('', [Connexion::class, 'show']);
-Route::get('connexion', [Connexion::class, 'show'])->name('connexion');   //Connection
+Route::get('connexion', [Connexion::class, 'show'])->name('connexion');
 Route::get('profile', [Profile::class, 'show'])->name('profile');
-
-
 Route::get('edit-profile', [EditProfile::class, 'show'])->name('edit-profile');
+
 // Admin
 Route::get('admin', [SkillsList::class, 'show']);
 Route::get('admin/details-competence', [AbilitiesList::class, 'show']);
 Route::post('admin/details-competence', [AbilitiesList::class, 'show']);
 Route::get('admin/ajouter-competence', [AddSkill::class, 'show']);
 Route::get('admin/ajouter-aptitude', [AddAbility::class, 'show']);
-
 
 // Director
 Route::get('directeur', [Director::class, 'show'])->name('directeur');
@@ -70,9 +70,6 @@ Route::get('directeur/valider-niveau', [LevelConfirmation::class, 'show'])->name
 Route::get('directeur/gestion-utilisateur', [UserManagement::class, 'show'])->name('directeur.gestion-utilisateur');
 Route::get('directeur/ajouter-utilisateur', [AddUser::class, 'show'])->name('directeur.ajouter-utilisateur');
 Route::get('directeur/ajouter-formation', [AddTraining::class, 'show'])->name('directeur.ajouter-formation');
-Route::get('directeur/modifier-formation', [EditTraining::class, 'show'])->name('directeur.modifier-formation');
-
-
 
 // Training Manager
 Route::get('responsable-formation', [Manager::class, 'show'])->name('responsable.show');
@@ -84,7 +81,7 @@ Route::post('responsable-formation/details-formation', [TrainingDetails::class, 
 // Trainer
 Route::get('initiateur', [Initiator::class, 'show'])->name('initiateur.show');
 Route::get('initiateur/evaluation-seance', [SessionRating::class, 'show'])->name('initiateur.evaluation-seance');
-Route::get('initiateur/liste-eleves', [TraineeList::class, 'show'])->name('initiateur.liste-eleves');
+Route::get('initiateur/liste-eleves', [TrainingDetails::class, 'show'])->name('initiateur.liste-eleves');
 Route::post('initiateur/liste-eleves', [TraineeList::class, 'show'])->name('initiateur.liste-eleves');
 Route::post('initiateur/evaluation-seance', [SessionRating::class, 'show']);
 Route::post('/traitement_validation_aptitudes', [SessionRating::class, 'updateStudentSkillForSession']); // ne pas supprimer PITIÉ
@@ -144,6 +141,11 @@ Route::get('superadmin', [addCompController::class, 'show'])->name('superadmin.a
 Route::get('/superadmin/ajoutaptitude', [addAptController::class, 'show'])->name('superadmin.addapt');
 Route::post('/superadmin/ajoutcompetence/form', [addCompController::class, 'add'])->name('superadmin.addcompform');
 Route::post('/superadmin/ajoutaptitude/form', [addAptController::class, 'add'])->name('superadmin.addaptform');
+Route::get('/superadmin/modifcompetence', [UpdtCompController::class, 'show'])->name('superadmin.updtcomp');
+Route::get('/superadmin/modifaptitude', [UpdtAptController::class, 'show'])->name('superadmin.updtapt');
+Route::post('/superadmin/modifcompetence/form', [UpdtCompController::class, 'updt'])->name('superadmin.updtcompform');
+Route::post('/superadmin/modifaptitude/form', [UpdtAptController::class, 'updt'])->name('superadmin.updtaptform');
+
 
 /* Route::get('/superadmin/details-competence', [AbilitiesList::class, 'show']);
 Route::post('/superadmin/details-competence', [AbilitiesList::class, 'show']); */

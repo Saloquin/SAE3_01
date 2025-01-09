@@ -18,6 +18,7 @@ Class Connexion extends Controller{
         session_unset();
         if(isset($_SESSION['id'])){
             if($_SESSION['id'] == "A-00-000000"){
+
                 header('Location: superadmin');
                 exit;
             }
@@ -35,6 +36,7 @@ Class Connexion extends Controller{
         foreach ($_SESSION['active_formations'] as $formation) {
             if($formation->UTI_ID == $_SESSION['id']){
                 $_SESSION['manager'] = true;
+                $_SESSION['formation_level'] = $formation->NIV_ID;
                 header('Location: responsable-formation');
                 exit;
                 // redirect to training manageur home
@@ -66,8 +68,10 @@ Class Connexion extends Controller{
         $licence = $request->input('licence');
         $password = $request->input('password');
         if(isset($licence) && isset($password)){
+
             $res = DB::select('select * from UTILISATEUR where uti_licence = ? and uti_mdp = ?',[$licence,md5($password)]);
             if($licence == "A-00-000000"){
+
                 $_SESSION['id'] = $res[0]->UTI_ID;
                 header('Location: superadmin');
                 exit;
