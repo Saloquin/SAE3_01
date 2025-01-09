@@ -19,53 +19,46 @@ require_once('../resources/includes/header.php');
 
 <div class=" flex flex-col justify-between ">
 
-    <table class="border-[0.1vw] rounded-[0.5vw] border-[#1962A1] mb-[10vh] border-separate border-spacing-[0.5vw]">
+<table class="border-[0.1vw] rounded-[0.5vw] border-[#1962A1] mb-[10vh] border-separate border-spacing-[0.5vw]">
         <thead>
         <tr>
+            <th></th>
             <th rowspan="2"></th>
-            <th class="table_header bg-green-400" colspan="3">C1</th>
-            <th class="table_header bg-orange-300" colspan="3">C2</th>
-            <th class="table_header bg-orange-300" colspan="3">C3</th>
+
+            <?php
+                $code = ''; 
+                $compIndex = 1;
+                foreach ($listCompetence as $comp) {
+                    $code .= '<th class="table_header" ';
+                    $code .= 'colspan="' . $comp->nb . '">';
+                    $code .= 'C'. $compIndex . '</th>';
+
+                    $compIndex++;
+                }
+                echo $code;
+            ?>
         </tr>
         <tr>
-            <th class="table_header bg-green-400">A11</th>
-            <th class="table_header bg-green-400">A12</th>
-            <th class="table_header bg-green-400">A13</th>
-            <th class="table_header bg-green-400">A21</th>
-            <th class="table_header bg-orange-300">A22</th>
-            <th class="table_header bg-green-400">A23</th>
-            <th class="table_header bg-orange-300">A31</th>
-            <th class="table_header bg-green-400">A32</th>
-            <th class="table_header bg-orange-300">A33</th>
+                <th></th>
+            <?php
+                $code = ''; 
+                $compIndex = 1;
+                foreach ($listCompetence as $comp) {
+                    for ($i = 1; $i <= $comp->nb; $i++) {
+                        $code .= '<th class="table_header">A'. $compIndex . $i . '</th>';
+                    }
+                    $compIndex++;
+                }
+                echo $code;
+            ?>
         </tr>
         </thead>
         <tbody>
-        <tr class="">
-            <th class="table_cell">22/10/18</th>
-            <td class="table_cell bg-orange-300">En cours</td>
-            <td class="table_cell"></td>
-            <td class="table_cell"></td>
-            <td class="table_cell bg-orange-300">En cours</td>
-            <td class="table_cell"></td>
-            <td class="table_cell"></td>
-            <td class="table_cell"></td>
-            <td class="table_cell bg-green-400">Acquis</td>
-            <td class="table_cell"></td>
-        </tr>
-        <tr class="">
-            <th class="table_cell">29/10/18</th>
-            <td class="table_cell bg-orange-300">En cours</td>
-            <td class="table_cell"></td>
-            <td class="table_cell"></td>
-            <td class="table_cell bg-orange-300">En cours</td>
-            <td class="table_cell"></td>
-            <td class="table_cell"></td>
-            <td class="table_cell"></td>
-            <td class="table_cell bg-green-400">Acquis</td>
-            <td class="table_cell"></td>
-        </tr>
+            
+            <!-- cases/lignes ici-->
         </tbody>
     </table>
+
 </div>
 
 <button class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Gestion des comptes</button>
