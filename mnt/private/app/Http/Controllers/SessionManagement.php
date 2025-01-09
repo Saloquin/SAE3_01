@@ -70,7 +70,7 @@ class SessionManagement extends Controller
         }
 
         session_start();
-        require_once('../resources/includes/header.php');
+        /*require_once('../resources/includes/header.php');*/
         if(isset($_SESSION['director'])){ require_once('../resources/includes/navbar/navbar_director.php'); }
         if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
         if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
@@ -79,9 +79,6 @@ class SessionManagement extends Controller
         $skills = Skill::getSkillByFormationLevel();
         $students = Uti::getStudent();
         $initiators = Uti::getTeacher();
-
-        return view('sessionmanagement', ['skills' => $skills, 'student' => $students, 'initiator' => $initiators]);
-    }
 
         return view('gestionseance', [
             'skills' => $skills,
