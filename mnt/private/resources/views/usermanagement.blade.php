@@ -14,6 +14,7 @@
 
 <body class="flex flex-col items-center triomphe">
 
+
     <p class=" triomphe text-[6vw] lg:text-[2vw] mb-[10vh]">Gestion des utilisateurs</p>
 
     <div class=" flex flex-col justify-between ">
@@ -36,6 +37,9 @@
                     <th class="table_header">Niveau</th>
                     <th class="table_header">Certif.</th>
                     <th class="table_header">Nais.</th>
+                    <th class="table_header">Ville</th>
+                    <th class="table_header">CP</th>
+                    <th class="table_header">Adresse</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,6 +52,9 @@
                         <td class="table_cell">{{ $user->NIV_ID }}</td>
                         <td class="table_cell">{{ $user->UTI_DATE_CERTIF }}</td>
                         <td class="table_cell">{{ $user->UTI_DATE_NAISS }}</td>
+                        <td class="table_cell">{{ $user->UTI_VILLE }}</td>
+                        <td class="table_cell">{{ $user->UTI_CP }}</td>
+                        <td class="table_cell">{{ $user->UTI_RUE }}</td>
                         <td>
                             <form action="{{ route('directeur.gestion-utilisateur') }}" method="post">
                                 @csrf

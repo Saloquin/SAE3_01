@@ -10,6 +10,12 @@ class addCompController extends Controller
 {
     public function show(){
         session_start();
+
+        if(!isset($_SESSION['id'])){
+            header('Location: /connexion');
+            exit;
+        }
+
         require_once('../resources/includes/header.php');
         require_once('../resources/includes/navbar/navbar_admin.php');
 
@@ -24,9 +30,11 @@ class addCompController extends Controller
     }
 
     public function add(Request $request){
-        $selection = $request->input('selection');
+        $selection = $request->input('selectionText');
         $text = $request->input('texte');
-        $success = Competence::addNew($selection,$text);
+        preg_match('/^(\d+)/', $selection, $match);
+        $lvl = $match[1];
+        $success = Competence::addNew($lvl,$text);
         if ($success) {
             session()->flash('success', 'L\'élément a bien été ajouté!');
         } else {

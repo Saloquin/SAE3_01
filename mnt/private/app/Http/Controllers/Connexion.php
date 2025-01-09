@@ -11,7 +11,7 @@ Class Connexion extends Controller{
         session_start();
         session_unset();
         if(isset($_SESSION['id'])){
-            if($_SESSION['id'] == 10001){
+            if($_SESSION['id'] == 0){
                 header('Location: superadmin');
                 exit;
             }
@@ -61,7 +61,7 @@ Class Connexion extends Controller{
         $password = $request->input('password');
         if(isset($licence) && isset($password)){
             $res = DB::select('select * from UTILISATEUR where uti_id = ? and uti_mdp = ?',[$licence,md5($password)]);
-            if($licence == 10001){
+            if($licence == 0){
                 $_SESSION['id'] = $res[0]->UTI_ID;
                 header('Location: superadmin');
                 exit;

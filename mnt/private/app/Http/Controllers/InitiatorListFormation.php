@@ -12,31 +12,42 @@ Class InitiatorListFormation extends Controller{
 
     public function show(Request $request)
 {
-    
+    session_start();
+    require_once('../resources/includes/header.php');
+        if(isset($_SESSION['director'])){ require_once('../resources/includes/navbar/navbar_director.php'); }
+        if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
+        if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
+        if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
+
+    if(!isset($_SESSION['id'])){
+        header('Location: /connexion');
+        exit;
+    }
+
     $formation = Formation::findOrFail($request->input('FOR_ID'));
 
-    
+
     $teach = Teach::with('initiator')->where('FOR_ID', $request->input('FOR_ID'))->get();
 
-   
+
     $users = $teach->map(function ($teach) {
         return $teach->initiator;
     });
 
-    
+
     $formationLevel = $formation->level->NIV_ID ?? 0;
 
-    
+
     $teachIds = $teach->pluck('initiator.UTI_ID');
 
-    
+
     $usersPossible = Uti::whereNotIn('UTI_ID', $teachIds)
     ->where('UTI_EST_INIT', 1)
         ->where(function ($query) use ($formationLevel) {
             if ($formationLevel == 3) {
-                $query->where('NIV_ID', '=', 4);  
+                $query->where('NIV_ID', '=', 4);
             } else {
-                $query->where('NIV_ID', '>=', $formationLevel ); 
+                $query->where('NIV_ID', '>=', $formationLevel );
             }
         })
         ->get();
@@ -48,7 +59,7 @@ Class InitiatorListFormation extends Controller{
 
     public function add(Request $request)
     {
-        
+
         $validated = $request->validate([
             'FOR_ID' => 'required|exists:FORMATION,FOR_ID',
             'UTI_ID' => 'required|exists:UTILISATEUR,UTI_ID',
@@ -64,10 +75,10 @@ Class InitiatorListFormation extends Controller{
         return $this->show($request);
     }
 
-    
+
     public function remove(Request $request)
 {
-    
+
     $validated = $request->validate([
         'FOR_ID' => 'required|exists:FORMATION,FOR_ID',
         'UTI_ID' => 'required|exists:UTILISATEUR,UTI_ID',
@@ -93,7 +104,7 @@ Class InitiatorListFormation extends Controller{
     return $this->show($request);
 }
 
-    
+
 
 
 }

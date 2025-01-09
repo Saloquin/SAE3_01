@@ -5,11 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Uti;
 use App\Models\Lesson;
+use Illuminate\Support\Facades\DB;
 
 Class SessionRating extends Controller{
 
     public function show(Request $request) {
         session_start();
+
+        if(!isset($_SESSION['id'])){
+            header('Location: /connexion');
+            exit;
+        }
 
         require_once('../resources/includes/header.php');
         if(isset($_SESSION['director'])){ require_once('../resources/includes/navbar/navbar_director.php'); }
@@ -20,10 +26,31 @@ Class SessionRating extends Controller{
         $sessionId = $request->input('cou_id');
 
         if (!$sessionId) {
-            return view('valider_aptitudes', ['session' => -1]);
+            return view('valider_aptitudes', ['sessionId' => -1]);
         }
 
         $session = Lesson::getSessionById($sessionId);
+        
+        if ($session->COU_DATE > date('Y-m-d')) {
+            return view('valider_aptitudes', ['sessionId' => -2]);
+        }
+        
+        $allOldProgress = DB::select(" select mai_progress from COURS
+                                    join GROUPE using(cou_id)
+                                    join MAITRISER on GROUPE.cou_id = MAITRISER.cou_id and GROUPE.uti_id_elv1 = MAITRISER.uti_id
+                                    where cou_date < ? and uti_id_init = ?
+                                    union
+                                    select mai_progress from COURS
+                                    join GROUPE using(cou_id)
+                                    join MAITRISER on GROUPE.cou_id = MAITRISER.cou_id and GROUPE.uti_id_elv2 = MAITRISER.uti_id
+                                    where cou_date < ? and uti_id_init = ?", [$session->COU_DATE, $_SESSION['id'], $session->COU_DATE, $_SESSION['id']]);
+
+        foreach ($allOldProgress as $oldProgress) {
+            if ($oldProgress->mai_progress == 'non évaluée' || $oldProgress->mai_progress == 'Non évaluée') {
+                return view('valider_aptitudes', ['sessionId' => -3]);
+            }
+        }
+
         $studentsIds = Lesson::getStudentsOfInitiatorAtSession($sessionId, $_SESSION['id']);
         $studentId1 = $studentsIds[0];
         $studentId2 = $studentsIds[1];
