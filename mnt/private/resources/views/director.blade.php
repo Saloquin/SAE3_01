@@ -12,18 +12,7 @@
 
 <body class="flex flex-col items-center triomphe">
 
-    <form action="{{route('directeur.gestion-utilisateur')}}" method="get">
-        @csrf
-        <button type="submit"
-            class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Gestion des
-            comptes</button>
-    </form>
-    <form action="{{route('directeur.gestion-formation')}}" method="get">
-        @csrf
-        <button type="submit"
-            class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Gestion des
-            formations</button>
-    </form>
+
 
 
     <p class=" triomphe text-[6vw] lg:text-[2vw]">Panel directeur</p>

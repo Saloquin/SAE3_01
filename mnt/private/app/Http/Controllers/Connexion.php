@@ -24,8 +24,8 @@ Class Connexion extends Controller{
         }
         foreach ($_SESSION['active_formations'] as $formation) {
             if($formation->UTI_ID == $_SESSION['id']){
-                $_SESSION['rf'] = true;
-                header('Location: responsable');
+                $_SESSION['manager'] = true;
+                header('Location: responsable-formation');
                 exit;
                 // redirect to training manageur home
             }

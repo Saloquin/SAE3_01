@@ -48,8 +48,6 @@
     </script>
     <script src="{{ asset('js/tt.js') }}"></script>
 
-<button class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Mes compétences</button>
-
 <?php
 require_once('../resources/includes/footer.php');
 ?>

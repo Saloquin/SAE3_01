@@ -13,7 +13,7 @@ Class SkillsDetails extends Controller{
         if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
         if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
 
-        return view('skilldetails');
+        return view('skillsdetails');
     }
 
 }

@@ -18,8 +18,6 @@
 <p class=" triomphe text-[6vw] lg:text-[2vw]">Panel initiateur</p>
 <p class="mb-[7vh] triomphe text-[6vw] lg:text-[2vw]">Titouan JEAN</p>
 
-<button class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Liste des élèves</button>
-
 <div class="flex">
     <div class="calendar">
         <div class="calendar-header">

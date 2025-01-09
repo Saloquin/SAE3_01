@@ -65,11 +65,13 @@ Route::get('responsable-formation', [Manager::class, 'show'])->name('responsable
 Route::get('responsable-formation/gestion-seance', [SessionManagement::class, 'show'])->name('responsable.gestion-seance');    //Creation session
 Route::get('responsable-formation/gestion-aptitude', [SkillsManagement::class, 'show'])->name('responsable.gestion-aptitude');
 Route::get('responsable-formation/details-formation', [TrainingDetails::class, 'show'])->name('responsable.details-formation');
+Route::post('responsable-formation/details-formation', [TrainingDetails::class, 'show'])->name('responsable.details-formation');
 
 // Trainer
 Route::get('initiateur', [Initiator::class, 'show'])->name('initiateur.show');
 Route::get('initiateur/evaluation-seance', [SessionRating::class, 'show'])->name('initiateur.evaluation-seance');
 Route::get('initiateur/liste-eleves', [TraineeList::class, 'show'])->name('initiateur.liste-eleves');
+Route::post('initiateur/liste-eleves', [TraineeList::class, 'show'])->name('initiateur.liste-eleves');
 Route::post('initiateur/evaluation-seance', [SessionRating::class, 'show']);
 
 // Trainee

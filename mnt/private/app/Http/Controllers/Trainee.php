@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ttModel;
 
-session_start();
-
 class Trainee extends Controller
 {
     function show(){
