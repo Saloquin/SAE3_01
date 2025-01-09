@@ -96,6 +96,11 @@ class SessionManagement extends Controller
         $competences = $request->input('competences');
         $date = $request->input('date');
 
+        $courseId = $request->input('course_id');
+        if (empty($courseId)) {
+            $courseId = null;
+        }
+
         if (empty($studentIds) || empty($initiatorIds) || empty($competences) || empty($date)) {
             return redirect()->back()
                 ->withInput()
@@ -128,7 +133,10 @@ class SessionManagement extends Controller
         }
 
         $for_id = 1;
-        Lesson::insertLesson($for_id, $date);
+
+        if($courseId === null){
+            Lesson::insertLesson($for_id, $date);
+        }
 
         $usedStudents = [];
         for ($i = 0; $i < count($studentIds); $i++) {
@@ -152,7 +160,7 @@ class SessionManagement extends Controller
                 }
             }
 
-            Lesson::insertGroup($studentId1, $studentId2, $initiatorId, $aptitudes1, $aptitudes2);
+            Lesson::insertGroup($studentId1, $studentId2, $initiatorId, $aptitudes1, $aptitudes2, $courseId);
 
             $usedStudents[] = $studentId1;
         }

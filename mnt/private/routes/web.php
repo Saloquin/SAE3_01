@@ -34,8 +34,6 @@ use App\Models\Session;
 use App\Http\Controllers\supAdminController;
 use App\Http\Controllers\addAptController;
 use App\Http\Controllers\addCompController;
-use App\Http\Controllers\Trainee;
-use App\Http\Controllers\TraineeList;
 
 
 
@@ -114,7 +112,7 @@ Route::post('directeur/modifier-utilisateur', [EditUser::class, 'show'])->name('
 
 Route::post('directeur/gestion-responsable', [Director::class, 'editResponsable'])->name('directeur.gestion-responsable');
 
-//Route::post('SessionManager/TraitementCreationSession', [SessionController::class, 'executeRequest'])->name('sessionManager.traitementCreationSession');
+Route::post('responsable-formation/TraitementCreationSession', [SessionManagement::class, 'executeRequest'])->name('sessionManager.traitementCreationSession');
 
 //Superadmin
 Route::get('/superadmin/', [addCompController::class, 'show'])->name('superadmin.addcomp');
