@@ -3,15 +3,15 @@ const nextMonthBtn = document.getElementById('nextMonth');
 const monthYearDisplay = document.getElementById('monthYear');
 const daysContainer = document.getElementById('days');
 const messageDisplay = document.getElementById('message');
-
 let data = [];
 
-for (let i = 0; i < sessionData.length; i += 4) {
+for (let i = 0; i < sessionData.length; i += 5) {
     let record = {
       description: sessionData[i],
       date: sessionData[i + 1],
       lastname: sessionData[i + 2],
-      name: sessionData[i + 3]
+      name: sessionData[i + 3],
+      ma: sessionData[i + 4]
     };
     data.push(record);
 }
@@ -69,33 +69,21 @@ function renderCalendar() {
 }
 
 function editCourse(date){
-    let isIn = false;
-    cou.forEach((elem) => {
-        
-        if (elem.date == date) {
-            isIn = true;
-            
-        }
-    });
-    if (!isIn){
-        console.log("aaaaaaa");
-        const form = document.getElementById('formulaire');
-        const idInput = document.createElement('input');
-        idInput.type = 'hidden';
-        idInput.name = 'cou_date';
-        idInput.value = date;
-        form.appendChild(idInput);
-        document.body.appendChild(form);
-        form.submit();
-    }
+
+    const form = document.getElementById('formulaire');
+    const idInput = document.createElement('input');
+    idInput.type = 'hidden';
+    idInput.name = 'cou_date';
+    idInput.value = date;
+    form.appendChild(idInput);
+    document.body.appendChild(form);
+    form.submit();
 
     const days = document.querySelectorAll('.day');
 
     days.forEach(day => {
         day.classList.remove('active');
     });
-
-    // Add the 'active' class to the clicked day
     const clickedDay = document.querySelector(`[data-date='${date}']`);
     if (clickedDay) {
         clickedDay.classList.add('active');
@@ -146,7 +134,7 @@ function showCourse(date) {
                 str += elem.date + "<br>Aptitudes vues lors de la session avec " + elem.name + " " + elem.lastname + " : <br>";
                 first = true;
             }
-            str += elem.description + "<br> ";
+            str += elem.description +" (" + elem.ma + ")<br> ";
             isIn = true;
         }
     });

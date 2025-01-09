@@ -21,7 +21,7 @@ class ttModel extends Model
     }
 
     public static function getSessionStudentById($id){
-        return DB::select('SELECT cou_date, apt_libelle, u.uti_nom, u.uti_prenom FROM COURS c 
+        return DB::select('SELECT cou_date, apt_libelle, u.uti_nom, u.uti_prenom, m.mai_progress FROM COURS c 
             join GROUPE g on g.COU_ID = c.COU_ID 
             join MAITRISER m on m.cou_id = c.cou_id
             join APTITUDE a on a.apt_id = m.apt_id

@@ -65,7 +65,7 @@ Route::get('eleve/details-aptitudes', [SkillsDetails::class, 'show']);
 
 //BACK-END
 
-//connection
+//connexion
 Route::post('/login', [Connexion::class, 'login']);
 
 //director
@@ -79,8 +79,4 @@ Route::post('/director/addUser', [DirectorAddAccountController::class, 'insertUs
 Route::get('/director/accountCreation', [DirectorAddAccountController::class, 'index'])->name('DirectorAccountCreation');
 
 Route::post('responsable-formation/TraitementCreationSession', [SessionManagement::class, 'executeRequest']);
-
-
-Route::get('/initiateur/edt', [ttInitiatorController::class, 'show']);
-Route::get('/eleve/edt', [ttStudentController::class, 'show']);
-
+Route::post('/director/levelconfirmation', [LevelConfirmation::class, 'accept'])->name('acceptStudent');
