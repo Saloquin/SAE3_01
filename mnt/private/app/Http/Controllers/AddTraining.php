@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Class AddTraining
+ * 
+ * Controller for handling training-related operations.
+ */
 namespace App\Http\Controllers;
 
 
@@ -12,6 +16,15 @@ use Illuminate\Http\Request;
 
 Class AddTraining extends Controller{
 
+    /**
+      * Display the add training form.
+      * 
+      * This method checks if the user is authenticated and has the necessary role.
+      * It then loads the appropriate navbar based on the user's role and retrieves
+      * the necessary data to display the add training form.
+      * 
+      * @return \Illuminate\View\View
+      */
     public function show(){
         session_start();
 
@@ -31,7 +44,15 @@ Class AddTraining extends Controller{
         $init = Uti::getTeacher();
         return view('addtraining', compact('clubId', 'levels', 'init'));
     }
-
+    /**
+      * Handle the addition of a new training session.
+      * 
+      * This method validates the request data, creates a new training session,
+      * and schedules lessons based on the provided day of the week.
+      * 
+      * @param \Illuminate\Http\Request $request
+      * @return \Illuminate\Http\RedirectResponse
+      */
     public function add(Request $request)
     {
         session_start();
@@ -73,6 +94,4 @@ Class AddTraining extends Controller{
 
         return redirect()->route('directeur.gestion-formation');
     }
-
-
 }

@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * Connexion Controller
+ *
+ * This controller handles user authentication and redirection based on user roles.
+ * It includes methods for showing the login page, handling login requests, and password recovery.
+ *
+ * @package App\Http\Controllers
+ */
 namespace App\Http\Controllers;
 
 
@@ -12,7 +19,15 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Uti;
 
 Class Connexion extends Controller{
-
+    /**
+      * Show the login page.
+      *
+      * This method starts a session, unsets any existing session variables, and checks if the user is already logged in.
+      * If the user is a superadmin, they are redirected to the superadmin page.
+      * Otherwise, the user is redirected based on their role.
+      *
+      * @return \Illuminate\View\View
+      */
     public function show(){
         session_start();
         session_unset();
@@ -26,7 +41,14 @@ Class Connexion extends Controller{
         }
         return view('connexion');
     }
-
+    /**
+      * Redirect the user based on their role.
+      *
+      * This private method checks the user's role and redirects them to the appropriate page.
+      * It sets session variables based on the user's role and redirects to the corresponding home page.
+      *
+      * @return void
+      */
     private function redirect(){
         if(DB::select('select count(*) as nb from CLUB where uti_id = ?',[$_SESSION['id']])[0]->nb){
             $_SESSION['director'] = true;
@@ -61,7 +83,16 @@ Class Connexion extends Controller{
         echo 'pas de formation';
         exit;
     }
-
+    /**
+      * Handle the login request.
+      *
+      * This method starts a session and validates the login credentials.
+      * If the credentials are valid, the user is redirected based on their role.
+      * If the credentials are invalid, an error message is displayed.
+      *
+      * @param \Illuminate\Http\Request $request
+      * @return void
+      */
     public function login(Request $request){
         session_start();
 
@@ -91,6 +122,15 @@ Class Connexion extends Controller{
         exit;
     }
 
+    /**
+      * Handle password recovery.
+      *
+      * This method validates the email input and checks if the user exists.
+      * If the user exists, a new password is generated and sent to the user's email.
+      *
+      * @param \Illuminate\Http\Request $request
+      * @return \Illuminate\Http\RedirectResponse
+      */
     public function recupMdp(Request $request)
     {
         
@@ -118,3 +158,15 @@ Class Connexion extends Controller{
     }
 
 }
+
+
+ 
+     
+     
+ 
+     
+     
+ 
+     
+ 
+ 

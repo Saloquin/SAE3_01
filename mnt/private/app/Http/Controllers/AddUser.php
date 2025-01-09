@@ -1,4 +1,11 @@
 <?php
+/**
+ * Class AddUser
+ *
+ * Controller for handling user addition and insertion.
+ *
+ * @package App\Http\Controllers
+ */
 
 namespace App\Http\Controllers;
 
@@ -12,6 +19,15 @@ use Illuminate\Support\Facades\Mail;
 
 Class AddUser extends Controller{
 
+    /**
+      * Display the add user form.
+      *
+      * This method starts a session, checks if the user is authenticated,
+      * includes the appropriate navbar based on the user's role, retrieves
+      * the club ID and levels, and returns the add user view.
+      *
+      * @return \Illuminate\View\View
+      */
     public function show()
     {
         session_start();
@@ -33,7 +49,17 @@ Class AddUser extends Controller{
     }
 
 
-
+    /**
+      * Insert a new user into the database.
+      *
+      * This method validates the request data, checks specific conditions,
+      * generates a unique license number and a random password, creates a new
+      * user record in the database, sends a welcome email to the new user, and
+      * redirects back with a success message.
+      *
+      * @param \Illuminate\Http\Request $request
+      * @return \Illuminate\Http\RedirectResponse
+      */
     public function insertUser(Request $request)
     {
 
@@ -94,3 +120,7 @@ Class AddUser extends Controller{
     }
 
 }
+
+
+
+ 
