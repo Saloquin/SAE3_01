@@ -31,8 +31,8 @@ use App\Models\Session;
 use App\Http\Controllers\supAdminController;
 use App\Http\Controllers\addAptController;
 use App\Http\Controllers\addCompController;
-
-
+use App\Http\Controllers\Trainee;
+use App\Http\Controllers\TraineeList;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,7 +81,7 @@ Route::get('eleve', [Trainee::class, 'show'])->name('eleve.show');
 Route::get('eleve/details-seance', [SessionDetails::class, 'show'])->name('eleve.details-seance');
 Route::get('eleve/details-aptitudes', [SkillsDetails::class, 'show'])->name('eleve.details-aptitudes');
 
-Route::get('/edt', [ttInitiatorController::class, 'tt'])->name('ttInitiatorController.tt');
+//Route::get('/edt', [ttInitiatorController::class, 'tt'])->name('ttInitiatorController.tt');
 
 
 
