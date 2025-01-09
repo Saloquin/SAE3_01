@@ -18,7 +18,7 @@
         @csrf
         <div class="mb-[0.8vh] flex-col flex">
             <label for="licence" class="md:text-[1vw] text-[3vw] triomphe connexion-label">Licence</label>
-            <input name="licence" type="text" value="ABCDE" class="md:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] pl-[0.5vw] py-[0.5vh] ml-[0.5vw] w-full connexion-input">
+            <input name="licence" type="text" placeholder="A-00-000000" class="md:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] pl-[0.5vw] py-[0.5vh] ml-[0.5vw] w-full connexion-input">
         </div>
 
         <div class="mb-[5vh] flex flex-col">
