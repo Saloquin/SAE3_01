@@ -356,10 +356,11 @@
                             addAptitude(aptitudeCell, index, aptitudeId);
                         }
                     });
+
+                    
                 });
 
-                updateStudentOptions();
-                updateInitiatorOptions();
+                
             }
 
 
@@ -386,6 +387,7 @@
                 });
             });
 
+            updateStudentOptions();
             updateInitiatorOptions();
         });
 

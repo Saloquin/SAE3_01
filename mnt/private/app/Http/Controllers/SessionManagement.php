@@ -19,7 +19,7 @@ class SessionManagement extends Controller
         if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
         if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
         if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
-        
+
         $date = $request->input('cou_date');
         $course = null;
         $studentsData = []; 
@@ -76,9 +76,9 @@ class SessionManagement extends Controller
             ]);
         }
 
-        $skills = Skill::getSkillByFormationLevel();
-        $students = Uti::getStudent();
-        $initiators = Uti::getTeacher();
+        $skills = Skill::getSkillByFormationLevel($_SESSION['formation_level']);
+        $students = Uti::getStudentByFormation($_SESSION['formation_level']);
+        $initiators = Uti::getTeacherByFormation($_SESSION['formation_level']);
 
         return view('gestionseance', [
             'skills' => $skills,
