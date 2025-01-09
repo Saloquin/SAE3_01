@@ -106,6 +106,7 @@ Route::get('eleve/details-aptitudes', [SkillsDetails::class, 'show'])->name('ele
 Route::post('login', [Connexion::class, 'login'])->name('login');
 Route::post('logout', [Profile::class, 'logout'])->name('logout');
 Route::post('edit-profile', [EditProfile::class, 'edit'])->name('edit-profile');
+Route::post('mdp-perdu', [Connexion::class, 'recupMdp'])->name('mdp-perdu');
 
 //SuperAdmin
 Route::post('/superadmin/ajoutcompetence/form', [addCompController::class, 'add'])->name('superadmin.addcompform');
