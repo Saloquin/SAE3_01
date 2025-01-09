@@ -14,6 +14,19 @@
 
 <body class="flex flex-col items-center triomphe">
 
+    <?php
+require_once('../resources/includes/header.php');
+?>
+    <form action="{{route('directeur.gestion-utilisateur')}}" method="get">
+        <button type="submit"
+            class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Gestion des
+            comptes</button>
+    </form>
+    <form action="{{route('directeur.gestion-formation')}}" method="get">
+        <button type="submit"
+            class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Gestion des
+            formations</button>
+    </form>
     <p class=" triomphe text-[6vw] lg:text-[2vw] mb-[10vh]">Gestion des utilisateurs</p>
 
     <div class=" flex flex-col justify-between ">
@@ -48,9 +61,15 @@
                         <td class="table_cell">{{ $user->NIV_ID }}</td>
                         <td class="table_cell">{{ $user->UTI_DATE_CERTIF }}</td>
                         <td class="table_cell">{{ $user->UTI_DATE_NAISS }}</td>
-                        <td><button
-                                class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Gérer
-                                l'utilisateur</button></td>
+                        <td>
+                            <form action="{{ route('directeur.gestion-utilisateur') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="UTI_ID" value="{{ $user->UTI_ID }}">
+                                <button type="submit"
+                                    class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Gérer
+                                    l'utilisateur</button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

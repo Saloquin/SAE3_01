@@ -76,6 +76,14 @@ Class InitiatorListFormation extends Controller{
     $formationId = $validated['FOR_ID'];
     $userId = $validated['UTI_ID'];
 
+    $existingTeach = Teach::where('FOR_ID', $formationId)
+            ->where('UTI_ID', $userId)
+            ->first();
+
+        if ($existingTeach) {
+            return $this->show($request);
+        }
+
     DB::table('initier')
         ->where('FOR_ID', $formationId)
         ->where('UTI_ID', $userId)
