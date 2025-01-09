@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use App\Models\Uti;
 
 Class SkillsDetails extends Controller{
 
@@ -39,6 +40,8 @@ Class SkillsDetails extends Controller{
             }
         }
 
+        $me = Uti::find($_SESSION["id"]); 
+
         $listSkills = DB::select("select apt_id, apt_libelle from APTITUDE join COMPETENCE using(com_id) where niv_id = ? order by com_id, apt_id", [$formation->NIV_ID]);
 
         $listCompetence = DB::select("select com_id, com_libelle ,count(*) as nb from APTITUDE join COMPETENCE using(com_id) where niv_id = ?  group by com_id, com_libelle order by com_id",[$formation->NIV_ID]);
@@ -54,7 +57,7 @@ Class SkillsDetails extends Controller{
         //print_r($tab);
         //echo"</pre>";
 
-        return view('skillsdetails', ['formation' => $formation, 'listSkills' => $listSkills, 'listCompetence' => $listCompetence, 'listCours'=> $listCours, 'tab' => $tab]);
+        return view('skillsdetails', ['formation' => $formation, 'listSkills' => $listSkills, 'listCompetence' => $listCompetence, 'listCours'=> $listCours, 'tab' => $tab, 'me'=>$me]);
     }
 
 }
