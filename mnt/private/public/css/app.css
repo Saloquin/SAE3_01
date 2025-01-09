@@ -286,7 +286,7 @@ select, input {
     min-width: 100px;
 }
 
-.student-row td button {
+.sessionManagement-button {
     width: 20vw;
     min-width: 100px;
     max-width: 250px;
