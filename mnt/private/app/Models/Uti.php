@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Uti extends Model
 {
@@ -32,14 +33,6 @@ class Uti extends Model
     protected $hidden = [
         'UTI_MDP',
     ];
-
-    
-    /*protected static function booted()
-    {
-        static::addGlobalScope('non_archived', function ($query) {
-            $query->whereNull('UTI_DATE_ARCHIVAGE');
-        });
-    }*/
 
     public static function getStudent()
     {
@@ -82,5 +75,17 @@ class Uti extends Model
         return $this->hasMany(Teach::class, 'UTI_ID');
     }
 
+    public static function getStudentById($studentId){
+        if (!$studentId) {
+            return null;
+        }
 
+        $student = DB::select('select * from UTILISATEUR where uti_id = ?', [$studentId])[0];
+
+        return $student;
+    }
+
+    public static function editProgression($cou_id, $uti_id, $apt_id, $mai_progress, $mai_commentaire) {
+        DB::update("update MAITRISER set mai_progress = ?, mai_commentaire = ? where cou_id = ? and uti_id = ? and apt_id = ?", [$mai_progress, $mai_commentaire, $cou_id, $uti_id, $apt_id]);
+    }
 }

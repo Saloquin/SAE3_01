@@ -10,6 +10,11 @@ class Trainee extends Controller
     function show(){
         session_start();
 
+        if(!isset($_SESSION['id'])){
+            header('Location: /connexion');
+            exit;
+        }
+
         require_once('../resources/includes/header.php');
         if(isset($_SESSION['director'])){ require_once('../resources/includes/navbar/navbar_director.php'); }
         if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
@@ -24,7 +29,9 @@ class Trainee extends Controller
             array_push($arr, $row->cou_date);
             array_push($arr, $row->uti_nom);
             array_push($arr, $row->uti_prenom);
+            array_push($arr, $row->mai_progress);
         }
+        // var_dump($tt);
         return view('trainee', compact('arr'));
     }
 }

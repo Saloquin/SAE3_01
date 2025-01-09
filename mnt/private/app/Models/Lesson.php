@@ -24,9 +24,15 @@ class Lesson extends Model
         return $this->belongsTo(Formation::class, 'FOR_ID');
     }
 
-    public static function insertGroup($uti_id_elv1, $uti_id_elv2, $uti_id_init, $aptitudes1, $aptitudes2)
-    {
-        $cou_id = intval(DB::table('COURS')->max('COU_ID'));
+    public static function insertGroup($uti_id_elv1, $uti_id_elv2, $uti_id_init, $aptitudes1, $aptitudes2, $cou_id)
+    { 
+        if($cou_id === null){
+            $cou_id = intval(DB::table('COURS')->max('COU_ID'));
+        }else{
+            DB::table('GROUPE')->where('COU_ID', $cou_id)->delete();
+
+            DB::table('MAITRISER')->where('COU_ID', $cou_id)->delete();
+        }
         DB::table('GROUPE')->insert([
             'COU_ID' => $cou_id,
             'UTI_ID_ELV1' => $uti_id_elv1,
@@ -89,8 +95,9 @@ class Lesson extends Model
             return array();
         }
 
-        $skillsIds = DB::select("select apt_id from MAITRISER where cou_id = ? and uti_id = ?", [$cou_id, $uti_id]);
+        $skills = DB::select("select * from MAITRISER join APTITUDE using(apt_id) where cou_id = ? and uti_id = ?", [$cou_id, $uti_id]);
 
+        /*
         $skills = array();
 
         foreach ($skillsIds as $row) {
@@ -98,6 +105,7 @@ class Lesson extends Model
 
             array_push($skills, $skill);
         }
+        */
         
         return $skills;
     }
@@ -123,5 +131,23 @@ class Lesson extends Model
 
     public static function updateStudentSkillsAtSession($cou_id, $uti_id, $apt_id, $mai_progress, $mai_commentaire) {
         DB::update("update MAITRISER set mai_progress = ?, mai_commentaire = ? where cou_id = ? and uti_id = ? and apt_id = ?", [$mai_progress, $mai_commentaire, $cou_id, $uti_id, $apt_id]);
+
+        $res = DB::select("select val_statut from VALIDER where uti_id = ? and apt_id = ?", [$uti_id, $apt_id]);
+
+        if ($res && $res[0]->val_statut !== "Acquise") {
+            $lastProgress = DB::select("select MAI_PROGRESS from maitriser
+                                        join cours using(cou_id)
+                                        where uti_id = ? and apt_id = ?
+                                        order by cou_date desc
+                                        limit 3;", [$uti_id, $apt_id]);
+            
+            if (count($lastProgress) === 3) {
+                if ($lastProgress[0]->MAI_PROGRESS === "Acquise" && $lastProgress[1]->MAI_PROGRESS === "Acquise" && $lastProgress[2]->MAI_PROGRESS === "Acquise") {
+                    DB::update("update VALIDER set val_statut = 'Acquise' where uti_id = ? and apt_id = ?", [$uti_id, $apt_id]);
+                }
+            }
+        }
+
+
     }
 }

@@ -9,7 +9,7 @@
 </head>
 <body class="triomphe flex items-center flex-col bg-gray-100">
     <h1 class="mb-[10vh] mt-[5vh] text-4xl font-bold text-blue-600">Modification de la progression des aptitudes des élèves</h1>
-    @if($session == -1)
+    @if($sessionId == -1)
         <p>Erreur : id de la séance non trouvé</p>
     @else
 
@@ -51,16 +51,16 @@
                             <div>
                                 <div class="ability-name"><?= $skill->APT_LIBELLE; ?></div>
                                 <select class="shadow border rounded w-full py-2 px-3 text-gray-700" name="mai_progress_student1_apt_<?= $skill->APT_ID; ?>">
-                                    <option value="Non évaluée">Non évaluée</option>
-                                    <option value="En cours d'acquisition">En cours d'acquisition</option>
-                                    <option value="Acquise">Acquise</option>
-                                    <option value="Absent">Absent</option>
+                                    <option value="Non évaluée" <?= $skill->MAI_PROGRESS == 'Non évaluée' ? 'selected' : '' ?>>Non évaluée</option>
+                                    <option value="En cours d'acquisition" <?= $skill->MAI_PROGRESS == "En cours d'acquisition" ? 'selected' : '' ?>>En cours d'acquisition</option>
+                                    <option value="Acquise" <?= $skill->MAI_PROGRESS == 'Acquise' ? 'selected' : '' ?>>Acquise</option>
+                                    <option value="Absent" <?= $skill->MAI_PROGRESS == 'Absent' ? 'selected' : '' ?>>Absent</option>
                                 </select>
                             </div>
                         <?php endforeach; ?>
                         <div>
                             <label for="commentary1" class="block text-gray-700 font-bold">Commentaire</label>
-                            <input type="text" id="commentar1" name="commentary_student1_apt_<?= $skill->APT_ID; ?>" class="shadow border rounded w-full px-3 text-gray-700">
+                            <input type="text" id="commentar1" name="commentary_student1_apt_<?= $skill->APT_ID; ?>" class="shadow border rounded w-full px-3 text-gray-700" value="<?= $skill->MAI_COMMENTAIRE ?>">
                         </div>
                     </div>
                 </div>
@@ -80,17 +80,17 @@
                         <?php foreach ($skills2 as $skill): ?>
                             <div>
                                 <div class="ability-name"><?= $skill->APT_LIBELLE; ?></div>
-                                <select class="shadow border rounded w-full py-2 px-3 text-gray-700" name="mai_progress_student1_apt_<?= $skill->APT_ID; ?>">
-                                    <option value="Non évaluée">Non évaluée</option>
-                                    <option value="En cours d'acquisition">En cours d'acquisition</option>
-                                    <option value="Acquise">Acquise</option>
-                                    <option value="Absent">Absent</option>
+                                <select class="shadow border rounded w-full py-2 px-3 text-gray-700" name="mai_progress_student2_apt_<?= $skill->APT_ID; ?>">
+                                <option value="Non évaluée" <?= $skill->MAI_PROGRESS == 'Non évaluée' ? 'selected' : '' ?>>Non évaluée</option>
+                                    <option value="En cours d'acquisition" <?= $skill->MAI_PROGRESS == "En cours d'acquisition" ? 'selected' : '' ?>>En cours d'acquisition</option>
+                                    <option value="Acquise" <?= $skill->MAI_PROGRESS == 'Acquise' ? 'selected' : '' ?>>Acquise</option>
+                                    <option value="Absent" <?= $skill->MAI_PROGRESS == 'Absent' ? 'selected' : '' ?>>Absent</option>
                                 </select>
                             </div>
                         <?php endforeach; ?>
                         <div>
                             <label for="commentary2" class="block text-gray-700 font-bold">Commentaire</label>
-                            <input type="text" id="commentary2" name="commentary_student1_apt_<?= $skill->APT_ID; ?>" class="shadow border rounded w-full px-3 text-gray-700">
+                            <input type="text" id="commentary2" name="commentary_student2_apt_<?= $skill->APT_ID; ?>" class="shadow border rounded w-full px-3 text-gray-700" value="<?= $skill->MAI_COMMENTAIRE ?>">
                         </div>
                     </div>
                 </div>

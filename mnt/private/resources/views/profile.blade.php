@@ -14,35 +14,36 @@
 
 
     <div class="flex flex-row mb-[2vh]">
-        <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Licence</p>
-        <p class=" text-[3vw] lg:text-[1.3vw] ">{{$user->UTI_LICENCE}}</p>
+        <p class=" mr-[5vw]">Licence</p>
+        <p class="">{{$user->UTI_LICENCE}}</p>
     </div>
     <div class="flex flex-row mb-[2vh]">
-        <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Nom</p>
-        <p class=" text-[3vw] lg:text-[1.3vw]">{{$user->UTI_NOM}}</p>
+        <p class="mr-[5vw]">Nom</p>
+        <p class="">{{$user->UTI_NOM}}</p>
     </div>
     <div class="flex flex-row mb-[2vh]">
-        <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Prénom</p>
-        <p class=" text-[3vw] lg:text-[1.3vw]">{{$user->UTI_PRENOM}}</p>
+        <p class="mr-[5vw]">Prénom</p>
+        <p class="">{{$user->UTI_PRENOM}}</p>
     </div>
     <div class="flex flex-row mb-[2vh]">
-        <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Date de naissance</p>
-        <p class=" text-[3vw] lg:text-[1.3vw]">{{$user->UTI_DATE_NAISS}}</p>
+        <p class="mr-[5vw]">Date de naissance</p>
+        <p class="">{{$user->UTI_DATE_NAISS}}</p>
     </div>
     <div class="flex flex-row mb-[2vh]">
-        <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Certificat médical</p>
-        <p class=" text-[3vw] lg:text-[1.3vw]">{{$user->UTI_DATE_CERTIF}}</p>
+        <p class="mr-[5vw]">Certificat médical</p>
+        <p class="">{{$user->UTI_DATE_CERTIF}}</p>
     </div>
     <div class="flex flex-row mb-[2vh]">
-        <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Niveau</p>
-        <p class=" text-[3vw] lg:text-[1.3vw]">{{$user->NIV_ID}}</p>
+        <p class="mr-[5vw]">Niveau</p>
+        <p class="">{{$user->NIV_ID}}</p>
     </div>
     <div class="flex flex-row mb-[2vh]">
-        <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Email</p>
-        <p class=" text-[3vw] lg:text-[1.3vw]">{{$user->UTI_MAIL}}</p>
+        <p class="mr-[5vw]">Email</p>
+        <p class="">{{$user->UTI_MAIL}}</p>
     </div>
     <div class="flex justify-center mt-[3vh]">
         <a href="{{ route('edit-profile') }}" class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Modifier</a>
+
     </div>
 
 <form action="{{ route('logout') }}" method="post">

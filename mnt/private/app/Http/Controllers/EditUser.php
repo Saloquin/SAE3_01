@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Uti;
 use Illuminate\Http\Request;
-use App\Models\Level;
 
 Class EditUser extends Controller{
 
     public function show(Request $request){
         session_start();
+        if(!isset($_SESSION['id'])){
+            header('Location: /connexion');
+            exit;
+        }
         require_once('../resources/includes/header.php');
         if(isset($_SESSION['director'])){ require_once('../resources/includes/navbar/navbar_director.php'); }
         if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
@@ -60,15 +63,7 @@ Class EditUser extends Controller{
         ]);
 
         return redirect()->route('directeur.gestion-utilisateur');
-    }
 
-    public function archive(Request $request){
-        $user = Uti::find($request->input('UTI_ID'));
-        $user->update([
-            'UTI_DATE_ARCHIVAGE' => now(),
-        ]);
-        return redirect()->route('directeur.gestion-utilisateur');
     }
-
 
 }

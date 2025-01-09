@@ -23,7 +23,7 @@ class Formation extends Model
 
     public function responsable()
     {
-        return $this->belongsTo(Uti::class, 'UTI_ID')->withoutGlobalScope('non_archived');;
+        return $this->belongsTo(Uti::class, 'UTI_ID');
     }
 
     public function level()

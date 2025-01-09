@@ -14,6 +14,11 @@ class Director extends Controller
     {
         session_start();
 
+        if(!isset($_SESSION['id'])){
+            header('Location: /connexion');
+            exit;
+        }
+
         require_once('../resources/includes/header.php');
         if (isset($_SESSION['director'])) {
             require_once('../resources/includes/navbar/navbar_director.php');
@@ -30,11 +35,14 @@ class Director extends Controller
 
         $clubId = Uti::find($_SESSION["id"])->CLU_ID;
         $me = Uti::find($_SESSION["id"]);
+
         $formations = Formation::where('CLU_ID', $clubId)
             ->whereRaw('DATEDIFF(SYSDATE(), FOR_ANNEE) BETWEEN 0 AND 365.25')
             ->get();
         $init = Uti::whereNotIn('UTI_ID', $formations->pluck('UTI_ID'))->where('UTI_EST_INIT', 1)->get();
+
         return view('director', compact('formations', 'clubId', 'init', 'me'));
+
     }
 
     public function editResponsable(Request $request)
