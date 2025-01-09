@@ -23,7 +23,7 @@ body {
     background: linear-gradient( var(--navy-blue), var(--dark-blue));
     margin: 0 auto;
     width: 100%;
-    min-height: 80px;
+    min-height: 140px;
 }
 
 /************ LOGO ************/
@@ -152,4 +152,25 @@ font-family: "Triomphe";
     .table_cell {
         font-size: 0.8vw;
     }
+}
+
+/*********************** SESSION MANAGEMENT ***********************/
+
+.apti{
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 10px;
+    height: 100%;
+}
+
+.apti div{
+    text-align: center;
+}
+
+.ability-name{
+    margin-bottom: auto;
+}
+
+select, input {
+    height: 40px;
 }
