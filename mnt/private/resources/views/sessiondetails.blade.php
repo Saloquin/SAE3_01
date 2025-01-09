@@ -19,7 +19,7 @@ require_once('../resources/includes/header.php');
 <p class="md:text-[2.5vw] text-[5vw]">Initiateur : Patrick Prof</p>
 <p class="md:text-[2.5vw] text-[5vw] mb-[10vh]">Date : 21/12/2024</p>
 
-<div class=" flex flex-col justify-between ">
+<div class=" flex flex-col justify-between session-table">
 
 
     <p class=" text-[5vw] lg:text-[2vw]">Liste des élèves</p>

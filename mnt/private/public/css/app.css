@@ -196,6 +196,10 @@ font-family: "Triomphe";
         height: 30px;
     }
 
+    .connexion-label {
+        font-size: 4vw;
+    }
+
 }
 
 /*********************** SESSION MANAGEMENT ***********************/
@@ -229,4 +233,26 @@ select, input {
 .skills-table table{
     height: 100%;
     margin: 0;
+}
+
+/*********************** SKILLS DETAILS ***********************/
+
+.connexion-label {
+
+    text-align: center;
+    font-size: 3em;
+
+}
+
+.connexion-form {
+
+    width: 75%;
+
+}
+
+.connexion-input {
+
+    padding-right: 0!important;
+    max-width: 100%;
+
 }
