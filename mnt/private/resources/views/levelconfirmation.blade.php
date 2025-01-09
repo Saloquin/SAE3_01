@@ -30,44 +30,27 @@
             <th class="table_header">Nais.</th>
         </tr>
         </thead>
-        <tbody>
-        <tr class="">
-            <td class="table_cell">A-00-000000</td>
-            <td class="table_cell">MARTIN</td>
-            <td class="table_cell">Frank</td>
-            <td class="table_cell">franklefou@gmail.com</td>
-            <td class="table_cell">N1</td>
-            <td class="table_cell">17/08/2024</td>
-            <td class="table_cell">12/03/2006</td>
-            <td><button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#223A5D] px-[1vw] py-[0.8vh] text-white">✔</button></td>
-            <td><button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#C80000] px-[1vw] py-[0.8vh] text-white">X</button></td>
+        @foreach($rq as $row)
+            <tbody>
+            <tr class="">
+            <td class="table_cell">{{$row->uti_licence}}</td>
+            <td class="table_cell">{{$row->uti_nom}}</td>
+            <td class="table_cell">{{$row->uti_prenom}}</td>
+            <td class="table_cell">{{$row->uti_mail}}</td>
+            <td class="table_cell">{{$row->niv_id}}</td>
+            <td class="table_cell">{{$row->uti_date_certif}}</td>
+            <td class="table_cell">{{$row->uti_date_naiss}}</td>
+            <td>
+                <form action="{{route('acceptStudent')}}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <input type='hidden' name="id" value= "{{$row->uti_id}}"></input>
+                    <button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#223A5D] px-[1vw] py-[0.8vh] text-white">✔</button>
+                </form>
+            </td>
         </tr>
+            @endforeach
 
-        <tr class="">
-            <td class="table_cell">A-00-000000</td>
-            <td class="table_cell">MARTIN</td>
-            <td class="table_cell">Frank</td>
-            <td class="table_cell">franklefou@gmail.com</td>
-            <td class="table_cell">N1</td>
-            <td class="table_cell">17/08/2024</td>
-            <td class="table_cell">12/03/2006</td>
-            <td><button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#223A5D] px-[1vw] py-[0.8vh] text-white">✔</button></td>
-            <td><button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#C80000] px-[1vw] py-[0.8vh] text-white">X</button></td>
-        </tr>
-
-
-        <tr class="">
-            <td class="table_cell">A-00-000000</td>
-            <td class="table_cell">MARTIN</td>
-            <td class="table_cell">Frank</td>
-            <td class="table_cell">franklefou@gmail.com</td>
-            <td class="table_cell">N1</td>
-            <td class="table_cell">17/08/2024</td>
-            <td class="table_cell">12/03/2006</td>
-            <td><button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#223A5D] px-[1vw] py-[0.8vh] text-white">✔</button></td>
-            <td><button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#C80000] px-[1vw] py-[0.8vh] text-white">X</button></td>
-        </tr>
-        </tbody>
     </table>
 </div>
 
