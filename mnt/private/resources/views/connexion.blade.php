@@ -18,12 +18,12 @@
         @csrf
         <div class="mb-[0.8vh] flex flex-row ">
             <label for="licence" class="md:text-[1vw] text-[3vw]">Licence</label>
-            <input name="licence" type="text" value="ABCDE" class="md:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] pl-[0.5vw] py-[0.5vh] ml-[0.5vw] w-full">
+            <input name="licence" type="text" placeholder="A-00-000000" class="md:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] pl-[0.5vw] py-[0.5vh] ml-[0.5vw] w-full">
         </div>
 
         <div class="mb-[5vh] flex flex-row ">
             <label for="password" class="md:text-[1vw] text-[3vw]">Mot de passe</label>
-            <input name="password" type="password" value="test" class="md:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] pl-[0.5vw] py-[0.5vh] ml-[0.5vw] min-w-[15vw]">
+            <input name="password" type="password"  class="md:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] pl-[0.5vw] py-[0.5vh] ml-[0.5vw] min-w-[15vw]">
         </div>
         <div class="flex justify-center">
             <button type="submit" class="md:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Se connecter</button>

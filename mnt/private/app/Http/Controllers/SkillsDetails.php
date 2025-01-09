@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Uti;
 Class SkillsDetails extends Controller{
 
     public function show(){
@@ -17,8 +17,8 @@ Class SkillsDetails extends Controller{
         if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
         if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
         if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
-
-        return view('skillsdetails');
+        $me=Uti::find($_SESSION['id']);
+        return view('skillsdetails',compact('me'));
     }
 
 }
