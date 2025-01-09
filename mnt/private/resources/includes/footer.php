@@ -8,7 +8,7 @@
     <script src="./js/tailwind.config.js"></script>
 </head>
 <body>
-    <footer id="footer">
+    <footer>
         <small> Copyright @ Journal de Plongée. </small>
         <div><a href="https://github.com/Saloquin/SAE3_01" ><img src="/assets/Github.png" id="github"></a></div>
     </footer>

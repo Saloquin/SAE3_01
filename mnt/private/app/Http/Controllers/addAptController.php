@@ -10,6 +10,12 @@ class addAptController extends Controller
 {
     public function show(){
         session_start();
+
+        if(!isset($_SESSION['id'])){
+            header('Location: /connexion');
+            exit;
+        }
+
         require_once('../resources/includes/header.php');
         require_once('../resources/includes/navbar/navbar_admin.php');
 
@@ -33,7 +39,7 @@ class addAptController extends Controller
             session()->flash('error', 'Une erreur est survenue lors de l\'ajout.');
         }
         //dd($selection+1, $text);
-        return redirect()->route('superadmin');
+        return redirect()->route('superadmin.addapt');
 
 
     }

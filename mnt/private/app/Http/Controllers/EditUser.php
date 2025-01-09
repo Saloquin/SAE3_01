@@ -9,6 +9,13 @@ use App\Models\Level;
 Class EditUser extends Controller{
 
     public function show(Request $request){
+        session_start();
+
+        if(!isset($_SESSION['id'])){
+            header('Location: /connexion');
+            exit;
+        }
+
         $user = Uti::find($request->input('UTI_ID'));
         $levels = Level::whereNotNull('NIV_DESCRIPTION')->get();
         return view('edituser', compact('user','levels'));
@@ -55,6 +62,6 @@ Class EditUser extends Controller{
         ]);
         return redirect()->route('directeur.gestion-utilisateur');
     }
-
+    }
 
 }

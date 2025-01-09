@@ -35,8 +35,6 @@ use App\Http\Controllers\supAdminController;
 use App\Http\Controllers\addAptController;
 use App\Http\Controllers\addCompController;
 
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -78,6 +76,7 @@ Route::get('initiateur/evaluation-seance', [SessionRating::class, 'show'])->name
 Route::get('initiateur/liste-eleves', [TraineeList::class, 'show'])->name('initiateur.liste-eleves');
 Route::post('initiateur/liste-eleves', [TraineeList::class, 'show'])->name('initiateur.liste-eleves');
 Route::post('initiateur/evaluation-seance', [SessionRating::class, 'show']);
+Route::post('/traitement_validation_aptitudes', [SessionRating::class, 'updateStudentSkillForSession']); // ne pas supprimer PITIÉ
 
 // Trainee
 Route::get('eleve', [Trainee::class, 'show'])->name('eleve.show');
@@ -115,7 +114,7 @@ Route::post('directeur/gestion-responsable', [Director::class, 'editResponsable'
 Route::post('responsable-formation/TraitementCreationSession', [SessionManagement::class, 'executeRequest'])->name('sessionManager.traitementCreationSession');
 
 //Superadmin
-Route::get('/superadmin/', [addCompController::class, 'show'])->name('superadmin.addcomp');
+Route::get('superadmin', [addCompController::class, 'show'])->name('superadmin.addcomp');
 Route::get('/superadmin/ajoutaptitude', [addAptController::class, 'show'])->name('superadmin.addapt');
 Route::post('/superadmin/ajoutcompetence/form', [addCompController::class, 'add'])->name('superadmin.addcompform');
 Route::post('/superadmin/ajoutaptitude/form', [addAptController::class, 'add'])->name('superadmin.addaptform');
@@ -133,3 +132,6 @@ Route::get('/tt', function(){
     return view('ttInitiatorView');
 });
 
+
+Route::post('responsable-formation/TraitementCreationSession', [SessionManagement::class, 'executeRequest']);
+Route::post('/director/levelconfirmation', [LevelConfirmation::class, 'accept'])->name('acceptStudent');

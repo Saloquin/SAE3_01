@@ -10,12 +10,11 @@ html {
   }
 
 body {
-    min-height: 100vh!important;
+    min-height: 100vh;
     margin: 0;
     padding: 0;
-    width: 100vw;
-    overflow: visible!important;
     display: flex;
+    overflow: visible!important;
   }
 
 /*********************** HEADER ***********************/
