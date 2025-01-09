@@ -124,5 +124,23 @@ class Lesson extends Model
 
     public static function updateStudentSkillsAtSession($cou_id, $uti_id, $apt_id, $mai_progress, $mai_commentaire) {
         DB::update("update MAITRISER set mai_progress = ?, mai_commentaire = ? where cou_id = ? and uti_id = ? and apt_id = ?", [$mai_progress, $mai_commentaire, $cou_id, $uti_id, $apt_id]);
+
+        $res = DB::select("select val_statut from VALIDER where uti_id = ? and apt_id = ?", [$uti_id, $apt_id]);
+
+        if ($res && $res[0]->val_statut !== "Acquise") {
+            $lastProgress = DB::select("select MAI_PROGRESS from maitriser
+                                        join cours using(cou_id)
+                                        where uti_id = ? and apt_id = ?
+                                        order by cou_date desc
+                                        limit 3;", [$uti_id, $apt_id]);
+            
+            if (count($lastProgress) === 3) {
+                if ($lastProgress[0]->MAI_PROGRESS === "Acquise" && $lastProgress[1]->MAI_PROGRESS === "Acquise" && $lastProgress[2]->MAI_PROGRESS === "Acquise") {
+                    DB::update("update VALIDER set val_statut = 'Acquise' where uti_id = ? and apt_id = ?", [$uti_id, $apt_id]);
+                }
+            }
+        }
+
+
     }
 }
