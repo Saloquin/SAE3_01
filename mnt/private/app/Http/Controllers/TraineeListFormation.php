@@ -7,6 +7,7 @@ use App\Models\Learn;
 use App\Models\Formation;
 use App\Models\Uti;
 use Illuminate\Support\Facades\DB;
+use App\Models\Validate;
 
 class TraineeListFormation extends Controller
 {
@@ -15,16 +16,24 @@ class TraineeListFormation extends Controller
     {
         session_start();
 
-        if(!isset($_SESSION['id'])){
+        if (!isset($_SESSION['id'])) {
             header('Location: /connexion');
             exit;
         }
 
         require_once('../resources/includes/header.php');
-        if(isset($_SESSION['director'])){ require_once('../resources/includes/navbar/navbar_director.php'); }
-        if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
-        if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
-        if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
+        if (isset($_SESSION['director'])) {
+            require_once('../resources/includes/navbar/navbar_director.php');
+        }
+        if (isset($_SESSION['manager'])) {
+            require_once('../resources/includes/navbar/navbar_manager.php');
+        }
+        if (isset($_SESSION['teacher'])) {
+            require_once('../resources/includes/navbar/navbar_teacher.php');
+        }
+        if (isset($_SESSION['student'])) {
+            require_once('../resources/includes/navbar/navbar_student.php');
+        }
 
         $formation = Formation::findOrFail($request->input('FOR_ID'));
 
@@ -53,6 +62,10 @@ class TraineeListFormation extends Controller
             })
             ->where('UTI_EST_INIT', 0)
             ->where('CLU_ID', Uti::find($_SESSION["id"])->CLU_ID)
+            ->whereNotIn('UTI_ID', function ($query)  {
+                $query->select('UTI_ID')
+                    ->from('apprendre');
+            })
             ->get();
 
         return view('traineelistformation', compact('users', 'formation', 'usersPossible'));
@@ -81,20 +94,29 @@ class TraineeListFormation extends Controller
             return $this->show($request);
         }
 
+        $learnCount = Learn::where('FOR_ID', $formationId)->count();
+
+        if ($learnCount >= 10) {
+            return $this->show($request);
+        }
+
         Learn::create([
             'UTI_ID' => $studentId,
             'FOR_ID' => $formationId,
         ]);
 
 
+
         $formation = Formation::find($formationId);
         $listSkills = DB::select("select apt_id, apt_libelle from APTITUDE join COMPETENCE using(com_id) where niv_id = ? order by com_id, apt_id", [$formation->NIV_ID]);
         foreach ($listSkills as $skill) {
-            DB::table('VALIDER')->insert([
-                'UTI_ID' => $studentId,
-                'APT_ID' => $skill->apt_id,
-                'VAL_STATUT' => 0,
-            ]);
+            if (Validate::where('UTI_ID', $studentId)->where('APT_ID', $skill->apt_id)->doesntExist()) {
+                DB::table('VALIDER')->insert([
+                    'UTI_ID' => $studentId,
+                    'APT_ID' => $skill->apt_id,
+                    'VAL_STATUT' => 0,
+                ]);
+            }
         }
         return $this->show($request);
     }

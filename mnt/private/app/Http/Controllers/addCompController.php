@@ -30,9 +30,11 @@ class addCompController extends Controller
     }
 
     public function add(Request $request){
-        $selection = $request->input('selection');
+        $selection = $request->input('selectionText');
         $text = $request->input('texte');
-        $success = Competence::addNew($selection,$text);
+        preg_match('/^(\d+)/', $selection, $match);
+        $lvl = $match[1];
+        $success = Competence::addNew($lvl,$text);
         if ($success) {
             session()->flash('success', 'L\'élément a bien été ajouté!');
         } else {

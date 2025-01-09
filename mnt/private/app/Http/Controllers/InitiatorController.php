@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\Uti;
 use App\Models\Lesson;
 
 class InitiatorController extends Controller
@@ -19,8 +20,8 @@ class InitiatorController extends Controller
         $studentsIds = Lesson::getStudentsOfInitiatorAtSession($sessionId, $request->session()->get('id'));
         $studentId1 = $studentsIds[0];
         $studentId2 = $studentsIds[1];
-        $student1 = Student::getStudentById($studentId1);
-        $student2 = Student::getStudentById($studentId2);
+        $student1 = Uti::find($studentId1);
+        $student2 = Uti::find($studentId2);
         $skills1 = Lesson::getStudentSkillsAtSession($sessionId, $studentId1);
         $skills2 = Lesson::getStudentSkillsAtSession($sessionId, $studentId2);
         

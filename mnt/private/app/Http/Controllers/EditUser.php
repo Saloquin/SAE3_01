@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Uti;
 use Illuminate\Http\Request;
+use App\Models\Level;
 
 Class EditUser extends Controller{
 

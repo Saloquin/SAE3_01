@@ -8,32 +8,29 @@
     <script src="./js/tailwind.config.js"></script>
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
-<?php
-require_once('../resources/includes/header.php');
-?>
 
 <body class="flex flex-col items-center triomphe">
-<p class="  text-[6vw] lg:text-[2vw] mb-[8vh]">Création d'une compétence</p>
+<p class="  text-[6vw] lg:text-[2vw] mb-[8vh]">Modification d'une Compétence</p>
 
-<form action="{{ route('superadmin.addcompform') }}" method="POST" id="addForm">
+<form action="{{ route('superadmin.updtcompform') }}" method="POST" id="updateForm">
             @csrf
 
-           
+        
             <div class="mb-4">
-                <label for="selection" class="block text-sm font-medium text-gray-700">Choisissez le niveau sur lequel ajouter une compétence</label>
+                <label for="selection" class="block text-sm font-medium text-gray-700">Choisissez la compétence à modifier</label>
                 <select id="selection" name="selection" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
                     <option value="">Sélectionnez une option...</option>
-                    @foreach($lvls as $key => $value)
+                    @foreach($comp as $key => $value)
                         <option value="{{ $key }}">{{ $value }}</option>
                     @endforeach
                 </select>
             </div>
 
+            
             <input type="hidden" id="selectionText" name="selectionText">
-
-           
+         
             <div class="mb-4">
-                <label for="texte" class="block text-sm font-medium text-gray-700">Entrez une description de la compétence</label>
+                <label for="texte" class="block text-sm font-medium text-gray-700">Entrez une description pour la compétence</label>
                 <input type="text" id="texte" name="texte" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Entrez votre texte ici" />
             </div>
 
@@ -42,7 +39,6 @@ require_once('../resources/includes/header.php');
                 Soumettre
             </button>
         </form>
-
         <script>
             
             function updateForm() {
@@ -55,13 +51,13 @@ require_once('../resources/includes/header.php');
             }
 
            
-            document.getElementById('addForm').addEventListener('submit', function() {
+            document.getElementById('updateForm').addEventListener('submit', function() {
                 updateForm();
             });
         </script>
 
 @if(Session::has('success'))
-    <div class="mt-[10vw]">La compétence a bien été ajoutée</div>
+    <div class="mt-[10vw]">La compétence à bien été modifiée</div>
 @endif
 @if(Session::has('error'))
     <div class="mt-[10vw]">Une erreur est survenue lors de l'ajout.</div>
