@@ -12,7 +12,7 @@ html {
 body {
     min-height: 100vh;
     margin: 0;
-    padding: 0;
+    padding: 0!important;
     display: flex;
     overflow: visible!important;
   }
@@ -30,7 +30,7 @@ body {
 
 #logo img, #profile img {
     max-width: 6vw;
-    min-width: 50px;
+    min-width: 70px;
     height: 4%;
 }
 
@@ -139,6 +139,7 @@ font-family: "Triomphe";
 .table_cell {
     font-size: 1.5vw;
     font-family: 'Triomphe';
+    text-align: center;
 }
 
 /*********************** MEDIA ***********************/
@@ -150,6 +151,68 @@ font-family: "Triomphe";
     .table_cell {
         font-size: 0.8vw;
     }
+}
+
+@media (max-width: 800px) {
+    
+    .navbar {
+        height: 10vh;
+    }
+
+    .navbar a {
+        width: 50%;
+        text-align: center;
+    }
+
+    .navbar a button {
+        width: 90%;
+        height: 90%;
+        font-size: 0.8em;
+    }
+
+    #profile {
+        margin-top: 30px;
+    }
+
+    .skills-table {
+        max-width: 250px;
+        max-height: 200px;
+        overflow: auto;
+    }
+
+    .skills-table table {
+        width: 500px;
+    }
+
+    .table_cell {
+        font-size: 3vw;
+    }
+
+    .table_header {
+        font-size: 3vw;
+        height: 30px;
+    }
+
+    .connexion-label {
+        font-size: 4vw;
+    }
+
+    .manage-button {
+        font-size: 3vw;
+    }
+
+    .user-title {
+        font-size: 5vw!important;
+    }
+
+    .addtraining-label {
+        font-size: 4vw;
+    }
+
+    .addtraining-container select, .addtraining-container input{
+        font-size: 3vw;
+    }
+
 }
 
 /*********************** SESSION MANAGEMENT ***********************/
@@ -171,4 +234,61 @@ font-family: "Triomphe";
 
 select, input {
     height: 40px;
+}
+
+/*********************** SKILLS DETAILS ***********************/
+
+.skills-table{
+    width: 75vw;
+    height: 250px;
+}
+
+.skills-table table{
+    height: 100%;
+    margin: 0;
+}
+
+/*********************** SKILLS DETAILS ***********************/
+
+.connexion-label {
+    text-align: center;
+    font-size: 3em;
+}
+
+.connexion-form {
+    width: 75%;
+}
+
+.connexion-input {
+    padding-right: 0!important;
+    max-width: 100%;
+}
+
+/*********************** USER MANAGEMENT ***********************/
+
+.user-title {
+    font-size: 1.5vw;
+}
+
+/*********************** FORMATION ADD ***********************/
+
+.addtraining-label {
+    text-align: center;
+}
+
+.addtraining-checkbox {
+    padding: 0;
+}
+
+/*********************** SESSION MANAGEMENT ***********************/
+
+.student-row td select {
+    min-width: 100px;
+}
+
+.sessionManagement-button {
+    width: 20vw;
+    min-width: 100px;
+    max-width: 250px;
+    overflow: hidden;
 }
