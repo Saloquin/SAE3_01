@@ -1,33 +1,30 @@
 <?php
 
-use App\Http\Controllers\AbilitiesList;
-use App\Http\Controllers\AddAbility;
-use App\Http\Controllers\AddSkill;
-use App\Http\Controllers\SkillsDetails;
-use App\Http\Controllers\SkillsList;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AddTraining;
-use App\Http\Controllers\AddUser;
 use App\Http\Controllers\Connexion;
 use App\Http\Controllers\TraineeListFormation;
 use App\Http\Controllers\InitiatorListFormation;
-use App\Http\Controllers\EditTraining;
-use App\Http\Controllers\LevelConfirmation;
-use App\Http\Controllers\Profile;
-use App\Http\Controllers\SessionDetails;
-use App\Http\Controllers\SessionRating;
-use App\Http\Controllers\SkillsManagement;
-use App\Http\Controllers\TraineeList;
-use App\Http\Controllers\TrainingDetails;
 use App\Http\Controllers\ttInitiatorController;
+use App\Http\Controllers\Profile;
 use App\Http\Controllers\Director;
+use App\Http\Controllers\LevelConfirmation;
 use App\Http\Controllers\UserManagement;
+use App\Http\Controllers\AddUser;
+use App\Http\Controllers\AddTraining;
+use App\Http\Controllers\EditTraining;
 use App\Http\Controllers\Manager;
 use App\Http\Controllers\SessionManagement;
+use App\Http\Controllers\SkillsManagement;
+use App\Http\Controllers\TrainingDetails;
 use App\Http\Controllers\Initiator;
+use App\Http\Controllers\SessionRating;
+use App\Http\Controllers\TraineeList;
 use App\Http\Controllers\Trainee;
+use App\Http\Controllers\SessionDetails;
+use App\Http\Controllers\SkillsDetails;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\DirectorAddAccountController;
+use App\Models\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,7 +55,7 @@ Route::get('directeur', [Director::class, 'show'])->name('directeur.show'); // T
 Route::get('directeur/gestion-formation', [Director::class, 'show'])->name('directeur.gestion-formation');
 Route::get('directeur/valider-niveau', [LevelConfirmation::class, 'show'])->name('directeur.valider-niveau');
 Route::get('directeur/gestion-utilisateur', [UserManagement::class, 'show'])->name('directeur.gestion-utilisateur');
-Route::get('directeur/ajouter-utilisateur', [AddUser::class, 'show'])->name('directeur.ajouter-utilisateur'); // TODO : add navbar in controller
+Route::get('directeur/ajouter-utilisateur', [AddUser::class, 'show'])->name('directeur.ajouter-utilisateur');
 Route::get('directeur/ajouter-formation', [AddTraining::class, 'show'])->name('directeur.ajouter-formation');
 Route::get('directeur/modifier-formation', [EditTraining::class, 'show'])->name('directeur.modifier-formation'); // TODO : add navbar in controller
 
@@ -100,7 +97,7 @@ Route::post('directeur/supprime-initiateur-formation', [InitiatorListFormation::
 
 Route::post('directeur/ajoute-formation', [AddTraining::class, 'add'])->name('directeur.ajoute-formation');
 
-Route::post('directeur/gestion-responsable', [UserManagement::class, 'show'])->name('directeur.gestion-responsable');
+Route::post('directeur/gestion-responsable', [Director::class, ''])->name('directeur.gestion-responsable');
 
 Route::get('/director/accountCreation', [DirectorAddAccountController::class, 'index'])->name('DirectorAccountCreation');
 Route::post('SessionManager/TraitementCreationSession', [SessionController::class, 'executeRequest'])->name('sessionManager.traitementCreationSession');

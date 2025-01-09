@@ -5,11 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\ttModel;
 use Illuminate\Support\Facades\DB;
 use App\Models\Uti;
-
-
 use Illuminate\Http\Request;
 
-session_start();
 
 class Initiator extends Controller
 {
