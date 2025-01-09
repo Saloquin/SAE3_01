@@ -11,6 +11,10 @@ Class Connexion extends Controller{
         session_start();
         session_unset();
         if(isset($_SESSION['id'])){
+            if($_SESSION['id'] == 0){
+                header('Location: superadmin');
+                exit;
+            }
             $this->redirect();
         }
         return view('connexion');
@@ -19,13 +23,14 @@ Class Connexion extends Controller{
     private function redirect(){
         if(DB::select('select count(*) as nb from CLUB where uti_id = ?',[$_SESSION['id']])[0]->nb){
             $_SESSION['director'] = true;
-            header('location: director');
+            header('location: directeur');
             exit;
         }
         foreach ($_SESSION['active_formations'] as $formation) {
             if($formation->UTI_ID == $_SESSION['id']){
-                $_SESSION['rf'] = true;
-                header('Location: responsable');
+                $_SESSION['manager'] = true;
+                $_SESSION['formation_level'] = $formation->NIV_ID;
+                header('Location: responsable-formation');
                 exit;
                 // redirect to training manageur home
             }
@@ -57,6 +62,11 @@ Class Connexion extends Controller{
         $password = $request->input('password');
         if(isset($licence) && isset($password)){
             $res = DB::select('select * from UTILISATEUR where uti_id = ? and uti_mdp = ?',[$licence,md5($password)]);
+            if($licence == 0){
+                $_SESSION['id'] = $res[0]->UTI_ID;
+                header('Location: superadmin');
+                exit;
+            }
             if(isset($res[0])){
                 $_SESSION['active_formations'] = DB::select('select * from FORMATION where clu_id = ? and datediff(sysdate(), for_annee) between 0 and 365.25', [$res[0]->CLU_ID]);
                 $_SESSION['id'] = $res[0]->UTI_ID;

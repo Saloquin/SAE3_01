@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mer. 08 jan. 2025 à 09:54
+-- Généré le : mer. 08 jan. 2025 à 10:56
 -- Version du serveur : 10.11.6-MariaDB-0+deb12u1
 -- Version de PHP : 8.2.26
 
@@ -98,8 +98,7 @@ CREATE TABLE `CLUB` (
 -- Déchargement des données de la table `CLUB`
 --
 
-INSERT INTO `CLUB` (`CLU_ID`, `UTI_ID`, `CLU_NOM`, `CLU_VILLE`) VALUES
-(1, 1, 'Carnac Plongée Dive Center', 'Carnac');
+
 
 -- --------------------------------------------------------
 
@@ -141,22 +140,15 @@ INSERT INTO `COMPETENCE` (`COM_ID`, `NIV_ID`, `COM_LIBELLE`) VALUES
 CREATE TABLE `COURS` (
   `COU_ID` int(4) NOT NULL,
   `FOR_ID` int(4) NOT NULL,
-  `COU_DATE` date DEFAULT NULL
+  `COU_DATE` date DEFAULT NULL,
+  `COU_LIEU` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `COURS`
 --
 
-INSERT INTO `COURS` (`COU_ID`, `FOR_ID`, `COU_DATE`) VALUES
-(1, 1, '2025-01-07'),
-(2, 1, '2025-01-07'),
-(3, 1, '2025-01-09'),
-(4, 1, '2025-01-17'),
-(5, 1, '2025-01-09'),
-(6, 1, '2025-01-09'),
-(7, 1, '2025-01-10'),
-(8, 1, '2025-01-01');
+
 
 -- --------------------------------------------------------
 
@@ -176,8 +168,7 @@ CREATE TABLE `FORMATION` (
 -- Déchargement des données de la table `FORMATION`
 --
 
-INSERT INTO `FORMATION` (`FOR_ID`, `NIV_ID`, `UTI_ID`, `CLU_ID`, `FOR_ANNEE`) VALUES
-(1, 1, 2, 1, '2024-09-01');
+
 
 -- --------------------------------------------------------
 
@@ -197,15 +188,7 @@ CREATE TABLE `GROUPE` (
 -- Déchargement des données de la table `GROUPE`
 --
 
-INSERT INTO `GROUPE` (`COU_ID`, `UTI_ID_ELV2`, `UTI_ID_ELV1`, `UTI_ID_INIT`, `GRO_ID`) VALUES
-(1, 5, 3, 1, 17),
-(2, 5, 3, 2, 18),
-(3, 5, 3, 1, 19),
-(4, NULL, 3, 1, 20),
-(5, 5, 3, 1, 21),
-(6, NULL, 3, 1, 34),
-(7, NULL, 3, 2, 35),
-(8, 5, 3, 1, 36);
+
 
 -- --------------------------------------------------------
 
@@ -231,29 +214,6 @@ CREATE TABLE `MAITRISER` (
   `MAI_PROGRESS` char(32) DEFAULT 'non évaluée',
   `MAI_COMMENTAIRE` char(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `MAITRISER`
---
-
-INSERT INTO `MAITRISER` (`COU_ID`, `UTI_ID`, `APT_ID`, `MAI_PROGRESS`, `MAI_COMMENTAIRE`) VALUES
-(2, 3, 1, 'acquise', 'lâche pas l\'école'),
-(2, 3, 2, 'non évaluée', ''),
-(2, 5, 1, 'non évaluée', ''),
-(2, 5, 2, 'non évaluée', ''),
-(4, 3, 1, 'non évaluée', NULL),
-(4, 3, 8, 'non évaluée', NULL),
-(4, 3, 10, 'non évaluée', NULL),
-(5, 3, 1, 'non évaluée', NULL),
-(5, 3, 14, 'non évaluée', NULL),
-(5, 3, 21, 'non évaluée', NULL),
-(5, 5, 1, 'non évaluée', NULL),
-(5, 5, 14, 'non évaluée', NULL),
-(5, 5, 21, 'non évaluée', NULL),
-(8, 3, 1, 'non évaluée', NULL),
-(8, 3, 11, 'non évaluée', NULL),
-(8, 5, 4, 'non évaluée', NULL),
-(8, 5, 15, 'non évaluée', NULL);
 
 -- --------------------------------------------------------
 
@@ -310,12 +270,7 @@ CREATE TABLE `UTILISATEUR` (
 -- Déchargement des données de la table `UTILISATEUR`
 --
 
-INSERT INTO `UTILISATEUR` (`UTI_ID`, `NIV_ID`, `CLU_ID`, `UTI_NOM`, `UTI_PRENOM`, `UTI_MAIL`, `UTI_MDP`, `UTI_DATE_ARCHIVAGE`, `UTI_EST_INIT`, `UTI_LICENCE`, `UTI_DATE_NAISS`, `UTI_DATE_CERTIF`, `UTI_VILLE`, `UTI_CP`, `UTI_RUE`) VALUES
-(1, 3, 1, 'Cherrier', 'Mathias', 'mathias@mail.fr', 'mathias1', NULL, 1, 'A-00-000000', '2005-12-26', '2025-01-01', NULL, '', ''),
-(2, 2, 1, 'Detroussel', 'Gauthier', 'gauthier@mail.fr', 'gauthier1', '', 1, 'A-00-000010', '2005-01-11', '2025-01-01', NULL, '', ''),
-(3, 0, 1, 'Lazare', 'Louis', 'louis@mail.fr', 'louis1', NULL, 0, 'A-00-000011', '2015-01-02', '2022-11-10', NULL, '', ''),
-(4, 6, 1, 'Gruyer', 'Alban', 'alban@mail.fr', 'alban1', NULL, 1, 'A-00-000100', '2005-08-11', '2023-01-04', NULL, '', ''),
-(5, 0, 1, 'Roger', 'Thomas', 'thomas@mail.com', 'thomas1', NULL, 0, 'A-00-000101', '2005-06-16', '2024-11-05', NULL, '', '');
+
 
 -- --------------------------------------------------------
 

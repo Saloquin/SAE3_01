@@ -9,10 +9,6 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 
-<?php
-require_once('../resources/includes/header.php');
-?>
-
 
 <body class="triomphe flex flex-col items-center">
 <p class="  text-[6vw] lg:text-[2vw] mb-[8vh]">Gestion de la formation N1</p>

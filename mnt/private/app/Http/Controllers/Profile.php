@@ -2,10 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Uti;
+
 Class Profile extends Controller{
 
     public function show(){
-        return view('profile');
+        session_start();
+
+
+        if(!isset($_SESSION['id'])){
+            header('Location: /connexion');
+            exit;
+        }
+
+
+        $user = Uti::find($_SESSION["id"]);
+
+        require_once('../resources/includes/header.php');
+        if(isset($_SESSION['director'])){ require_once('../resources/includes/navbar/navbar_director.php'); }
+        if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
+        if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
+        if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
+
+        return view('profile', compact('user'));
+    }
+    public function logout(){
+        session_start();
+        session_destroy();
+        return redirect('');
+
     }
 
 }

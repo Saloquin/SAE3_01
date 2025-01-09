@@ -19,4 +19,8 @@ class Level extends Model
 
     protected $hidden = [];
 
+    public static function getLevels(){
+        return DB::select("select niv_id, niv_description from NIVEAU order by niv_id");
+    }
+
 }
