@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 class addAptController extends Controller
 {
     public function show(){
+        session_start();
+        require_once('../resources/includes/header.php');
+        require_once('../resources/includes/navbar/navbar_admin.php');
+
         $req = Competence::getCompetencies();
         //var_dump($levels);
         $comp = [];
@@ -17,7 +21,7 @@ class addAptController extends Controller
             array_push($comp, $str);
         }
         return view('addAptView', compact('comp'));
-    } 
+    }
 
     public function add(Request $request){
         $selection = $request->input('selection');
@@ -30,7 +34,7 @@ class addAptController extends Controller
         }
         //dd($selection+1, $text);
         return redirect()->route('superadmin');
-        
-        
+
+
     }
 }

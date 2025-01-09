@@ -9,6 +9,10 @@ use App\Models\Competence;
 class addCompController extends Controller
 {
     public function show(){
+        session_start();
+        require_once('../resources/includes/header.php');
+        require_once('../resources/includes/navbar/navbar_admin.php');
+
         $levels = Level::getLevels();
         //var_dump($levels);
         $lvls = [];
@@ -17,7 +21,7 @@ class addCompController extends Controller
             array_push($lvls, $str);
         }
         return view('addCompView', compact('lvls'));
-    } 
+    }
 
     public function add(Request $request){
         $selection = $request->input('selection');
@@ -30,7 +34,7 @@ class addCompController extends Controller
         }
         //dd($selection, $texte);
         return redirect()->route('superadmin');
-        
-        
+
+
     }
 }
