@@ -16,7 +16,6 @@
 
 <body class="flex flex-col items-center triomphe">
 <p class=" triomphe text-[6vw] lg:text-[2vw]">Panel élève</p>
-
 <div class="flex">
     <div class="calendar">
         <div class="calendar-header">

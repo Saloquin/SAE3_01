@@ -23,9 +23,13 @@ class SessionManagement extends Controller
         $date = $request->input('cou_date');
         $course = null;
         $studentsData = []; 
+
+        var_dump($_SESSION['formation_level']);
         
         if ($date) {
-            $course = Lesson::where('COU_DATE', $date)->first();
+            $course = Lesson::where('COU_DATE', $date)
+                            ->where('FOR_ID', $_SESSION['formation_level'])
+                            ->first();
             
             if ($course) {
                 $groups = DB::table('GROUPE')
@@ -92,6 +96,7 @@ class SessionManagement extends Controller
 
     public function executeRequest(Request $request)
     {
+        session_start();
         $studentIds = $request->input('student');
         $initiatorIds = $request->input('initiator');
         $competences = $request->input('competences');
@@ -132,8 +137,8 @@ class SessionManagement extends Controller
                     ->with('error', "L'initiateur avec l'ID $initiatorId est assigné à plus de 2 étudiants.");
             }
         }
-
-        $for_id = 1;
+        
+        $for_id =  $_SESSION['formation_level'];
 
         if ($courseId === null) {
             Lesson::insertLesson($for_id, $date);

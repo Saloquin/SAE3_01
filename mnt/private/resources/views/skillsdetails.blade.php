@@ -14,53 +14,87 @@
 
 <div class=" flex flex-col justify-between skills-table">
 
-    <table class="border-[0.1vw] rounded-[0.5vw] border-[#1962A1] mb-[10vh] border-separate border-spacing-[0.5vw]">
+<table class="border-[0.1vw] rounded-[0.5vw] border-[#1962A1] mb-[10vh] border-separate border-spacing-[0.5vw]">
         <thead>
         <tr>
             <th rowspan="2"></th>
-            <th class="table_header bg-green-400" colspan="3">C1</th>
-            <th class="table_header bg-orange-300" colspan="3">C2</th>
-            <th class="table_header bg-orange-300" colspan="3">C3</th>
+
+            <?php
+                $code = ''; 
+                $compIndex = 1;
+                foreach ($listCompetence as $comp) {
+                    $code .= '<th class="table_header" ';
+                    $code .= 'colspan="' . $comp->nb . '">';
+                    $code .= 'C'. $compIndex . '</th>';
+
+                    $compIndex++;
+                }
+                echo $code;
+            ?>
         </tr>
         <tr>
-            <th class="table_header bg-green-400">A11</th>
-            <th class="table_header bg-green-400">A12</th>
-            <th class="table_header bg-green-400">A13</th>
-            <th class="table_header bg-green-400">A21</th>
-            <th class="table_header bg-orange-300">A22</th>
-            <th class="table_header bg-green-400">A23</th>
-            <th class="table_header bg-orange-300">A31</th>
-            <th class="table_header bg-green-400">A32</th>
-            <th class="table_header bg-orange-300">A33</th>
+            <?php
+                $code = ''; 
+                $compIndex = 1;
+                foreach ($listCompetence as $comp) {
+                    for ($i = 1; $i <= $comp->nb; $i++) {
+                        $code .= '<th class="table_header">A'. $compIndex . $i . '</th>';
+                    }
+                    $compIndex++;
+                }
+                echo $code;
+            ?>
         </tr>
         </thead>
         <tbody>
-        <tr class="">
-            <th class="table_cell">22/10/18</th>
-            <td class="table_cell bg-orange-300">En cours</td>
-            <td class="table_cell"></td>
-            <td class="table_cell"></td>
-            <td class="table_cell bg-orange-300">En cours</td>
-            <td class="table_cell"></td>
-            <td class="table_cell"></td>
-            <td class="table_cell"></td>
-            <td class="table_cell bg-green-400">Acquis</td>
-            <td class="table_cell"></td>
-        </tr>
-        <tr class="">
-            <th class="table_cell">29/10/18</th>
-            <td class="table_cell bg-orange-300">En cours</td>
-            <td class="table_cell"></td>
-            <td class="table_cell"></td>
-            <td class="table_cell bg-orange-300">En cours</td>
-            <td class="table_cell"></td>
-            <td class="table_cell"></td>
-            <td class="table_cell"></td>
-            <td class="table_cell bg-green-400">Acquis</td>
-            <td class="table_cell"></td>
-        </tr>
+            <?php
+
+            $code = "";
+            $j = 0;
+            foreach ($listCours as $cours) {
+                $code .= '<tr class=""> <th class="table_cell">';
+                $code .= $cours->cou_date;
+                $code .= '</th>';
+                for ($i = 0; $i < count($listSkills); $i++) {
+                    $code .= '<td class="table_cell ';
+                    $find = false;
+                    foreach($tab[$i] as $mark){
+
+                        if($mark->cou_date == $cours->cou_date) {
+                            if ($mark->mai_progress == 'Acquis') {
+                                $code .= 'bg-green-400">';
+                                $code .= $mark->mai_progress;
+                            } else if($mark->mai_progress == 'En cours'){
+                                $code .= 'bg-orange-300">';
+                                $code .= $mark->mai_progress;
+                            } else if($mark->mai_progress == 'Absent'){
+                                $code .= 'bg-orange-300">';
+                                $code .= $mark->mai_progress;
+                            } else {
+                                $code .= '';
+                                $code .= $mark->mai_progress;
+                            }
+                            $find = true;
+                        }
+                    }
+                    if($find) {
+                        $code .= '</td>';
+                    }else{
+                        $code .= '"></td>';
+                    }
+                
+                //iteration et affichage des acquis
+                }
+                
+
+                $code .= '</tr>';
+                $j++;
+            }
+            echo $code;
+            ?>
         </tbody>
     </table>
+
 </div>
 
 </body>

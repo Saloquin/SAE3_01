@@ -15,7 +15,7 @@
 
 <div class=" flex flex-col justify-between ">
     <div class="flex flex-row justify-between mb-[1vh]">
-        <p class="triomphe text-[3vw] lg:text-[1.3vw]">Liste des initiateurs</p>
+        <p class="triomphe text-[3vw] lg:text-[1.3vw]">Liste des élèves</p>
     </div>
 
     <table class="border-[0.1vw] rounded-[0.5vw] border-[#1962A1] mb-[5vh] border-separate border-spacing-[0.5vw]">
@@ -52,7 +52,7 @@
 
 <div class=" flex flex-col justify-between mt-[5vh]">
     <div class="flex flex-row justify-between mb-[1vh]">
-        <p class="triomphe text-[3vw] lg:text-[1.3vw]">Liste des élèves de la formation N1</p>
+        <p class="triomphe text-[3vw] lg:text-[1.3vw]">Liste des initiateurs</p>
     </div>
 
     <table class="border-[0.1vw] rounded-[0.5vw] border-[#1962A1] mb-[5vh]  border-separate border-spacing-[0.5vw]">

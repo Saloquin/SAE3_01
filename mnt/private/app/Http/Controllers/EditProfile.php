@@ -36,7 +36,7 @@ Class EditProfile extends Controller{
         $user = Uti::find($request->input('UTI_ID'));
         $user->update([
             'UTI_MAIL' => $validated['UTI_MAIL'],
-            'password' => md5($validated['password1']),
+            'UTI_MDP' => md5($validated['password1']),
         ]);
         return redirect('profile');
     }
