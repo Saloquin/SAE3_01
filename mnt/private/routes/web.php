@@ -1,18 +1,6 @@
 <?php
 
-
-
-use App\Http\Controllers\TraineeListFormation;
-use App\Http\Controllers\InitiatorListFormation;
-use App\Http\Controllers\SkillsDetails;
-use App\Http\Controllers\Trainee;
-use App\Http\Controllers\SessionDetails;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EditUser;
-
-
 // Navigation
-
 use App\Http\Controllers\Connexion;
 use App\Http\Controllers\EditProfile;
 use App\Http\Controllers\Profile;
@@ -41,9 +29,14 @@ use App\Http\Controllers\Initiator;
 use App\Http\Controllers\SessionRating;
 use App\Http\Controllers\TrainingDetails;
 
-
-
-
+//BACK-END Controllers
+use App\Http\Controllers\TraineeListFormation;
+use App\Http\Controllers\InitiatorListFormation;
+use App\Http\Controllers\SkillsDetails;
+use App\Http\Controllers\Trainee;
+use App\Http\Controllers\SessionDetails;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EditUser;
 
 
 /*
