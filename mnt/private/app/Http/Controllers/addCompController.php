@@ -10,6 +10,12 @@ class addCompController extends Controller
 {
     public function show(){
         session_start();
+
+        if(!isset($_SESSION['id'])){
+            header('Location: /connexion');
+            exit;
+        }
+
         require_once('../resources/includes/header.php');
         require_once('../resources/includes/navbar/navbar_admin.php');
 
@@ -33,7 +39,7 @@ class addCompController extends Controller
             session()->flash('error', 'Une erreur est survenue lors de l\'ajout.');
         }
         //dd($selection, $texte);
-        return redirect()->route('superadmin');
+        return redirect()->route('superadmin.addcomp');
 
 
     }
