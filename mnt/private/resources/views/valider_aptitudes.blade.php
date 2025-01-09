@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 <body class="triomphe flex items-center flex-col bg-gray-100">
-    <h1 class="mb-[10vh] mt-[5vh] text-4xl font-bold text-blue-600">Modification de la progression des aptitudes des élèves</h1>
+    <h1 class="lg:mb-[10vh] mb-[7vh] mt-[5vh] text-[5vw] lg:text-[2vw]">Modification de la progression des aptitudes des élèves</h1>
     @if($sessionId == -1)
         <p>Erreur : id de la séance non trouvé</p>
     @else
@@ -38,7 +38,7 @@
             <?php endforeach; ?>
         </select>
 
-        <div class="students-section" class="mb-4">
+        <div class="students-section mb-4">
             <label class="block text-gray-700 font-bold mb-2">Élève 1</label>
             <div class="student-entry flex flex-col mb-4" data-student-index="0">
                 <div class="flex items-center space-x-2 mb-2">
@@ -46,7 +46,7 @@
                 </div>
                 <div class="competencies-for-student flex flex-col space-y-2">
                     <label class="text-gray-700">Aptitudes :</label>
-                    <div class="flex space-x-2 apti">
+                    <div class="flex space-x-2 apti text-[3vw] lg:text-[1vw]">
                         <?php foreach ($skills1 as $skill): ?>
                             <div>
                                 <div class="ability-name"><?= $skill->APT_LIBELLE; ?></div>
@@ -58,7 +58,7 @@
                                 </select>
                             </div>
                         <?php endforeach; ?>
-                        <div>
+                        <div class="">
                             <label for="commentary1" class="block text-gray-700 font-bold">Commentaire</label>
                             <input type="text" id="commentar1" name="commentary_student1_apt_<?= $skill->APT_ID; ?>" class="shadow border rounded w-full px-3 text-gray-700" value="<?= $skill->MAI_COMMENTAIRE ?>">
                         </div>
