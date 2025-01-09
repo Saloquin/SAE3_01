@@ -14,6 +14,12 @@ class TraineeListFormation extends Controller
     public function show(Request $request)
     {
         session_start();
+
+        if(!isset($_SESSION['id'])){
+            header('Location: /connexion');
+            exit;
+        }
+
         require_once('../resources/includes/header.php');
         if(isset($_SESSION['director'])){ require_once('../resources/includes/navbar/navbar_director.php'); }
         if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
@@ -60,7 +66,7 @@ class TraineeListFormation extends Controller
             'UTI_ID' => 'required|exists:UTILISATEUR,UTI_ID',
         ]);
 
-        
+
 
         $formationId = $request->input('FOR_ID');
         $studentId = $request->input('UTI_ID');
@@ -77,7 +83,7 @@ class TraineeListFormation extends Controller
             'UTI_ID' => $studentId,
             'FOR_ID' => $formationId,
         ]);
-        
+
 
         $formation = Formation::find($formationId);
         $listSkills = DB::select("select apt_id, apt_libelle from APTITUDE join COMPETENCE using(com_id) where niv_id = ? order by com_id, apt_id", [$formation->NIV_ID]);
