@@ -25,9 +25,14 @@ class Skill extends Model
         return $users;
     }
 
+    public static function addNew($comp, $desc){
+        $result = DB::insert('INSERT into aptitude(apt_id,com_id,apt_libelle)
+        VALUES(NULL, ?, ?)',[$comp, $desc]);
+        return $result;
+    }
+
     public static function getSkillByFormationLevel(){
         $users = DB::select('select * from APTITUDE where COM_ID in (SELECT COM_ID FROM FORMATION WHERE NIV_ID = ?)', [1]);
-
         return $users;
     }
 }
