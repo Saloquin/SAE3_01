@@ -79,11 +79,6 @@
                                     <option value="{{ $initiateur->UTI_ID }}">{{ $initiateur->UTI_PRENOM }} {{ $initiateur->UTI_NOM }}</option>
                                 @endforeach
                             </select>
-                            <select name="responsable" class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-white px-[1vw] py-[0.8vh] text-black lg:hidden">
-                                @foreach($init as $initiateur)
-                                    <option value="{{ $initiateur->UTI_ID }}"> {{ $initiateur->UTI_NOM }}</option>
-                                @endforeach
-                            </select>
                             <button type="submit"
                                 class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">✔</button>
                         </form>

@@ -54,11 +54,10 @@ Class Director extends Controller{
     * @return \Illuminate\Http\RedirectResponse
     */
     public function editResponsable(Request $request){
-        $request->validate([
+        $validated=$request->validate([
             'formation' => 'required|exists:formation,FOR_ID',
             'responsable' => 'required|exists:utilisateur,UTI_ID',
         ]);
-
         $formation = Formation::find($request->formation);
         $formation->UTI_ID = $request->responsable;
         $formation->save();
