@@ -30,9 +30,14 @@ class addAptController extends Controller
     }
 
     public function add(Request $request){
-        $selection = $request->input('selection');
+        $selection = $request->input('selectionText');
         $text = $request->input('texte');
-        $success = Skill::addNew($selection+1,$text);
+        preg_match('/Niveau\s*:\s*(\d+)/', $selection, $lvlMatch);
+        $lvl = isset($lvlMatch[1]) ? $lvlMatch[1] : null;
+        preg_match('/Compétence\s*:\s*(.*)/', $selection, $compMatch);
+        $comp = isset($compMatch[1]) ? $compMatch[1] : null;
+    
+        $success = Skill::addNew($lvl,$comp,$text);
         if ($success) {
             session()->flash('success', 'L\'élément a bien été ajouté!');
         } else {

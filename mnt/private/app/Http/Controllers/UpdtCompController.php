@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Competence;
 
 class UpdtCompController extends Controller
 {
@@ -17,20 +18,23 @@ class UpdtCompController extends Controller
             $str = "Niveau : " . $row->niv_id . ", Compétence : " . $row->com_libelle;
             array_push($comp, $str);
         }
-        return view('addAptView', compact('comp'));
+        return view('UpdtCompView', compact('comp'));
     }
 
-    public function add(Request $request){
-        $selection = $request->input('selection');
+    public function updt(Request $request){
+        $selection = $request->input('selectionText');
         $text = $request->input('texte');
-        $success = Skill::addNew($selection+1,$text);
+        preg_match('/Niveau\s*:\s*(\d+)/', $selection, $lvlMatch);
+        $lvl = isset($lvlMatch[1]) ? $lvlMatch[1] : null;
+        preg_match('/Compétence\s*:\s*(.*)/', $selection, $compMatch);
+        $comp = isset($compMatch[1]) ? $compMatch[1] : null;
+        $success = Competence::updt($lvl, $comp,$text);
         if ($success) {
-            session()->flash('success', 'L\'élément a bien été ajouté!');
+            session()->flash('success', 'L\'élément a bien été modifié!');
         } else {
-            session()->flash('error', 'Une erreur est survenue lors de l\'ajout.');
+            session()->flash('error', 'Une erreur est survenue lors de la modification.');
         }
-        //dd($selection+1, $text);
-        return redirect()->route('superadmin');
+        return redirect()->route('superadmin.updtcomp');
 
 
     }
