@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use App\Mail\UserCreatedMail;
+use App\Mail\UserPasswordMail;
+use Illuminate\Support\Facades\Mail;
+use App\Models\Uti;
 
 Class Connexion extends Controller{
 
@@ -11,7 +17,7 @@ Class Connexion extends Controller{
         session_start();
         session_unset();
         if(isset($_SESSION['id'])){
-            if($_SESSION['id'] == 10001){
+            if($_SESSION['id'] == "A-00-000000"){
                 header('Location: superadmin');
                 exit;
             }
@@ -60,8 +66,8 @@ Class Connexion extends Controller{
         $licence = $request->input('licence');
         $password = $request->input('password');
         if(isset($licence) && isset($password)){
-            $res = DB::select('select * from UTILISATEUR where uti_id = ? and uti_mdp = ?',[$licence,md5($password)]);
-            if($licence == 10001){
+            $res = DB::select('select * from UTILISATEUR where uti_licence = ? and uti_mdp = ?',[$licence,md5($password)]);
+            if($licence == "A-00-000000"){
                 $_SESSION['id'] = $res[0]->UTI_ID;
                 header('Location: superadmin');
                 exit;
@@ -79,6 +85,32 @@ Class Connexion extends Controller{
         // remettre page avec msg d'erreur pas rempli
         echo 'pas rempli';
         exit;
+    }
+
+    public function recupMdp(Request $request)
+    {
+        
+
+        $validated=$request->validate([
+            'email' => 'required|email',
+        ]);
+
+        
+        $user = Uti::where('UTI_MAIL', $validated['email']);
+        
+        if ($user) {
+            $password = Str::random(16);
+            $user->update([
+                'UTI_MDP' => md5($password),
+            ]);
+            Mail::to($validated['email'])->send(new UserPasswordMail([
+                'name' => $user->first()->UTI_PRENOM . ' ' . $user->first()->UTI_NOM,
+                'email' => $user->first()->UTI_MAIL,
+                'password' => $password,
+            ]));
+        }
+
+        return redirect()->back()->with('status', 'If your email is in our system, you will receive a password reset link.');
     }
 
 }
