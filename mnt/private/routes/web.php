@@ -127,3 +127,4 @@ Route::get('/tt', function(){
     return view('ttInitiatorView');
 });
 
+Route::post('responsable-formation/TraitementCreationSession', [SessionManagement::class, 'executeRequest']);
