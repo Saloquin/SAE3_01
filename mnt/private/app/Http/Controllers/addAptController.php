@@ -16,8 +16,8 @@ class addAptController extends Controller
             exit;
         }
 
-        require_once('../resources/includes/header.php');
-        require_once('../resources/includes/navbar/navbar_admin.php');
+        include resource_path('includes/header.php');
+        include resource_path('includes/navbar/navbar_admin.php');
 
         $req = Competence::getCompetencies();
         //var_dump($levels);

@@ -393,6 +393,6 @@
 
     </script>
 
-    <?php require_once('../resources/includes/footer.php')?>
+    <?php include resource_path('includes/footer.php')?>
 </body>
 </html>
