@@ -39,19 +39,22 @@ require_once('../resources/includes/header.php');
                 <div>Jeu</div>
                 <div>Ven</div>
                 <div>Sam</div>
-               
+
             </div>
             <div class="days" id="days"></div>
         </div>
     </div>
     </div>
 
+    <form id="formulaire" action="/initiateur/evaluation-seance" method="POST" style="display: none;">
+        @csrf
+    </form>
 
     <div id="message"></div>
     <script>
         var sessionData = @json($arr);
         var info = @json($arr2);
-      
+
     </script>
     <script src="{{ asset('js/tt.js') }}"></script>
 
