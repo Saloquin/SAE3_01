@@ -19,17 +19,17 @@ require_once('../resources/includes/header.php');
 <p class="lg:text-[1vw] text-[3vw]">Initiateur : Patrick Prof</p>
 <p class="lg:text-[1vw] text-[3vw] mb-[18vh]">Date : 21/12/2024</p>
 
-<div class=" flex flex-col justify-between ">
+<div class=" flex flex-col justify-between session-table">
 
 
     <p class=" text-[3vw] lg:text-[1.3vw]">Liste des élèves</p>
     <table class="border-[0.1vw] rounded-[0.5vw] bg-[#1962A1]/20 mb-[10vh] border-separate border-spacing-[0.5vw]">
         <tbody>
         <tr class="">
-            <td class="lg:text-[0.8vw] text-[2vw]">Camille Camarade</td>
+            <td class="lg:text-[0.8vw] text-[2vw] table_cell">Camille Camarade</td>
         </tr>
         <tr class="">
-            <td class="lg:text-[0.8vw] text-[2vw]">Quentin Quopin</td>
+            <td class="lg:text-[0.8vw] text-[2vw] table_cell">Quentin Quopin</td>
         </tr>
         </tbody>
     </table>
