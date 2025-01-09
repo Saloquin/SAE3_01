@@ -6,14 +6,19 @@
     padding: 0;
     box-sizing: border-box;
 }
+body{
+    overflow: hidden;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
 
 /* Full-screen layout */
-body {
+.flex {
+    /*padding-top:15vh;*/
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full height of viewport */
     background-color: #f0f0f0;
     margin: 0;
     overflow: hidden; /* Prevent overflow */
@@ -25,7 +30,7 @@ body {
     width: 100%;
     height: 100%;
     max-width: 800px; /* Limit max width */
-    max-height: 600px; /* Limit max height */
+    max-height: 700px; /* Limit max height */
     border: 1px solid #ccc;
     border-radius: 10px;
     display: flex;
@@ -122,7 +127,7 @@ button:focus {
 }
 
 .day.highlight {
-    background-color: #ff5733;  /* Light red or any color of your choice */
+    background-color: #3341ff;  /* Light red or any color of your choice */
     color: white;
     font-weight: bold;
     border-radius: 8px;
@@ -171,4 +176,10 @@ button:focus {
     .day.highlight{
         border-radius: 0px;
     }
+}
+
+.day.active {
+    background-color: #2b87f0;  /* Green or any color you prefer */
+    color: white;
+    font-weight: bold;
 }

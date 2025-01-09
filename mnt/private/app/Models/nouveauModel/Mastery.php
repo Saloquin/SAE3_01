@@ -22,7 +22,7 @@ class Mastery extends Model
 
     public function course()
     {
-        return $this->belongsTo(Lesson::class, 'COU_ID');
+        return $this->belongsTo(Course::class, 'COU_ID');
     }
 
     public function user()

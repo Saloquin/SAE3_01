@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 session_start();
 
-class ttInitiatorController extends Controller
+class Initiator extends Controller
 {
 
     function show(){
@@ -34,7 +34,7 @@ class ttInitiatorController extends Controller
             array_push($arr2[$i], $row->cou_id);
             $i += 1;
         }
-        return view('ttInitiatorView', compact('arr'), compact('arr2'));
+        return view('initiator', compact('arr'), compact('arr2'));
     }
 
 }

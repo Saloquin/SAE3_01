@@ -4,14 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use  App\Models\Level;
+use  App\Models\Club;
 
 class Uti extends Model
 {
     use HasFactory;
 
+
+    public $timestamps = false;
+
     protected $table = 'UTILISATEUR';
     protected $primaryKey = 'UTI_ID';
-
     protected $fillable = [
         'NIV_ID',
         'CLU_ID',
@@ -21,6 +26,12 @@ class Uti extends Model
         'UTI_MDP',
         'UTI_DATE_ARCHIVAGE',
         'UTI_EST_INIT',
+        'UTI_LICENSE',
+        'UTI_DATE_NAISS',
+        'UTI_DATE_CERTIF',
+        'UTI_CP',
+        'UTI_VILLE',
+        'UTI_RUE'
     ];
 
     protected $hidden = [
@@ -45,5 +56,31 @@ class Uti extends Model
     public static function getInitiatorById($id){
         return self::where('uti_id', $id)
                     ->where('uti_est_init', 1)->get();
+    }
+
+    public function club()
+    {
+        return $this->belongsTo(Club::class, 'CLU_ID');
+    }
+
+    public function level()
+    {
+        return $this->belongsTo(Level::class, 'NIV_ID');
+    }
+
+
+    public static function getStudentById($studentId){
+        if (!$studentId) {
+            return null;
+        }
+
+        $student = DB::select('select * from UTILISATEUR where uti_id = ?', [$studentId])[0];
+
+        return $student;
+    }
+
+
+    public static function editProgression($cou_id, $uti_id, $apt_id, $mai_progress, $mai_commentaire) {
+        DB::update("update MAITRISER set mai_progress = ?, mai_commentaire = ? where cou_id = ? and uti_id = ? and apt_id = ?", [$mai_progress, $mai_commentaire, $cou_id, $uti_id, $apt_id]);
     }
 }
