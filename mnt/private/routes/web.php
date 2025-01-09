@@ -95,11 +95,13 @@ Route::get('eleve/details-aptitudes', [SkillsDetails::class, 'show'])->name('ele
 
 
 
+
 //BACK-END
 
 // Connexion et authentification
 Route::post('/login', [Connexion::class, 'login'])->name('login');
 Route::post('/logout', [Profile::class, 'logout'])->name('logout');
+Route::post('mdp-perdu', [Connexion::class, 'recupMdp'])->name('mdp-perdu');
 //connexion
 Route::post('/login', [Connexion::class, 'login']);
 
@@ -152,7 +154,7 @@ Route::get('director_panel', function(){
     return view('director_panel');
 });
 
-Route::get('/edt', [ttInitiatorController::class, 'tt']);
+//Route::get('/edt', [ttInitiatorController::class, 'tt']);
 
 Route::get('/tt', function(){
     return view('ttInitiatorView');
