@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 
-class SessionController extends Controller
+class SessionManagement extends Controller
 {
     public function show(Request $request)
     {
@@ -26,19 +26,37 @@ class SessionController extends Controller
                             ->get();
 
                 foreach ($groups as $group) {
-                    $student = Uti::find($group->UTI_ID_ELV1);
+                    $student1 = Uti::find($group->UTI_ID_ELV1);
+                    $student2 = Uti::find($group->UTI_ID_ELV2);
+
                     $initiator = Uti::find($group->UTI_ID_INIT);
                     
-                    $aptitudes = DB::table('MAITRISER')
+                    $aptitudesStudent1 = DB::table('MAITRISER')
                                     ->where('COU_ID', $course->COU_ID)
                                     ->where('UTI_ID', $group->UTI_ID_ELV1)
                                     ->pluck('APT_ID');
+
+                    $aptitudesStudent2 = DB::table('MAITRISER')
+                                    ->where('COU_ID', $course->COU_ID)
+                                    ->where('UTI_ID', $group->UTI_ID_ELV2)
+                                    ->pluck('APT_ID');
+                    
                     
                     $studentsData[$group->UTI_ID_ELV1] = [
-                        'student_name' => $student->UTI_NOM . ' ' . $student->UTI_PRENOM,
+                        'student_name' => $student1->UTI_NOM . ' ' . $student1->UTI_PRENOM,
+                        'initiator_id' => $initiator->UTI_ID,
                         'initiator_name' => $initiator->UTI_NOM . ' ' . $initiator->UTI_PRENOM,
-                        'aptitudes' => $aptitudes->toArray(),
+                        'aptitudes' => $aptitudesStudent1->toArray(),
                     ];
+                    
+                    if($group->UTI_ID_ELV2 !== null){
+                        $studentsData[$group->UTI_ID_ELV2] = [
+                            'student_name' => $student2->UTI_NOM . ' ' . $student2->UTI_PRENOM,
+                            'initiator_id' => $initiator->UTI_ID,
+                            'initiator_name' => $initiator->UTI_NOM . ' ' . $initiator->UTI_PRENOM,
+                            'aptitudes' => $aptitudesStudent2->toArray(),
+                        ];
+                    }
                 }
             }
         }
@@ -55,7 +73,7 @@ class SessionController extends Controller
         $students = Uti::getStudent();
         $initiators = Uti::getTeacher();
 
-        return view('CreateSession', [
+        return view('gestionseance', [
             'skills' => $skills,
             'student' => $students,
             'initiator' => $initiators,
@@ -132,7 +150,7 @@ class SessionController extends Controller
             $usedStudents[] = $studentId1;
         }
 
-        return redirect('SessionManager/CreationSession')->with('success', 'La session a été créée avec succès.');
+        return redirect('responsable-formation/gestion-seance')->with('success', 'La session a été créée avec succès.');
     }
 
 }

@@ -20,53 +20,12 @@
         <div class="bg-green-500 text-white px-4 py-3 mb-6 rounded">
             {{ session('success') }}
         </div>
-    @endif
+    @endif   
 
-=    <div class="mb-6">
-        <h2 class="text-blue-700 font-semibold mb-4">Informations du cours</h2>
-        <pre>
-        @if($course)
-    <div class="bg-white shadow-lg rounded-lg p-6 mt-4 w-full max-w-4xl">
-        <h2 class="text-2xl font-bold text-blue-700 mb-4">Informations du cours :</h2>
-        <ul class="text-gray-800">
-            <li><strong>ID du cours :</strong> {{ $course->COU_ID }}</li>
-            <li><strong>Formation ID :</strong> {{ $course->FOR_ID }}</li>
-            <li><strong>Date du cours :</strong> {{ $course->COU_DATE }}</li>
-        </ul>
-    </div>
 
-    <!-- Informations des élèves -->
-    <div class="bg-white shadow-lg rounded-lg p-6 mt-4 w-full max-w-4xl">
-        <h2 class="text-2xl font-bold text-blue-700 mb-4">Informations des élèves :</h2>
-        <table class="min-w-full table-auto">
-            <thead>
-                <tr>
-                    <th class="py-2 px-4 border-b text-left">Élève</th>
-                    <th class="py-2 px-4 border-b text-left">Initiateur</th>
-                    <th class="py-2 px-4 border-b text-left">Aptitudes</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($students_data as $studentId => $data)
-                    <tr>
-                        <td class="py-2 px-4 border-b">{{ $data['student_name'] }}</td>
-                        <td class="py-2 px-4 border-b">{{ $data['initiator_name'] }}</td>
-                        <td class="py-2 px-4 border-b">
-                            @foreach($data['aptitudes'] as $aptitudeId)
-                                {{ \App\Models\Skill::find($aptitudeId)->APT_LIBELLE }}<br>
-                            @endforeach
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-@endif
 
-        </pre>
-    </div>
-
-    <form action="{{ url('SessionManager/TraitementCreationSession') }}" method="post" class="bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 w-full max-w-4xl">
+    <form action="{{ url('responsable-formation/TraitementCreationSession') }}" method="post" class="bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 w-full max-w-4xl">
+        <input type="hidden" name="course_id" value="{{ $course ? $course->COU_ID : '' }}">
         @csrf
         <div class="mb-6">
             <label for="date" class="block text-gray-800 font-semibold mb-2">Date de la session</label>
@@ -82,7 +41,7 @@
                             <th class="px-6 py-3">Élève</th>
                             <th class="px-6 py-3">Aptitudes</th>
                             <th class="px-6 py-3">Initiateur</th>
-                            <th class="px-6 py-3">Actions</th>
+                            <th class="px-6 py-3"></th>
                         </tr>
                     </thead>
                     <tbody id="students-table-body">
@@ -103,7 +62,6 @@
     <script id="oldStudents" type="application/json">@json(old('student', []))</script>
     <script id="oldCompetences" type="application/json">@json(old('competences', []))</script>
     <script id="oldInitiators" type="application/json">@json(old('initiator', []))</script>
-
     <script id="studentDataExisting" type="application/json">@json($students_data)</script>
 
     </script>
@@ -114,14 +72,14 @@
             var date = document.getElementById('date').value;
             console.log(date)
             $.ajax({
-                url: "{{ url('SessionManager/CreationSession') }}",
+                url: "{{ url('responsable-formation/gestion-seance') }}",
                 method: "GET",
                 data: {
                     date: date
                 },
                 success: function(response) {
                     console.log(response)
-                    location.href = '/SessionManager/CreationSession?_token=x1NUY6T2xkIDOWvCPcu5b65CdHHYI4sx65jus4B8&date='+response.date;
+                    location.href = '/responsable-formation/gestion-seance?_token=x1NUY6T2xkIDOWvCPcu5b65CdHHYI4sx65jus4B8&date='+response.date;
                 },
                 error: function() {
                     alert('Erreur lors de la récupération des données');
@@ -129,7 +87,285 @@
             });
         }
     </script>
-    <script src="{{ asset('js/CreateSession.js') }}"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const tableHeader = document.getElementById('students-table-header');
+            const tableBody = document.getElementById('students-table-body');
+
+            function updateTableHeaderVisibility() {
+                tableHeader.style.display = tableBody.children.length > 0 ? '' : 'none';
+                document.getElementById('student-table-title').style.display = tableBody.children.length > 0 ? '' : 'none';
+            }
+
+            const studentsData = JSON.parse(document.getElementById('studentsData').textContent);
+            const skillsData = JSON.parse(document.getElementById('skillsData').textContent);
+            const initiatorsData = JSON.parse(document.getElementById('initiatorsData').textContent);
+
+            const usedStudents = new Set();
+            const initiatorCounts = {};
+            const oldStudents = JSON.parse(document.getElementById('oldStudents').textContent);
+            const oldCompetences = JSON.parse(document.getElementById('oldCompetences').textContent);
+            const oldInitiators = JSON.parse(document.getElementById('oldInitiators').textContent);
+            const studentDataExisting = JSON.parse(document.getElementById('studentDataExisting').textContent);
+
+            const buttonStudent = document.getElementById('addStudentButton');
+            buttonStudent.addEventListener('click', () => addStudentRow());
+
+            updateTableHeaderVisibility();
+
+            if (studentDataExisting && Object.keys(studentDataExisting).length > 0) {
+                populateTableWithExistingData(studentDataExisting);
+            }
+
+            function addStudentRow() {
+                const row = document.createElement('tr');
+                row.className = "student-row";
+
+                const studentCell = document.createElement('td');
+                studentCell.className = "px-4 py-2";
+                const studentSelect = document.createElement('select');
+                studentSelect.className = "shadow border rounded w-full py-2 px-3 text-gray-700";
+                studentSelect.name = "student[]";
+
+                const defaultOption = document.createElement('option');
+                defaultOption.value = "";
+                defaultOption.textContent = "-- Sélectionnez un élève --";
+                studentSelect.appendChild(defaultOption);
+
+                studentsData.forEach(student => {
+                    const option = document.createElement('option');
+                    option.value = student.UTI_ID;
+                    option.textContent = `${student.UTI_NOM} ${student.UTI_PRENOM}`;
+                    studentSelect.appendChild(option);
+                });
+
+                studentCell.appendChild(studentSelect);
+
+                const aptitudeCell = document.createElement('td');
+                aptitudeCell.className = "px-4 py-2";
+                const addAptitudeButton = document.createElement('button');
+                addAptitudeButton.type = "button";
+                addAptitudeButton.textContent = "Ajouter une aptitude";
+                addAptitudeButton.className = "bg-green-500 text-white px-4 py-2 rounded shadow";
+                addAptitudeButton.onclick = () => {
+                    const studentId = studentSelect.value;
+                    if (studentId) {
+                        addAptitude(aptitudeCell, studentId);
+                    }
+                };
+
+                aptitudeCell.appendChild(addAptitudeButton);
+
+                const initiatorCell = document.createElement('td');
+                initiatorCell.className = "px-4 py-2";
+                const initiatorSelect = document.createElement('select');
+                initiatorSelect.className = "shadow border rounded w-full py-2 px-3 text-gray-700";
+                initiatorSelect.name = "initiator[]";
+                initiatorSelect.disabled = true;
+
+                const initiatorDefaultOption = document.createElement('option');
+                initiatorDefaultOption.value = "";
+                initiatorDefaultOption.textContent = "-- Sélectionnez un initiateur --";
+                initiatorSelect.appendChild(initiatorDefaultOption);
+
+                initiatorsData.forEach(initiator => {
+                    const option = document.createElement('option');
+                    option.value = initiator.UTI_ID;
+                    option.textContent = `${initiator.UTI_NOM} ${initiator.UTI_PRENOM}`;
+                    initiatorSelect.appendChild(option);
+                });
+
+                studentSelect.onchange = () => {
+                    const previousValue = studentSelect.getAttribute('data-previous-value');
+                    if (previousValue) {
+                        usedStudents.delete(previousValue);
+                    }
+
+                    const currentValue = studentSelect.value;
+                    if (currentValue) {
+                        usedStudents.add(currentValue);
+                    }
+
+                    studentSelect.setAttribute('data-previous-value', currentValue);
+                    updateStudentOptions();
+                    initiatorSelect.disabled = !currentValue;
+                    updateInitiatorOptions();
+                };
+
+                initiatorSelect.onchange = () => {
+                    const previousValue = initiatorSelect.getAttribute('data-previous-value');
+                    if (previousValue) {
+                        initiatorCounts[previousValue] = Math.max(0, (initiatorCounts[previousValue] || 0) - 1);
+                    }
+
+                    const currentValue = initiatorSelect.value;
+                    if (currentValue) {
+                        initiatorCounts[currentValue] = (initiatorCounts[currentValue] || 0) + 1;
+                    }
+
+                    initiatorSelect.setAttribute('data-previous-value', currentValue);
+                    updateInitiatorOptions();
+                };
+
+                initiatorCell.appendChild(initiatorSelect);
+
+                const actionCell = document.createElement('td');
+                actionCell.className = "px-4 py-2 text-center";
+                const removeButton = document.createElement('button');
+                removeButton.type = "button";
+                removeButton.textContent = "Supprimer";
+                removeButton.className = "bg-red-500 text-white px-4 py-2 rounded shadow";
+                removeButton.onclick = () => {
+                    usedStudents.delete(studentSelect.value);
+                    const initiatorId = initiatorSelect.value;
+                    if (initiatorId) {
+                        initiatorCounts[initiatorId] = Math.max(0, (initiatorCounts[initiatorId] || 0) - 1);
+                    }
+                    row.remove();
+                    updateStudentOptions();
+                    updateInitiatorOptions();
+                    updateTableHeaderVisibility();
+                };
+
+                actionCell.appendChild(removeButton);
+
+                row.appendChild(studentCell);
+                row.appendChild(aptitudeCell);
+                row.appendChild(initiatorCell);
+                row.appendChild(actionCell);
+
+                tableBody.appendChild(row);
+                updateTableHeaderVisibility();
+                updateStudentOptions();
+            }
+
+            function addAptitude(cell, studentId, aptitudeId = null) {
+                const existingAptitudes = cell.querySelectorAll('select[name^="competences["]');
+                if (existingAptitudes.length >= 3) {
+                    alert("Un élève ne peut avoir que 3 aptitudes au maximum.");
+                    return;
+                }
+
+                const aptitudeRow = document.createElement('div');
+                aptitudeRow.className = "flex items-center space-x-2 mt-2";
+
+                const select = document.createElement('select');
+                select.className = "shadow border rounded w-full py-2 px-3 text-gray-700";
+                select.name = `competences[${studentId}][]`;
+
+                skillsData.forEach(skill => {
+                    const option = document.createElement('option');
+                    option.value = skill.APT_ID;
+                    option.textContent = skill.APT_LIBELLE;
+
+                    if (aptitudeId && aptitudeId === skill.APT_ID) {
+                        option.selected = true;
+                    }
+
+                    select.appendChild(option);
+                });
+
+                const removeButton = document.createElement('button');
+                removeButton.type = "button";
+                removeButton.textContent = "Retirer";
+                removeButton.className = "bg-red-500 text-white px-4 py-2 rounded shadow";
+                removeButton.onclick = () => aptitudeRow.remove();
+
+                aptitudeRow.appendChild(select);
+                aptitudeRow.appendChild(removeButton);
+
+                cell.insertBefore(aptitudeRow, cell.lastElementChild);
+            }
+
+
+            function updateStudentOptions() {
+                const studentSelects = document.querySelectorAll('select[name="student[]"]');
+                studentSelects.forEach(studentSelect => {
+                    let selected = studentSelect.selectedOptions[0].value;
+                    const studentOptions = studentSelect.querySelectorAll('option');
+                    studentOptions.forEach(option => {
+                        const studentId = option.value;
+                        option.disabled = usedStudents.has(studentId) && studentId !== selected;
+                    });
+                });
+            }
+
+            function updateInitiatorOptions() {
+                const initiatorSelects = document.querySelectorAll('select[name="initiator[]"]');
+                initiatorSelects.forEach(initiatorSelect => {
+                    const selectedValue = initiatorSelect.value;
+                    const initiatorOptions = initiatorSelect.querySelectorAll('option');
+                    initiatorOptions.forEach(option => {
+                        const initiatorId = option.value;
+                        const count = initiatorCounts[initiatorId] || 0;
+                        option.disabled = count >= 2 && initiatorId !== selectedValue;
+                    });
+                });
+            }
+
+            function populateTableWithExistingData(existingData) {
+                console.log(existingData);
+                Object.entries(existingData).forEach(([index, data]) => {
+                    console.log(index);
+                    addStudentRow();
+
+                    const studentSelect = document.querySelectorAll('select[name="student[]"]')[document.querySelectorAll('select[name="student[]"]').length - 1];
+                    const initiatorSelect = document.querySelectorAll('select[name="initiator[]"]')[document.querySelectorAll('select[name="initiator[]"]').length - 1];
+
+                    studentSelect.value = index;
+                    const selectedOption = studentSelect.querySelector(`option[value="${index}"]`);
+                    if (selectedOption) {
+                        selectedOption.selected = true;
+                    }
+
+                    const initiatorId = data.initiator_id;
+                    initiatorSelect.value = initiatorId;
+                    const selectedInitiatorOption = initiatorSelect.querySelector(`option[value="${initiatorId}"]`);
+                    if (selectedInitiatorOption) {
+                        selectedInitiatorOption.selected = true;
+                    }
+
+                    const aptitudeCell = studentSelect.closest('tr').children[1];
+                    data.aptitudes.forEach((aptitudeId, i) => {
+                        if (i < 3) {
+                            addAptitude(aptitudeCell, index, aptitudeId);
+                        }
+                    });
+                });
+
+                updateStudentOptions();
+                updateInitiatorOptions();
+            }
+
+
+
+
+
+            oldStudents.forEach((studentId, index) => {
+                addStudentRow();
+                const studentSelect = document.querySelectorAll('select[name="student[]"]')[index];
+                const initiatorSelect = document.querySelectorAll('select[name="initiator[]"]')[index];
+                const studentCompetences = oldCompetences[studentId] || [];
+                const initiatorId = oldInitiators[index] || "";
+
+                studentSelect.value = studentId;
+                initiatorSelect.value = initiatorId;
+
+                if (initiatorId) {
+                    initiatorCounts[initiatorId] = (initiatorCounts[initiatorId] || 0) + 1;
+                }
+
+                studentCompetences.forEach(competence => {
+                    const cell = studentSelect.closest('tr').children[1];
+                    addAptitude(cell, studentId);
+                });
+            });
+
+            updateInitiatorOptions();
+        });
+
+    </script>
 
 </body>
 </html>
