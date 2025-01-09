@@ -13,7 +13,7 @@
 <p class=" triomphe text-[6vw] lg:text-[2vw]">Synthèse des aptitudes et des compétences</p>
 <p class="mb-[7vh] triomphe text-[6vw] lg:text-[2vw]">Titouan JEAN</p>
 
-<div class=" flex flex-col justify-between ">
+<div class=" flex flex-col justify-between skills-table">
 
     <table class="border-[0.1vw] rounded-[0.5vw] border-[#1962A1] mb-[10vh] border-separate border-spacing-[0.5vw]">
         <thead>
