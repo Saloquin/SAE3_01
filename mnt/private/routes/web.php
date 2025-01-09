@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\AbilitiesList;
+use App\Http\Controllers\AddAbility;
+use App\Http\Controllers\AddSkill;
 use App\Http\Controllers\Connexion;
+use App\Http\Controllers\SkillsList;
 use App\Http\Controllers\TraineeListFormation;
 use App\Http\Controllers\InitiatorListFormation;
 use App\Http\Controllers\ttInitiatorController;
@@ -47,7 +51,7 @@ Route::get('connexion', [Connexion::class, 'show'])->name('connexion');   //Conn
 Route::get('profile', [Profile::class, 'show'])->name('profile');
 
 // Admin
-Route::get('admin/gestion-competences', [SkillsList::class, 'show']);
+Route::get('admin', [SkillsList::class, 'show']);
 Route::get('admin/details-competence', [AbilitiesList::class, 'show']);
 Route::post('admin/details-competence', [AbilitiesList::class, 'show']);
 Route::get('admin/ajouter-competence', [AddSkill::class, 'show']);
