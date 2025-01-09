@@ -53,6 +53,7 @@ class TraineeListFormation extends Controller
             })
             ->where('UTI_EST_INIT', 0)
             ->where('CLU_ID', Uti::find($_SESSION["id"])->CLU_ID)
+            ->where()
             ->get();
 
         return view('traineelistformation', compact('users', 'formation', 'usersPossible'));
