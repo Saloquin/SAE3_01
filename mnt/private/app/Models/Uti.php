@@ -48,6 +48,7 @@ class Uti extends Model
     {
         return self::where('UTI_EST_INIT', 1)->get();
     }
+
     public static function getInitiatorById($id){
         return self::where('uti_id', $id)
                     ->where('uti_est_init', 1)->get();
