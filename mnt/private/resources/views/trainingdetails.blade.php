@@ -11,7 +11,7 @@
 </head>
 
 <body class="flex flex-col items-center triomphe">
-<p class=" triomphe text-[6vw] lg:text-[2vw] mb-[10vh]">Détails de la formation N1</p>
+<p class=" triomphe text-[6vw] lg:text-[2vw] mb-[10vh]">Détails de la formation</p>
 
 <div class=" flex flex-col justify-between ">
     <div class="flex flex-row justify-between mb-[1vh]">
