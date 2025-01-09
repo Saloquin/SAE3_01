@@ -23,7 +23,7 @@ class Formation extends Model
 
     public function responsable()
     {
-        return $this->belongsTo(Uti::class, 'CLU_ID');
+        return $this->belongsTo(Uti::class, 'UTI_ID');
     }
 
     public function level()
@@ -36,5 +36,9 @@ class Formation extends Model
         return $this->belongsTo(Club::class, 'CLU_ID');
     }
 
+    public function learn()
+    {
+        return $this->hasMany(Learn::class, 'FOR_ID');
+    }
     
 }

@@ -11,10 +11,17 @@ use Illuminate\Http\Request;
 Class SessionManagement extends Controller{
 
     public function show(){
+        session_start();
+        require_once('../resources/includes/header.php');
+        if(isset($_SESSION['director'])){ require_once('../resources/includes/navbar/navbar_director.php'); }
+        if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
+        if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
+        if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
+
         $skills = Skill::getSkillByFormationLevel();
         $students = Uti::getStudent();
         $initiators = Uti::getTeacher();
-        
+
         return view('sessionmanagement', ['skills' => $skills, 'student' => $students, 'initiator' => $initiators]);
     }
 
@@ -56,13 +63,13 @@ Class SessionManagement extends Controller{
             }
         }
 
-        $for_id = 1; 
+        $for_id = 1;
         Lesson::insertLesson($for_id, $date);
 
-        $usedStudents = []; 
+        $usedStudents = [];
         for ($i = 0; $i < count($studentIds); $i++) {
             if (in_array($studentIds[$i], $usedStudents)) {
-                continue; 
+                continue;
             }
 
             $studentId1 = $studentIds[$i];
@@ -76,7 +83,7 @@ Class SessionManagement extends Controller{
                 if ($initiatorIds[$j] === $initiatorId && !in_array($studentIds[$j], $usedStudents)) {
                     $studentId2 = $studentIds[$j];
                     $aptitudes2 = $competences[$studentId2] ?? [];
-                    $usedStudents[] = $studentId2; 
+                    $usedStudents[] = $studentId2;
                     break;
                 }
             }

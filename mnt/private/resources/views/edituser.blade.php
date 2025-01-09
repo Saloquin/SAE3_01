@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 
+<?php
+require_once('../resources/includes/header.php');
+?>
+
 <body class="triomphe flex flex-col items-center">
     @if (session('success') || session('failed'))
         <div class="flex flex-row mb-[2vh]">
@@ -20,7 +24,7 @@
 
 <form action="{{ route('addStudent') }}" method="post" class="mb-[5vh]">
     @csrf
-
+    
     <div class="flex flex-row mb-[2vh]">
         <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Nom</p>
         <input type="text" name="UTI_NOM"  class="lg:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] pl-[0.5vw] py-[0.5vh] ml-[0.5vw] min-w-[15vw]" required>

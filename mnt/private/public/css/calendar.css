@@ -13,7 +13,7 @@ body{
 }
 
 /* Full-screen layout */
-.flex {
+.calendar flex {
     /*padding-top:15vh;*/
     font-family: Arial, sans-serif;
     display: flex;

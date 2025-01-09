@@ -9,11 +9,8 @@
 
 </head>
 
-<?php
-require_once('../resources/includes/header.php');
-?>
 
-<body class="flex items-center flex-col bg-blue-50 p-6">
+<body class="flex items-center flex-col bg-blue-50 pb-6">
     <h1 class="mb-10 text-4xl font-bold text-blue-700">Création d'une séance de plongée</h1>
 
     @if(session('error'))
