@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Uti;
 use Illuminate\Support\Facades\DB;
 use App\Models\Uti;
+
 
 Class SkillsDetails extends Controller{
 
@@ -20,6 +22,9 @@ Class SkillsDetails extends Controller{
         if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
         if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
         if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
+
+        $me=Uti::find($_SESSION['id']);
+
 
         $req = "select for_id from APPRENDRE where uti_id = ?";
         $param = [$_SESSION['id']];
@@ -57,7 +62,8 @@ Class SkillsDetails extends Controller{
         //print_r($tab);
         //echo"</pre>";
 
-        return view('skillsdetails', ['formation' => $formation, 'listSkills' => $listSkills, 'listCompetence' => $listCompetence, 'listCours'=> $listCours, 'tab' => $tab, 'me'=>$me]);
+
+        return view('skillsdetails', ['formation' => $formation, 'listSkills' => $listSkills, 'listCompetence' => $listCompetence, 'listCours'=> $listCours, 'tab' => $tab , 'me' => $me]);
     }
 
 }
