@@ -162,7 +162,6 @@
                 const initiatorSelect = document.createElement('select');
                 initiatorSelect.className = "shadow border rounded w-full py-2 px-3 text-gray-700";
                 initiatorSelect.name = "initiator[]";
-                initiatorSelect.disabled = true;
 
                 const initiatorDefaultOption = document.createElement('option');
                 initiatorDefaultOption.value = "";
@@ -189,7 +188,6 @@
 
                     studentSelect.setAttribute('data-previous-value', currentValue);
                     updateStudentOptions();
-                    initiatorSelect.disabled = !currentValue;
                     updateInitiatorOptions();
                 };
 
@@ -258,25 +256,44 @@
                     const option = document.createElement('option');
                     option.value = skill.APT_ID;
                     option.textContent = skill.APT_LIBELLE;
-
-                    if (aptitudeId && aptitudeId === skill.APT_ID) {
-                        option.selected = true;
-                    }
-
+                    const alreadySelected = Array.from(cell.querySelectorAll('select')).some(existingSelect => 
+                        existingSelect.value === skill.APT_ID
+                    );
+                    option.disabled = alreadySelected;
                     select.appendChild(option);
+                });
+
+                select.addEventListener('change', () => {
+                    updateAptitudeOptions(cell, studentId);
                 });
 
                 const removeButton = document.createElement('button');
                 removeButton.type = "button";
                 removeButton.textContent = "Retirer";
                 removeButton.className = "bg-red-500 text-white px-4 py-2 rounded shadow";
-                removeButton.onclick = () => aptitudeRow.remove();
+                removeButton.onclick = () => {
+                    aptitudeRow.remove();
+                    updateAptitudeOptions(cell, studentId);
+                };
 
                 aptitudeRow.appendChild(select);
                 aptitudeRow.appendChild(removeButton);
 
                 cell.insertBefore(aptitudeRow, cell.lastElementChild);
+                updateAptitudeOptions(cell, studentId);
             }
+
+            function updateAptitudeOptions(cell, studentId) {
+                const selectedAptitudes = Array.from(cell.querySelectorAll('select[name^="competences["]')).map(select => select.value);
+
+                cell.querySelectorAll('select[name^="competences["]').forEach(select => {
+                    const currentValue = select.value;
+                    Array.from(select.options).forEach(option => {
+                        option.disabled = selectedAptitudes.includes(option.value) && option.value !== currentValue;
+                    });
+                });
+            }
+
 
 
             function updateStudentOptions() {

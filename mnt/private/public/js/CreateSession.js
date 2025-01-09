@@ -71,7 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const initiatorSelect = document.createElement('select');
         initiatorSelect.className = "shadow border rounded w-full py-2 px-3 text-gray-700";
         initiatorSelect.name = "initiator[]";
-        initiatorSelect.disabled = true;
 
         const initiatorDefaultOption = document.createElement('option');
         initiatorDefaultOption.value = "";
@@ -98,7 +97,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             studentSelect.setAttribute('data-previous-value', currentValue);
             updateStudentOptions();
-            initiatorSelect.disabled = !currentValue;
             updateInitiatorOptions();
         };
 
