@@ -12,10 +12,9 @@
 <body class="flex flex-col items-center triomphe">
 <p class="  text-[6vw] lg:text-[2vw] mb-[8vh]">Création d'une aptitude</p>
 
-<form action="{{ route('superadmin.addaptform') }}" method="POST">
+<form action="{{ route('superadmin.addaptform') }}" method="POST" id="addForm">
             @csrf
 
-            <!-- Liste déroulante générée dynamiquement -->
             <div class="mb-4">
                 <label for="selection" class="block text-sm font-medium text-gray-700">Choisissez la compétence sur laquelle ajouter une aptitude</label>
                 <select id="selection" name="selection" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
@@ -26,17 +25,35 @@
                 </select>
             </div>
 
-            <!-- Champ de texte -->
+            <input type="hidden" id="selectionText" name="selectionText">
+
+           
             <div class="mb-4">
                 <label for="texte" class="block text-sm font-medium text-gray-700">Entrez une description de l'aptitude'</label>
                 <input type="text" id="texte" name="texte" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Entrez votre texte ici" />
             </div>
 
-            <!-- Bouton de soumission -->
             <button type="submit" class="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600">
                 Soumettre
             </button>
         </form>
+
+        <script>
+            
+            function updateForm() {
+                var select = document.getElementById('selection');
+                var selectedOption = select.options[select.selectedIndex];
+                var selectedText = selectedOption.text;
+            
+                
+                document.getElementById('selectionText').value = selectedText;
+            }
+
+           
+            document.getElementById('addForm').addEventListener('submit', function() {
+                updateForm();
+            });
+        </script>
 
 @if(Session::has('success'))
     <div class="mt-[10vw]">L'aptitude a bien été ajoutée</div>

@@ -31,4 +31,9 @@ class Competence extends Model
         return DB::insert('INSERT into competence(com_id,niv_id, com_libelle)
         VALUES(NULL, ?, ?)',[$lvl, $desc]);
     }
+
+    public static function updt($lvl, $comp, $new){
+        return DB::update('UPDATE competence SET com_libelle = ?
+        WHERE com_libelle = ? and niv_id = ?',[$new, $comp, $lvl]);
+    }
 }
