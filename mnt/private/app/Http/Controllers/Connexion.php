@@ -110,7 +110,7 @@ Class Connexion extends Controller{
             Mail::to($validated['email'])->send(new UserPasswordMail([
                 'name' => $user->first()->UTI_PRENOM . ' ' . $user->first()->UTI_NOM,
                 'email' => $user->first()->UTI_MAIL,
-                'password' => $password,
+                'password' => $password,'licence' => $user->first()->UTI_LICENCE,
             ]));
         }
 
