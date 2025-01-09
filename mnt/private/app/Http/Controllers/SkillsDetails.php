@@ -37,11 +37,17 @@ class SkillsDetails extends Controller{
 
         $listCompetence = DB::select("select com_id, com_libelle ,count(*) as nb from APTITUDE join COMPETENCE using(com_id) where niv_id = ?  group by com_id, com_libelle order by com_id",[$formation->NIV_ID]);
 
+        $listCours = DB::select("select distinct cou_date from COURS join MAITRISER using (cou_id) join UTILISATEUR using (uti_id) where uti_id = ? and for_id = ? order by cou_date", [$_SESSION["id"], $formation->FOR_ID]);
+        
         $tab = [];
         foreach ($listSkills as $skill){
-            $tab[] = DB::select("select val_statut from VALIDER where apt_id = ? and uti_id = ?", [$skill->apt_id,$_SESSION['id']]);
+            $tab[] = DB::select("select mai_progress, cou_date from MAITRISER join COURS using(cou_id) where apt_id = ? and uti_id = ?", [$skill->apt_id,$_SESSION['id']]);
         }
 
-        return view('skillsdetails', ['formation' => $formation, 'listSkills' => $listSkills, 'listCompetence' => $listCompetence, 'tab' => $tab]);
+        //echo"<pre>";
+        //print_r($tab);
+        //echo"</pre>";
+
+        return view('skillsdetails', ['formation' => $formation, 'listSkills' => $listSkills, 'listCompetence' => $listCompetence, 'listCours'=> $listCours, 'tab' => $tab]);
     }
 }
