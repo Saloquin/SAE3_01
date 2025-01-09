@@ -6,16 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validation des formations - Journal de Plongée</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="./js/tailwind.config.js"></script>
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 
 <body class="flex flex-col items-center triomphe">
 <p class=" triomphe text-[6vw] lg:text-[2vw] mb-[10vh]">Validation des formations</p>
 
-<div class=" flex flex-col justify-between ">
-    <div class="flex flex-row justify-between mb-[1vh]">
-        <p class="triomphe text-[3vw] lg:text-[1.3vw]">Liste des élèves de la formation N1 ayant acquis toutes les compétences</p>
+<div class=" flex flex-col lg:w-auto w-[90%]">
+    <div class="flex lg:flex-row flex-col lg:justify-center items-center mb-[1vh]">
+        <p class="triomphe text-[3vw] lg:text-[1.3vw] text-center">Liste des élèves de la formation N1 ayant acquis toutes les compétences</p>
     </div>
 
     <table class="border-[0.1vw] rounded-[0.5vw] border-[#1962A1] mb-[10vh] border-separate border-spacing-[0.5vw]">
