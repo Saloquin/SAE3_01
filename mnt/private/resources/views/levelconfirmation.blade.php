@@ -43,7 +43,7 @@
                 <form action="{{route('acceptStudent')}}" method="POST">
                     @csrf
                     @method('POST')
-                    <input type='hidden' name="id" value= "{{$row->uti_id}}"></input>
+                    <input type='hidden' name="id" value= "{{$row->uti_id}}">
                     <button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#223A5D] px-[1vw] py-[0.8vh] text-white">✔</button>
                 </form>
             </td>
