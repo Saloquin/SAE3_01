@@ -11,7 +11,7 @@ class Uti extends Model
 
     protected $table = 'UTILISATEUR';
     protected $primaryKey = 'UTI_ID';
-
+    public $timestamps = false;
     protected $fillable = [
         'NIV_ID',
         'CLU_ID',
@@ -21,7 +21,7 @@ class Uti extends Model
         'UTI_MDP',
         'UTI_DATE_ARCHIVAGE',
         'UTI_EST_INIT',
-        'UTI_LICENSE',
+        'UTI_LICENCE',
         'UTI_DATE_NAISS',
         'UTI_DATE_CERTIF',
         'UTI_CP',
@@ -41,7 +41,7 @@ class Uti extends Model
     public static function getStudentByFormation()
     {
         return self::where('UTI_EST_INIT', 0)
-                    ->where('NIV_ID', 0)->get();
+            ->where('NIV_ID', 0)->get();
     }
 
     public static function getTeacher()
@@ -51,7 +51,7 @@ class Uti extends Model
 
     public static function getInitiatorById($id){
         return self::where('uti_id', $id)
-                    ->where('uti_est_init', 1)->get();
+            ->where('uti_est_init', 1)->get();
     }
 
     public function club()
@@ -62,5 +62,18 @@ class Uti extends Model
     public function level()
     {
         return $this->belongsTo(Level::class, 'NIV_ID');
+
     }
+
+    public function learnings()
+    {
+        return $this->hasMany(Learn::class, 'UTI_ID');
+    }
+
+    public function teaching()
+    {
+        return $this->hasMany(Teach::class, 'UTI_ID');
+    }
+
+
 }

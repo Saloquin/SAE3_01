@@ -11,13 +11,15 @@ class Teach extends Model
 
     protected $table = 'initier';
     public $timestamps = false;
-
+    public $incrementing = false;
+    
+    protected $primaryKey = ['FOR_ID', 'UTI_ID'];
     protected $fillable = [
         'UTI_ID',
         'FOR_ID',
     ];
 
-    public function teacher()
+    public function initiator()
     {
         return $this->belongsTo(Uti::class, 'UTI_ID');
     }

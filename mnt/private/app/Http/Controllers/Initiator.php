@@ -2,23 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ttInitiatorModel;
+use App\Models\ttModel;
 use Illuminate\Support\Facades\DB;
 use App\Models\Uti;
-
-
 use Illuminate\Http\Request;
 
-class ttInitiatorController extends Controller
+
+class Initiator extends Controller
 {
 
-    function show($days,$data){
-        return view('ttInitiatorView', compact('days'), compact('data'));
-    }
+    function show(){
+        session_start();
 
-    function tt(){
+        require_once('../resources/includes/header.php');
+        if(isset($_SESSION['director'])){ require_once('../resources/includes/navbar/navbar_director.php'); }
+        if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
+        if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
+        if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
+
         //var_dump(Uti::getInitiatorById(2));
-        $tt = ttInitiatorModel::getCoursById(2);
+        $tt = ttModel::getSessionInitiatorById($_SESSION['id']);
         $arr = [];
         $arr2 = [];
         $i = 0;
@@ -33,9 +36,10 @@ class ttInitiatorController extends Controller
             array_push($arr2[$i], $row->uti_nom2);
             array_push($arr2[$i], $row->uti_prenom2);
             array_push($arr2[$i], $row->niv);
+            array_push($arr2[$i], $row->cou_id);
             $i += 1;
         }
-        return $this->show($arr,$arr2);
+        return view('initiator', compact('arr'), compact('arr2'));
     }
 
 }
