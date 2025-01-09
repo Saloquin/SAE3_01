@@ -14,7 +14,6 @@ class SessionManagement extends Controller
     public function show(Request $request)
     {
         $date = $request->input('cou_date');
-        var_dump($date);
         $course = null;
         $studentsData = []; 
         
