@@ -49,13 +49,13 @@ Class SessionRating extends Controller{
         }
         
         $allOldProgress = DB::select(" select mai_progress from COURS
-                                    join GROUPE using(cou_id)
-                                    join MAITRISER on GROUPE.cou_id = MAITRISER.cou_id and GROUPE.uti_id_elv1 = MAITRISER.uti_id
+                                    join groupe using(cou_id)
+                                    join maitriser on groupe.cou_id = maitriser.cou_id and groupe.uti_id_elv1 = maitriser.uti_id
                                     where cou_date < ? and uti_id_init = ?
                                     union
-                                    select mai_progress from COURS
-                                    join GROUPE using(cou_id)
-                                    join MAITRISER on GROUPE.cou_id = MAITRISER.cou_id and GROUPE.uti_id_elv2 = MAITRISER.uti_id
+                                    select mai_progress from cours
+                                    join groupe using(cou_id)
+                                    join maitriser on groupe.cou_id = maitriser.cou_id and groupe.uti_id_elv2 = maitriser.uti_id
                                     where cou_date < ? and uti_id_init = ?", [$session->COU_DATE, $_SESSION['id'], $session->COU_DATE, $_SESSION['id']]);
 
         foreach ($allOldProgress as $oldProgress) {

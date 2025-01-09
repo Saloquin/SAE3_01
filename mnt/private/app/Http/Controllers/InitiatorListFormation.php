@@ -77,8 +77,8 @@ Class InitiatorListFormation extends Controller{
     {
 
         $validated = $request->validate([
-            'FOR_ID' => 'required|exists:FORMATION,FOR_ID',
-            'UTI_ID' => 'required|exists:UTILISATEUR,UTI_ID',
+            'FOR_ID' => 'required|exists:formation,FOR_ID',
+            'UTI_ID' => 'required|exists:utilisateur,UTI_ID',
         ]);
 
         $formation = $request->input('FOR_ID');
@@ -101,8 +101,8 @@ Class InitiatorListFormation extends Controller{
 {
 
     $validated = $request->validate([
-        'FOR_ID' => 'required|exists:FORMATION,FOR_ID',
-        'UTI_ID' => 'required|exists:UTILISATEUR,UTI_ID',
+        'FOR_ID' => 'required|exists:formation,FOR_ID',
+        'UTI_ID' => 'required|exists:utilisateur,UTI_ID',
     ]);
 
     $formationId = $validated['FOR_ID'];

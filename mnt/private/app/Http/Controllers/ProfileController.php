@@ -37,7 +37,7 @@ class ProfileController extends Controller
         $formations = Formation::with(['level', 'club'])->where('CLU_ID', $clubId)->get();
 
 
-        // Retourner la vue avec les données
+     
         return view('profile', compact('students', 'teachers', 'formations','clubId','levels'));
     }
 

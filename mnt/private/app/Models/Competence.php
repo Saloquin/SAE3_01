@@ -24,7 +24,7 @@ class Competence extends Model
     }
 
     public static function getCompetencies(){
-        return DB::select('select niv_id, com_id, com_libelle from COMPETENCE order by com_id');
+        return DB::select('select niv_id, com_id, com_libelle from competence order by com_id');
     }
 
     public static function addNew($lvl, $desc){

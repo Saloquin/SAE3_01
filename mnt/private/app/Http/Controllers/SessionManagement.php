@@ -47,7 +47,7 @@ class SessionManagement extends Controller
                             ->first();
             
             if ($course) {
-                $groups = DB::table('GROUPE')
+                $groups = DB::table('groupe')
                             ->where('COU_ID', $course->COU_ID)
                             ->get();
 
@@ -57,12 +57,12 @@ class SessionManagement extends Controller
 
                     $initiator = Uti::find($group->UTI_ID_INIT);
                     
-                    $aptitudesStudent1 = DB::table('MAITRISER')
+                    $aptitudesStudent1 = DB::table('maitriser')
                                     ->where('COU_ID', $course->COU_ID)
                                     ->where('UTI_ID', $group->UTI_ID_ELV1)
                                     ->pluck('APT_ID');
 
-                    $aptitudesStudent2 = DB::table('MAITRISER')
+                    $aptitudesStudent2 = DB::table('maitriser')
                                     ->where('COU_ID', $course->COU_ID)
                                     ->where('UTI_ID', $group->UTI_ID_ELV2)
                                     ->pluck('APT_ID');

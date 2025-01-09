@@ -10,7 +10,7 @@ class Uti extends Model
 {
     use HasFactory;
 
-    protected $table = 'UTILISATEUR';
+    protected $table = 'utilisateur';
     protected $primaryKey = 'UTI_ID';
     public $timestamps = false;
     protected $fillable = [
@@ -96,12 +96,12 @@ class Uti extends Model
             return null;
         }
 
-        $student = DB::select('select * from UTILISATEUR where uti_id = ?', [$studentId])[0];
+        $student = DB::select('select * from utilisateur where uti_id = ?', [$studentId])[0];
 
         return $student;
     }
 
     public static function editProgression($cou_id, $uti_id, $apt_id, $mai_progress, $mai_commentaire) {
-        DB::update("update MAITRISER set mai_progress = ?, mai_commentaire = ? where cou_id = ? and uti_id = ? and apt_id = ?", [$mai_progress, $mai_commentaire, $cou_id, $uti_id, $apt_id]);
+        DB::update("update maitriser set mai_progress = ?, mai_commentaire = ? where cou_id = ? and uti_id = ? and apt_id = ?", [$mai_progress, $mai_commentaire, $cou_id, $uti_id, $apt_id]);
     }
 }

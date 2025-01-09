@@ -29,10 +29,10 @@ class Lesson extends Model
         if($cou_id === null){
             $cou_id = intval(DB::table('COURS')->max('COU_ID'));
         }else{
-            DB::table('GROUPE')->where('COU_ID', $cou_id)->delete();
-            DB::table('MAITRISER')->where('COU_ID', $cou_id)->delete();
+            DB::table('groupe')->where('COU_ID', $cou_id)->delete();
+            DB::table('maitriser')->where('COU_ID', $cou_id)->delete();
         }
-        DB::table('GROUPE')->insert([
+        DB::table('groupe')->insert([
             'COU_ID' => $cou_id,
             'UTI_ID_ELV1' => $uti_id_elv1,
             'UTI_ID_ELV2' => $uti_id_elv2,
@@ -40,7 +40,7 @@ class Lesson extends Model
         ]);
 
         foreach ($aptitudes1 as $aptitude) {
-            DB::table('MAITRISER')->insert([
+            DB::table('maitriser')->insert([
                 'COU_ID' => $cou_id,
                 'UTI_ID' => $uti_id_elv1,
                 'APT_ID' => $aptitude,

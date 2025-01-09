@@ -45,7 +45,7 @@ Class SkillsDetails extends Controller{
         $me=Uti::find($_SESSION['id']);
 
 
-        $req = "select for_id from APPRENDRE where uti_id = ?";
+        $req = "select for_id from apprendre where uti_id = ?";
         $param = [$_SESSION['id']];
         foreach($_SESSION['active_formations'] as $training){
             $req .= " and for_id = ?";
@@ -66,15 +66,15 @@ Class SkillsDetails extends Controller{
 
         $me = Uti::find($_SESSION["id"]); 
 
-        $listSkills = DB::select("select apt_id, apt_libelle from APTITUDE join COMPETENCE using(com_id) where niv_id = ? order by com_id, apt_id", [$formation->NIV_ID]);
+        $listSkills = DB::select("select apt_id, apt_libelle from aptitude join competence using(com_id) where niv_id = ? order by com_id, apt_id", [$formation->NIV_ID]);
 
-        $listCompetence = DB::select("select com_id, com_libelle ,count(*) as nb from APTITUDE join COMPETENCE using(com_id) where niv_id = ?  group by com_id, com_libelle order by com_id",[$formation->NIV_ID]);
+        $listCompetence = DB::select("select com_id, com_libelle ,count(*) as nb from aptitude join competence using(com_id) where niv_id = ?  group by com_id, com_libelle order by com_id",[$formation->NIV_ID]);
 
-        $listCours = DB::select("select distinct cou_date from COURS join MAITRISER using (cou_id) join UTILISATEUR using (uti_id) where uti_id = ? and for_id = ? order by cou_date", [$_SESSION["id"], $formation->FOR_ID]);
+        $listCours = DB::select("select distinct cou_date from COURS join maitriser using (cou_id) join utilisateur using (uti_id) where uti_id = ? and for_id = ? order by cou_date", [$_SESSION["id"], $formation->FOR_ID]);
         
         $tab = [];
         foreach ($listSkills as $skill){
-            $tab[] = DB::select("select mai_progress, cou_date from MAITRISER join COURS using(cou_id) where apt_id = ? and uti_id = ?", [$skill->apt_id,$_SESSION['id']]);
+            $tab[] = DB::select("select mai_progress, cou_date from maitriser join cours using(cou_id) where apt_id = ? and uti_id = ?", [$skill->apt_id,$_SESSION['id']]);
         }
 
         //echo"<pre>";

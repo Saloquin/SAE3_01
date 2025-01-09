@@ -45,16 +45,16 @@ Class SkillsManagement extends Controller{
             }
         }
 
-        $listSkills = DB::select("select apt_id, apt_libelle from APTITUDE join COMPETENCE using(com_id) where niv_id = ? order by com_id, apt_id", [$formation->NIV_ID]);
+        $listSkills = DB::select("select apt_id, apt_libelle from aptitude join competence using(com_id) where niv_id = ? order by com_id, apt_id", [$formation->NIV_ID]);
 
-        $listCompetence = DB::select("select com_id, com_libelle, count(*) as nb from APTITUDE join COMPETENCE using(com_id) where niv_id = ? group by com_id, com_libelle order by com_id", [$formation->NIV_ID]);
+        $listCompetence = DB::select("select com_id, com_libelle, count(*) as nb from aptitude join competence using(com_id) where niv_id = ? group by com_id, com_libelle order by com_id", [$formation->NIV_ID]);
 
-        $listTrainee = DB::select("select uti_id, concat(uti_nom, ' ', uti_prenom) as nom from APPRENDRE join UTILISATEUR using (uti_id) where for_id = ? order by uti_id", [$formation->FOR_ID]);
+        $listTrainee = DB::select("select uti_id, concat(uti_nom, ' ', uti_prenom) as nom from apprendre join utilisateur using (uti_id) where for_id = ? order by uti_id", [$formation->FOR_ID]);
 
         $tab = [];
 
         foreach ($listSkills as $skill){
-            $tab[] = DB::select("select val_statut from VALIDER where apt_id = ? and uti_id in ( select uti_id from APPRENDRE where for_id = ? ) order by uti_id", [$skill->apt_id, $formation->FOR_ID]);
+            $tab[] = DB::select("select val_statut from VALIDER where apt_id = ? and uti_id in ( select uti_id from apprendre where for_id = ? ) order by uti_id", [$skill->apt_id, $formation->FOR_ID]);
         }
 
         return view('skillsmanagement', ['formation' => $formation, 'listSkills' => $listSkills, 'listCompetence' => $listCompetence, 'listTrainee' => $listTrainee, 'tab' => $tab]);

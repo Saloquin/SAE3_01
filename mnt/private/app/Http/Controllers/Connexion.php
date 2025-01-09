@@ -49,7 +49,7 @@ Class Connexion extends Controller{
       * @return void
       */
     private function redirect(){
-        if(DB::select('select count(*) as nb from CLUB where uti_id = ?',[$_SESSION['id']])[0]->nb){
+        if(DB::select('select count(*) as nb from club where uti_id = ?',[$_SESSION['id']])[0]->nb){
             $_SESSION['director'] = true;
             header('location: directeur');
             exit;
@@ -63,14 +63,14 @@ Class Connexion extends Controller{
                 // redirect to training manageur home
             }
 
-            $res = DB::select('select count(*) as nb from INITIER where for_id = ? and uti_id = ?',[$formation->FOR_ID,$_SESSION['id']]);
+            $res = DB::select('select count(*) as nb from initier where for_id = ? and uti_id = ?',[$formation->FOR_ID,$_SESSION['id']]);
             if($res[0]->nb){
                 $_SESSION['teacher'] = true;
                 header('Location: initiateur');
                 exit;
                 // redirect to initiator home
             }
-            $res = DB::select('select count(*) as nb from APPRENDRE where for_id = ? and uti_id = ?',[$formation->FOR_ID,$_SESSION['id']]);
+            $res = DB::select('select count(*) as nb from apprendre where for_id = ? and uti_id = ?',[$formation->FOR_ID,$_SESSION['id']]);
             if($res[0]->nb){
                 $_SESSION['student'] = true;
                 header('Location: eleve');
@@ -99,7 +99,7 @@ Class Connexion extends Controller{
         $password = $request->input('password');
         if(isset($licence) && isset($password)){
 
-            $res = DB::select('select * from UTILISATEUR where uti_licence = ? and uti_mdp = ?',[$licence,md5($password)]);
+            $res = DB::select('select * from utilisateur where uti_licence = ? and uti_mdp = ?',[$licence,md5($password)]);
             if($licence == "A-00-000000"){
 
                 $_SESSION['id'] = $res[0]->UTI_ID;
@@ -107,7 +107,7 @@ Class Connexion extends Controller{
                 exit;
             }
             if(isset($res[0])){
-                $_SESSION['active_formations'] = DB::select('select * from FORMATION where clu_id = ? and datediff(sysdate(), for_annee) between 0 and 365.25', [$res[0]->CLU_ID]);
+                $_SESSION['active_formations'] = DB::select('select * from formation where clu_id = ? and datediff(sysdate(), for_annee) between 0 and 365.25', [$res[0]->CLU_ID]);
                 $_SESSION['id'] = $res[0]->UTI_ID;
                 $this->redirect();
                 exit;

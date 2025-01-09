@@ -93,8 +93,8 @@ class TraineeListFormation extends Controller
     {
 
         $validated = $request->validate([
-            'FOR_ID' => 'required|exists:FORMATION,FOR_ID',
-            'UTI_ID' => 'required|exists:UTILISATEUR,UTI_ID',
+            'FOR_ID' => 'required|exists:formation,FOR_ID',
+            'UTI_ID' => 'required|exists:utilisateur,UTI_ID',
         ]);
 
 
@@ -124,10 +124,10 @@ class TraineeListFormation extends Controller
 
 
         $formation = Formation::find($formationId);
-        $listSkills = DB::select("select apt_id, apt_libelle from APTITUDE join COMPETENCE using(com_id) where niv_id = ? order by com_id, apt_id", [$formation->NIV_ID]);
+        $listSkills = DB::select("select apt_id, apt_libelle from aptitude join competence using(com_id) where niv_id = ? order by com_id, apt_id", [$formation->NIV_ID]);
         foreach ($listSkills as $skill) {
             if (Validate::where('UTI_ID', $studentId)->where('APT_ID', $skill->apt_id)->doesntExist()) {
-                DB::table('VALIDER')->insert([
+                DB::table('valider')->insert([
                     'UTI_ID' => $studentId,
                     'APT_ID' => $skill->apt_id,
                     'VAL_STATUT' => 0,
@@ -147,8 +147,8 @@ class TraineeListFormation extends Controller
     {
 
         $validated = $request->validate([
-            'FOR_ID' => 'required|exists:FORMATION,FOR_ID',
-            'UTI_ID' => 'required|exists:UTILISATEUR,UTI_ID',
+            'FOR_ID' => 'required|exists:formation,FOR_ID',
+            'UTI_ID' => 'required|exists:utilisateur,UTI_ID',
         ]);
 
         $formationId = $validated['FOR_ID'];

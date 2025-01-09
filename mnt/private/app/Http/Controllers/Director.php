@@ -56,8 +56,8 @@ Class Director extends Controller{
     */
     public function editResponsable(Request $request){
         $request->validate([
-            'formation' => 'required|exists:FORMATION,FOR_ID',
-            'responsable' => 'required|exists:UTILISATEUR,UTI_ID',
+            'formation' => 'required|exists:formation,FOR_ID',
+            'responsable' => 'required|exists:utilisateur,UTI_ID',
         ]);
 
         $formation = Formation::find($request->formation);
@@ -75,7 +75,7 @@ Class Director extends Controller{
   */
     public function delete(Request $request){
         $validated = $request->validate([
-            'FOR_ID' => 'required|exists:FORMATION,FOR_ID',
+            'FOR_ID' => 'required|exists:formation,FOR_ID',
         ]);
 
         $formationId = $validated['FOR_ID'];
