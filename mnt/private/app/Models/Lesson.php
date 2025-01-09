@@ -30,7 +30,6 @@ class Lesson extends Model
             $cou_id = intval(DB::table('COURS')->max('COU_ID'));
         }else{
             DB::table('GROUPE')->where('COU_ID', $cou_id)->delete();
-
             DB::table('MAITRISER')->where('COU_ID', $cou_id)->delete();
         }
         DB::table('GROUPE')->insert([

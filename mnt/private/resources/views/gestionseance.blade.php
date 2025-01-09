@@ -6,6 +6,7 @@
     <title>Création d'un cours de plongée</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 <body class="flex items-center flex-col bg-blue-50 p-6">
     <h1 class="mb-10 text-4xl font-bold text-blue-700">Création d'une séance de plongée</h1>
@@ -22,12 +23,19 @@
         </div>
     @endif   
 
-
-
     <form action="{{ url('responsable-formation/TraitementCreationSession') }}" method="post" class="bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 w-full max-w-4xl">
         <input type="hidden" name="course_id" value="{{ $course ? $course->COU_ID : '' }}">
-        <input type="hidden" name="cou_date" value="{{ $date }}">
         @csrf
+        <div class="mb-6">
+            <label for="session_date" class="block text-blue-700 font-semibold mb-2">Date de la séance</label>
+            <input type="text" 
+                   id="session_date" 
+                   name="session_date" 
+                   value="{{ $date }}" 
+                   class="bg-gray-100 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5"
+                   readonly>
+        </div>
+
         <div class="mb-6">
             <h2 class="text-blue-700 font-semibold mb-4" id="student-table-title">Élèves et leurs aptitudes</h2>
             <div class="overflow-x-auto bg-blue-50 rounded-lg shadow-lg">
@@ -59,10 +67,6 @@
     <script id="oldCompetences" type="application/json">@json(old('competences', []))</script>
     <script id="oldInitiators" type="application/json">@json(old('initiator', []))</script>
     <script id="studentDataExisting" type="application/json">@json($students_data)</script>
-
-    </script>
-
-
     <script>
         function updateSessionData() {
             var date = document.getElementById('date').value;
@@ -75,7 +79,7 @@
                 },
                 success: function(response) {
                     console.log(response)
-                    location.href = '/responsable-formation/gestion-seance?_token=x1NUY6T2xkIDOWvCPcu5b65CdHHYI4sx65jus4B8&date='+response.date;
+                    location.href = '/responsable-formation/gestion-seance'
                 },
                 error: function() {
                     alert('Erreur lors de la récupération des données');
@@ -252,10 +256,16 @@
                     const option = document.createElement('option');
                     option.value = skill.APT_ID;
                     option.textContent = skill.APT_LIBELLE;
+
+                    if (aptitudeId && skill.APT_ID == aptitudeId) {
+                        option.selected = true;
+                    }
+
                     const alreadySelected = Array.from(cell.querySelectorAll('select')).some(existingSelect => 
-                        existingSelect.value === skill.APT_ID
+                        existingSelect.value == skill.APT_ID && skill.APT_ID != aptitudeId
                     );
                     option.disabled = alreadySelected;
+
                     select.appendChild(option);
                 });
 
@@ -278,6 +288,7 @@
                 cell.insertBefore(aptitudeRow, cell.lastElementChild);
                 updateAptitudeOptions(cell, studentId);
             }
+
 
             function updateAptitudeOptions(cell, studentId) {
                 const selectedAptitudes = Array.from(cell.querySelectorAll('select[name^="competences["]')).map(select => select.value);
@@ -380,5 +391,6 @@
 
     </script>
 
+    <?php require_once('../resources/includes/footer.php')?>
 </body>
 </html>
