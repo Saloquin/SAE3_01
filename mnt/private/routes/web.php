@@ -57,17 +57,17 @@ Route::get('directeur/modifier-formation', [EditTraining::class, 'show'])->name(
 Route::get('responsable-formation', [Manager::class, 'show'])->name('responsable.show');
 Route::get('responsable-formation/gestion-seance', [SessionManagement::class, 'show'])->name('responsable.gestion-seance');    //Creation session
 Route::get('responsable-formation/gestion-aptitude', [SkillsManagement::class, 'show'])->name('responsable.gestion-aptitude');
-Route::get('responsable-formation/details-formation', [TrainingDetails::class, 'show'])->name('responsable.details-formation');
+Route::get('responsable-formation/details-formation', [TrainingDetails::class, 'show'])->name('responsable.details-formation');//pas de view
 
 // Trainer
-Route::get('initiateur', [Initiator::class, 'show'])->name('initiateur.show');
+Route::get('initiateur', [Initiator::class, 'show'])->name('initiateur');
 Route::get('initiateur/evaluation-seance', [SessionRating::class, 'show'])->name('initiateur.evaluation-seance');
 Route::get('initiateur/liste-eleves', [TraineeList::class, 'show'])->name('initiateur.liste-eleves');
 
 // Trainee
 Route::get('eleve', [Trainee::class, 'show'])->name('eleve.show');
 Route::get('eleve/details-seance', [SessionDetails::class, 'show'])->name('eleve.details-seance');
-Route::get('eleve/details-aptitudes', [SkillsDetails::class, 'show'])->name('eleve.details-aptitudes');
+Route::get('eleve/details-aptitudes', [SkillsDetails::class, 'show'])->name('eleve.details-aptitudes');//pas de view
 
 Route::get('/edt', [ttInitiatorController::class, 'tt'])->name('ttInitiatorController.tt');
 // BACK-END
@@ -89,7 +89,7 @@ Route::post('directeur/supprime-initiateur-formation', [InitiatorListFormation::
 
 Route::post('directeur/ajoute-formation', [AddTraining::class, 'add'])->name('directeur.ajoute-formation');
 
-Route::post('directeur/gestion-responsable', [UserManagement::class, 'show'])->name('directeur.gestion-responsable');
+Route::post('directeur/gestion-responsable', [Director::class, ''])->name('directeur.gestion-responsable');
 
 Route::get('/director/accountCreation', [DirectorAddAccountController::class, 'index'])->name('DirectorAccountCreation');
 Route::post('SessionManager/TraitementCreationSession', [SessionController::class, 'executeRequest'])->name('sessionManager.traitementCreationSession');
