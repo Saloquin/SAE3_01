@@ -46,7 +46,7 @@ Class SessionRating extends Controller{
                                     where cou_date < ? and uti_id_init = ?", [$session->COU_DATE, $_SESSION['id'], $session->COU_DATE, $_SESSION['id']]);
 
         foreach ($allOldProgress as $oldProgress) {
-            if ($oldProgress->mai_progress == 'non évaluée' || $oldProgress->mai_progress == 'Non évaluée') {
+            if ($oldProgress->mai_progress == 'non évaluée' || $oldProgress->mai_progress == 'Non évaluée' || $oldProgress->mai_progress == 'non évalué' || $oldProgress->mai_progress == 'Non évalué') {
                 return view('valider_aptitudes', ['sessionId' => -3]);
             }
         }

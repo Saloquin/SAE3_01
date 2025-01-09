@@ -133,7 +133,7 @@ class Lesson extends Model
 
         $res = DB::select("select val_statut from VALIDER where uti_id = ? and apt_id = ?", [$uti_id, $apt_id]);
 
-        if ($res && $res[0]->val_statut !== "Acquise") {
+        if ($res && $res[0]->val_statut !== "Acquis") {
             $lastProgress = DB::select("select MAI_PROGRESS from maitriser
                                         join cours using(cou_id)
                                         where uti_id = ? and apt_id = ?
@@ -141,8 +141,8 @@ class Lesson extends Model
                                         limit 3;", [$uti_id, $apt_id]);
             
             if (count($lastProgress) === 3) {
-                if ($lastProgress[0]->MAI_PROGRESS === "Acquise" && $lastProgress[1]->MAI_PROGRESS === "Acquise" && $lastProgress[2]->MAI_PROGRESS === "Acquise") {
-                    DB::update("update VALIDER set val_statut = 'Acquise' where uti_id = ? and apt_id = ?", [$uti_id, $apt_id]);
+                if ($lastProgress[0]->MAI_PROGRESS === "Acquis" && $lastProgress[1]->MAI_PROGRESS === "Acquis" && $lastProgress[2]->MAI_PROGRESS === "Acquis") {
+                    DB::update("update VALIDER set val_statut = 'Acquis' where uti_id = ? and apt_id = ?", [$uti_id, $apt_id]);
                 }
             }
         }

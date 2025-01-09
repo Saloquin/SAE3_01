@@ -60,7 +60,7 @@
                 for ($i = 0; $i < count($listSkills); $i++) {
                     $skill = $tab[$i][$j];
                     $code .= '<td class="table_cell ';
-                    if ($skill->val_statut == 'Acquise') {
+                    if ($skill->val_statut == 'Acquis') {
                         $code .= 'bg-green-400">';
                     } else {
                         $code .= 'bg-orange-300">';
