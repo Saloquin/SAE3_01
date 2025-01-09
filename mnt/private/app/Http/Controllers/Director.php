@@ -21,6 +21,7 @@ Class Director extends Controller{
         $me = Uti::find($_SESSION["id"]);
         $init = Uti::getTeacher();
         $formations = Formation::with(['level', 'club'])->where('CLU_ID', $clubId)->get();
+        
         return view('director', compact('formations' ,'clubId','init','me'));
     }
 

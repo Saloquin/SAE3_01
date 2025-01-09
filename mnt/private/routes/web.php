@@ -7,7 +7,7 @@ use App\Http\Controllers\Connexion;
 use App\Http\Controllers\SkillsList;
 use App\Http\Controllers\TraineeListFormation;
 use App\Http\Controllers\InitiatorListFormation;
-use App\Http\Controllers\ttInitiatorController;
+// Removed duplicate import
 use App\Http\Controllers\Profile;
 use App\Http\Controllers\Director;
 use App\Http\Controllers\LevelConfirmation;
@@ -16,6 +16,7 @@ use App\Http\Controllers\AddUser;
 use App\Http\Controllers\AddTraining;
 use App\Http\Controllers\EditTraining;
 use App\Http\Controllers\Manager;
+use App\Http\Controllers\EditUser;
 use App\Http\Controllers\SessionManagement;
 use App\Http\Controllers\SkillsManagement;
 use App\Http\Controllers\TrainingDetails;
@@ -23,6 +24,9 @@ use App\Http\Controllers\Initiator;
 use App\Http\Controllers\SessionRating;
 use App\Http\Controllers\SessionDetails;
 use App\Http\Controllers\SkillsDetails;
+use App\Http\Controllers\Trainee;
+use App\Http\Controllers\TraineeList;
+use App\Http\Controllers\ttInitiatorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\DirectorAddAccountController;
@@ -82,7 +86,7 @@ Route::get('eleve', [Trainee::class, 'show'])->name('eleve.show');
 Route::get('eleve/details-seance', [SessionDetails::class, 'show'])->name('eleve.details-seance');
 Route::get('eleve/details-aptitudes', [SkillsDetails::class, 'show'])->name('eleve.details-aptitudes');
 
-Route::get('/edt', [ttInitiatorController::class, 'tt'])->name('ttInitiatorController.tt');
+//Route::get('/edt', [ttInitiatorController::class, 'tt'])->name('ttInitiatorController.tt');
 
 
 
@@ -94,6 +98,8 @@ Route::post('/logout', [Profile::class, 'logout'])->name('logout');
 
 // Director routes
 Route::post('addStudent', [AddUser::class, 'insertUser'])->name('addStudent');
+Route::post('edituser', [EditUser::class, 'edit'])->name('edituser');
+Route::post('archiveuser', [EditUser::class, 'archive'])->name('archiveuser');
 
 Route::post('directeur/gestion-eleve', [TraineeListFormation::class, 'show'])->name('directeur.gestion-eleve');
 Route::post('directeur/ajoute-eleve-formation', [TraineeListFormation::class, 'add'])->name('directeur.ajoute-eleve-formation');
@@ -108,7 +114,7 @@ Route::post('directeur/modifier-utilisateur', [EditUser::class, 'show'])->name('
 
 Route::post('directeur/gestion-responsable', [Director::class, 'editResponsable'])->name('directeur.gestion-responsable');
 
-Route::post('SessionManager/TraitementCreationSession', [SessionController::class, 'executeRequest'])->name('sessionManager.traitementCreationSession');
+//Route::post('SessionManager/TraitementCreationSession', [SessionController::class, 'executeRequest'])->name('sessionManager.traitementCreationSession');
 
 //Superadmin
 Route::get('/superadmin/', [addCompController::class, 'show'])->name('superadmin.addcomp');
@@ -123,7 +129,7 @@ Route::get('director_panel', function(){
     return view('director_panel');
 });
 
-Route::get('/edt', [ttInitiatorController::class, 'tt']);
+//Route::get('/edt', [ttInitiatorController::class, 'tt']);
 
 Route::get('/tt', function(){
     return view('ttInitiatorView');
