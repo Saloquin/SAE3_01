@@ -5,6 +5,7 @@ use App\Http\Controllers\AddAbility;
 use App\Http\Controllers\AddSkill;
 use App\Http\Controllers\Connexion;
 use App\Http\Controllers\SkillsList;
+use App\Http\Controllers\Trainee;
 use App\Http\Controllers\TraineeListFormation;
 use App\Http\Controllers\InitiatorListFormation;
 use App\Http\Controllers\ttInitiatorController;
