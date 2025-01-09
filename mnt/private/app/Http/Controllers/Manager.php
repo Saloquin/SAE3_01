@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Uti;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\ttModel;
 
-Class Manager extends Controller{
+session_start();
 
-    public function show(){
+class Manager extends Controller
+{
+    function show(){
         session_start();
 
         require_once('../resources/includes/header.php');
@@ -14,9 +18,16 @@ Class Manager extends Controller{
         if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
         if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
         if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
-        $user = Uti::find($_SESSION["id"]);
 
-        return view('manager', compact('user'));
+        $tt = ttModel::getCourseById($_SESSION['id']);
+        $arr = [];
+        $arr2 = [];
+        $i = 0;
+        foreach ($tt as $row){
+            array_push($arr, $row->cou_id);
+            array_push($arr, $row->cou_date);
+
+        }
+        return view('manager', compact('arr'));
     }
-
 }

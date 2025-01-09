@@ -30,7 +30,27 @@
             <th class="table_header">Nais.</th>
         </tr>
         </thead>
-        <tbody>
+        @foreach($rq as $row)
+            <tbody>
+            <tr class="">
+            <td class="table_cell">{{$row->uti_licence}}</td>
+            <td class="table_cell">{{$row->uti_nom}}</td>
+            <td class="table_cell">{{$row->uti_prenom}}</td>
+            <td class="table_cell">{{$row->uti_mail}}</td>
+            <td class="table_cell">{{$row->niv_id}}</td>
+            <td class="table_cell">{{$row->uti_date_certif}}</td>
+            <td class="table_cell">{{$row->uti_date_naiss}}</td>
+            <td>
+                <form action="{{route('acceptStudent')}}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <input type='hidden' name="id" value= "{{$row->uti_id}}"></input>
+                    <button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#223A5D] px-[1vw] py-[0.8vh] text-white">✔</button>
+                </form>
+            </td>
+        </tr>
+            @endforeach
+
         <tr class="">
             <td class="table_cell">A-00-000000</td>
             <td class="table_cell">MARTIN</td>

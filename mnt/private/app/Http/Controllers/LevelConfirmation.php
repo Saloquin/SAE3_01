@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LevelConf;
+use Illuminate\Http\Request;
+
 Class LevelConfirmation extends Controller{
+
+
 
     public function show(){
         session_start();
@@ -11,7 +16,18 @@ Class LevelConfirmation extends Controller{
         if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
         if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
         if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
-        return view('levelconfirmation');
+        
+        
+        $rq = LevelConf::getStudentConf();
+        
+
+        return view('levelconfirmation', compact('rq'));
+    }
+
+    public function accept(Request $request){
+        $id = $request->input('id');
+        LevelConf::acceptForm($id);
+        return $this->show();
     }
 
 }
