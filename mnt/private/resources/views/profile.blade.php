@@ -12,7 +12,7 @@
 <body class="triomphe flex flex-col items-center">
 <p class="  text-[6vw] lg:text-[2vw] mb-[8vh]">Gestion du compte</p>
 
-<form action="" method="post" class="mb-[3vh] text-[5vw] lg:text-[1.5vw]">
+
     <div class="flex flex-row mb-[2vh]">
         <p class=" mr-[5vw]">Licence</p>
         <p class="">{{$user->UTI_LICENCE}}</p>
@@ -41,10 +41,10 @@
         <p class="mr-[5vw]">Email</p>
         <p class="">{{$user->UTI_MAIL}}</p>
     </div>
-    <div class="flex justify-center">
-        <button class=" lg:text-[1vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Modifier</button>
+    <div class="flex justify-center mt-[3vh]">
+        <a href="{{ route('edit-profile') }}" class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Modifier</a>
+
     </div>
-</form>
 
 <form action="{{ route('logout') }}" method="post">
     @csrf
