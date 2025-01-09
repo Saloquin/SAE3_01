@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+
 Class SkillsDetails extends Controller{
 
     public function show(){
@@ -18,7 +20,7 @@ Class SkillsDetails extends Controller{
         if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
         if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
 
-        return view('skillsdetails');$req = "select for_id from APPRENDRE where uti_id = ?";
+        $req = "select for_id from APPRENDRE where uti_id = ?";
         $param = [$_SESSION['id']];
         foreach($_SESSION['active_formations'] as $training){
             $req .= " and for_id = ?";
