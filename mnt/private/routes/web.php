@@ -67,6 +67,7 @@ Route::get('responsable-formation/details-formation', [TrainingDetails::class, '
 // Trainer
 Route::get('initiateur', [Initiator::class, 'show']); // TODO : add navbar in controller
 Route::get('initiateur/evaluation-seance', [SessionRating::class, 'show']); // TODO : add navbar in controller
+Route::post('initiateur/evaluation-seance', [SessionRating::class, 'show']);
 Route::get('initiateur/liste-eleves', [TraineeList::class, 'show']);
 
 // Trainee
@@ -95,3 +96,4 @@ Route::post('responsable-formation/TraitementCreationSession', [SessionManagemen
 Route::get('/initiateur/edt', [ttInitiatorController::class, 'show']);
 Route::get('/eleve/edt', [ttStudentController::class, 'show']);
 
+Route::post('/traitement_validation_aptitudes', [SessionRating::class, 'updateStudentSkillForSession']);
