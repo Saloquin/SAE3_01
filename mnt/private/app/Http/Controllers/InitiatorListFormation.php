@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Class InitiatorListFormation
+ *
+ * Controller for managing the list of initiators for a formation.
+ *
+ * @package App\Http\Controllers
+ */
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -9,7 +15,12 @@ use App\Models\Uti;
 use Illuminate\Support\Facades\DB;
 
 Class InitiatorListFormation extends Controller{
-
+    /**
+      * Display the list of initiators for a specific formation.
+      *
+      * @param Request $request
+      * @return \Illuminate\View\View
+      */
     public function show(Request $request)
 {
     session_start();
@@ -56,7 +67,12 @@ Class InitiatorListFormation extends Controller{
 }
 
 
-
+    /**
+      * Add a new initiator to a formation.
+      *
+      * @param Request $request
+      * @return \Illuminate\View\View
+      */
     public function add(Request $request)
     {
 
@@ -75,7 +91,12 @@ Class InitiatorListFormation extends Controller{
         return $this->show($request);
     }
 
-
+    /**
+      * Remove an initiator from a formation.
+      *
+      * @param Request $request
+      * @return \Illuminate\View\View
+      */
     public function remove(Request $request)
 {
 
@@ -108,4 +129,3 @@ Class InitiatorListFormation extends Controller{
 
 
 }
-

@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Class SessionRating
+ * 
+ * This controller handles the session rating functionalities, including displaying session details and updating student skills for a session.
+ * 
+ * @package App\Http\Controllers
+ */
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -8,7 +14,14 @@ use App\Models\Lesson;
 use Illuminate\Support\Facades\DB;
 
 Class SessionRating extends Controller{
-
+    /**
+     * Show the session rating page.
+     * 
+     * This method displays the session rating page based on the session ID provided in the request. It checks if the user is logged in and has the necessary permissions. It also verifies the session date and previous progress of the students before displaying the session details.
+     * 
+     * @param Request $request The HTTP request object containing the session ID.
+     * @return \Illuminate\View\View The view for the session rating page.
+     */
     public function show(Request $request) {
         session_start();
 
@@ -62,7 +75,14 @@ Class SessionRating extends Controller{
         return view('valider_aptitudes', ['sessionId' => $sessionId, 'session' => $session, 'studentId1' => $studentId1, 'studentId2' => $studentId2,
                                           'student1' => $student1, 'student2' => $student2, 'skills1' => $skills1, 'skills2' => $skills2]);
     }
-
+    /**
+     * Update student skills for a session.
+     * 
+     * This method updates the skills of students for a specific session based on the input provided in the request. It iterates through the skills of each student and updates their progress and comments.
+     * 
+     * @param Request $request The HTTP request object containing the session ID, student IDs, and their respective skills and comments.
+     * @return \Illuminate\Http\RedirectResponse A redirect response to the initiator page with a success message.
+     */
     public function updateStudentSkillForSession(Request $request) {
         $sessionId = $request->input('sessionId');
         $studentId1 = $request->input('studentId1');

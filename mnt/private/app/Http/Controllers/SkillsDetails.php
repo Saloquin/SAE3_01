@@ -1,12 +1,33 @@
 <?php
 
-namespace App\Http\Controllers;
+/**
+ * SkillsDetails Controller
+ * 
+ * This controller handles the display of skill details for a user.
+ * 
+ * @package App\Http\Controllers
+ */
 
-use App\Models\Uti;
-use Illuminate\Support\Facades\DB;
+ namespace App\Http\Controllers;
 
+ use App\Models\Uti;
+ use Illuminate\Support\Facades\DB;
+ 
+ /**
+  * Class SkillsDetails
+  * 
+  * This class contains methods to display skill details for a user.
+  */
 Class SkillsDetails extends Controller{
-
+    /**
+      * Show the skill details for the logged-in user.
+      * 
+      * This method checks if the user is logged in and has an active session.
+      * It then retrieves the user's details, active formations, skills, competencies,
+      * and courses, and passes them to the 'skillsdetails' view.
+      * 
+      * @return \Illuminate\View\View The view displaying the skill details.
+      */
     public function show(){
         session_start();
 
@@ -65,3 +86,5 @@ Class SkillsDetails extends Controller{
     }
 
 }
+ 
+     

@@ -1,5 +1,13 @@
 <?php
-
+/**
+ * Class ProfileController
+ *
+ * This controller handles the profile-related operations such as displaying the profile page,
+ * inserting students and teachers into formations, assigning a responsible person to a formation,
+ * and creating new users.
+ *
+ * @package App\Http\Controllers
+ */
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -15,7 +23,11 @@ use Illuminate\Support\Facades\Mail;
 
 class ProfileController extends Controller
 {
-
+    /**
+    * Display the profile page with students, teachers, formations, club ID, and levels.
+    *
+    * @return \Illuminate\View\View
+    */
     public function index()
     {
         $clubId = 1;
@@ -29,7 +41,13 @@ class ProfileController extends Controller
         return view('profile', compact('students', 'teachers', 'formations','clubId','levels'));
     }
 
-
+     /**
+    * Insert students into a formation.
+    *
+    * @param \Illuminate\Http\Request $request
+    * @return \Illuminate\Http\RedirectResponse
+    * @throws \Illuminate\Validation\ValidationException
+    */
     public function insertStudent(Request $request)
     {
         $request->validate([
@@ -56,7 +74,13 @@ class ProfileController extends Controller
         return redirect()->route('profile')->with('success', 'Les étudiants ont été ajoutés à la formation.');
     }
 
-
+    /**
+    * Insert teachers into a formation.
+    *
+    * @param \Illuminate\Http\Request $request
+    * @return \Illuminate\Http\RedirectResponse
+    * @throws \Illuminate\Validation\ValidationException
+    */
     public function insertTeacher(Request $request)
     {
         
@@ -84,7 +108,13 @@ class ProfileController extends Controller
     
         return redirect()->route('profile')->with('success', 'Les enseignants ont été ajoutés à la formation.');
     }
-
+    /**
+    * Assign a responsible person to a formation.
+    *
+    * @param \Illuminate\Http\Request $request
+    * @return \Illuminate\Http\RedirectResponse
+    * @throws \Illuminate\Validation\ValidationException
+    */
     public function insertResponsable(Request $request)
     {
         $request->validate([
@@ -99,7 +129,13 @@ class ProfileController extends Controller
         return redirect()->route('profile')->with('success', 'Le responsable de la formation a été modifié.');
 
     }
-
+     /**
+    * Create a new user and send an email with the generated password.
+    *
+    * @param \Illuminate\Http\Request $request
+    * @return \Illuminate\Http\RedirectResponse
+    * @throws \Illuminate\Validation\ValidationException
+    */
     public function insertUser(Request $request)
     {
         

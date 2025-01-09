@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Class SessionManagement
+ * 
+ * This controller handles session management for different user roles and manages course sessions.
+ * 
+ * @package App\Http\Controllers
+ */
 namespace App\Http\Controllers;
 
 use App\Models\Lesson;
@@ -11,6 +17,15 @@ use Illuminate\Support\Facades\DB;
 
 class SessionManagement extends Controller
 {
+    /**
+      * Display the session management page.
+      * 
+      * This method handles the display of the session management page based on the user's role.
+      * It retrieves course and student data based on the provided date and formation level.
+      * 
+      * @param Request $request The HTTP request instance.
+      * @return \Illuminate\View\View|\Illuminate\Http\JsonResponse The view for session management or JSON response for AJAX requests.
+      */
     public function show(Request $request)
     {
         session_start();
@@ -93,7 +108,14 @@ class SessionManagement extends Controller
             'students_data' => $studentsData 
         ]);
     }
-
+    /**
+      * Execute the request to manage session data.
+      * 
+      * This method handles the execution of session data management, including validation and insertion of course and group data.
+      * 
+      * @param Request $request The HTTP request instance.
+      * @return \Illuminate\Http\RedirectResponse The redirect response after processing the request.
+      */
     public function executeRequest(Request $request)
     {
         session_start();
@@ -175,4 +197,4 @@ class SessionManagement extends Controller
     }
 
 
-}
+} 

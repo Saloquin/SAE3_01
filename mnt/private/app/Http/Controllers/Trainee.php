@@ -1,5 +1,14 @@
 <?php
-
+/**
+ * Class Trainee
+ * 
+ * This controller handles the display of trainee information.
+ * It ensures that the user is authenticated and has the appropriate session data.
+ * Depending on the user's role, it includes the appropriate navigation bar.
+ * It retrieves the trainee's session data and passes it to the view.
+ * 
+ * @package App\Http\Controllers
+ */
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -8,6 +17,16 @@ use App\Models\Uti;
 
 class Trainee extends Controller
 {
+    /**
+     * Display the trainee information.
+     * 
+     * This function starts a session and checks if the user is authenticated.
+     * If not, it redirects to the login page. It includes the appropriate
+     * navigation bar based on the user's role. It retrieves the trainee's
+     * session data and passes it to the view.
+     * 
+     * @return \Illuminate\View\View
+     */
     function show(){
         session_start();
 

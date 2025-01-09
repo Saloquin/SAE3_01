@@ -1,5 +1,14 @@
 <?php
-
+/**
+ * Class Manager
+ * 
+ * This controller handles the display of the manager's view.
+ * It ensures that the user is authenticated and has the appropriate session variables set.
+ * Depending on the user's role, it includes the appropriate navigation bar.
+ * It retrieves course information for the authenticated user and passes it to the view.
+ * 
+ * @package App\Http\Controllers
+ */
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -8,6 +17,14 @@ use App\Models\ttModel;
 
 class Manager extends Controller
 {
+    /**
+      * Display the manager's view.
+      * 
+      * This method starts a session, checks if the user is authenticated, and includes the appropriate navigation bar based on the user's role.
+      * It retrieves course information for the authenticated user and passes it to the view.
+      * 
+      * @return \Illuminate\View\View
+      */
     function show(){
         session_start();
 
@@ -33,4 +50,4 @@ class Manager extends Controller
         }
         return view('manager', compact('arr'));
     }
-}
+}  

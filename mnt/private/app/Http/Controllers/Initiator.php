@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Class Initiator
+ *
+ * This controller handles the display of the initiator's session data.
+ *
+ * @package App\Http\Controllers
+ */
 namespace App\Http\Controllers;
 
 use App\Models\ttModel;
@@ -10,7 +16,15 @@ use Illuminate\Http\Request;
 
 class Initiator extends Controller
 {
-
+    /**
+      * Show the initiator's session data.
+      *
+      * This function starts a session, checks if the user is logged in, and then
+      * includes the appropriate navbar based on the user's role. It retrieves the
+      * session data for the initiator and prepares it for display in the view.
+      *
+      * @return \Illuminate\View\View The view displaying the initiator's session data.
+      */
     function show(){
         session_start();
 

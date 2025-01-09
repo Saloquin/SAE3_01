@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Class InitiatorController
+ * 
+ * This controller handles the display and update of student skills for a specific session.
+ */
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -9,6 +13,12 @@ use App\Models\Lesson;
 
 class InitiatorController extends Controller
 {
+     /**
+      * Display the skills edition page for a specific session.
+      *
+      * @param Request $request The HTTP request instance.
+      * @return \Illuminate\View\View|string The view for the skills edition page or an error message.
+      */
     public function showSkillsEditionPage(Request $request) {
         $sessionId = $request->input('cou_id');
 
@@ -28,7 +38,12 @@ class InitiatorController extends Controller
         return view('valider_aptitudes', ['sessionId' => $sessionId, 'session' => $session, 'studentId1' => $studentId1, 'studentId2' => $studentId2,
                                           'student1' => $student1, 'student2' => $student2, 'skills1' => $skills1, 'skills2' => $skills2]);
     }
-
+    /**
+      * Update the skills of students for a specific session.
+      *
+      * @param Request $request The HTTP request instance.
+      * @return \Illuminate\Http\RedirectResponse A redirect response to the initiator page with a success message.
+      */
     public function updateStudentSkillForSession(Request $request) {
         $sessionId = $request->input('sessionId');
         $studentId1 = $request->input('studentId1');
@@ -55,3 +70,9 @@ class InitiatorController extends Controller
         return redirect('/initiateur')->with('success', 'Les aptitudes ont été modifiées avec succès.');;
     }
 }
+
+
+
+
+ 
+ 

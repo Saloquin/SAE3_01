@@ -1,11 +1,28 @@
 <?php
-
+/**
+ * Class SkillsManagement
+ *
+ * This controller handles the display of skills management page.
+ * It ensures the user is authenticated and has the necessary session data.
+ * It fetches and prepares data related to skills, competencies, and trainees for the view.
+ *
+ * @package App\Http\Controllers
+ */
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 
 Class SkillsManagement extends Controller{
-
+    /**
+     * Display the skills management page.
+     *
+     * This method starts the session, checks if the user is authenticated,
+     * includes the appropriate navbar based on the user's role, and fetches
+     * data related to the user's active formations, skills, competencies, and trainees.
+     * The data is then passed to the 'skillsmanagement' view.
+     *
+     * @return \Illuminate\View\View
+     */
     public function show() {
 
        session_start();

@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * TraineeListFormation Controller
+ * 
+ * This controller handles the display, addition, and removal of trainees from formations.
+ * 
+ * @package App\Http\Controllers
+ */
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -11,7 +17,12 @@ use App\Models\Validate;
 
 class TraineeListFormation extends Controller
 {
-
+    /**
+      * Display the list of trainees for a specific formation.
+      * 
+      * @param Request $request The HTTP request object.
+      * @return \Illuminate\View\View The view displaying the list of trainees.
+      */
     public function show(Request $request)
     {
         session_start();
@@ -72,7 +83,12 @@ class TraineeListFormation extends Controller
     }
 
 
-
+    /**
+      * Add a trainee to a formation.
+      * 
+      * @param Request $request The HTTP request object.
+      * @return \Illuminate\View\View The view displaying the updated list of trainees.
+      */
     public function add(Request $request)
     {
 
@@ -121,7 +137,12 @@ class TraineeListFormation extends Controller
         return $this->show($request);
     }
 
-
+    /**
+      * Remove a trainee from a formation.
+      * 
+      * @param Request $request The HTTP request object.
+      * @return \Illuminate\View\View The view displaying the updated list of trainees.
+      */
     public function remove(Request $request)
     {
 
@@ -142,3 +163,5 @@ class TraineeListFormation extends Controller
         return $this->show($request);
     }
 }
+
+    
