@@ -61,7 +61,7 @@ require_once('../resources/includes/header.php');
                         <td class="table_cell">{{ $user->UTI_DATE_CERTIF }}</td>
                         <td class="table_cell">{{ $user->UTI_DATE_NAISS }}</td>
                         <td>
-                            <form action="{{ route('directeur.gestion-utilisateur') }}" method="post">
+                            <form action="{{ route('directeur.modifier-utilisateur') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="UTI_ID" value="{{ $user->UTI_ID }}">
                                 <button type="submit"

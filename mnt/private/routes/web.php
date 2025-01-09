@@ -12,6 +12,7 @@ use App\Http\Controllers\AddUser;
 use App\Http\Controllers\AddTraining;
 use App\Http\Controllers\EditTraining;
 use App\Http\Controllers\Manager;
+use App\Http\Controllers\EditUser;
 use App\Http\Controllers\SessionManagement;
 use App\Http\Controllers\SkillsManagement;
 use App\Http\Controllers\TrainingDetails;
@@ -78,6 +79,8 @@ Route::post('/logout', [Profile::class, 'logout'])->name('logout');
 
 // Director routes
 Route::post('addStudent', [AddUser::class, 'insertUser'])->name('addStudent');
+Route::post('edituser', [EditUser::class, 'edit'])->name('edituser');
+Route::post('archiveuser', [EditUser::class, 'archive'])->name('archiveuser');
 
 Route::post('directeur/gestion-eleve', [TraineeListFormation::class, 'show'])->name('directeur.gestion-eleve');
 Route::post('directeur/ajoute-eleve-formation', [TraineeListFormation::class, 'add'])->name('directeur.ajoute-eleve-formation');

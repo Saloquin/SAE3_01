@@ -33,6 +33,14 @@ class Uti extends Model
         'UTI_MDP',
     ];
 
+    
+    /*protected static function booted()
+    {
+        static::addGlobalScope('non_archived', function ($query) {
+            $query->whereNull('UTI_DATE_ARCHIVAGE');
+        });
+    }*/
+
     public static function getStudent()
     {
         return self::where('UTI_EST_INIT', 0)->get();
