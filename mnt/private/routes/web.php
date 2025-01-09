@@ -29,7 +29,6 @@ use App\Http\Controllers\TraineeList;
 use App\Http\Controllers\ttInitiatorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
-use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\DirectorAddAccountController;
 use App\Models\Session;
 use App\Http\Controllers\supAdminController;
@@ -96,8 +95,6 @@ Route::get('eleve/details-aptitudes', [SkillsDetails::class, 'show'])->name('ele
 // Connexion et authentification
 Route::post('/login', [Connexion::class, 'login'])->name('login');
 Route::post('/logout', [Profile::class, 'logout'])->name('logout');
-//connexion
-Route::post('/login', [Connexion::class, 'login']);
 
 // Director routes
 Route::post('addStudent', [AddUser::class, 'insertUser'])->name('addStudent');
@@ -138,6 +135,3 @@ Route::get('/tt', function(){
     return view('ttInitiatorView');
 });
 
-
-Route::post('responsable-formation/TraitementCreationSession', [SessionManagement::class, 'executeRequest']);
-Route::post('/director/levelconfirmation', [LevelConfirmation::class, 'accept'])->name('acceptStudent');

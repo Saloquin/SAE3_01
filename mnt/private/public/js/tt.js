@@ -3,28 +3,19 @@ const nextMonthBtn = document.getElementById('nextMonth');
 const monthYearDisplay = document.getElementById('monthYear');
 const daysContainer = document.getElementById('days');
 const messageDisplay = document.getElementById('message');
+
 let data = [];
 
-for (let i = 0; i < sessionData.length; i += 5) {
+for (let i = 0; i < sessionData.length; i += 4) {
     let record = {
       description: sessionData[i],
       date: sessionData[i + 1],
       lastname: sessionData[i + 2],
-      name: sessionData[i + 3],
-      ma: sessionData[i + 4]
+      name: sessionData[i + 3]
     };
     data.push(record);
 }
-let cou = [];
-
-for (let i = 0; i < sessionData.length; i += 2) {
-    let record = {
-      id: sessionData[i],
-      date: sessionData[i + 1],
-    };
-    cou.push(record);
-}
-
+console.log(data);
 // Get current date and initialize the month/year
 let currentDate = new Date();
 let currentMonth = currentDate.getMonth();
@@ -57,11 +48,9 @@ function renderCalendar() {
         }
 
         if (tt == 0) {
-            dayElement.addEventListener('click', () => rateCourse(fullDate));
+            dayElement.addEventListener('click', () => editCourse(fullDate));
         } else if (tt == 1) {
             dayElement.addEventListener('click', () => showCourse(fullDate));
-        }else{
-            dayElement.addEventListener('click', () => editCourse(fullDate));
         }
 
         daysContainer.appendChild(dayElement);
@@ -69,33 +58,10 @@ function renderCalendar() {
 }
 
 function editCourse(date){
-
-    const form = document.getElementById('formulaire');
-    const idInput = document.createElement('input');
-    idInput.type = 'hidden';
-    idInput.name = 'cou_date';
-    idInput.value = date;
-    form.appendChild(idInput);
-    document.body.appendChild(form);
-    form.submit();
-
-    const days = document.querySelectorAll('.day');
-
-    days.forEach(day => {
-        day.classList.remove('active');
-    });
-    const clickedDay = document.querySelector(`[data-date='${date}']`);
-    if (clickedDay) {
-        clickedDay.classList.add('active');
-    }
-
-
-}
-
-function rateCourse(date){
     sessionData.forEach((elem, index) => {
         const infoData = info[index];
         if (elem == date){
+            console.log(infoData[8]);
             const form = document.getElementById('formulaire');
         
             const idInput = document.createElement('input');
@@ -121,18 +87,20 @@ function rateCourse(date){
     }
   }
 
+// Function to handle clicking a day
 function showCourse(date) {
     let first = false;
     let isIn = false;
     let str = "";
 
+    // Loop through data and create the message
     data.forEach((elem) => {
         if (elem.date == date) {
             if (!first) { 
                 str += elem.date + "<br>Aptitudes vues lors de la session avec " + elem.name + " " + elem.lastname + " : <br>";
                 first = true;
             }
-            str += elem.description +" (" + elem.ma + ")<br> ";
+            str += elem.description + "<br> ";
             isIn = true;
         }
     });
@@ -143,19 +111,22 @@ function showCourse(date) {
         messageDisplay.innerHTML = "";
     }
 
-
+    // Get all the day elements
     const days = document.querySelectorAll('.day');
 
+    // Loop through all the days and remove the 'active' class
     days.forEach(day => {
         day.classList.remove('active');
     });
 
+    // Add the 'active' class to the clicked day
     const clickedDay = document.querySelector(`[data-date='${date}']`);
     if (clickedDay) {
         clickedDay.classList.add('active');
     }
 }
 
+// Event listeners for navigating between months
 prevMonthBtn.addEventListener('click', () => {
     currentMonth--;
     if (currentMonth < 0) {
