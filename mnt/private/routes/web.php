@@ -30,6 +30,8 @@ use App\Models\Session;
 use App\Http\Controllers\supAdminController;
 use App\Http\Controllers\addAptController;
 use App\Http\Controllers\addCompController;
+use App\Http\Controllers\Trainee;
+use App\Http\Controllers\TraineeList;
 
 
 
@@ -58,6 +60,7 @@ Route::get('directeur/gestion-utilisateur', [UserManagement::class, 'show'])->na
 Route::get('directeur/ajouter-utilisateur', [AddUser::class, 'show'])->name('directeur.ajouter-utilisateur');
 Route::get('directeur/ajouter-formation', [AddTraining::class, 'show'])->name('directeur.ajouter-formation');
 Route::get('directeur/modifier-formation', [EditTraining::class, 'show'])->name('directeur.modifier-formation');
+
 
 
 // Training Manager
