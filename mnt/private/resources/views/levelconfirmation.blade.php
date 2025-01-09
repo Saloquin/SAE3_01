@@ -23,7 +23,7 @@
             <th class="table_header">Licence</th>
             <th class="table_header">Nom</th>
             <th class="table_header">Prénom</th>
-            <th class="table_header">Mail</th>
+            <th class="table_header lg:table-cell hidden">Mail</th>
             <th class="table_header">Niveau</th>
             <th class="table_header">Certif.</th>
             <th class="table_header">Nais.</th>
@@ -35,7 +35,7 @@
             <td class="table_cell">{{$row->uti_licence}}</td>
             <td class="table_cell">{{$row->uti_nom}}</td>
             <td class="table_cell">{{$row->uti_prenom}}</td>
-            <td class="table_cell">{{$row->uti_mail}}</td>
+            <td class="table_cell lg:table-cell hidden">{{$row->uti_mail}}</td>
             <td class="table_cell">{{$row->niv_id}}</td>
             <td class="table_cell">{{$row->uti_date_certif}}</td>
             <td class="table_cell">{{$row->uti_date_naiss}}</td>
@@ -43,7 +43,7 @@
                 <form action="{{route('acceptStudent')}}" method="POST">
                     @csrf
                     @method('POST')
-                    <input type='hidden' name="id" value= "{{$row->uti_id}}"></input>
+                    <input type='hidden' name="id" value= "{{$row->uti_id}}">
                     <button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#223A5D] px-[1vw] py-[0.8vh] text-white">✔</button>
                 </form>
             </td>

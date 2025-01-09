@@ -77,7 +77,7 @@
                         <form action="{{route('directeur.gestion-responsable')}}" method="post" >
                             @csrf
                             <input type="hidden" name="formation" value="{{ $formation->FOR_ID }}">
-                            <select name="responsable" class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-white px-[1vw] py-[0.8vh] text-black hidden lg:table-cell">
+                            <select name="responsable" class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-white lg:px-[1vw] px-[0.5vw] py-[0.8vh] text-black hidden lg:table-cell">
                                 @foreach($init as $initiateur)
                                     <option value="{{ $initiateur->UTI_ID }}">{{ $initiateur->UTI_PRENOM }} {{ $initiateur->UTI_NOM }}</option>
                                 @endforeach
