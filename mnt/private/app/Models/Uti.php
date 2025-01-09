@@ -34,14 +34,6 @@ class Uti extends Model
         'UTI_MDP',
     ];
 
-    
-    /*protected static function booted()
-    {
-        static::addGlobalScope('non_archived', function ($query) {
-            $query->whereNull('UTI_DATE_ARCHIVAGE');
-        });
-    }*/
-
     public static function getStudent()
     {
         return self::where('UTI_EST_INIT', 0)->get();
@@ -57,7 +49,6 @@ class Uti extends Model
     {
         return self::where('UTI_EST_INIT', 1)->get();
     }
-
     public static function getInitiatorById($id){
         return self::where('uti_id', $id)
             ->where('uti_est_init', 1)->get();

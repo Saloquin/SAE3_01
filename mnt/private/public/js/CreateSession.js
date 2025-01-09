@@ -1,12 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const tableHeader = document.getElementById('students-table-header');
-    const tableBody = document.getElementById('students-table-body');
-
-    function updateTableHeaderVisibility() {
-        tableHeader.style.display = tableBody.children.length > 0 ? '' : 'none';
-        document.getElementById('student-table-title').style.display = tableBody.children.length > 0 ? '' : 'none';
-    }
-
     const studentsData = JSON.parse(document.getElementById('studentsData').textContent);
     const skillsData = JSON.parse(document.getElementById('skillsData').textContent);
     const initiatorsData = JSON.parse(document.getElementById('initiatorsData').textContent);
@@ -16,18 +8,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const oldStudents = JSON.parse(document.getElementById('oldStudents').textContent);
     const oldCompetences = JSON.parse(document.getElementById('oldCompetences').textContent);
     const oldInitiators = JSON.parse(document.getElementById('oldInitiators').textContent);
-    const studentDataExisting = JSON.parse(document.getElementById('studentDataExisting').textContent);
 
-    const buttonStudent = document.getElementById('addStudentButton');
-    buttonStudent.addEventListener('click', () => addStudentRow());
-
-    updateTableHeaderVisibility();
-
-    if (studentDataExisting && Object.keys(studentDataExisting).length > 0) {
-        populateTableWithExistingData(studentDataExisting);
-    }
-
+    const buttonStudent = document.getElementById('addStudentButton')
+    buttonStudent.addEventListener('click', () => addStudentRow())
+    
     function addStudentRow() {
+        const tableBody = document.getElementById('students-table-body');
         const row = document.createElement('tr');
         row.className = "student-row";
 
@@ -71,6 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const initiatorSelect = document.createElement('select');
         initiatorSelect.className = "shadow border rounded w-full py-2 px-3 text-gray-700";
         initiatorSelect.name = "initiator[]";
+        initiatorSelect.disabled = true;
 
         const initiatorDefaultOption = document.createElement('option');
         initiatorDefaultOption.value = "";
@@ -78,10 +65,13 @@ document.addEventListener("DOMContentLoaded", () => {
         initiatorSelect.appendChild(initiatorDefaultOption);
 
         initiatorsData.forEach(initiator => {
-            const option = document.createElement('option');
-            option.value = initiator.UTI_ID;
-            option.textContent = `${initiator.UTI_NOM} ${initiator.UTI_PRENOM}`;
-            initiatorSelect.appendChild(option);
+            const count = initiatorCounts[initiator.UTI_ID] || 0;
+            if (count < 2) {
+                const option = document.createElement('option');
+                option.value = initiator.UTI_ID;
+                option.textContent = `${initiator.UTI_NOM} ${initiator.UTI_PRENOM}`;
+                initiatorSelect.appendChild(option);
+            }
         });
 
         studentSelect.onchange = () => {
@@ -98,22 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
             studentSelect.setAttribute('data-previous-value', currentValue);
             updateStudentOptions();
             initiatorSelect.disabled = !currentValue;
-            updateInitiatorOptions();
-        };
-
-        initiatorSelect.onchange = () => {
-            const previousValue = initiatorSelect.getAttribute('data-previous-value');
-            if (previousValue) {
-                initiatorCounts[previousValue] = Math.max(0, (initiatorCounts[previousValue] || 0) - 1);
-            }
-
-            const currentValue = initiatorSelect.value;
-            if (currentValue) {
-                initiatorCounts[currentValue] = (initiatorCounts[currentValue] || 0) + 1;
-            }
-
-            initiatorSelect.setAttribute('data-previous-value', currentValue);
-            updateInitiatorOptions();
+            updateInitiatorOptions(initiatorSelect);
         };
 
         initiatorCell.appendChild(initiatorSelect);
@@ -132,8 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             row.remove();
             updateStudentOptions();
-            updateInitiatorOptions();
-            updateTableHeaderVisibility();
+            updateInitiatorOptions(initiatorSelect);
         };
 
         actionCell.appendChild(removeButton);
@@ -144,17 +118,11 @@ document.addEventListener("DOMContentLoaded", () => {
         row.appendChild(actionCell);
 
         tableBody.appendChild(row);
-        updateTableHeaderVisibility();
+
         updateStudentOptions();
     }
 
     function addAptitude(cell, studentId) {
-        const existingAptitudes = cell.querySelectorAll('select[name^="competences["]');
-        if (existingAptitudes.length >= 3) {
-            alert("Un élève ne peut avoir que 3 aptitudes au maximum.");
-            return;
-        }
-
         const aptitudeRow = document.createElement('div');
         aptitudeRow.className = "flex items-center space-x-2 mt-2";
 
@@ -184,48 +152,33 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateStudentOptions() {
         const studentSelects = document.querySelectorAll('select[name="student[]"]');
         studentSelects.forEach(studentSelect => {
-            let selected = studentSelect.selectedOptions[0].value;
+            let selected = studentSelect.selectedOptions[0].value
             const studentOptions = studentSelect.querySelectorAll('option');
             studentOptions.forEach(option => {
                 const studentId = option.value;
-                option.disabled = usedStudents.has(studentId) && studentId !== selected;
+                if (usedStudents.has(studentId) && studentId != selected) {
+                    option.disabled = true;
+                } else {
+                    option.disabled = false;
+                }
             });
         });
     }
 
-    function updateInitiatorOptions() {
+    function updateInitiatorOptions(select) {
         const initiatorSelects = document.querySelectorAll('select[name="initiator[]"]');
         initiatorSelects.forEach(initiatorSelect => {
-            const selectedValue = initiatorSelect.value;
             const initiatorOptions = initiatorSelect.querySelectorAll('option');
             initiatorOptions.forEach(option => {
                 const initiatorId = option.value;
                 const count = initiatorCounts[initiatorId] || 0;
-                option.disabled = count >= 2 && initiatorId !== selectedValue;
+                if (count >= 2) {
+                    option.disabled = true;
+                } else {
+                    option.disabled = false;
+                }
             });
         });
-    }
-
-    function populateTableWithExistingData(existingData) {
-        Object.entries(existingData).forEach(([index, data]) => {
-            addStudentRow();
-            const studentSelect = document.querySelectorAll('select[name="student[]"]')[index];
-            const initiatorSelect = document.querySelectorAll('select[name="initiator[]"]')[index];
-
-            studentSelect.value = data.studentId;
-            initiatorSelect.value = data.initiatorId;
-
-            if (data.initiatorId) {
-                initiatorCounts[data.initiatorId] = (initiatorCounts[data.initiatorId] || 0) + 1;
-            }
-
-            data.aptitudes.forEach(aptitudeId => {
-                const cell = studentSelect.closest('tr').children[1];
-                addAptitude(cell, data.studentId);
-            });
-        });
-
-        updateInitiatorOptions();
     }
 
     oldStudents.forEach((studentId, index) => {
@@ -238,15 +191,9 @@ document.addEventListener("DOMContentLoaded", () => {
         studentSelect.value = studentId;
         initiatorSelect.value = initiatorId;
 
-        if (initiatorId) {
-            initiatorCounts[initiatorId] = (initiatorCounts[initiatorId] || 0) + 1;
-        }
-
         studentCompetences.forEach(competence => {
             const cell = studentSelect.closest('tr').children[1];
             addAptitude(cell, studentId);
         });
     });
-
-    updateInitiatorOptions();
 });
