@@ -6,11 +6,69 @@ use App\Models\Lesson;
 use App\Models\Skill;
 use App\Models\Uti;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
-Class SessionManagement extends Controller{
+class SessionManagement extends Controller
+{
+    public function show(Request $request)
+    {
+        $date = $request->input('date');
+        $course = null;
+        $studentsData = []; 
+        
+        if ($date) {
+            $course = Lesson::where('COU_DATE', $date)->first();
+            
+            if ($course) {
+                $groups = DB::table('GROUPE')
+                            ->where('COU_ID', $course->COU_ID)
+                            ->get();
 
-    public function show(){
+                foreach ($groups as $group) {
+                    $student1 = Uti::find($group->UTI_ID_ELV1);
+                    $student2 = Uti::find($group->UTI_ID_ELV2);
+
+                    $initiator = Uti::find($group->UTI_ID_INIT);
+                    
+                    $aptitudesStudent1 = DB::table('MAITRISER')
+                                    ->where('COU_ID', $course->COU_ID)
+                                    ->where('UTI_ID', $group->UTI_ID_ELV1)
+                                    ->pluck('APT_ID');
+
+                    $aptitudesStudent2 = DB::table('MAITRISER')
+                                    ->where('COU_ID', $course->COU_ID)
+                                    ->where('UTI_ID', $group->UTI_ID_ELV2)
+                                    ->pluck('APT_ID');
+                    
+                    
+                    $studentsData[$group->UTI_ID_ELV1] = [
+                        'student_name' => $student1->UTI_NOM . ' ' . $student1->UTI_PRENOM,
+                        'initiator_id' => $initiator->UTI_ID,
+                        'initiator_name' => $initiator->UTI_NOM . ' ' . $initiator->UTI_PRENOM,
+                        'aptitudes' => $aptitudesStudent1->toArray(),
+                    ];
+                    
+                    if($group->UTI_ID_ELV2 !== null){
+                        $studentsData[$group->UTI_ID_ELV2] = [
+                            'student_name' => $student2->UTI_NOM . ' ' . $student2->UTI_PRENOM,
+                            'initiator_id' => $initiator->UTI_ID,
+                            'initiator_name' => $initiator->UTI_NOM . ' ' . $initiator->UTI_PRENOM,
+                            'aptitudes' => $aptitudesStudent2->toArray(),
+                        ];
+                    }
+                }
+            }
+        }
+        
+        if ($request->ajax()) {
+            return response()->json([
+                'course' => $course,
+                'date' => $date,
+                'students_data' => $studentsData
+            ]);
+        }
+
         session_start();
 
         if(!isset($_SESSION['id'])){
@@ -37,7 +95,6 @@ Class SessionManagement extends Controller{
             'students_data' => $studentsData 
         ]);
     }
-
     public function executeRequest(Request $request)
     {
         $studentIds = $request->input('student');
