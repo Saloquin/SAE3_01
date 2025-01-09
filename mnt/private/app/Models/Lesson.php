@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Mastery;
 
 class Lesson extends Model
@@ -25,9 +24,15 @@ class Lesson extends Model
         return $this->belongsTo(Formation::class, 'FOR_ID');
     }
 
-    public static function insertGroup($uti_id_elv1, $uti_id_elv2, $uti_id_init, $aptitudes1, $aptitudes2)
-    {
-        $cou_id = intval(DB::table('COURS')->max('COU_ID'));
+    public static function insertGroup($uti_id_elv1, $uti_id_elv2, $uti_id_init, $aptitudes1, $aptitudes2, $cou_id)
+    { 
+        if($cou_id === null){
+            $cou_id = intval(DB::table('COURS')->max('COU_ID'));
+        }else{
+            DB::table('GROUPE')->where('COU_ID', $cou_id)->delete();
+
+            DB::table('MAITRISER')->where('COU_ID', $cou_id)->delete();
+        }
         DB::table('GROUPE')->insert([
             'COU_ID' => $cou_id,
             'UTI_ID_ELV1' => $uti_id_elv1,
@@ -90,8 +95,9 @@ class Lesson extends Model
             return array();
         }
 
-        $skillsIds = DB::select("select apt_id from MAITRISER where cou_id = ? and uti_id = ?", [$cou_id, $uti_id]);
+        $skills = DB::select("select * from MAITRISER join APTITUDE using(apt_id) where cou_id = ? and uti_id = ?", [$cou_id, $uti_id]);
 
+        /*
         $skills = array();
 
         foreach ($skillsIds as $row) {
@@ -99,6 +105,7 @@ class Lesson extends Model
 
             array_push($skills, $skill);
         }
+        */
         
         return $skills;
     }

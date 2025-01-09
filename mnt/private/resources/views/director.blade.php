@@ -15,8 +15,8 @@
     <p class=" triomphe text-[6vw] lg:text-[2vw]">Panel directeur</p>
     <p class="mb-[7vh] triomphe text-[6vw] lg:text-[2vw]">{{$me->UTI_PRENOM}} {{$me->UTI_NOM}}</p>
 
-    <div class=" flex flex-col justify-between ">
-        <div class="flex flex-row justify-between mb-[1vh]">
+    <div class=" flex flex-col">
+        <div class="flex lg:flex-row flex-col lg:justify-between items-center mb-[1vh]">
             <p class="triomphe text-[3vw] lg:text-[1.3vw]">Liste des formations</p>
             <form action="{{route('directeur.ajouter-formation')}}" method="get">
                 @csrf
@@ -63,7 +63,7 @@
                                     des élèves</button>
                             </form>
                         </td>
-                        
+
                     <td>
                         <form action="{{route('directeur.gestion-responsable')}}" method="post" >
                             @csrf

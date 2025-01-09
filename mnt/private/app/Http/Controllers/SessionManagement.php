@@ -28,7 +28,14 @@ Class SessionManagement extends Controller{
         $students = Uti::getStudent();
         $initiators = Uti::getTeacher();
 
-        return view('sessionmanagement', ['skills' => $skills, 'student' => $students, 'initiator' => $initiators]);
+        return view('gestionseance', [
+            'skills' => $skills,
+            'student' => $students,
+            'initiator' => $initiators,
+            'date' => $date,
+            'course' => $course,
+            'students_data' => $studentsData 
+        ]);
     }
 
     public function executeRequest(Request $request)
@@ -37,6 +44,11 @@ Class SessionManagement extends Controller{
         $initiatorIds = $request->input('initiator');
         $competences = $request->input('competences');
         $date = $request->input('date');
+
+        $courseId = $request->input('course_id');
+        if (empty($courseId)) {
+            $courseId = null;
+        }
 
         if (empty($studentIds) || empty($initiatorIds) || empty($competences) || empty($date)) {
             return redirect()->back()
@@ -70,7 +82,10 @@ Class SessionManagement extends Controller{
         }
 
         $for_id = 1;
-        Lesson::insertLesson($for_id, $date);
+
+        if($courseId === null){
+            Lesson::insertLesson($for_id, $date);
+        }
 
         $usedStudents = [];
         for ($i = 0; $i < count($studentIds); $i++) {
@@ -94,7 +109,7 @@ Class SessionManagement extends Controller{
                 }
             }
 
-            Lesson::insertGroup($studentId1, $studentId2, $initiatorId, $aptitudes1, $aptitudes2);
+            Lesson::insertGroup($studentId1, $studentId2, $initiatorId, $aptitudes1, $aptitudes2, $courseId);
 
             $usedStudents[] = $studentId1;
         }

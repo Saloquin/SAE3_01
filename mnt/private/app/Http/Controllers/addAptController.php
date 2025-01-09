@@ -39,7 +39,7 @@ class addAptController extends Controller
             session()->flash('error', 'Une erreur est survenue lors de l\'ajout.');
         }
         //dd($selection+1, $text);
-        return redirect()->route('superadmin');
+        return redirect()->route('superadmin.addapt');
 
 
     }
