@@ -35,6 +35,8 @@ use App\Http\Controllers\EditProfile;
 use App\Http\Controllers\EditUser;
 use App\Http\Controllers\Trainee;
 use App\Http\Controllers\TraineeList;
+use App\Http\Controllers\UpdtAptController;
+use App\Http\Controllers\UpdtCompController;
 
 /*
 |--------------------------------------------------------------------------
@@ -141,6 +143,11 @@ Route::get('superadmin', [addCompController::class, 'show'])->name('superadmin.a
 Route::get('/superadmin/ajoutaptitude', [addAptController::class, 'show'])->name('superadmin.addapt');
 Route::post('/superadmin/ajoutcompetence/form', [addCompController::class, 'add'])->name('superadmin.addcompform');
 Route::post('/superadmin/ajoutaptitude/form', [addAptController::class, 'add'])->name('superadmin.addaptform');
+Route::get('/superadmin/modifcompetence', [UpdtCompController::class, 'show'])->name('superadmin.updtcomp');
+Route::get('/superadmin/modifaptitude', [UpdtAptController::class, 'show'])->name('superadmin.updtapt');
+Route::post('/superadmin/modifcompetence/form', [UpdtCompController::class, 'updt'])->name('superadmin.updtcompform');
+Route::post('/superadmin/modifaptitude/form', [UpdtAptController::class, 'updt'])->name('superadmin.updtaptform');
+
 
 /* Route::get('/superadmin/details-competence', [AbilitiesList::class, 'show']);
 Route::post('/superadmin/details-competence', [AbilitiesList::class, 'show']); */

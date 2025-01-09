@@ -25,14 +25,29 @@ class Skill extends Model
         return $users;
     }
 
-    public static function addNew($comp, $desc){
+    public static function getSkillWithLvl() {
+        $users = DB::select('select niv_id, com_libelle, apt_libelle from APTITUDE a join COMPETENCE c on a.com_id = c.com_id');
+
+        return $users;
+    }
+
+    public static function addNew($lvl, $comp, $desc){
+        $req = DB::select('SELECT com_id from competence where niv_id = ? and com_libelle = ?',[$lvl,$comp]);
+        $compId = $req[0]->com_id;
         $result = DB::insert('INSERT into aptitude(apt_id,com_id,apt_libelle)
-        VALUES(NULL, ?, ?)',[$comp, $desc]);
+        VALUES(NULL, ?, ?)',[$compId, $desc]);
         return $result;
     }
 
     public static function getSkillByFormationLevel(){
         $users = DB::select('select * from APTITUDE where COM_ID in (SELECT COM_ID FROM FORMATION WHERE NIV_ID = ?)', [1]);
         return $users;
+    }
+
+    public static function updt($lvl, $sk, $new){
+        
+        return DB::update('UPDATE aptitude SET apt_libelle = ?
+            WHERE apt_libelle = ? and com_id in
+            (select com_id from competence where niv_id = ?)',[$new,$sk,$lvl]);
     }
 }
