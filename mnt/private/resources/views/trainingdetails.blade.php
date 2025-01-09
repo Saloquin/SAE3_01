@@ -18,13 +18,13 @@
         <p class="triomphe text-[3vw] lg:text-[1.3vw]">Liste des initiateurs</p>
     </div>
 
-    <table class="border-[0.1vw] rounded-[0.5vw] border-[#1962A1] mb-[10vh] border-separate border-spacing-[0.5vw]">
+    <table class="border-[0.1vw] rounded-[0.5vw] border-[#1962A1] mb-[5vh] border-separate border-spacing-[0.5vw]">
         <thead>
         <tr>
             <th class="table_header">Licence</th>
             <th class="table_header">Nom</th>
-            <th class="table_header">Prénom</th>
-            <th class="table_header">Mail</th>
+            <th class="table_header lg:table-cell hidden">Prénom</th>
+            <th class="table_header lg:table-cell hidden">Mail</th>
             <th class="table_header">Niveau</th>
             <th class="table_header">Certif.</th>
             <th class="table_header">Nais.</th>
@@ -33,9 +33,10 @@
         <tbody>
         <tr class="">
             <td class="table_cell">A-00-000000</td>
-            <td class="table_cell">MARTIN</td>
-            <td class="table_cell">Frank</td>
-            <td class="table_cell">franklefou@gmail.com</td>
+            <td class="table_cell lg:table-cell hidden">MARTIN</td>
+            <td class="table_cell lg:table-cell hidden">Frank</td>
+            <td class="table_header lg:hidden">MARTIN Frank</td>
+            <td class="table_cell lg:table-cell hidden">franklefou@gmail.com</td>
             <td class="table_cell">N1</td>
             <td class="table_cell">17/08/2024</td>
             <td class="table_cell">12/03/2006</td>
@@ -44,9 +45,10 @@
 
         <tr class="">
             <td class="table_cell">A-00-000000</td>
-            <td class="table_cell">MARTIN</td>
-            <td class="table_cell">Frank</td>
-            <td class="table_cell">franklefou@gmail.com</td>
+            <td class="table_cell lg:table-cell hidden">MARTIN</td>
+            <td class="table_cell lg:table-cell hidden">Frank</td>
+            <td class="table_header lg:hidden">MARTIN Frank</td>
+            <td class="table_cell lg:table-cell hidden">franklefou@gmail.com</td>
             <td class="table_cell">N1</td>
             <td class="table_cell">17/08/2024</td>
             <td class="table_cell">12/03/2006</td>
@@ -56,9 +58,10 @@
 
         <tr class="">
             <td class="table_cell">A-00-000000</td>
-            <td class="table_cell">MARTIN</td>
-            <td class="table_cell">Frank</td>
-            <td class="table_cell">franklefou@gmail.com</td>
+            <td class="table_cell lg:table-cell hidden">MARTIN</td>
+            <td class="table_cell lg:table-cell hidden">Frank</td>
+            <td class="table_header lg:hidden">MARTIN Frank</td>
+            <td class="table_cell lg:table-cell hidden">franklefou@gmail.com</td>
             <td class="table_cell">N1</td>
             <td class="table_cell">17/08/2024</td>
             <td class="table_cell">12/03/2006</td>
@@ -81,18 +84,18 @@
 
 </div>
 
-<div class=" flex flex-col justify-between ">
+<div class=" flex flex-col justify-between mt-[5vh]">
     <div class="flex flex-row justify-between mb-[1vh]">
         <p class="triomphe text-[3vw] lg:text-[1.3vw]">Liste des élèves de la formation N1</p>
     </div>
 
-    <table class="border-[0.1vw] rounded-[0.5vw] border-[#1962A1] mb-[10vh] border-separate border-spacing-[0.5vw]">
+    <table class="border-[0.1vw] rounded-[0.5vw] border-[#1962A1] mb-[5vh]  border-separate border-spacing-[0.5vw]">
         <thead>
         <tr>
             <th class="table_header">Licence</th>
             <th class="table_header">Nom</th>
-            <th class="table_header">Prénom</th>
-            <th class="table_header">Mail</th>
+            <th class="table_header lg:table-cell hidden">Prénom</th>
+            <th class="table_header lg:table-cell hidden">Mail</th>
             <th class="table_header">Niveau</th>
             <th class="table_header">Certif.</th>
             <th class="table_header">Nais.</th>
@@ -101,9 +104,10 @@
         <tbody>
         <tr class="">
             <td class="table_cell">A-00-000000</td>
-            <td class="table_cell">MARTIN</td>
-            <td class="table_cell">Frank</td>
-            <td class="table_cell">franklefou@gmail.com</td>
+            <td class="table_cell lg:table-cell hidden">MARTIN</td>
+            <td class="table_cell lg:table-cell hidden">Frank</td>
+            <td class="table_header lg:hidden">MARTIN Frank</td>
+            <td class="table_cell lg:table-cell hidden">franklefou@gmail.com</td>
             <td class="table_cell">N1</td>
             <td class="table_cell">17/08/2024</td>
             <td class="table_cell">12/03/2006</td>
@@ -112,9 +116,10 @@
 
         <tr class="">
             <td class="table_cell">A-00-000000</td>
-            <td class="table_cell">MARTIN</td>
-            <td class="table_cell">Frank</td>
-            <td class="table_cell">franklefou@gmail.com</td>
+            <td class="table_cell lg:table-cell hidden">MARTIN</td>
+            <td class="table_cell lg:table-cell hidden">Frank</td>
+            <td class="table_header lg:hidden">MARTIN Frank</td>
+            <td class="table_cell lg:table-cell hidden">franklefou@gmail.com</td>
             <td class="table_cell">N1</td>
             <td class="table_cell">17/08/2024</td>
             <td class="table_cell">12/03/2006</td>
@@ -124,9 +129,10 @@
 
         <tr class="">
             <td class="table_cell">A-00-000000</td>
-            <td class="table_cell">MARTIN</td>
-            <td class="table_cell">Frank</td>
-            <td class="table_cell">franklefou@gmail.com</td>
+            <td class="table_cell lg:table-cell hidden">MARTIN</td>
+            <td class="table_cell lg:table-cell hidden">Frank</td>
+            <td class="table_header lg:hidden">MARTIN Frank</td>
+            <td class="table_cell lg:table-cell hidden">franklefou@gmail.com</td>
             <td class="table_cell">N1</td>
             <td class="table_cell">17/08/2024</td>
             <td class="table_cell">12/03/2006</td>
