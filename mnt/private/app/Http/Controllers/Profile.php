@@ -8,6 +8,14 @@ Class Profile extends Controller{
 
     public function show(){
         session_start();
+
+
+        if(!isset($_SESSION['id'])){
+            header('Location: /connexion');
+            exit;
+        }
+
+
         $user = Uti::find($_SESSION["id"]);
 
         require_once('../resources/includes/header.php');
