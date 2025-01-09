@@ -40,6 +40,9 @@ require_once('../resources/includes/header.php');
                     <th class="table_header">Niveau</th>
                     <th class="table_header">Certif.</th>
                     <th class="table_header">Nais.</th>
+                    <th class="table_header">Ville</th>
+                    <th class="table_header">CP</th>
+                    <th class="table_header">Adresse</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,6 +55,9 @@ require_once('../resources/includes/header.php');
                         <td class="table_cell">{{ $user->NIV_ID }}</td>
                         <td class="table_cell">{{ $user->UTI_DATE_CERTIF }}</td>
                         <td class="table_cell">{{ $user->UTI_DATE_NAISS }}</td>
+                        <td class="table_cell">{{ $user->UTI_VILLE }}</td>
+                        <td class="table_cell">{{ $user->UTI_CP }}</td>
+                        <td class="table_cell">{{ $user->UTI_RUE }}</td>
                         <td>
                             <form action="{{ route('directeur.modifier-utilisateur') }}" method="post">
                                 @csrf

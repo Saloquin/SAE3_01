@@ -13,6 +13,12 @@ class TraineeListFormation extends Controller
 
     public function show(Request $request)
     {
+        session_start();
+        require_once('../resources/includes/header.php');
+        if(isset($_SESSION['director'])){ require_once('../resources/includes/navbar/navbar_director.php'); }
+        if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
+        if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
+        if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
 
         $formation = Formation::findOrFail($request->input('FOR_ID'));
 
@@ -39,6 +45,8 @@ class TraineeListFormation extends Controller
                     $query->where('NIV_ID', '=', $formationLevel - 1);
                 }
             })
+            ->where('UTI_EST_INIT', 0)
+            ->where('CLU_ID', Uti::find($_SESSION["id"])->CLU_ID)
             ->get();
 
         return view('traineelistformation', compact('users', 'formation', 'usersPossible'));

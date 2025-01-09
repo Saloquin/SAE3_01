@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Uti;
 use App\Models\Formation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 Class Director extends Controller{
 
@@ -19,13 +20,14 @@ Class Director extends Controller{
 
         $clubId = Uti::find($_SESSION["id"])->CLU_ID;
         $me = Uti::find($_SESSION["id"]);
-        $init = Uti::getTeacher();
-        $formations = Formation::with(['level', 'club'])->where('CLU_ID', $clubId)->get();
-        
+        $formations = Formation::where('CLU_ID', $clubId)
+            ->whereRaw('DATEDIFF(SYSDATE(), FOR_ANNEE) BETWEEN 0 AND 365.25')
+            ->get();
+        $init = Uti::whereNotIn('UTI_ID', $formations->pluck('UTI_ID'))->where('UTI_EST_INIT', 1)->get();
         return view('director', compact('formations' ,'clubId','init','me'));
     }
 
-    public function editREsponsable(Request $request){
+    public function editResponsable(Request $request){
         $request->validate([
             'formation' => 'required|exists:FORMATION,FOR_ID',
             'responsable' => 'required|exists:UTILISATEUR,UTI_ID',
@@ -35,6 +37,18 @@ Class Director extends Controller{
         $formation->UTI_ID = $request->responsable;
         $formation->save();
         return redirect()->route('directeur');
+    }
+    public function delete(Request $request){
+        $validated = $request->validate([
+            'FOR_ID' => 'required|exists:FORMATION,FOR_ID',
+        ]);
+
+        $formationId = $validated['FOR_ID'];
+
+        DB::table('formation')
+            ->where('FOR_ID', $formationId)
+            ->delete();
+            return redirect()->route('directeur');
     }
 
 }

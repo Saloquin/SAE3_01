@@ -9,6 +9,12 @@ use App\Models\Level;
 Class EditUser extends Controller{
 
     public function show(Request $request){
+        session_start();
+        require_once('../resources/includes/header.php');
+        if(isset($_SESSION['director'])){ require_once('../resources/includes/navbar/navbar_director.php'); }
+        if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
+        if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
+        if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
         $user = Uti::find($request->input('UTI_ID'));
         $levels = Level::whereNotNull('NIV_DESCRIPTION')->get();
         return view('edituser', compact('user','levels'));
@@ -28,15 +34,13 @@ Class EditUser extends Controller{
             'UTI_RUE' => 'required|string',
         ]);
         
-         if ($validated['lvl'] < 2 && $validated['init'] == 1) {
+        if ($validated['lvl'] < 2 && $validated['init'] == 1) {
             return $this->show($request);
         }
-        
         
         if (!ctype_digit($validated['UTI_CODE_POSTAL'])) {
             return $this->show($request);
         }
-        
         
         if (Uti::where('UTI_MAIL', $validated['UTI_MAIL'])->where('UTI_ID', '!=', $request->input('UTI_ID'))->exists()) {
             return $this->show($request);
@@ -45,6 +49,14 @@ Class EditUser extends Controller{
         $user = Uti::find($request->input('UTI_ID'));
         $user->update([
             'UTI_NOM' => $validated['UTI_NOM'],
+            'UTI_PRENOM' => $validated['UTI_PRENOM'],
+            'UTI_MAIL' => $validated['UTI_MAIL'],
+            'NIV_ID' => $validated['lvl'],
+            'UTI_DATE_NAISS' => $validated['UTI_DATE_NAISSANCE'],
+            'UTI_DATE_CERTIF' => $validated['UTI_DATE_CERTIFICAT'],
+            'UTI_CP' => $validated['UTI_CODE_POSTAL'],
+            'UTI_VILLE' => $validated['UTI_VILLE'],
+            'UTI_RUE' => $validated['UTI_RUE'],
         ]);
 
         return redirect()->route('directeur.gestion-utilisateur');

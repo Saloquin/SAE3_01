@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,8 +45,7 @@
                     <tr>
                         <td class="text-[0.8vw] triomphe">{{ $formation->NIV_ID }}</td>
                         <td class="text-[0.8vw] triomphe">{{ $formation->FOR_ANNEE }}</td>
-                        <td class="text-[0.8vw] triomphe">{{$formation->responsable->UTI_PRENOM}}
-                            {{ $formation->responsable->UTI_NOM }}</td>
+                        <td class="text-[0.8vw] triomphe">{{\App\Models\Uti::find($formation->UTI_ID)->UTI_PRENOM}} {{\App\Models\Uti::find($formation->UTI_ID)->UTI_NOM}}</td>
                         <td>
                             <form action="{{route('directeur.gestion-initiateur')}}" method="post">
                                 @csrf
@@ -81,14 +79,15 @@
                         </form>
                     </td>
                     <td>
-                        
-                        <form action="{{route('directeur.supprimer-formation')}}" method="post">
-                            @csrf
-                            <input type="hidden" name="FOR_ID" value="{{ $formation->FOR_ID }}">
-                            <button type="submit"
-                                class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-red-600 px-[1vw] py-[0.8vh] text-white"
-                                onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette formation ?')">Supprimer</button>
-                        </form>
+                        @if(\App\Models\Lesson::where('FOR_ID', $formation->FOR_ID)->count() == 0)
+                            <form action="{{route('directeur.supprimer-formation')}}" method="post">
+                                @csrf
+                                <input type="hidden" name="FOR_ID" value="{{ $formation->FOR_ID }}">
+                                <button type="submit"
+                                    class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-red-600 px-[1vw] py-[0.8vh] text-white"
+                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette formation ?')">Supprimer</button>
+                            </form>
+                        @endif
                     </td>
                     </tr>
                 @endforeach
