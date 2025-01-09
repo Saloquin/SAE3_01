@@ -53,6 +53,7 @@
 
             $code = "";
             $j = 0;
+            if(empty($listCours)){
             foreach ($listCours as $cours) {
                 $code .= '<tr class=""> <th class="table_cell">';
                 $code .= $cours->cou_date;
@@ -91,6 +92,9 @@
 
                 $code .= '</tr>';
                 $j++;
+            }
+            }else{
+                echo 'Aucun cours';
             }
             echo $code;
             ?>
