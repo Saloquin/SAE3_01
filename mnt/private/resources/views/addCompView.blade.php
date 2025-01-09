@@ -13,11 +13,11 @@ require_once('../resources/includes/header.php');
 ?>
 
 <body class="flex flex-col items-center triomphe">
-<p class=" triomphe text-[6vw] lg:text-[2vw]">Panel SuperAdmin - Ajout de compétence</p>
+<p class="  text-[6vw] lg:text-[2vw] mb-[8vh]">Création d'une compétence</p>
 
 <form action="{{ route('superadmin.addcompform') }}" method="POST">
-            @csrf 
-            
+            @csrf
+
             <!-- Liste déroulante générée dynamiquement -->
             <div class="mb-4">
                 <label for="selection" class="block text-sm font-medium text-gray-700">Choisissez le niveau sur lequel ajouter une compétence</label>
