@@ -112,6 +112,7 @@ body{
     color: #333;
     font-weight: bold;
     padding-top: 20px;
+    margin-bottom: 20px;
 }
 
 /* Navigation Buttons (Prev / Next) */
@@ -137,7 +138,7 @@ button:focus {
 /* Media Query for when the calendar is too large (Mobile View) */
 @media (max-width: 800px) {
     .calendar {
-        max-width: 95%;  /* Reduce max width */
+        max-width: 100%;  /* Reduce max width */
         max-height: 500px;  /* Reduce max height */
         padding: 0px;  /* Reduce padding */
         border: none; /* Remove border */
@@ -156,11 +157,12 @@ button:focus {
 
     /* Day Box */
     .day {
-        height: 60px;  /* Make the height more rectangular */
+        height: 40px;  /* Make the height more rectangular */
         width: 40px;   /* Reduce the width to make it rectangular */
         font-size: 1rem;  /* Adjust font size */
         border-radius: 0px; /* Optional: Adjust border-radius for a more rectangular look */
         grid-gap: 0px;
+        margin: 2px;
     }
 
 

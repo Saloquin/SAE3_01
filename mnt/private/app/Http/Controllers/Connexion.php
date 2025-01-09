@@ -30,7 +30,6 @@ Class Connexion extends Controller{
       */
     public function show(){
         session_start();
-        session_unset();
         if(isset($_SESSION['id'])){
             if($_SESSION['id'] == "A-00-000000"){
 
