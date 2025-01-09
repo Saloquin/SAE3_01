@@ -71,7 +71,7 @@
             </div>
         </div>
 
-        @if ($studentId2)
+        @if ($studentId2 && $student2)
         <div class="students-section" class="mb-4">
             <label class="block text-gray-700 font-bold mb-2">Élève 2</label>
             <div class="student-entry flex flex-col mb-4" data-student-index="0">
