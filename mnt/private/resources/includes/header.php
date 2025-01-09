@@ -11,7 +11,7 @@
         <div id="logo">
             <a href="#">
                 <figure>
-                    <img src="./assets/logo.png" alt="Home" class=" w-16 md:w-32 lg:w-48 ">
+                    <img src="/assets/logo.png" alt="Home" class=" w-16 md:w-32 lg:w-48 ">
                 </figure>
             </a>
         </div>
@@ -21,7 +21,7 @@
         <div id="profile">
             <a href="#">
                 <figure>
-                    <img src="./assets/profile.png" alt="Profile">
+                    <img src="/assets/profile.png" alt="Profile">
                     <p id="account_name">  </p>
                 </figure>
             </a>

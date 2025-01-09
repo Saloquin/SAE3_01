@@ -66,7 +66,7 @@ Route::get('responsable-formation/details-formation', [TrainingDetails::class, '
 
 // Trainer
 Route::get('initiateur', [Initiator::class, 'show']); // TODO : add navbar in controller
-Route::get('initiateur/evaluation-seance', [SessionRating::class, 'show']); // TODO : add navbar in controller
+Route::get('initiateur/evaluation-seance', [SessionRating::class, 'show']);
 Route::post('initiateur/evaluation-seance', [SessionRating::class, 'show']);
 Route::get('initiateur/liste-eleves', [TraineeList::class, 'show']);
 
