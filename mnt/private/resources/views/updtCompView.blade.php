@@ -15,7 +15,7 @@
 <form action="{{ route('superadmin.updtcompform') }}" method="POST" id="updateForm">
             @csrf
 
-        
+
             <div class="mb-4">
                 <label for="selection" class="block text-sm font-medium text-gray-700">Choisissez la compétence à modifier</label>
                 <select id="selection" name="selection" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
@@ -26,31 +26,31 @@
                 </select>
             </div>
 
-            
+
             <input type="hidden" id="selectionText" name="selectionText">
-         
+
             <div class="mb-4">
-                <label for="texte" class="block text-sm font-medium text-gray-700">Entrez une description pour la compétence</label>
+                <label for="texte" class="block text-sm font-medium text-gray-700">Entrez une description de la compétence</label>
                 <input type="text" id="texte" name="texte" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Entrez votre texte ici" />
             </div>
 
-      
+
             <button type="submit" class="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600">
                 Soumettre
             </button>
         </form>
         <script>
-            
+
             function updateForm() {
                 var select = document.getElementById('selection');
                 var selectedOption = select.options[select.selectedIndex];
                 var selectedText = selectedOption.text;
-            
-                
+
+
                 document.getElementById('selectionText').value = selectedText;
             }
 
-           
+
             document.getElementById('updateForm').addEventListener('submit', function() {
                 updateForm();
             });
