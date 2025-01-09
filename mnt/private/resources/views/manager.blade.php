@@ -43,7 +43,7 @@
     </div>
     </div>
 
-    <form id="formulaire" action="/initiateur/evaluation-seance" method="POST" style="display: none;">
+    <form id="formulaire" action="/responsable-formation/gestion-seance" method="POST" style="display: none;">
         @csrf
     </form>
 
