@@ -10,7 +10,7 @@ class Lesson extends Model
 {
     use HasFactory;
 
-    protected $table = 'cours';
+    protected $table = 'COURS';
     protected $primaryKey = 'COU_ID';
     public $timestamps = false;
     protected $fillable = [

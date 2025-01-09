@@ -36,7 +36,7 @@ Route::get('directeur/modifier-formation', [EditTraining::class, 'show']);
 
 // Training Manager
 Route::get('responsable-formation', [Manager::class, 'show']);
-Route::get('responsable-formation/gestion-seance', [SessionManagement::class, 'show']);    //Creation session
+Route::match(array('GET','POST'), 'responsable-formation/gestion-seance', [SessionManagement::class, 'show']);    //Creation session
 Route::get('responsable-formation/gestion-aptitude', [SkillsManagement::class, 'show']);
 Route::get('responsable-formation/details-formation', [TrainingDetails::class, 'show']);
 

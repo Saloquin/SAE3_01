@@ -16,14 +16,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const oldStudents = JSON.parse(document.getElementById('oldStudents').textContent);
     const oldCompetences = JSON.parse(document.getElementById('oldCompetences').textContent);
     const oldInitiators = JSON.parse(document.getElementById('oldInitiators').textContent);
+    const studentDataExisting = JSON.parse(document.getElementById('studentDataExisting').textContent);
 
     const buttonStudent = document.getElementById('addStudentButton');
     buttonStudent.addEventListener('click', () => addStudentRow());
 
     updateTableHeaderVisibility();
 
+    if (studentDataExisting && Object.keys(studentDataExisting).length > 0) {
+        populateTableWithExistingData(studentDataExisting);
+    }
+
     function addStudentRow() {
-        const tableBody = document.getElementById('students-table-body');
         const row = document.createElement('tr');
         row.className = "student-row";
 
@@ -191,7 +195,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function updateInitiatorOptions() {
-        console.log(initiatorCounts);
         const initiatorSelects = document.querySelectorAll('select[name="initiator[]"]');
         initiatorSelects.forEach(initiatorSelect => {
             const selectedValue = initiatorSelect.value;
@@ -202,6 +205,28 @@ document.addEventListener("DOMContentLoaded", () => {
                 option.disabled = count >= 2 && initiatorId !== selectedValue;
             });
         });
+    }
+
+    function populateTableWithExistingData(existingData) {
+        Object.entries(existingData).forEach(([index, data]) => {
+            addStudentRow();
+            const studentSelect = document.querySelectorAll('select[name="student[]"]')[index];
+            const initiatorSelect = document.querySelectorAll('select[name="initiator[]"]')[index];
+
+            studentSelect.value = data.studentId;
+            initiatorSelect.value = data.initiatorId;
+
+            if (data.initiatorId) {
+                initiatorCounts[data.initiatorId] = (initiatorCounts[data.initiatorId] || 0) + 1;
+            }
+
+            data.aptitudes.forEach(aptitudeId => {
+                const cell = studentSelect.closest('tr').children[1];
+                addAptitude(cell, data.studentId);
+            });
+        });
+
+        updateInitiatorOptions();
     }
 
     oldStudents.forEach((studentId, index) => {
