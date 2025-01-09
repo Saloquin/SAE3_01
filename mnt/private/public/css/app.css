@@ -205,6 +205,14 @@ font-family: "Triomphe";
         font-size: 5vw!important;
     }
 
+    .addtraining-label {
+        font-size: 4vw;
+    }
+
+    .addtraining-container select, .addtraining-container input{
+        font-size: 3vw;
+    }
+
 }
 
 /*********************** SESSION MANAGEMENT ***********************/
@@ -260,4 +268,14 @@ select, input {
 
 .user-title {
     font-size: 1.5vw;
+}
+
+/*********************** FORMATION ADD ***********************/
+
+.addtraining-label {
+    text-align: center;
+}
+
+.addtraining-checkbox {
+    padding: 0;
 }
