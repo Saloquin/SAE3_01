@@ -38,6 +38,13 @@
             </button>
         </form>
 
+@if(Session::has('success'))
+    <div class="mt-[10vw]">L'aptitude a bien été ajoutée</div>
+@endif
+@if(Session::has('error'))
+    <div class="mt-[10vw]">Une erreur est survenue lors de l'ajout.</div>
+@endif
+
 <?php
 require_once('../resources/includes/footer.php');
 ?>

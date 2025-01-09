@@ -25,13 +25,14 @@ use App\Http\Controllers\SessionDetails;
 use App\Http\Controllers\SkillsDetails;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\DirectorAddAccountController;
 use App\Models\Session;
 use App\Http\Controllers\supAdminController;
 use App\Http\Controllers\addAptController;
 use App\Http\Controllers\addCompController;
-
-
+use App\Http\Controllers\Trainee;
+use App\Http\Controllers\TraineeList;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +61,7 @@ Route::get('directeur/ajouter-formation', [AddTraining::class, 'show'])->name('d
 Route::get('directeur/modifier-formation', [EditTraining::class, 'show'])->name('directeur.modifier-formation');
 
 
+
 // Training Manager
 Route::get('responsable-formation', [Manager::class, 'show'])->name('responsable.show');
 Route::get('responsable-formation/gestion-seance', [SessionManagement::class, 'show'])->name('responsable.gestion-seance');    //Creation session
@@ -80,7 +82,7 @@ Route::get('eleve', [Trainee::class, 'show'])->name('eleve.show');
 Route::get('eleve/details-seance', [SessionDetails::class, 'show'])->name('eleve.details-seance');
 Route::get('eleve/details-aptitudes', [SkillsDetails::class, 'show'])->name('eleve.details-aptitudes');
 
-Route::get('/edt', [ttInitiatorController::class, 'tt'])->name('ttInitiatorController.tt');
+//Route::get('/edt', [ttInitiatorController::class, 'tt'])->name('ttInitiatorController.tt');
 
 
 
@@ -89,6 +91,8 @@ Route::get('/edt', [ttInitiatorController::class, 'tt'])->name('ttInitiatorContr
 // Connexion et authentification
 Route::post('/login', [Connexion::class, 'login'])->name('login');
 Route::post('/logout', [Profile::class, 'logout'])->name('logout');
+//connexion
+Route::post('/login', [Connexion::class, 'login']);
 
 // Director routes
 Route::post('addStudent', [AddUser::class, 'insertUser'])->name('addStudent');
@@ -106,10 +110,12 @@ Route::post('directeur/modifier-utilisateur', [EditUser::class, 'show'])->name('
 
 Route::post('directeur/gestion-responsable', [Director::class, 'editResponsable'])->name('directeur.gestion-responsable');
 
-Route::post('SessionManager/TraitementCreationSession', [SessionController::class, 'executeRequest'])->name('sessionManager.traitementCreationSession');
+
+Route::post('responsable-formation/TraitementCreationSession', [SessionManagement::class, 'executeRequest'])->name('sessionManager.traitementCreationSession');
+
 
 //Superadmin
-Route::get('/superadmin/', [addCompController::class, 'show'])->name('superadmin.addcomp');
+Route::get('superadmin', [addCompController::class, 'show'])->name('superadmin.addcomp');
 Route::get('/superadmin/ajoutaptitude', [addAptController::class, 'show'])->name('superadmin.addapt');
 Route::post('/superadmin/ajoutcompetence/form', [addCompController::class, 'add'])->name('superadmin.addcompform');
 Route::post('/superadmin/ajoutaptitude/form', [addAptController::class, 'add'])->name('superadmin.addaptform');
@@ -127,4 +133,6 @@ Route::get('/tt', function(){
     return view('ttInitiatorView');
 });
 
+
 Route::post('responsable-formation/TraitementCreationSession', [SessionManagement::class, 'executeRequest']);
+Route::post('/director/levelconfirmation', [LevelConfirmation::class, 'accept'])->name('acceptStudent');

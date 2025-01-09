@@ -33,7 +33,7 @@ class addCompController extends Controller
             session()->flash('error', 'Une erreur est survenue lors de l\'ajout.');
         }
         //dd($selection, $texte);
-        return redirect()->route('superadmin');
+        return redirect()->route('superadmin.addcomp');
 
 
     }
