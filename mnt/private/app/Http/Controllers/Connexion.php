@@ -19,7 +19,7 @@ Class Connexion extends Controller{
     private function redirect(){
         if(DB::select('select count(*) as nb from CLUB where uti_id = ?',[$_SESSION['id']])[0]->nb){
             $_SESSION['director'] = true;
-            header('location: director');
+            header('location: directeur');
             exit;
         }
         foreach ($_SESSION['active_formations'] as $formation) {
