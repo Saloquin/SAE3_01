@@ -20,7 +20,7 @@
             <th rowspan="2"></th>
 
             <?php
-                $code = ''; 
+                $code = '';
                 $compIndex = 1;
                 foreach ($listCompetence as $comp) {
                     $code .= '<th class="table_header" ';
@@ -34,7 +34,7 @@
         </tr>
         <tr>
             <?php
-                $code = ''; 
+                $code = '';
                 $compIndex = 1;
                 foreach ($listCompetence as $comp) {
                     for ($i = 1; $i <= $comp->nb; $i++) {
@@ -68,7 +68,7 @@
                                 $code .= 'bg-orange-300">';
                                 $code .= $mark->mai_progress;
                             } else if($mark->mai_progress == 'Absent'){
-                                $code .= 'bg-orange-300">';
+                                $code .= 'bg-[#DD281F]">';
                                 $code .= $mark->mai_progress;
                             } else {
                                 $code .= '';
@@ -82,10 +82,10 @@
                     }else{
                         $code .= '"></td>';
                     }
-                
+
                 //iteration et affichage des acquis
                 }
-                
+
 
                 $code .= '</tr>';
                 $j++;
