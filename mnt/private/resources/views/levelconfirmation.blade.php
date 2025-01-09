@@ -50,44 +50,6 @@
             </td>
         </tr>
             @endforeach
-
-        <tr class="">
-            <td class="table_cell">A-00-000000</td>
-            <td class="table_cell">MARTIN</td>
-            <td class="table_cell">Frank</td>
-            <td class="table_cell">franklefou@gmail.com</td>
-            <td class="table_cell">N1</td>
-            <td class="table_cell">17/08/2024</td>
-            <td class="table_cell">12/03/2006</td>
-            <td><button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#223A5D] px-[1vw] py-[0.8vh] text-white">✔</button></td>
-            <td><button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#C80000] px-[1vw] py-[0.8vh] text-white">X</button></td>
-        </tr>
-
-        <tr class="">
-            <td class="table_cell">A-00-000000</td>
-            <td class="table_cell">MARTIN</td>
-            <td class="table_cell">Frank</td>
-            <td class="table_cell">franklefou@gmail.com</td>
-            <td class="table_cell">N1</td>
-            <td class="table_cell">17/08/2024</td>
-            <td class="table_cell">12/03/2006</td>
-            <td><button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#223A5D] px-[1vw] py-[0.8vh] text-white">✔</button></td>
-            <td><button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#C80000] px-[1vw] py-[0.8vh] text-white">X</button></td>
-        </tr>
-
-
-        <tr class="">
-            <td class="table_cell">A-00-000000</td>
-            <td class="table_cell">MARTIN</td>
-            <td class="table_cell">Frank</td>
-            <td class="table_cell">franklefou@gmail.com</td>
-            <td class="table_cell">N1</td>
-            <td class="table_cell">17/08/2024</td>
-            <td class="table_cell">12/03/2006</td>
-            <td><button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#223A5D] px-[1vw] py-[0.8vh] text-white">✔</button></td>
-            <td><button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#C80000] px-[1vw] py-[0.8vh] text-white">X</button></td>
-        </tr>
-        </tbody>
     </table>
 </div>
 

@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\ttModel;
 
-session_start();
-
 class Manager extends Controller
 {
     function show(){
