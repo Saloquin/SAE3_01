@@ -6,16 +6,15 @@
 }
 
 html {
-    height: 100vh;
+    height: 100%;
   }
 
 body {
-    min-height: 100vh!important;
+    min-height: 100%;
     margin: 0;
     padding: 0;
-    width: 100vw;
-    overflow: visible!important;
-    display: flex;
+    position: relative;
+    padding-bottom: 30px;
   }
 
 /*********************** HEADER ***********************/
@@ -92,9 +91,11 @@ body {
 footer {
     background-color: var(--navy-blue);
     text-align: center;
+    position: absolute;
     bottom: 0;
+    height: 30px;
     width: 100%;
-    margin-top: auto;
+    margin-top: 10px;
 }
 
 footer small {
@@ -107,17 +108,6 @@ footer small {
 
 iframe[seamless] {
     border: none;
-}
-
-footer div{
-    padding: auto;
-}
-
-#github{
-    display: block;
-    margin: auto;
-    margin-bottom: 10px;
-    max-width: 20px;
 }
 
 /*********************** TYPOGRAPHY ***********************/

@@ -24,7 +24,9 @@ class Trainee extends Controller
             array_push($arr, $row->cou_date);
             array_push($arr, $row->uti_nom);
             array_push($arr, $row->uti_prenom);
+            array_push($arr, $row->mai_progress);
         }
+        // var_dump($tt);
         return view('trainee', compact('arr'));
     }
 }
