@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Uti;
 use Illuminate\Support\Facades\DB;
-use App\Models\Uti;
-
 
 Class SkillsDetails extends Controller{
 
