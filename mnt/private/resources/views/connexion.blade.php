@@ -23,7 +23,7 @@
 
         <div class="mb-[5vh] flex flex-col">
             <label for="password" class="md:text-[1vw] text-[3vw] triomphe connexion-label">Mot de passe</label>
-            <input name="password" type="password" value="test" class="md:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] pl-[0.5vw] py-[0.5vh] ml-[0.5vw] min-w-[15vw] connexion-input">
+            <input name="password" type="password"  class="md:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] pl-[0.5vw] py-[0.5vh] ml-[0.5vw] min-w-[15vw] connexion-input">
         </div>
         <div class="flex justify-center flex-col">
             <button type="submit" class="md:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Se connecter</button>
