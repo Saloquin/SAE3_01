@@ -31,8 +31,12 @@ use App\Models\Session;
 use App\Http\Controllers\supAdminController;
 use App\Http\Controllers\addAptController;
 use App\Http\Controllers\addCompController;
+use App\Http\Controllers\EditProfile;
+use App\Http\Controllers\EditUser;
 use App\Http\Controllers\Trainee;
 use App\Http\Controllers\TraineeList;
+use App\Http\Controllers\UpdtAptController;
+use App\Http\Controllers\UpdtCompController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +54,15 @@ use App\Http\Controllers\TraineeList;
 Route::get('', [Connexion::class, 'show']);
 Route::get('connexion', [Connexion::class, 'show'])->name('connexion');   //Connection
 Route::get('profile', [Profile::class, 'show'])->name('profile');
+
+Route::get('edit-profile', [EditProfile::class, 'show'])->name('edit-profile');
+// Admin
+Route::get('admin', [SkillsList::class, 'show']);
+Route::get('admin/details-competence', [AbilitiesList::class, 'show']);
+Route::post('admin/details-competence', [AbilitiesList::class, 'show']);
+Route::get('admin/ajouter-competence', [AddSkill::class, 'show']);
+Route::get('admin/ajouter-aptitude', [AddAbility::class, 'show']);
+
 
 // Director
 Route::get('directeur', [Director::class, 'show'])->name('directeur');
@@ -111,7 +124,18 @@ Route::post('directeur/modifier-utilisateur', [EditUser::class, 'show'])->name('
 Route::post('directeur/gestion-responsable', [Director::class, 'editResponsable'])->name('directeur.gestion-responsable');
 
 
+Route::post('directeur/supprimer-formation', [Director::class, 'delete'])->name('directeur.supprimer-formation');
+
+// Profile routes
+Route::post('edit-profile', [EditProfile::class, 'edit'])->name('edit-profile');
+
+
+
+//Route::post('SessionManager/TraitementCreationSession', [SessionController::class, 'executeRequest'])->name('sessionManager.traitementCreationSession');
+
+
 Route::post('responsable-formation/TraitementCreationSession', [SessionManagement::class, 'executeRequest'])->name('sessionManager.traitementCreationSession');
+
 
 
 //Superadmin
@@ -119,6 +143,11 @@ Route::get('superadmin', [addCompController::class, 'show'])->name('superadmin.a
 Route::get('/superadmin/ajoutaptitude', [addAptController::class, 'show'])->name('superadmin.addapt');
 Route::post('/superadmin/ajoutcompetence/form', [addCompController::class, 'add'])->name('superadmin.addcompform');
 Route::post('/superadmin/ajoutaptitude/form', [addAptController::class, 'add'])->name('superadmin.addaptform');
+Route::get('/superadmin/modifcompetence', [UpdtCompController::class, 'show'])->name('superadmin.updtcomp');
+Route::get('/superadmin/modifaptitude', [UpdtAptController::class, 'show'])->name('superadmin.updtapt');
+Route::post('/superadmin/modifcompetence/form', [UpdtCompController::class, 'updt'])->name('superadmin.updtcompform');
+Route::post('/superadmin/modifaptitude/form', [UpdtAptController::class, 'updt'])->name('superadmin.updtaptform');
+
 
 /* Route::get('/superadmin/details-competence', [AbilitiesList::class, 'show']);
 Route::post('/superadmin/details-competence', [AbilitiesList::class, 'show']); */

@@ -9,10 +9,6 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 
-<?php
-require_once('../resources/includes/header.php');
-?>
-
 <body class="triomphe flex flex-col items-center">
     @if (session('success') || session('failed'))
         <div class="flex flex-row mb-[2vh]">
@@ -79,7 +75,7 @@ require_once('../resources/includes/header.php');
             <label for="non" class="lg:text-[1vw] text-[2.5vw]">Non</label>
         </div>
     </div>
-    <input type="hidden" name="clubId" value="{{ $clubId }}">
+    <input type="hidden" name="UTI_ID" value="{{ $user->UTI_ID }}">
     <div class="flex justify-center">
         <button type="submit" class=" lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Créer</button>
     </div>
