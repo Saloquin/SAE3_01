@@ -7,7 +7,7 @@ use App\Http\Controllers\Connexion;
 use App\Http\Controllers\SkillsList;
 use App\Http\Controllers\TraineeListFormation;
 use App\Http\Controllers\InitiatorListFormation;
-use App\Http\Controllers\ttInitiatorController;
+// Removed duplicate import
 use App\Http\Controllers\Profile;
 use App\Http\Controllers\Director;
 use App\Http\Controllers\LevelConfirmation;
@@ -24,6 +24,9 @@ use App\Http\Controllers\Initiator;
 use App\Http\Controllers\SessionRating;
 use App\Http\Controllers\SessionDetails;
 use App\Http\Controllers\SkillsDetails;
+use App\Http\Controllers\Trainee;
+use App\Http\Controllers\TraineeList;
+use App\Http\Controllers\ttInitiatorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\DirectorAddAccountController;
