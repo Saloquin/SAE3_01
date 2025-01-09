@@ -78,6 +78,7 @@ require_once('../resources/includes/header.php');
             <label for="non" class="lg:text-[1vw] text-[2.5vw]">Non</label>
         </div>
     </div>
+    <input type="hidden" name="UTI_ID" value="{{ $user->UTI_ID }}">
     <div class="flex justify-center">
         <button type="submit" class=" lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Modifier</button>
     </div>

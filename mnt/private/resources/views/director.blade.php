@@ -13,18 +13,6 @@
 <body class="flex flex-col items-center triomphe">
 
 
-    <form action="{{route('directeur.gestion-utilisateur')}}" method="get">
-        <button type="submit"
-            class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Gestion des
-            comptes</button>
-    </form>
-    <form action="{{route('directeur.gestion-formation')}}" method="get">
-        <button type="submit"
-            class="lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Gestion des
-            formations</button>
-    </form>
-
-
 
     <p class=" triomphe text-[6vw] lg:text-[2vw]">Panel directeur</p>
     <p class="mb-[7vh] triomphe text-[6vw] lg:text-[2vw]">{{$me->UTI_PRENOM}} {{$me->UTI_NOM}}</p>
@@ -50,6 +38,7 @@
                     <th class="text-[2vw] lg:text-[1vw] triomphe"></th>
                     <th class="text-[2vw] lg:text-[1vw] triomphe">Changer
                         de responsable</th>
+                    <th class="text-[2vw] lg:text-[1vw] triomphe">Supprimer la formation</th>
                 </tr>
             </thead>
             <tbody>
@@ -89,6 +78,16 @@
                             </select>
                             <button type="submit"
                                 class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Confirmer</button>
+                        </form>
+                    </td>
+                    <td>
+                        
+                        <form action="{{route('directeur.supprimer-formation')}}" method="post">
+                            @csrf
+                            <input type="hidden" name="FOR_ID" value="{{ $formation->FOR_ID }}">
+                            <button type="submit"
+                                class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-red-600 px-[1vw] py-[0.8vh] text-white"
+                                onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette formation ?')">Supprimer</button>
                         </form>
                     </td>
                     </tr>

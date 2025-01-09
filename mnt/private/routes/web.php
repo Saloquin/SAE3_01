@@ -34,8 +34,7 @@ use App\Models\Session;
 use App\Http\Controllers\supAdminController;
 use App\Http\Controllers\addAptController;
 use App\Http\Controllers\addCompController;
-
-
+use App\Http\Controllers\EditProfile;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,7 +52,7 @@ use App\Http\Controllers\addCompController;
 Route::get('', [Connexion::class, 'show']);
 Route::get('connexion', [Connexion::class, 'show'])->name('connexion');   //Connection
 Route::get('profile', [Profile::class, 'show'])->name('profile');
-
+Route::get('edit-profile', [EditProfile::class, 'show'])->name('edit-profile');
 // Admin
 Route::get('admin', [SkillsList::class, 'show']);
 Route::get('admin/details-competence', [AbilitiesList::class, 'show']);
@@ -117,6 +116,13 @@ Route::post('directeur/ajoute-formation', [AddTraining::class, 'add'])->name('di
 Route::post('directeur/modifier-utilisateur', [EditUser::class, 'show'])->name('directeur.modifier-utilisateur');
 
 Route::post('directeur/gestion-responsable', [Director::class, 'editResponsable'])->name('directeur.gestion-responsable');
+
+Route::post('directeur/supprimer-formation', [Director::class, 'delete'])->name('directeur.supprimer-formation');
+
+// Profile routes
+Route::post('edit-profile', [EditProfile::class, 'edit'])->name('edit-profile');
+
+
 
 //Route::post('SessionManager/TraitementCreationSession', [SessionController::class, 'executeRequest'])->name('sessionManager.traitementCreationSession');
 

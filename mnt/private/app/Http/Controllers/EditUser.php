@@ -27,25 +27,27 @@ Class EditUser extends Controller{
             'UTI_VILLE' => 'required|string',
             'UTI_RUE' => 'required|string',
         ]);
-
+        
          if ($validated['lvl'] < 2 && $validated['init'] == 1) {
             return $this->show($request);
         }
-
+        
+        
         if (!ctype_digit($validated['UTI_CODE_POSTAL'])) {
             return $this->show($request);
         }
-
+        
+        
         if (Uti::where('UTI_MAIL', $validated['UTI_MAIL'])->where('UTI_ID', '!=', $request->input('UTI_ID'))->exists()) {
             return $this->show($request);
         }
-
+        
         $user = Uti::find($request->input('UTI_ID'));
         $user->update([
             'UTI_NOM' => $validated['UTI_NOM'],
         ]);
 
-        return $this->show($request);
+        return redirect()->route('directeur.gestion-utilisateur');
     }
 
     public function archive(Request $request){
