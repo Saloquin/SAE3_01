@@ -13,9 +13,6 @@
         const tt = 0;
     </script>
 </head>
-<?php
-require_once('../resources/includes/header.php');
-?>
 
 <body class="flex flex-col items-center triomphe">
 <p class=" triomphe text-[6vw] lg:text-[2vw]">Panel initiateur</p>

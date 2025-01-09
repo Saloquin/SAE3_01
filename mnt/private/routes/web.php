@@ -51,31 +51,31 @@ Route::get('admin/ajouter-competence', [AddSkill::class, 'show']);
 Route::get('admin/ajouter-aptitude', [AddAbility::class, 'show']);
 
 // Director
-Route::get('directeur', [Director::class, 'show'])->name('directeur.show'); // TODO : add navbar in controller
+Route::get('directeur', [Director::class, 'show'])->name('directeur.show');
 Route::get('directeur/gestion-formation', [Director::class, 'show'])->name('directeur.gestion-formation');
 Route::get('directeur/valider-niveau', [LevelConfirmation::class, 'show'])->name('directeur.valider-niveau');
 Route::get('directeur/gestion-utilisateur', [UserManagement::class, 'show'])->name('directeur.gestion-utilisateur');
 Route::get('directeur/ajouter-utilisateur', [AddUser::class, 'show'])->name('directeur.ajouter-utilisateur');
 Route::get('directeur/ajouter-formation', [AddTraining::class, 'show'])->name('directeur.ajouter-formation');
-Route::get('directeur/modifier-formation', [EditTraining::class, 'show'])->name('directeur.modifier-formation'); // TODO : add navbar in controller
+Route::get('directeur/modifier-formation', [EditTraining::class, 'show'])->name('directeur.modifier-formation');
 
 
 // Training Manager
-Route::get('responsable-formation', [Manager::class, 'show'])->name('responsable.show'); // TODO : add navbar in controller
+Route::get('responsable-formation', [Manager::class, 'show'])->name('responsable.show');
 Route::get('responsable-formation/gestion-seance', [SessionManagement::class, 'show'])->name('responsable.gestion-seance');    //Creation session
 Route::get('responsable-formation/gestion-aptitude', [SkillsManagement::class, 'show'])->name('responsable.gestion-aptitude');
-Route::get('responsable-formation/details-formation', [TrainingDetails::class, 'show'])->name('responsable.details-formation'); // TODO : add navbar in controller
+Route::get('responsable-formation/details-formation', [TrainingDetails::class, 'show'])->name('responsable.details-formation');
 
 // Trainer
-Route::get('initiateur', [Initiator::class, 'show'])->name('initiateur.show'); // TODO : add navbar in controller
+Route::get('initiateur', [Initiator::class, 'show'])->name('initiateur.show');
 Route::get('initiateur/evaluation-seance', [SessionRating::class, 'show'])->name('initiateur.evaluation-seance');
 Route::get('initiateur/liste-eleves', [TraineeList::class, 'show'])->name('initiateur.liste-eleves');
 Route::post('initiateur/evaluation-seance', [SessionRating::class, 'show']);
 
 // Trainee
-Route::get('eleve', [Trainee::class, 'show'])->name('eleve.show'); // TODO : add navbar in controller
+Route::get('eleve', [Trainee::class, 'show'])->name('eleve.show');
 Route::get('eleve/details-seance', [SessionDetails::class, 'show'])->name('eleve.details-seance');
-Route::get('eleve/details-aptitudes', [SkillsDetails::class, 'show'])->name('eleve.details-aptitudes'); // TODO : add navbar in controller
+Route::get('eleve/details-aptitudes', [SkillsDetails::class, 'show'])->name('eleve.details-aptitudes');
 
 Route::get('/edt', [ttInitiatorController::class, 'tt'])->name('ttInitiatorController.tt');
 // BACK-END
