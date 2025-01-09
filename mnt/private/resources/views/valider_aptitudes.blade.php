@@ -5,10 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modification de la progression des aptitudes des élèves</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
-<body class="flex items-center flex-col bg-gray-100 p-6">
-    <h1 class="mb-10 text-4xl font-bold text-blue-600">Modification de la progression des aptitudes des élèves</h1>
+
+<?php
+require_once('../resources/includes/header.php');
+?>
+
+<body class="flex items-center flex-col bg-gray-100">
+    <h1 class="mb-10 text-4xl font-bold text-blue-600"> Gestion de la séance </h1>
     <form action="{{ url('traitement_validation_aptitudes')}}" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 w-full max-w-lg">
         @csrf
         <div class="mb-4">
@@ -33,7 +38,7 @@
             <?php endforeach; ?>
         </select>
         
-        <div id="students-section" class="mb-4">
+        <div class="students-section" class="mb-4">
             <label class="block text-gray-700 font-bold mb-2">Élève 1</label>
             <div class="student-entry flex flex-col mb-4" data-student-index="0">
                 <div class="flex items-center space-x-2 mb-2">
@@ -41,27 +46,29 @@
                 </div>
                 <div class="competencies-for-student flex flex-col space-y-2">
                     <label class="text-gray-700">Aptitudes :</label>
-                    <div class="flex items-center space-x-2">
+                    <div class="flex space-x-2 apti">
                         <?php foreach ($skills1 as $skill): ?>
                             <div>
-                                <div><?= $skill->APT_LIBELLE; ?></div>
+                                <div class="ability-name"><?= $skill->APT_LIBELLE; ?></div>
                                 <select class="shadow border rounded w-full py-2 px-3 text-gray-700" name="mai_progress_student1_apt_<?= $skill->APT_ID; ?>">
                                     <option value="Non évaluée">Non évaluée</option>
                                     <option value="En cours d'acquisition">En cours d'acquisition</option>
                                     <option value="Acquise">Acquise</option>
                                     <option value="Absent">Absent</option>
                                 </select>
-                                <label for="commentary" class="block text-gray-700 font-bold mb-2">Commentaire</label>
-                                <input type="text" id="commentary" name="commentary_student1_apt_<?= $skill->APT_ID; ?>" class="shadow border rounded w-full py-2 px-3 text-gray-700">
                             </div>
                         <?php endforeach; ?>
+                        <div>
+                            <label for="commentary1" class="block text-gray-700 font-bold">Commentaire</label>
+                            <input type="text" id="commentar1" name="commentary_student1_apt_<?= $skill->APT_ID; ?>" class="shadow border rounded w-full px-3 text-gray-700">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         
         @if($studentId2)
-        <div id="students-section" class="mb-4">
+        <div class="students-section" class="mb-4">
             <label class="block text-gray-700 font-bold mb-2">Élève 2</label>
             <div class="student-entry flex flex-col mb-4" data-student-index="0">
                 <div class="flex items-center space-x-2 mb-2">
@@ -69,20 +76,22 @@
                 </div>
                 <div class="competencies-for-student flex flex-col space-y-2">
                     <label class="text-gray-700">Aptitudes :</label>
-                    <div class="flex items-center space-x-2">
+                    <div class="flex space-x-2 apti">
                         <?php foreach ($skills2 as $skill): ?>
                             <div>
-                                <div><?= $skill->APT_LIBELLE; ?></div>
-                                <select class="shadow border rounded w-full py-2 px-3 text-gray-700" name="mai_progress_student2_apt_<?= $skill->APT_ID; ?>">
+                                <div class="ability-name"><?= $skill->APT_LIBELLE; ?></div>
+                                <select class="shadow border rounded w-full py-2 px-3 text-gray-700" name="mai_progress_student1_apt_<?= $skill->APT_ID; ?>">
                                     <option value="Non évaluée">Non évaluée</option>
                                     <option value="En cours d'acquisition">En cours d'acquisition</option>
                                     <option value="Acquise">Acquise</option>
                                     <option value="Absent">Absent</option>
                                 </select>
-                                <label for="commentary" class="block text-gray-700 font-bold mb-2">Commentaire</label>
-                                <input type="text" id="commentary" name="commentary_student2_apt_<?= $skill->APT_ID; ?>" class="shadow border rounded w-full py-2 px-3 text-gray-700">
-                        </div>
+                            </div>
                         <?php endforeach; ?>
+                        <div>
+                            <label for="commentary2" class="block text-gray-700 font-bold">Commentaire</label>
+                            <input type="text" id="commentary2" name="commentary_student1_apt_<?= $skill->APT_ID; ?>" class="shadow border rounded w-full px-3 text-gray-700">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -94,4 +103,9 @@
         </div>
     </form>
 </body>
+
+<?php
+require_once('../resources/includes/footer.php');
+?>
+
 </html>
