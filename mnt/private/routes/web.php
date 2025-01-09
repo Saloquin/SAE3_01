@@ -19,6 +19,10 @@ use App\Http\Controllers\UserManagement;
 use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\SessionManagement;
 use App\Http\Controllers\DirectorAddAccountController;
+use App\Http\Controllers\supAdminController;
+use App\Http\Controllers\addAptController;
+use App\Http\Controllers\addCompController;
+
 
 
 /*
@@ -62,7 +66,14 @@ Route::get('eleve', [Trainee::class, 'show']);
 Route::get('eleve/details-seance', [SessionDetails::class, 'show']);
 Route::get('eleve/details-aptitudes', [SkillsDetails::class, 'show']);
 
+//Superadmin
+Route::get('/superadmin', [supAdminController::class, 'show'])->name('superadmin');
+Route::get('/superadmin/ajoutcompetence', [addCompController::class, 'show'])->name('superadmin.addcomp');
+Route::get('/superadmin/ajoutaptitude', [addAptController::class, 'show'])->name('superadmin.addapt');
+
+
 //BACK-END
+
 
 //connection
 Route::post('/login', [Connexion::class, 'login']);
@@ -79,8 +90,16 @@ Route::get('/director/accountCreation', [DirectorAddAccountController::class, 'i
 
 Route::post('responsable-formation/TraitementCreationSession', [SessionManagement::class, 'executeRequest']);
 
+Route::post('/superadmin/ajoutcompetence/form', [addCompController::class, 'add'])->name('superadmin.addcompform');
+Route::post('/superadmin/ajoutaptitude/form', [addAptController::class, 'add'])->name('superadmin.addaptform');
 
-Route::get('/initiateur/edt', [ttInitiatorController::class, 'show']);
-Route::get('/eleve/edt', [ttStudentController::class, 'show']);
+Route::get('director_panel', function(){
+    return view('director_panel');
+});
 
-Route::post('/traitement_validation_aptitudes', [SessionRating::class, 'updateStudentSkillForSession']);
+Route::get('/edt', [ttInitiatorController::class, 'tt']);
+
+Route::get('/tt', function(){
+    return view('ttInitiatorView');
+});
+
