@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Mastery;
 
 class Lesson extends Model
 {
     use HasFactory;
 
-    protected $table = 'COURS';
+    protected $table = 'cours';
     protected $primaryKey = 'COU_ID';
     public $timestamps = false;
     protected $fillable = [
