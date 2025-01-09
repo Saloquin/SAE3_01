@@ -10,10 +10,6 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 
-<?php
-require_once('../resources/includes/header.php');
-?>
-
 <body class="flex flex-col items-center triomphe">
 
     <form action="{{route('directeur.gestion-utilisateur')}}" method="get">
