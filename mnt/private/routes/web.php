@@ -34,8 +34,6 @@ use App\Models\Session;
 use App\Http\Controllers\supAdminController;
 use App\Http\Controllers\addAptController;
 use App\Http\Controllers\addCompController;
-use App\Http\Controllers\Trainee;
-use App\Http\Controllers\TraineeList;
 
 
 
