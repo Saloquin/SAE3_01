@@ -21,8 +21,13 @@ class addCompController extends Controller
 
     public function add(Request $request){
         $selection = $request->input('selection');
-        $texte = $request->input('texte');
-        Competence::addNew($selection,$texte);
+        $text = $request->input('texte');
+        $success = Competence::addNew($selection,$text);
+        if ($success) {
+            session()->flash('success', 'L\'élément a bien été ajouté!');
+        } else {
+            session()->flash('error', 'Une erreur est survenue lors de l\'ajout.');
+        }
         //dd($selection, $texte);
         return redirect()->route('superadmin');
         

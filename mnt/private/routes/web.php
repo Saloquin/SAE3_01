@@ -73,7 +73,10 @@ Route::get('director_panel', function(){
 
 Route::get('/initiateur/edt', [ttInitiatorController::class, 'show']);
 Route::get('/eleve/edt', [ttStudentController::class, 'show']);
+
+
 Route::get('/superadmin', [supAdminController::class, 'show'])->name('superadmin');
 Route::get('/superadmin/ajoutcompetence', [addCompController::class, 'show'])->name('superadmin.addcomp');
 Route::post('/superadmin/ajoutcompetence/form', [addCompController::class, 'add'])->name('superadmin.addcompform');
 Route::get('/superadmin/ajoutaptitude', [addAptController::class, 'show'])->name('superadmin.addapt');
+Route::post('/superadmin/ajoutaptitude/form', [addAptController::class, 'add'])->name('superadmin.addaptform');

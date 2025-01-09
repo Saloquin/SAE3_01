@@ -13,7 +13,7 @@ require_once('../resources/includes/header.php');
 ?>
 
 <body class="flex flex-col items-center triomphe">
-<p class=" triomphe text-[6vw] lg:text-[2vw]">Panel SuperAdmin</p>
+<p class=" triomphe text-[6vw] lg:text-[2vw]">Panel SuperAdmin - Ajout de compétence</p>
 
 <form action="{{ route('superadmin.addcompform') }}" method="POST">
             @csrf 

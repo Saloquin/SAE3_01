@@ -22,6 +22,11 @@ require_once('../resources/includes/header.php');
 <a href="{{ route('superadmin.addapt') }}">
     <button>Ajouter une aptitude</button>
 </a>
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 <?php
 require_once('../resources/includes/footer.php');
 ?>
