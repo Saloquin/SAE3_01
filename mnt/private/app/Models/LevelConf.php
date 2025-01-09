@@ -15,7 +15,7 @@ class LevelConf extends Model
         join valider v on u.uti_id = v.uti_id
         join formation f on u.uti_id = f.uti_id
         where u.uti_id not in(
-        select uti_id from valider where VAL_STATUT = 'En cours')
+        select uti_id from valider where VAL_STATUT = 0)
         and u.niv_id < f.niv_id;");
     }
     public static function acceptForm($id){
