@@ -13,6 +13,13 @@ class SessionManagement extends Controller
 {
     public function show(Request $request)
     {
+        session_start();
+        require_once('../resources/includes/header.php');
+        if(isset($_SESSION['director'])){ require_once('../resources/includes/navbar/navbar_director.php'); }
+        if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
+        if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
+        if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
+
         $date = $request->input('cou_date');
         $course = null;
         $studentsData = []; 
@@ -69,16 +76,9 @@ class SessionManagement extends Controller
             ]);
         }
 
-        session_start();
-        /*require_once('../resources/includes/header.php');*/
-        if(isset($_SESSION['director'])){ require_once('../resources/includes/navbar/navbar_director.php'); }
-        if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
-        if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
-        if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
-
-        $skills = Skill::getSkillByFormationLevel();
-        $students = Uti::getStudent();
-        $initiators = Uti::getTeacher();
+        $skills = Skill::getSkillByFormationLevel($_SESSION['formation_level']);
+        $students = Uti::getStudentByFormation($_SESSION['formation_level']);
+        $initiators = Uti::getTeacherByFormation($_SESSION['formation_level']);
 
         return view('gestionseance', [
             'skills' => $skills,
@@ -89,12 +89,13 @@ class SessionManagement extends Controller
             'students_data' => $studentsData 
         ]);
     }
+
     public function executeRequest(Request $request)
     {
         $studentIds = $request->input('student');
         $initiatorIds = $request->input('initiator');
         $competences = $request->input('competences');
-        $date = $request->input('date');
+        $date = $request->input('session_date'); 
 
         $courseId = $request->input('course_id');
         if (empty($courseId)) {
@@ -134,7 +135,7 @@ class SessionManagement extends Controller
 
         $for_id = 1;
 
-        if($courseId === null){
+        if ($courseId === null) {
             Lesson::insertLesson($for_id, $date);
         }
 
@@ -165,7 +166,8 @@ class SessionManagement extends Controller
             $usedStudents[] = $studentId1;
         }
 
-        return redirect('responsable-formation/gestion-seance')->with('success', 'La session a été créée avec succès.');
+        return redirect('/responsable-formation');
     }
+
 
 }

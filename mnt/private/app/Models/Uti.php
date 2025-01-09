@@ -39,16 +39,32 @@ class Uti extends Model
         return self::where('UTI_EST_INIT', 0)->get();
     }
 
-    public static function getStudentByFormation()
+    public static function getStudentByFormation($formationLevel)
     {
         return self::where('UTI_EST_INIT', 0)
-            ->where('NIV_ID', 0)->get();
+            ->where('NIV_ID', $formationLevel-1)->get();
     }
 
     public static function getTeacher()
     {
         return self::where('UTI_EST_INIT', 1)->get();
     }
+
+    public static function getTeacherByFormation($formationLevel)
+    {
+        $requiredTeacherLevel = 0;
+
+        if ($formationLevel == 1 || $formationLevel == 2) {
+            $requiredTeacherLevel = 2;
+        } elseif ($formationLevel == 3) {
+            $requiredTeacherLevel = 4;
+        }
+
+        return self::where('UTI_EST_INIT', 1)
+            ->where('NIV_ID', '>=', $requiredTeacherLevel)
+            ->get();
+    }
+
     public static function getInitiatorById($id){
         return self::where('uti_id', $id)
             ->where('uti_est_init', 1)->get();
