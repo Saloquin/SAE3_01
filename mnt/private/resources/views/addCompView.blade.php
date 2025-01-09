@@ -18,7 +18,7 @@ require_once('../resources/includes/header.php');
 <form action="{{ route('superadmin.addcompform') }}" method="POST">
             @csrf
 
-            <!-- Liste déroulante générée dynamiquement -->
+
             <div class="mb-4">
                 <label for="selection" class="block text-sm font-medium text-gray-700">Choisissez le niveau sur lequel ajouter une compétence</label>
                 <select id="selection" name="selection" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
@@ -29,13 +29,12 @@ require_once('../resources/includes/header.php');
                 </select>
             </div>
 
-            <!-- Champ de texte -->
             <div class="mb-4">
                 <label for="texte" class="block text-sm font-medium text-gray-700">Entrez une description de la compétence</label>
                 <input type="text" id="texte" name="texte" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Entrez votre texte ici" />
             </div>
 
-            <!-- Bouton de soumission -->
+          
             <button type="submit" class="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600">
                 Soumettre
             </button>

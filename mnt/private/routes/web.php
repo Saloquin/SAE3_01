@@ -26,6 +26,7 @@ use App\Http\Controllers\SessionDetails;
 use App\Http\Controllers\SkillsDetails;
 use App\Http\Controllers\Trainee;
 use App\Http\Controllers\TraineeList;
+use App\Http\Controllers\addclubControllerS;
 use App\Http\Controllers\ttInitiatorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
@@ -133,3 +134,5 @@ Route::get('/tt', function(){
     return view('ttInitiatorView');
 });
 
+Route::get('/superadmin/ajoutclub', [addClubController::class, 'show'])->name('superadmin.addclub');
+Route::post('/superadmin/ajoutclub/form', [addClubController::class, 'add'])->name('superadmin.addclubform');
