@@ -12,7 +12,7 @@ html {
 body {
     min-height: 100vh;
     margin: 0;
-    padding: 0;
+    padding: 0!important;
     display: flex;
     overflow: visible!important;
   }
@@ -278,4 +278,17 @@ select, input {
 
 .addtraining-checkbox {
     padding: 0;
+}
+
+/*********************** SESSION MANAGEMENT ***********************/
+
+.student-row td select {
+    min-width: 100px;
+}
+
+.student-row td button {
+    width: 20vw;
+    min-width: 100px;
+    max-width: 250px;
+    overflow: hidden;
 }
