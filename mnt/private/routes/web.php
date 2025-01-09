@@ -114,7 +114,7 @@ Route::post('responsable-formation/TraitementCreationSession', [SessionManagemen
 
 
 //Superadmin
-Route::get('/superadmin/', [addCompController::class, 'show'])->name('superadmin.addcomp');
+Route::get('superadmin', [addCompController::class, 'show'])->name('superadmin.addcomp');
 Route::get('/superadmin/ajoutaptitude', [addAptController::class, 'show'])->name('superadmin.addapt');
 Route::post('/superadmin/ajoutcompetence/form', [addCompController::class, 'add'])->name('superadmin.addcompform');
 Route::post('/superadmin/ajoutaptitude/form', [addAptController::class, 'add'])->name('superadmin.addaptform');
