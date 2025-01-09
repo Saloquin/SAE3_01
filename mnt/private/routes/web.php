@@ -109,7 +109,9 @@ Route::post('directeur/modifier-utilisateur', [EditUser::class, 'show'])->name('
 
 Route::post('directeur/gestion-responsable', [Director::class, 'editResponsable'])->name('directeur.gestion-responsable');
 
-Route::post('SessionManager/TraitementCreationSession', [SessionController::class, 'executeRequest'])->name('sessionManager.traitementCreationSession');
+
+Route::post('responsable-formation/TraitementCreationSession', [SessionManagement::class, 'executeRequest'])->name('sessionManager.traitementCreationSession');
+
 
 //Superadmin
 Route::get('/superadmin/', [addCompController::class, 'show'])->name('superadmin.addcomp');
