@@ -21,11 +21,18 @@ class ttModel extends Model
     }
 
     public static function getSessionStudentById($id){
-        return DB::select('SELECT cou_date, apt_libelle, u.uti_nom, u.uti_prenom FROM COURS c 
+        return DB::select('SELECT cou_date, apt_libelle, u.uti_nom, u.uti_prenom, m.mai_progress FROM COURS c 
             join GROUPE g on g.COU_ID = c.COU_ID 
             join MAITRISER m on m.cou_id = c.cou_id
             join APTITUDE a on a.apt_id = m.apt_id
             join UTILISATEUR u on g.uti_id_init = u.uti_id
             where (g.UTI_ID_ELV1 = ? or g.UTI_ID_ELV2 = ?) and m.uti_id = ?', [$id, $id, $id]); 
+    }
+
+    public static function getCourseById($id){
+        return DB::select('SELECT c.cou_date, c.cou_id from COURS c
+            join FORMATION f on f.for_id = c.for_id
+            where f.uti_id = ?', [$id] 
+        );
     }
 }
