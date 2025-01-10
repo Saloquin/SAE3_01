@@ -42,7 +42,7 @@ Class SkillsDetails extends Controller{
         $req = "select for_id from apprendre where uti_id = ?";
         $param = [session('id')];
         foreach(session('active_formations') as $training){
-            $req .= " and for_id = ?";
+            $req .= " or for_id = ?";
             $param[] = $training->FOR_ID;
         }
         $idTraining = DB::select($req, $param)[0]->for_id;
