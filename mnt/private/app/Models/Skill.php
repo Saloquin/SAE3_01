@@ -50,4 +50,16 @@ class Skill extends Model
             WHERE apt_libelle = ? and com_id in
             (select com_id from competence where niv_id = ?)',[$new,$sk,$lvl]);
     }
+
+    public static function isSkillValidatedByStudent($studentId, $skillId) {
+        $validatedSkill = DB::table('valider')
+            ->where('valider.UTI_ID', $studentId)
+            ->where('valider.APT_ID', $skillId)
+            ->where('valider.VAL_STATUT', 1) 
+            ->exists(); 
+    
+        return $validatedSkill;
+    }
+    
+    
 }

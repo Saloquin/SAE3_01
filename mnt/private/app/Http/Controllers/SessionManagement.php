@@ -20,8 +20,6 @@ class SessionManagement extends Controller
         if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
         if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
 
-        var_dump($_SESSION['formation_level']);
-
         $date = $request->input('cou_date');
         $course = null;
         $studentsData = []; 
@@ -84,10 +82,20 @@ class SessionManagement extends Controller
         $students = Uti::getStudentByFormation($_SESSION['formation_level']);
         $initiators = Uti::getTeacherByFormation($_SESSION['formation_level']);
 
+        $validatedSkillsForStudents = [];
+
+        foreach ($students as $student) {
+            foreach ($skills as $skill) {
+                $isValidated = Skill::isSkillValidatedByStudent($student->UTI_ID, $skill->APT_ID);
+                $validatedSkillsForStudents[$student->UTI_ID][$skill->APT_ID] = $isValidated;
+            }
+        }
+
         return view('gestionseance', [
             'skills' => $skills,
             'student' => $students,
             'initiator' => $initiators,
+            'validatedSkillsForStudents' => $validatedSkillsForStudents,
             'date' => $date,
             'course' => $course,
             'students_data' => $studentsData 

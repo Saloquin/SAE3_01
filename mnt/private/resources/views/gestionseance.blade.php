@@ -54,6 +54,7 @@
     <script id="oldCompetences" type="application/json">@json(old('competences', []))</script>
     <script id="oldInitiators" type="application/json">@json(old('initiator', []))</script>
     <script id="studentDataExisting" type="application/json">@json($students_data)</script>
+    <script id="validatedSkillsForStudentsData" type="application/json">@json($validatedSkillsForStudents)</script>
     <script>
         function updateSessionData() {
             var date = document.getElementById('date').value;
@@ -98,6 +99,8 @@
 
             const buttonStudent = document.getElementById('addStudentButton');
             buttonStudent.addEventListener('click', () => addStudentRow());
+
+            const validatedSkillsForStudents = JSON.parse(document.getElementById('validatedSkillsForStudentsData').textContent);
 
             updateTableHeaderVisibility();
 
@@ -227,6 +230,7 @@
 
             function addAptitude(cell, studentId, aptitudeId = null) {
                 const existingAptitudes = cell.querySelectorAll('select[name^="competences["]');
+                console.log(validatedSkillsForStudents)
                 if (existingAptitudes.length >= 3) {
                     alert("Un élève ne peut avoir que 3 aptitudes au maximum.");
                     return;
@@ -244,6 +248,10 @@
                     option.value = skill.APT_ID;
                     option.textContent = skill.APT_LIBELLE;
 
+                    if (validatedSkillsForStudents[studentId] && validatedSkillsForStudents[studentId][skill.APT_ID]) {
+                        option.disabled = true;
+                    }
+
                     if (aptitudeId && skill.APT_ID == aptitudeId) {
                         option.selected = true;
                     }
@@ -251,6 +259,8 @@
                     const alreadySelected = Array.from(cell.querySelectorAll('select')).some(existingSelect => 
                         existingSelect.value == skill.APT_ID && skill.APT_ID != aptitudeId
                     );
+
+
                     option.disabled = alreadySelected;
 
                     select.appendChild(option);
