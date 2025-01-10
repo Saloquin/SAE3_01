@@ -22,7 +22,7 @@ Class UserManagement extends Controller{
         include resource_path('includes/header.php');
 
         $clubId = Uti::find(session('id'))->CLU_ID;
-        $users = Uti::where('CLU_ID', $clubId)->get();
+        $users = Uti::where('CLU_ID', $clubId)->whereNull('UTI_DATE_ARCHIVAGE')->get();
         return view('usermanagement', compact('users'));
     }
 

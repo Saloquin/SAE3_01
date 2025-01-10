@@ -84,6 +84,7 @@ Class EditUser extends Controller{
 
     public function archive(Request $request){
         $user = Uti::find($request->input('UTI_ID'));
+        
         $user->update([
             'UTI_DATE_ARCHIVAGE' => now(),
         ]);

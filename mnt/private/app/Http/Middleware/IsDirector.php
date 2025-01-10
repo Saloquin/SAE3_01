@@ -20,7 +20,7 @@ class IsDirector
                 return redirect()->route('superadmin.addcomp');
             }
             if (session()->has('manager')) {
-                return redirect()->route('responsable-formation');
+                return redirect()->route('responsable');
             }
             if (session()->has('teacher')) {
                 return redirect()->route('initiateur');
