@@ -54,8 +54,9 @@
             $j = 0;
             foreach ($listTrainee as $trainee) {
                 $code .= '<tr class=""> <th class="table_cell">';
+                $code .= '<a href="gestion-aptitude-eleve/' . $trainee->uti_id . '"">';
                 $code .= $trainee->nom;
-                $code .= '</th>';
+                $code .= '</a></th>';
 
                 for ($i = 0; $i < count($listSkills); $i++) {
                     $skill = $tab[$i][$j];
@@ -77,6 +78,7 @@
             }
             echo $code;
             ?>
+            
         </tbody>
     </table>
 </div>
