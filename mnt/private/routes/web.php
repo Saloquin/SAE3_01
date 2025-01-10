@@ -104,7 +104,7 @@ Route::middleware(['isConnected'])->group(function () {
     });
     // Trainee
     Route::middleware(['isStudent'])->group(function () {
-        Route::get('eleve', [Trainee::class, 'show'])->name('eleve.show');
+        Route::get('eleve', [Trainee::class, 'show'])->name('eleve');
         Route::get('eleve/details-seance', [SessionDetails::class, 'show'])->name('eleve.details-seance');
         Route::get('eleve/details-aptitudes', [SkillsDetails::class, 'show'])->name('eleve.details-aptitudes');
     });

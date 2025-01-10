@@ -131,7 +131,6 @@ class TraineeListFormation extends Controller
       */
     public function remove(Request $request)
     {
-        dd($request);
         $validated = $request->validate([
             'FOR_ID' => 'required|exists:formation,FOR_ID',
             'UTI_ID' => 'required|exists:utilisateur,UTI_ID',
