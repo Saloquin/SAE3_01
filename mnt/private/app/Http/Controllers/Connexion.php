@@ -79,7 +79,7 @@ Class Connexion extends Controller{
             }
         }
         // renvoyer vers page pas de formation
-        echo 'pas de formation';
+        header('Location: non-inscrit');
         exit;
     }
     /**
