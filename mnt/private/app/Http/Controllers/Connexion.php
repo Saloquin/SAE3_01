@@ -33,7 +33,7 @@ class Connexion extends Controller
     {
         return view('connexion');
     }
-   
+
     /**
      * Handle the login request.
      *
@@ -89,15 +89,13 @@ class Connexion extends Controller
                     }
                 }
                 // renvoyer vers page pas de formation
-                echo 'pas de formation';
+                header('Location: non-inscrit');
                 exit;
             }
-            // remettre page co avec msg d'erreur pas de compte
-            echo 'pas de compte';
+            header('Location: connexion');
             exit;
         }
-        // remettre page avec msg d'erreur pas rempli
-        echo 'pas rempli';
+        echo 'No input';
         exit;
     }
 
