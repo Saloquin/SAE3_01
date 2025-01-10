@@ -54,8 +54,8 @@
                             <div>
                                 <div class="ability-name"><?= $skill->APT_LIBELLE; ?></div>
                                 <select class="shadow border rounded w-full py-2 px-3 text-gray-700" name="mai_progress_student1_apt_<?= $skill->APT_ID; ?>">
-                                    <option value="En cours d'acquisition" <?= $skill->MAI_PROGRESS == "En cours d'acquisition" ? 'selected' : '' ?>>En cours d'acquisition</option>
-                                    <option value="Acquise" <?= $skill->MAI_PROGRESS == 'Acquise' ? 'selected' : '' ?>>Acquise</option>
+                                    <option value="En cours" <?= $skill->MAI_PROGRESS == "En cours" ? 'selected' : '' ?>>En cours</option>
+                                    <option value="Acquis" <?= $skill->MAI_PROGRESS == 'Acquis' ? 'selected' : '' ?>>Acquis</option>
                                     <option value="Absent" <?= $skill->MAI_PROGRESS == 'Absent' ? 'selected' : '' ?>>Absent</option>
                                 </select>
                             </div>
