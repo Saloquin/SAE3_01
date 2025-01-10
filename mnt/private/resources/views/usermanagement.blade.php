@@ -55,15 +55,12 @@
                         <td class="table_cell">{{ $user->UTI_CP }}</td>
                         <td class="table_cell">{{ $user->UTI_RUE }}</td>
                         <td>
-                            <form action="{{ route('directeur.gestion-utilisateur') }}" method="post">
+                            <form action="{{ route('directeur.modifier-utilisateur') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="UTI_ID" value="{{ $user->UTI_ID }}">
-                                <button type="submit"
-                                    class="lg:table-cell hidden triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Gérer
-                                    l'utilisateur</button>
-                                <button type="submit"
-                                        class="lg:hidden triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white manage-button">Gérer
-                                    </button>
+                                <button type="submit" class="lg:table-cell hidden triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Gérer
+                                    l'utilisateur
+                                </button>
                             </form>
                         </td>
                     </tr>

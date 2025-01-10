@@ -55,6 +55,9 @@
 </div>
 
 <div class="flex justify-around">
+    @if($usersPossible->isEmpty())
+        <p class="triomphe lg:text-[1vw] text-[3vw] mb-[5vh]">Aucun élève disponible pour ajout.</p>
+    @else
     <form action="{{ route('directeur.ajoute-eleve-formation') }}" method="post">
     @csrf
         <select class="triomphe lg:text-[1vw] text-[3vw] rounded-[0.25vw] px-[1vw] py-[0.8vh] mr-[5vw]" name="UTI_ID" id="user">
@@ -67,6 +70,7 @@
         <input type="hidden" name="FOR_ID" value="{{ $formation->FOR_ID }}">
         <button type="submit" class=" triomphe lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Ajouter l'élève</button>
     </form>
+    @endif
 </div>
 
 </body>

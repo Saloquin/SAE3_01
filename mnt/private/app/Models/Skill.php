@@ -40,7 +40,8 @@ class Skill extends Model
     }
 
     public static function getSkillByFormationLevel($formationLevel){
-        $users = DB::select('select * from aptitude where COM_ID in (SELECT COM_ID FROM formation WHERE NIV_ID = ?)', [$formationLevel]);
+        $users = DB::select('select * from APTITUDE where COM_ID in (SELECT COM_ID FROM COMPETENCE WHERE NIV_ID = ?)', [$formationLevel]);
+
         return $users;
     }
 
@@ -50,4 +51,16 @@ class Skill extends Model
             WHERE apt_libelle = ? and com_id in
             (select com_id from competence where niv_id = ?)',[$new,$sk,$lvl]);
     }
+
+    public static function isSkillValidatedByStudent($studentId, $skillId) {
+        $validatedSkill = DB::table('valider')
+            ->where('valider.UTI_ID', $studentId)
+            ->where('valider.APT_ID', $skillId)
+            ->where('valider.VAL_STATUT', 1) 
+            ->exists(); 
+    
+        return $validatedSkill;
+    }
+    
+    
 }

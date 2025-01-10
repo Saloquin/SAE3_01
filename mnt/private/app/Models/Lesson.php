@@ -94,7 +94,9 @@ class Lesson extends Model
             return array();
         }
 
-        $skills = DB::select("select * from maitriser join aptitude using(apt_id) where cou_id = ? and uti_id = ?", [$cou_id, $uti_id]);
+
+        $skills = DB::select("select * from maitriser join APTITUDE using(apt_id) where cou_id = ? and uti_id = ?", [$cou_id, $uti_id]);
+
 
         /*
         $skills = array();

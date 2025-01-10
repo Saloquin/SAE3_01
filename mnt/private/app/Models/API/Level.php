@@ -19,4 +19,16 @@ class Level extends Model
 
     protected $hidden = [];
 
+    public function formation()
+    {
+        return $this->hasMany(Formation::class, 'NIV_ID');
+    }
+    public function competence()
+    {
+        return $this->hasMany(Competence::class, 'NIV_ID');
+    }
+    public function user()
+    {
+        return $this->hasMany(Uti::class, 'NIV_ID');
+    }
 }

@@ -21,20 +21,45 @@ class Uti extends Model
         'UTI_MDP',
         'UTI_DATE_ARCHIVAGE',
         'UTI_EST_INIT',
+        'UTI_DATE_NAISS',
+        'UTI_DATE_CERTIF',
+        'UTI_VILLE',
+        'UTI_CP',
+        'UTI_LICENCE',
+        'UTI_RUE',
     ];
 
     protected $hidden = [
         'UTI_MDP',
     ];
 
-    public static function getStudent()
+    public function student()
     {
-        return self::where('UTI_EST_INIT', 0)->get();
+        return $this->hasMany(Learn::class, 'UTI_ID');
     }
 
-    public static function getTeacher()
+    public function teacher()
     {
-        return self::where('UTI_EST_INIT', 1)->get();
+        return $this->hasMany(Teach::class, 'UTI_ID');    
+    }
+
+    public function dtclub()
+    {
+        return $this->hasMany(Club::class, 'UTI_ID');
+    }
+    public function respform(){
+        return $this->hasMany(Formation::class, 'UTI_ID');
+    }
+    public function group()
+    {
+        return $this->hasMany(Group::class, 'UTI_ID');
+    }
+    public function mastery()
+    {
+        return $this->hasMany(Mastery::class, 'UTI_ID');
+    }
+    public function validate(){
+        return $this->hasMany(Validate::class, 'UTI_ID');
     }
 
     public function club()
@@ -46,4 +71,5 @@ class Uti extends Model
     {
         return $this->belongsTo(Level::class, 'NIV_ID');
     }
+
 }
