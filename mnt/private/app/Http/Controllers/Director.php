@@ -98,8 +98,8 @@ Class Director extends Controller{
         $cluID = Uti::find(session('id'))->CLU_ID;
         $forID = Uti::find(session('id'))->FOR_ID;
 
-        $end_year = date_create('now')->format('Y');
-        $start_year = date('Y', strtotime('-1 year'));
+        $start_year = date_create('now')->format('Y');
+        $end_year = date('Y', strtotime('+1 year'));
 
         $end_date = date($end_year.'-06-01');
         $start_date = date($start_year.'-09-01');
@@ -116,11 +116,11 @@ Class Director extends Controller{
         from `formation`
         inner join `utilisateur` on `utilisateur`.`uti_id` = `formation`.`uti_id`
         where `utilisateur`.`CLU_ID` = ? 
-        and `UTI_DATE_CERTIF` between date(?) and date(?)", [$cluID,$start_date, $end_date]);
+        and `for_annee` between date(?) and date(?)", [$cluID,$start_date, $end_date]);
 
         if (sizeof($users) > 0) {
             // Filename with year
-            $filename = "Bilan_" . (date('Y') - 1) . "-" . date('Y') . ".csv";
+            $filename = "Bilan_" . date('Y') . "-" . (date('Y')+1) . ".csv";
             
             // Prepare a streamed response to send the CSV directly to the user
             $response = new StreamedResponse(function () use ($users) {
@@ -142,8 +142,24 @@ Class Director extends Controller{
 
             return $response;
         }
+
+        $filename = "Bilan_" . date('Y') . "-" . (date('Y')+1) . ".csv";
+            
+        // Prepare a streamed response to send the CSV directly to the user
+        $response = new StreamedResponse(function () use ($users) {
+            $handle = fopen('php://output', 'w');
+            
+            // Set column headers
+            fputcsv($handle, ['UTI_NOM', 'UTI_PRENOM', 'UTI_MAIL', 'NIV_ID'], ';');
+
+            fclose($handle);
+        }, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ]);
+
+        return $response;
         
-        return response()->json(['message' => 'No data found to export.'], 404);
     }
 
 }
