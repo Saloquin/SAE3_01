@@ -40,6 +40,7 @@ Class EditUser extends Controller{
      * @return \Illuminate\Http\RedirectResponse The response after processing the form.
      */
     public function edit(Request $request){
+        
         $validated = $request->validate([
             'UTI_NOM' => 'required|string|max:255',
             'UTI_PRENOM' => 'required|string|max:255',
@@ -52,7 +53,7 @@ Class EditUser extends Controller{
             'UTI_VILLE' => 'required|string',
             'UTI_RUE' => 'required|string',
         ]);
-        
+        dd('test')  ;
         if ($validated['lvl'] < 2 && $validated['init'] == 1) {
             return $this->show($request);
         }
