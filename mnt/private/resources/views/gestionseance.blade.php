@@ -31,7 +31,7 @@
             <input type="text" 
                    id="session_date" 
                    name="session_date" 
-                   value="{{ $date }}" 
+                   value="{{ old('session_date', $date)  }}" 
                    class="bg-gray-100 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5"
                    readonly>
         </div>
@@ -147,7 +147,7 @@
                 const addAptitudeButton = document.createElement('button');
                 addAptitudeButton.type = "button";
                 addAptitudeButton.textContent = "Ajouter une aptitude";
-                addAptitudeButton.className = "bg-green-500 text-white px-4 py-2 rounded shadow";
+                addAptitudeButton.className = "bg-green-500 text-white px-4 py-2 rounded shadow sessionManagement-button";
                 addAptitudeButton.onclick = () => {
                     const studentId = studentSelect.value;
                     if (studentId) {
@@ -363,36 +363,12 @@
                 
             }
 
-
-
-
-
-            oldStudents.forEach((studentId, index) => {
-                addStudentRow();
-                const studentSelect = document.querySelectorAll('select[name="student[]"]')[index];
-                const initiatorSelect = document.querySelectorAll('select[name="initiator[]"]')[index];
-                const studentCompetences = oldCompetences[studentId] || [];
-                const initiatorId = oldInitiators[index] || "";
-
-                studentSelect.value = studentId;
-                initiatorSelect.value = initiatorId;
-
-                if (initiatorId) {
-                    initiatorCounts[initiatorId] = (initiatorCounts[initiatorId] || 0) + 1;
-                }
-
-                studentCompetences.forEach(competence => {
-                    const cell = studentSelect.closest('tr').children[1];
-                    addAptitude(cell, studentId);
-                });
-            });
-
             updateStudentOptions();
             updateInitiatorOptions();
         });
 
     </script>
 
-    <?php require_once('../resources/includes/footer.php')?>
+    <?php include resource_path('includes/footer.php')?>
 </body>
 </html>
