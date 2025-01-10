@@ -112,7 +112,7 @@ Class Connexion extends Controller{
                 $this->redirect();
                 exit;
             }
-            echo 'pas de compte';
+            header('Location: connexion');
             exit;
         }
         echo 'No input';
