@@ -54,15 +54,15 @@
                             <div>
                                 <div>
                                     <div class="ability-name"><?= $skill->APT_LIBELLE; ?></div>
-                                    <select class="shadow border rounded w-full py-2 px-3 text-gray-700" name="mai_progress_student2_apt_<?= $skill->APT_ID; ?>">
+                                    <select class="shadow border rounded w-full py-2 px-3 text-gray-700" name="mai_progress_student1_apt_<?= $skill->APT_ID; ?>">
                                         <option value="En cours" <?= $skill->MAI_PROGRESS == "En cours" ? 'selected' : '' ?>>En cours</option>
                                         <option value="Acquis" <?= $skill->MAI_PROGRESS == 'Acquis' ? 'selected' : '' ?>>Acquis</option>
                                         <option value="Absent" <?= $skill->MAI_PROGRESS == 'Absent' ? 'selected' : '' ?>>Absent</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label for="commentary2" class="block text-gray-700 font-bold">Commentaire</label>
-                                    <input type="text" id="commentary2" name="commentary_student2_apt_<?= $skill->APT_ID; ?>" class="shadow border rounded w-full px-3 text-gray-700" value="<?= $skill->MAI_COMMENTAIRE ?>">
+                                    <label for="commentary1" class="block text-gray-700 font-bold">Commentaire</label>
+                                    <input type="text" id="commentary1" name="commentary_student1_apt_<?= $skill->APT_ID; ?>" class="shadow border rounded w-full px-3 text-gray-700" value="<?= $skill->MAI_COMMENTAIRE ?>">
                                 </div>
                             </div>
                         <?php endforeach; ?>
