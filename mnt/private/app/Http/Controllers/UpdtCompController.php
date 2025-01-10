@@ -10,7 +10,6 @@ class UpdtCompController extends Controller
     public function show(){
         
         include resource_path('includes/header.php');
-        include resource_path('includes/navbar/navbar_admin.php');
 
         $req = Competence::getCompetencies();
         $comp = [];
