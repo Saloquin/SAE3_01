@@ -8,9 +8,6 @@
     <script src="./js/tailwind.config.js"></script>
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
-<?php
-include resource_path('includes/header.php');
-?>
 
 <body class="flex flex-col items-center triomphe">
 <p class="  text-[6vw] lg:text-[2vw] mb-[8vh]">Création d'une compétence</p>

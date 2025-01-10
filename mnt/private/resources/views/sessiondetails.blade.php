@@ -8,9 +8,7 @@
     <script src="./tailwind.config.js"></script>
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
-<?php
-include resource_path('includes/header.php');
-?>
+
 <body class="triomphe flex flex-col items-center">
 
 <p class="  text-[6vw] md:text-[2vw] mb-[8vh]">Détails du cours</p>

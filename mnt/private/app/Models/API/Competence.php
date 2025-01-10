@@ -21,4 +21,9 @@ class Competence extends Model
     {
         return $this->belongsTo(Level::class, 'NIV_ID');
     }
+
+    public function aptitude()
+    {
+        return $this->hasMany(Skill::class, 'COM_ID');
+    }
 }
