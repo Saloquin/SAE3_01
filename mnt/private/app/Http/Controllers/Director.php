@@ -13,6 +13,7 @@ use App\Models\Formation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Illuminate\Database\Query\JoinClause;
 
 Class Director extends Controller{
     /**
@@ -93,11 +94,31 @@ Class Director extends Controller{
   */
     public function generateCsv()
     {
-        // Fetch records from the database (Using DB facade for better integration with Laravel)
+        $formation = session('active_formations');
         $cluID = Uti::find(session('id'))->CLU_ID;
-        $users = DB::table('utilisateur')->where("CLU_ID","=", $cluID)->get(['UTI_NOM', 'UTI_PRENOM', 'UTI_MAIL', 'NIV_ID']);
+        $forID = Uti::find(session('id'))->FOR_ID;
 
-        if ($users->isNotEmpty()) {
+        $end_year = date_create('now')->format('Y');
+        $start_year = date('Y', strtotime('-1 year'));
+
+        $end_date = date($end_year.'-01-01');
+        $start_date = date($start_year.'-01-01');
+
+        // Fetch records from the database (Using DB facade for better integration with Laravel)
+        $users = DB::table('formation')
+        ->join('utilisateur', function (JoinClause $join) {
+            $join->on('utilisateur.uti_id', '=', 'formation.uti_id');
+        })
+        ->where("utilisateur.CLU_ID","=", $cluID)
+        ->whereBetween('UTI_DATE_CERTIF', ["date('".$start_date."')", "date('".$end_date."')"])
+        ->get(['UTI_NOM', 'UTI_PRENOM', 'UTI_MAIL', 'utilisateur.NIV_ID']);
+        $users = DB::select("select `UTI_NOM`, `UTI_PRENOM`, `UTI_MAIL`, `utilisateur`.`NIV_ID` 
+        from `formation`
+        inner join `utilisateur` on `utilisateur`.`uti_id` = `formation`.`uti_id`
+        where `utilisateur`.`CLU_ID` = ? 
+        and `UTI_DATE_CERTIF` between date(?) and date(?)", [$cluID,$start_date, $end_date]);
+
+        if (sizeof($users) > 0) {
             // Filename with year
             $filename = "Bilan_" . (date('Y') - 1) . "-" . date('Y') . ".csv";
             

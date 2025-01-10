@@ -51,19 +51,13 @@ class Uti extends Model
     }
 
     public static function getTeacherByFormation($formationLevel)
-    {
-        $requiredTeacherLevel = 0;
+{
+    return self::join('initier', 'initier.UTI_ID', '=', 'utilisateur.UTI_ID')
+        ->where('initier.FOR_ID', $formationLevel)
+        ->where('utilisateur.UTI_EST_INIT', 1) 
+        ->get();
+}
 
-        if ($formationLevel == 1 || $formationLevel == 2) {
-            $requiredTeacherLevel = 2;
-        } elseif ($formationLevel == 3) {
-            $requiredTeacherLevel = 4;
-        }
-
-        return self::where('UTI_EST_INIT', 1)
-            ->where('NIV_ID', '>=', $requiredTeacherLevel)
-            ->get();
-    }
 
     public static function getInitiatorById($id){
         return self::where('uti_id', $id)

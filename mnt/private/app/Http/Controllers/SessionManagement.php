@@ -166,6 +166,8 @@ class SessionManagement extends Controller
 
         if ($courseId === null) {
             Lesson::insertLesson($for_id, $date);
+        }else{
+            Lesson::deleteLesson($courseId);
         }
 
         $usedStudents = [];
