@@ -92,11 +92,12 @@ Class InitiatorListFormation extends Controller{
       */
     public function remove(Request $request)
 {
-
+    
     $validated = $request->validate([
         'FOR_ID' => 'required|exists:formation,FOR_ID',
         'UTI_ID' => 'required|exists:utilisateur,UTI_ID',
     ]);
+    
 
     $formationId = $validated['FOR_ID'];
     $userId = $validated['UTI_ID'];
@@ -105,7 +106,7 @@ Class InitiatorListFormation extends Controller{
             ->where('UTI_ID', $userId)
             ->first();
 
-        if ($existingTeach) {
+        if (!$existingTeach) {
             return $this->show($request);
         }
 

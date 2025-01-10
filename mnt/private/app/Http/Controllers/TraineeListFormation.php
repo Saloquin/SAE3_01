@@ -131,14 +131,22 @@ class TraineeListFormation extends Controller
       */
     public function remove(Request $request)
     {
-
+        dd($request);
         $validated = $request->validate([
             'FOR_ID' => 'required|exists:formation,FOR_ID',
             'UTI_ID' => 'required|exists:utilisateur,UTI_ID',
         ]);
-
+        
         $formationId = $validated['FOR_ID'];
         $userId = $validated['UTI_ID'];
+
+        $existingLearn = Learn::where('FOR_ID', $formationId)
+            ->where('UTI_ID', $userId)
+            ->first();
+
+        if (!$existingLearn) {
+            return $this->show($request);
+        }
 
         DB::table('apprendre')
             ->where('FOR_ID', $formationId)

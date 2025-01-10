@@ -118,7 +118,9 @@ class Connexion extends Controller
             'email' => 'required|email',
         ]);
 
-
+        if(Uti::where('UTI_MAIL', $validated['email'])->count() == 0){
+            return redirect()->back()->with('status', "cette email n'existe pas dans notre base de données.");
+        }
         $user = Uti::where('UTI_MAIL', $validated['email']);
 
         if ($user) {
@@ -134,7 +136,7 @@ class Connexion extends Controller
             ]));
         }
 
-        return redirect()->back()->with('status', 'If your email is in our system, you will receive a password reset link.');
+        return redirect()->back()->with('status', 'Votre mail a été envoyé avec succès.');
     }
 
 }
