@@ -71,6 +71,14 @@ Class Director extends Controller{
 
         $formationId = $validated['FOR_ID'];
 
+        DB::table('apprendre')
+            ->where('FOR_ID', $formationId)
+            ->delete();
+
+        DB::table('initier')
+            ->where('FOR_ID', $formationId)
+            ->delete();
+
         DB::table('formation')
             ->where('FOR_ID', $formationId)
             ->delete();
