@@ -19,6 +19,18 @@
 <p class=" triomphe text-[6vw] lg:text-[2vw]">Panel de responsable de formation</p>
 <p class="mb-[7vh] triomphe text-[6vw] lg:text-[2vw]">Titouan JEAN</p>
 
+    @if(session('error'))
+        <div class="bg-red-500 text-white px-4 py-3 mb-6 rounded">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @if(session('success'))
+        <div class="bg-green-500 text-white px-4 py-3 mb-6 rounded">
+            {{ session('success') }}
+        </div>
+    @endif   
+
 
 <div class="flex">
     <div class="calendar">

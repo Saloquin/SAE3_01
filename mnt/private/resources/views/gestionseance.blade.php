@@ -10,19 +10,6 @@
 </head>
 <body class="flex items-center flex-col bg-blue-50 p-6">
     <h1 class="mb-10 text-4xl font-bold text-blue-700">Création d'une séance de plongée</h1>
-
-    @if(session('error'))
-        <div class="bg-red-500 text-white px-4 py-3 mb-6 rounded">
-            {{ session('error') }}
-        </div>
-    @endif
-
-    @if(session('success'))
-        <div class="bg-green-500 text-white px-4 py-3 mb-6 rounded">
-            {{ session('success') }}
-        </div>
-    @endif   
-
     <form action="{{ url('responsable-formation/TraitementCreationSession') }}" method="post" class="bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 w-full max-w-4xl">
         <input type="hidden" name="course_id" value="{{ $course ? $course->COU_ID : '' }}">
         @csrf
@@ -291,6 +278,8 @@
 
 
             function updateAptitudeOptions(cell, studentId) {
+                console.log("updateAptitudeOptions");
+
                 const selectedAptitudes = Array.from(cell.querySelectorAll('select[name^="competences["]')).map(select => select.value);
 
                 cell.querySelectorAll('select[name^="competences["]').forEach(select => {
@@ -304,6 +293,7 @@
 
 
             function updateStudentOptions() {
+                console.log("updateStudentOptions");
                 const studentSelects = document.querySelectorAll('select[name="student[]"]');
                 studentSelects.forEach(studentSelect => {
                     let selected = studentSelect.selectedOptions[0].value;
@@ -316,6 +306,7 @@
             }
 
             function updateInitiatorOptions() {
+                console.log("updateInitiatorOptions");
                 const initiatorSelects = document.querySelectorAll('select[name="initiator[]"]');
                 initiatorSelects.forEach(initiatorSelect => {
                     const selectedValue = initiatorSelect.value;
@@ -356,7 +347,9 @@
                             addAptitude(aptitudeCell, index, aptitudeId);
                         }
                     });
-
+                    updateAptitudeOptions();
+                    updateInitiatorOptions();
+                    updateStudentOptions();
                     
                 });
 

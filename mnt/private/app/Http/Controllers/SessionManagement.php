@@ -20,6 +20,8 @@ class SessionManagement extends Controller
         if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
         if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
 
+        var_dump($_SESSION['formation_level']);
+
         $date = $request->input('cou_date');
         $course = null;
         $studentsData = []; 
@@ -106,22 +108,19 @@ class SessionManagement extends Controller
         }
 
         if (empty($studentIds) || empty($initiatorIds) || empty($competences) || empty($date)) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Tous les champs doivent être remplis.');
+            return redirect('/responsable-formation')
+                    ->with('error', 'Tous les champs doivent être remplis.');
         }
 
         if (count($studentIds) != count($initiatorIds)) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Chaque élève doit être assigné à un initiateur.');
+            return redirect('/responsable-formation')
+                    ->with('error', 'Chaque élève doit être assigné à un initiateur.');
         }
 
         foreach ($studentIds as $studentId) {
             if (!isset($competences[$studentId]) || empty($competences[$studentId])) {
-                return redirect()->back()
-                    ->withInput()
-                    ->with('error', 'Chaque étudiant doit avoir des aptitudes.');
+                return redirect('/responsable-formation')
+                        ->with('error', 'Chaque étudiant doit avoir des aptitudes.');
             }
         }
 
@@ -130,9 +129,8 @@ class SessionManagement extends Controller
 
         foreach ($initiatorCounts as $initiatorId => $count) {
             if ($count > 2) {
-                return redirect()->back()
-                    ->withInput()
-                    ->with('error', "L'initiateur avec l'ID $initiatorId est assigné à plus de 2 étudiants.");
+                return redirect('/responsable-formation')
+                        ->with('error', "L'initiateur avec l'ID $initiatorId est assigné à plus de 2 étudiants.");
             }
         }
         
@@ -169,7 +167,8 @@ class SessionManagement extends Controller
             $usedStudents[] = $studentId1;
         }
 
-        return redirect('/responsable-formation');
+        return redirect('/responsable-formation')
+                ->with('success', 'Votre cours a était crée/modifier avec succes.');
     }
 
 
