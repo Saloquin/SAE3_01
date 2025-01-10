@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Connexion Controller
  *
@@ -7,6 +8,7 @@
  *
  * @package App\Http\Controllers
  */
+
 namespace App\Http\Controllers;
 
 
@@ -64,13 +66,17 @@ class Connexion extends Controller
                 if (DB::select('select count(*) as nb from club where uti_id = ?', [session('id')])[0]->nb) {
 
                     session(['director' => true]);
-                    //dd(session()->all());
+                    //
                     return redirect()->route('directeur');
                 }
                 foreach (session('active_formations') as $formation) {
                     if ($formation->UTI_ID == session('id')) {
                         session(['manager' => true]);
                         session(['formation_level' => $formation->NIV_ID]);
+                        $res = DB::select('select count(*) as nb from initier where for_id = ? and uti_id = ?', [$formation->FOR_ID, session('id')]);
+                        if ($res[0]->nb) {
+                            session(['teacher' => true]);
+                        }
                         return redirect()->route('responsable');
                         // redirect to training manageur home
                     }
@@ -116,7 +122,7 @@ class Connexion extends Controller
             'email' => 'required|email',
         ]);
 
-        if(Uti::where('UTI_MAIL', $validated['email'])->count() == 0){
+        if (Uti::where('UTI_MAIL', $validated['email'])->count() == 0) {
             return redirect()->back()->with('status', "cette email n'existe pas dans notre base de données.");
         }
         $user = Uti::where('UTI_MAIL', $validated['email']);
@@ -136,16 +142,4 @@ class Connexion extends Controller
 
         return redirect()->back()->with('status', 'Votre mail a été envoyé avec succès.');
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
