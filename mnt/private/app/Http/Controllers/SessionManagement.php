@@ -34,10 +34,7 @@ class SessionManagement extends Controller
 
         $date = $request->input('cou_date');
         $course = null;
-        $studentsData = []; 
-
-        var_dump(session('formation_level'));
-        
+        $studentsData = [];         
         if ($date) {
             $course = Lesson::where('COU_DATE', $date)
                             ->where('FOR_ID', session('formation_level'))
@@ -96,10 +93,20 @@ class SessionManagement extends Controller
         $students = Uti::getStudentByFormation(session('formation_level'));
         $initiators = Uti::getTeacherByFormation(session('formation_level'));
 
+        $validatedSkillsForStudents = [];
+
+        foreach ($students as $student) {
+            foreach ($skills as $skill) {
+                $isValidated = Skill::isSkillValidatedByStudent($student->UTI_ID, $skill->APT_ID);
+                $validatedSkillsForStudents[$student->UTI_ID][$skill->APT_ID] = $isValidated;
+            }
+        }
+
         return view('gestionseance', [
             'skills' => $skills,
             'student' => $students,
             'initiator' => $initiators,
+            'validatedSkillsForStudents' => $validatedSkillsForStudents,
             'date' => $date,
             'course' => $course,
             'students_data' => $studentsData 
@@ -127,22 +134,19 @@ class SessionManagement extends Controller
         }
 
         if (empty($studentIds) || empty($initiatorIds) || empty($competences) || empty($date)) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Tous les champs doivent être remplis.');
+            return redirect('/responsable-formation')
+                    ->with('error', 'Tous les champs doivent être remplis.');
         }
 
         if (count($studentIds) != count($initiatorIds)) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Chaque élève doit être assigné à un initiateur.');
+            return redirect('/responsable-formation')
+                    ->with('error', 'Chaque élève doit être assigné à un initiateur.');
         }
 
         foreach ($studentIds as $studentId) {
             if (!isset($competences[$studentId]) || empty($competences[$studentId])) {
-                return redirect()->back()
-                    ->withInput()
-                    ->with('error', 'Chaque étudiant doit avoir des aptitudes.');
+                return redirect('/responsable-formation')
+                        ->with('error', 'Chaque étudiant doit avoir des aptitudes.');
             }
         }
 
@@ -151,9 +155,8 @@ class SessionManagement extends Controller
 
         foreach ($initiatorCounts as $initiatorId => $count) {
             if ($count > 2) {
-                return redirect()->back()
-                    ->withInput()
-                    ->with('error', "L'initiateur avec l'ID $initiatorId est assigné à plus de 2 étudiants.");
+                return redirect('/responsable-formation')
+                        ->with('error', "L'initiateur avec l'ID $initiatorId est assigné à plus de 2 étudiants.");
             }
         }
         
@@ -190,7 +193,8 @@ class SessionManagement extends Controller
             $usedStudents[] = $studentId1;
         }
 
-        return redirect('/responsable-formation');
+        return redirect('/responsable-formation')
+                ->with('success', 'Votre cours a était crée/modifier avec succes.');
     }
 
 
