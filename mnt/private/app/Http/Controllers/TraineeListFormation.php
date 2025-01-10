@@ -8,6 +8,7 @@
  */
 namespace App\Http\Controllers;
 
+use App\Models\API\Teach;
 use Illuminate\Http\Request;
 use App\Models\Learn;
 use App\Models\Formation;
@@ -97,8 +98,12 @@ class TraineeListFormation extends Controller
         }
 
         $learnCount = Learn::where('FOR_ID', $formationId)->count();
-
+        $studentCount=Learn::where('FOR_ID', $formationId)->count();
+        $initCount = Teach::where('FOR_ID', $formationId)->count();
         if ($learnCount >= 10) {
+            return $this->show($request);
+        }
+        if ($studentCount >= 2 * $initCount) {
             return $this->show($request);
         }
 
