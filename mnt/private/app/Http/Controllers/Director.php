@@ -95,7 +95,7 @@ Class Director extends Controller{
     {
         // Fetch records from the database (Using DB facade for better integration with Laravel)
         $cluID = Uti::find(session('id'))->CLU_ID;
-        $users = DB::table('UTILISATEUR')->where("CLU_ID","=", $cluID)->get(['UTI_NOM', 'UTI_PRENOM', 'UTI_MAIL', 'NIV_ID']);
+        $users = DB::table('utilisateur')->where("CLU_ID","=", $cluID)->get(['UTI_NOM', 'UTI_PRENOM', 'UTI_MAIL', 'NIV_ID']);
 
         if ($users->isNotEmpty()) {
             // Filename with year

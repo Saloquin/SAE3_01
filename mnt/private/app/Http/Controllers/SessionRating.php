@@ -42,7 +42,7 @@ Class SessionRating extends Controller{
             return view('valider_aptitudes', ['sessionId' => -2]);
         }
         
-        $allOldProgress = DB::select(" select mai_progress from COURS
+        $allOldProgress = DB::select(" select mai_progress from cours
                                     join groupe using(cou_id)
                                     join maitriser on groupe.cou_id = maitriser.cou_id and groupe.uti_id_elv1 = maitriser.uti_id
                                     where cou_date < ? and uti_id_init = ?

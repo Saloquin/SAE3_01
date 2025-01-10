@@ -80,7 +80,13 @@
     <div class="flex justify-center">
         <button type="submit" class=" lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Modifier</button>
     </div>
-
+    <form action="{{ route('archiveuser') }}" method="post" class="mt-[2vh]">
+        @csrf
+        <input type="hidden" name="UTI_ID" value="{{ $user->UTI_ID }}">
+        <div class="flex justify-center">
+            <button type="submit" class=" lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#A11919] px-[1vw] py-[0.8vh] text-white">Archiver</button>
+        </div>
+    </form>
 </form>
 
 </body>
