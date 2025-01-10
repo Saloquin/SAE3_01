@@ -18,18 +18,18 @@
         @csrf
         <div class="mb-[0.8vh] flex-col flex">
             <label for="licence" class="md:text-[1vw] text-[3vw] triomphe connexion-label">Licence</label>
-            <input name="licence" type="text" placeholder="A-00-000000" class="md:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] pl-[0.5vw] py-[0.5vh] ml-[0.5vw] w-full connexion-input">
+            <input required name="licence" type="text" placeholder="A-00-000000" class="md:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] pl-[0.5vw] py-[0.5vh] ml-[0.5vw] w-full connexion-input">
         </div>
 
         <div class="mb-[5vh] flex flex-col">
             <label for="password" class="md:text-[1vw] text-[3vw] triomphe connexion-label">Mot de passe</label>
-            <input name="password" type="password"  class="md:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] pl-[0.5vw] py-[0.5vh] ml-[0.5vw] min-w-[15vw] connexion-input">
+            <input required name="password" type="password"  class="md:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] pl-[0.5vw] py-[0.5vh] ml-[0.5vw] min-w-[15vw] connexion-input">
         </div>
         <div class="flex justify-center flex-col">
             <button type="submit" class="md:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Se connecter</button>
         </div>
     </form>
-    
+
 <div class="flex justify-center mt-[2vh]">
     <a href="#" class="md:text-[1vw] text-[3vw] text-[#1962A1] underline" onclick="document.getElementById('emailModal').classList.remove('hidden')">J'ai perdu mon mot de passe</a>
 </div>

@@ -4,6 +4,7 @@
 use App\Http\Controllers\Connexion;
 use App\Http\Controllers\EditProfile;
 use App\Http\Controllers\Profile;
+use App\Http\Controllers\Unregistered;
 
 // SuperAdmin
 use App\Http\Controllers\addCompController;
@@ -67,6 +68,7 @@ Route::middleware(['isConnected'])->group(function () {
 
     Route::get('profile', [Profile::class, 'show'])->name('profile');
     Route::get('edit-profile', [EditProfile::class, 'show'])->name('edit-profile');
+    Route::get('non-inscrit', [Unregistered::class, 'show'])->name('non-inscrit');
 
     // SuperAdmin
     Route::middleware(['isSuperAdmin'])->group(function () {
