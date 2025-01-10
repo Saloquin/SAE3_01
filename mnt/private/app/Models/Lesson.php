@@ -27,7 +27,7 @@ class Lesson extends Model
     public static function insertGroup($uti_id_elv1, $uti_id_elv2, $uti_id_init, $aptitudes1, $aptitudes2, $cou_id)
     { 
         if($cou_id === null){
-            $cou_id = intval(DB::table('COURS')->max('COU_ID'));
+            $cou_id = intval(DB::table('cours')->max('COU_ID'));
         }else{
             DB::table('groupe')->where('COU_ID', $cou_id)->delete();
             DB::table('maitriser')->where('COU_ID', $cou_id)->delete();
@@ -49,7 +49,7 @@ class Lesson extends Model
 
         if ($uti_id_elv2) {
             foreach ($aptitudes2 as $aptitude) {
-                DB::table('MAITRISER')->insert([
+                DB::table('maitriser')->insert([
                     'COU_ID' => $cou_id,
                     'UTI_ID' => $uti_id_elv2,
                     'APT_ID' => $aptitude,

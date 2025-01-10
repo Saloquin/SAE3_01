@@ -48,7 +48,7 @@ Class SkillsManagement extends Controller{
         $tab = [];
 
         foreach ($listSkills as $skill){
-            $tab[] = DB::select("select val_statut from VALIDER where apt_id = ? and uti_id in ( select uti_id from apprendre where for_id = ? ) order by uti_id", [$skill->apt_id, $formation->FOR_ID]);
+            $tab[] = DB::select("select val_statut from valider where apt_id = ? and uti_id in ( select uti_id from apprendre where for_id = ? ) order by uti_id", [$skill->apt_id, $formation->FOR_ID]);
         }
 
         return view('skillsmanagement', ['formation' => $formation, 'listSkills' => $listSkills, 'listCompetence' => $listCompetence, 'listTrainee' => $listTrainee, 'tab' => $tab]);
