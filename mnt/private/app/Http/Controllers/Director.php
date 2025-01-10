@@ -101,8 +101,8 @@ Class Director extends Controller{
         $end_year = date_create('now')->format('Y');
         $start_year = date('Y', strtotime('-1 year'));
 
-        $end_date = date($end_year.'-01-01');
-        $start_date = date($start_year.'-01-01');
+        $end_date = date($end_year.'-06-01');
+        $start_date = date($start_year.'-09-01');
 
         // Fetch records from the database (Using DB facade for better integration with Laravel)
         $users = DB::table('formation')
