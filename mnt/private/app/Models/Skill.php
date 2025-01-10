@@ -10,7 +10,7 @@ class Skill extends Model
 {
     use HasFactory;
     protected $primaryKey = 'APT_ID';
-    protected $table = 'APTITUDE';
+    protected $table = 'aptitude';
     public $timestamps = false;
     protected $fillable = [
 		'COM_ID' ,
