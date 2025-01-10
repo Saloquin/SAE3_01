@@ -112,12 +112,10 @@ Class Connexion extends Controller{
                 $this->redirect();
                 exit;
             }
-            // remettre page co avec msg d'erreur pas de compte
             echo 'pas de compte';
             exit;
         }
-        // remettre page avec msg d'erreur pas rempli
-        echo 'pas rempli';
+        echo 'No input';
         exit;
     }
 
@@ -132,15 +130,15 @@ Class Connexion extends Controller{
       */
     public function recupMdp(Request $request)
     {
-        
+
 
         $validated=$request->validate([
             'email' => 'required|email',
         ]);
 
-        
+
         $user = Uti::where('UTI_MAIL', $validated['email']);
-        
+
         if ($user) {
             $password = Str::random(16);
             $user->update([
@@ -159,13 +157,12 @@ Class Connexion extends Controller{
 }
 
 
- 
-     
-     
- 
-     
-     
- 
-     
- 
- 
+
+
+
+
+
+
+
+
+
