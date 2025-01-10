@@ -138,7 +138,7 @@ Route::post('directeur/gestion-responsable', [Director::class, 'editResponsable'
 
 Route::post('directeur/modifier-utilisateur', [EditUser::class, 'show'])->name('directeur.modifier-utilisateur');
 Route::post('editUser', [EditUser::class, 'edit'])->name('editUser');
-
+Route::post('archiveuser', [EditUser::class, 'archive'])->name('archiveuser');
 Route::post('addStudent', [AddUser::class, 'insertUser'])->name('addStudent');
 
 Route::get('directeur/generer-csv', [Director::class, 'generateCsv'])->name('director.generer-csv');

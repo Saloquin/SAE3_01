@@ -19,12 +19,7 @@ Class UserManagement extends Controller{
      * @return \Illuminate\View\View
      */
     public function show(){
-        
-
-        
-
         include resource_path('includes/header.php');
-        
 
         $clubId = Uti::find(session('id'))->CLU_ID;
         $users = Uti::where('CLU_ID', $clubId)->get();
