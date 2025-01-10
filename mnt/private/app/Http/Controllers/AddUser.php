@@ -30,20 +30,14 @@ Class AddUser extends Controller{
       */
     public function show()
     {
-        session_start();
+        
 
-        if(!isset($_SESSION['id'])){
-            header('Location: /connexion');
-            exit;
-        }
+        
 
         include resource_path('includes/header.php');
-        if(isset($_SESSION['director'])){ include resource_path('includes/navbar/navbar_director.php'); }
-        if (isset($_SESSION['manager'])){ include resource_path('includes/navbar/navbar_manager.php'); }
-        if (isset($_SESSION['teacher'])){ include resource_path('includes/navbar/navbar_teacher.php'); }
-        if (isset($_SESSION['student'])){ include resource_path('includes/navbar/navbar_student.php'); }
+        
 
-        $clubId = Uti::find($_SESSION["id"])->CLU_ID;
+        $clubId = Uti::find(session('id'))->CLU_ID;
         $levels = Level::whereNotNull('NIV_DESCRIPTION')->get();
         return view('adduser', compact('clubId','levels'));
     }

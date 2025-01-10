@@ -28,22 +28,19 @@ class SessionManagement extends Controller
       */
     public function show(Request $request)
     {
-        session_start();
+        
         include resource_path('includes/header.php');
-        if(isset($_SESSION['director'])){ include resource_path('includes/navbar/navbar_director.php'); }
-        if (isset($_SESSION['manager'])){ include resource_path('includes/navbar/navbar_manager.php'); }
-        if (isset($_SESSION['teacher'])){ include resource_path('includes/navbar/navbar_teacher.php'); }
-        if (isset($_SESSION['student'])){ include resource_path('includes/navbar/navbar_student.php'); }
+        
 
         $date = $request->input('cou_date');
         $course = null;
         $studentsData = []; 
 
-        var_dump($_SESSION['formation_level']);
+        var_dump(session('formation_level'));
         
         if ($date) {
             $course = Lesson::where('COU_DATE', $date)
-                            ->where('FOR_ID', $_SESSION['formation_level'])
+                            ->where('FOR_ID', session('formation_level'))
                             ->first();
             
             if ($course) {
@@ -95,9 +92,9 @@ class SessionManagement extends Controller
             ]);
         }
 
-        $skills = Skill::getSkillByFormationLevel($_SESSION['formation_level']);
-        $students = Uti::getStudentByFormation($_SESSION['formation_level']);
-        $initiators = Uti::getTeacherByFormation($_SESSION['formation_level']);
+        $skills = Skill::getSkillByFormationLevel(session('formation_level'));
+        $students = Uti::getStudentByFormation(session('formation_level'));
+        $initiators = Uti::getTeacherByFormation(session('formation_level'));
 
         return view('gestionseance', [
             'skills' => $skills,
@@ -118,7 +115,7 @@ class SessionManagement extends Controller
       */
     public function executeRequest(Request $request)
     {
-        session_start();
+        
         $studentIds = $request->input('student');
         $initiatorIds = $request->input('initiator');
         $competences = $request->input('competences');
@@ -160,7 +157,7 @@ class SessionManagement extends Controller
             }
         }
         
-        $for_id =  $_SESSION['formation_level'];
+        $for_id =  session('formation_level');
 
         if ($courseId === null) {
             Lesson::insertLesson($for_id, $date);

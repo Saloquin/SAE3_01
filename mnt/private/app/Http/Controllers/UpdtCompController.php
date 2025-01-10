@@ -8,7 +8,7 @@ use App\Models\Competence;
 class UpdtCompController extends Controller
 {
     public function show(){
-        session_start();
+        
         include resource_path('includes/header.php');
         include resource_path('includes/navbar/navbar_admin.php');
 

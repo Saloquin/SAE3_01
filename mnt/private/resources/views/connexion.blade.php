@@ -14,7 +14,7 @@
     <h1 class="triomphe text-[#223a5d] text-[7vw] mb-[8vh] mx-[7vw] md:text-[3vw] stroke-black">Journal de Plongée</h1>
     <h2 class="triomphe text-[#1962A1] text-[6vw] md:text-[2vw] mb-[5vh] stroke-black connexion-title">Connexion</h2>
 
-    <form class="ml-0 connexion-form" action="login" method="post">
+    <form class="ml-0 connexion-form" action="{{route('login')}}" method="post">
         @csrf
         <div class="mb-[0.8vh] flex-col flex">
             <label for="licence" class="md:text-[1vw] text-[3vw] triomphe connexion-label">Licence</label>

@@ -24,18 +24,12 @@ Class LevelConfirmation extends Controller{
     * @return \Illuminate\View\View
     */
     public function show(){
-        session_start();
+        
 
-        if(!isset($_SESSION['id'])){
-            header('Location: /connexion');
-            exit;
-        }
+        
 
         include resource_path('includes/header.php');
-        if(isset($_SESSION['director'])){ include resource_path('includes/navbar/navbar_director.php'); }
-        if (isset($_SESSION['manager'])){ include resource_path('includes/navbar/navbar_manager.php'); }
-        if (isset($_SESSION['teacher'])){ include resource_path('includes/navbar/navbar_teacher.php'); }
-        if (isset($_SESSION['student'])){ include resource_path('includes/navbar/navbar_student.php'); }
+        
         
         
         $rq = LevelConf::getStudentConf();

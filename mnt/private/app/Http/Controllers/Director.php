@@ -23,20 +23,12 @@ Class Director extends Controller{
     * @return \Illuminate\View\View
     */
     public function show(){
-        session_start();
 
-        if(!isset($_SESSION['id'])){
-            header('Location: /connexion');
-            exit;
-        }
         include resource_path('includes/header.php');
-        if(isset($_SESSION['director'])){ include resource_path('includes/navbar/navbar_director.php'); }
-        if (isset($_SESSION['manager'])){ include resource_path('includes/navbar/navbar_manager.php'); }
-        if (isset($_SESSION['teacher'])){ include resource_path('includes/navbar/navbar_teacher.php'); }
-        if (isset($_SESSION['student'])){ include resource_path('includes/navbar/navbar_student.php'); }
-
-        $clubId = Uti::find($_SESSION["id"])->CLU_ID;
-        $me = Uti::find($_SESSION["id"]);
+        
+        session()->put('id', 1);
+        $clubId = Uti::find(session('id'))->CLU_ID;
+        $me = Uti::find(session('id'));
 
         $formations = Formation::where('CLU_ID', $clubId)
             ->whereRaw('DATEDIFF(SYSDATE(), FOR_ANNEE) BETWEEN 0 AND 365.25')

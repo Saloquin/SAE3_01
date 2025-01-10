@@ -26,21 +26,15 @@ class Initiator extends Controller
       * @return \Illuminate\View\View The view displaying the initiator's session data.
       */
     function show(){
-        session_start();
+        
 
-        if(!isset($_SESSION['id'])){
-            header('Location: /connexion');
-            exit;
-        }
+        
 
         include resource_path('includes/header.php');
-        if(isset($_SESSION['director'])){ include resource_path('includes/navbar/navbar_director.php'); }
-        if (isset($_SESSION['manager'])){ include resource_path('includes/navbar/navbar_manager.php'); }
-        if (isset($_SESSION['teacher'])){ include resource_path('includes/navbar/navbar_teacher.php'); }
-        if (isset($_SESSION['student'])){ include resource_path('includes/navbar/navbar_student.php'); }
+        
 
         //var_dump(Uti::getInitiatorById(2));
-        $tt = ttModel::getSessionInitiatorById($_SESSION['id']);
+        $tt = ttModel::getSessionInitiatorById(session('id'));
         $arr = [];
         $arr2 = [];
         $i = 0;

@@ -28,21 +28,12 @@ class Trainee extends Controller
      * @return \Illuminate\View\View
      */
     function show(){
-        session_start();
-
-        if(!isset($_SESSION['id'])){
-            header('Location: /connexion');
-            exit;
-        }
-
+        
         include resource_path('includes/header.php');
-        if(isset($_SESSION['director'])){ include resource_path('includes/navbar/navbar_director.php'); }
-        if (isset($_SESSION['manager'])){ include resource_path('includes/navbar/navbar_manager.php'); }
-        if (isset($_SESSION['teacher'])){ include resource_path('includes/navbar/navbar_teacher.php'); }
-        if (isset($_SESSION['student'])){ include resource_path('includes/navbar/navbar_student.php'); }
-        $me=Uti::find($_SESSION['id']);
+        
+        $me=Uti::find(session('id'));
         //var_dump(Uti::getInitiatorById(2));
-        $tt = ttModel::getSessionStudentById($_SESSION['id']);
+        $tt = ttModel::getSessionStudentById(session('id'));
         $arr = [];
         foreach ($tt as $row){
             array_push($arr, $row->apt_libelle);

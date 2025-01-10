@@ -22,22 +22,13 @@ Class Profile extends Controller{
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function show(){
-        session_start();
+        
 
 
-        if(!isset($_SESSION['id'])){
-            header('Location: /connexion');
-            exit;
-        }
-
-
-        $user = Uti::find($_SESSION["id"]);
+        $user = Uti::find(session('id'));
 
         include resource_path('includes/header.php');
-        if(isset($_SESSION['director'])){ include resource_path('includes/navbar/navbar_director.php'); }
-        if (isset($_SESSION['manager'])){ include resource_path('includes/navbar/navbar_manager.php'); }
-        if (isset($_SESSION['teacher'])){ include resource_path('includes/navbar/navbar_teacher.php'); }
-        if (isset($_SESSION['student'])){ include resource_path('includes/navbar/navbar_student.php'); }
+        
 
         return view('profile', compact('user'));
     }
@@ -49,8 +40,7 @@ Class Profile extends Controller{
      * @return \Illuminate\Http\RedirectResponse
      */
     public function logout(){
-        session_start();
-        session_destroy();
+        session()->flush();
         return redirect('');
 
     }

@@ -22,20 +22,14 @@ Class TrainingDetails extends Controller{
      * @return \Illuminate\View\View
      */
     public function show(){
-        session_start();
+        
 
-        if(!isset($_SESSION['id'])){
-            header('Location: /connexion');
-            exit;
-        }
+    
 
         include resource_path('includes/header.php');
-        if(isset($_SESSION['director'])){ include resource_path('includes/navbar/navbar_director.php'); }
-        if (isset($_SESSION['manager'])){ include resource_path('includes/navbar/navbar_manager.php'); }
-        if (isset($_SESSION['teacher'])){ include resource_path('includes/navbar/navbar_teacher.php'); }
-        if (isset($_SESSION['student'])){ include resource_path('includes/navbar/navbar_student.php'); }
-        $students = trainingInf::getStudentByFor($_SESSION['active_formations'][0]->NIV_ID);
-        $initiators = trainingInf::getInitiatorByFor($_SESSION['active_formations'][0]->NIV_ID);
+        
+        $students = trainingInf::getStudentByFor(session('active_formations')[0]->NIV_ID);
+        $initiators = trainingInf::getInitiatorByFor(session('active_formations')[0]->NIV_ID);
         return view('trainingdetails', compact('students'), compact('initiators'));
 
     }

@@ -29,25 +29,19 @@ Class SkillsDetails extends Controller{
       * @return \Illuminate\View\View The view displaying the skill details.
       */
     public function show(){
-        session_start();
+        
 
-        if(!isset($_SESSION['id'])){
-            header('Location: /connexion');
-            exit;
-        }
+        
 
         include resource_path('includes/header.php');
-        if(isset($_SESSION['director'])){ include resource_path('includes/navbar/navbar_director.php'); }
-        if (isset($_SESSION['manager'])){ include resource_path('includes/navbar/navbar_manager.php'); }
-        if (isset($_SESSION['teacher'])){ include resource_path('includes/navbar/navbar_teacher.php'); }
-        if (isset($_SESSION['student'])){ include resource_path('includes/navbar/navbar_student.php'); }
+        
 
-        $me=Uti::find($_SESSION['id']);
+        $me=Uti::find(session('id'));
 
 
         $req = "select for_id from apprendre where uti_id = ?";
-        $param = [$_SESSION['id']];
-        foreach($_SESSION['active_formations'] as $training){
+        $param = [session('id')];
+        foreach(session('active_formations') as $training){
             $req .= " and for_id = ?";
             $param[] = $training->FOR_ID;
         }
@@ -55,7 +49,7 @@ Class SkillsDetails extends Controller{
 
         $formation = [];
 
-        foreach($_SESSION['active_formations'] as $training){
+        foreach(session('active_formations') as $training){
             //dd($training, $idTraining);
            // print_r()
             if($training->FOR_ID == $idTraining){
@@ -64,17 +58,17 @@ Class SkillsDetails extends Controller{
             }
         }
 
-        $me = Uti::find($_SESSION["id"]); 
+        $me = Uti::find(session('id')); 
 
         $listSkills = DB::select("select apt_id, apt_libelle from aptitude join competence using(com_id) where niv_id = ? order by com_id, apt_id", [$formation->NIV_ID]);
 
         $listCompetence = DB::select("select com_id, com_libelle ,count(*) as nb from aptitude join competence using(com_id) where niv_id = ?  group by com_id, com_libelle order by com_id",[$formation->NIV_ID]);
 
-        $listCours = DB::select("select distinct cou_date from COURS join maitriser using (cou_id) join utilisateur using (uti_id) where uti_id = ? and for_id = ? order by cou_date", [$_SESSION["id"], $formation->FOR_ID]);
+        $listCours = DB::select("select distinct cou_date from COURS join maitriser using (cou_id) join utilisateur using (uti_id) where uti_id = ? and for_id = ? order by cou_date", [session('id'), $formation->FOR_ID]);
         
         $tab = [];
         foreach ($listSkills as $skill){
-            $tab[] = DB::select("select mai_progress, cou_date from maitriser join cours using(cou_id) where apt_id = ? and uti_id = ?", [$skill->apt_id,$_SESSION['id']]);
+            $tab[] = DB::select("select mai_progress, cou_date from maitriser join cours using(cou_id) where apt_id = ? and uti_id = ?", [$skill->apt_id,session('id')]);
         }
 
         //echo"<pre>";

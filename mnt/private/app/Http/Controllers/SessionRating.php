@@ -23,18 +23,12 @@ Class SessionRating extends Controller{
      * @return \Illuminate\View\View The view for the session rating page.
      */
     public function show(Request $request) {
-        session_start();
+        
 
-        if(!isset($_SESSION['id'])){
-            header('Location: /connexion');
-            exit;
-        }
+    
 
         include resource_path('includes/header.php');
-        if(isset($_SESSION['director'])){ include resource_path('includes/navbar/navbar_director.php'); }
-        if (isset($_SESSION['manager'])){ include resource_path('includes/navbar/navbar_manager.php'); }
-        if (isset($_SESSION['teacher'])){ include resource_path('includes/navbar/navbar_teacher.php'); }
-        if (isset($_SESSION['student'])){ include resource_path('includes/navbar/navbar_student.php'); }
+        
 
         $sessionId = $request->input('cou_id');
 
@@ -56,7 +50,7 @@ Class SessionRating extends Controller{
                                     select mai_progress from cours
                                     join groupe using(cou_id)
                                     join maitriser on groupe.cou_id = maitriser.cou_id and groupe.uti_id_elv2 = maitriser.uti_id
-                                    where cou_date < ? and uti_id_init = ?", [$session->COU_DATE, $_SESSION['id'], $session->COU_DATE, $_SESSION['id']]);
+                                    where cou_date < ? and uti_id_init = ?", [$session->COU_DATE, session('id'), $session->COU_DATE, session('id')]);
 
         foreach ($allOldProgress as $oldProgress) {
             if ($oldProgress->mai_progress == 'non évaluée' || $oldProgress->mai_progress == 'Non évaluée' || $oldProgress->mai_progress == 'non évalué' || $oldProgress->mai_progress == 'Non évalué') {
@@ -64,7 +58,7 @@ Class SessionRating extends Controller{
             }
         }
 
-        $studentsIds = Lesson::getStudentsOfInitiatorAtSession($sessionId, $_SESSION['id']);
+        $studentsIds = Lesson::getStudentsOfInitiatorAtSession($sessionId, session('id'));
         $studentId1 = $studentsIds[0];
         $studentId2 = $studentsIds[1];
         $student1 = Uti::getStudentById($studentId1);

@@ -9,15 +9,11 @@ use Illuminate\Http\Request;
 class addAptController extends Controller
 {
     public function show(){
-        session_start();
+        
 
-        if(!isset($_SESSION['id'])){
-            header('Location: /connexion');
-            exit;
-        }
+        
 
         include resource_path('includes/header.php');
-        include resource_path('includes/navbar/navbar_admin.php');
 
         $req = Competence::getCompetencies();
         //var_dump($levels);

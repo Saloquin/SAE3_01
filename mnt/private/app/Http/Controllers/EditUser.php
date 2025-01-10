@@ -23,16 +23,9 @@ Class EditUser extends Controller{
      * @return \Illuminate\View\View The view for editing the user.
      */
     public function show(Request $request){
-        session_start();
-        if(!isset($_SESSION['id'])){
-            header('Location: /connexion');
-            exit;
-        }
+        
         include resource_path('includes/header.php');
-        if(isset($_SESSION['director'])){ include resource_path('includes/navbar/navbar_director.php'); }
-        if (isset($_SESSION['manager'])){ include resource_path('includes/navbar/navbar_manager.php'); }
-        if (isset($_SESSION['teacher'])){ include resource_path('includes/navbar/navbar_teacher.php'); }
-        if (isset($_SESSION['student'])){ include resource_path('includes/navbar/navbar_student.php'); }
+        
         $user = Uti::find($request->input('UTI_ID'));
         $levels = Level::whereNotNull('NIV_DESCRIPTION')->get();
         return view('edituser', compact('user','levels'));
