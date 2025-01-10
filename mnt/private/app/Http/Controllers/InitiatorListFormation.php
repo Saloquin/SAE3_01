@@ -49,7 +49,7 @@ Class InitiatorListFormation extends Controller{
     ->where('UTI_EST_INIT', 1)
         ->where(function ($query) use ($formationLevel) {
             if ($formationLevel == 3) {
-                $query->where('NIV_ID', '=', 4);
+                $query->where('NIV_ID', '>', $formationLevel);
             } else {
                 $query->where('NIV_ID', '>=', $formationLevel );
             }
