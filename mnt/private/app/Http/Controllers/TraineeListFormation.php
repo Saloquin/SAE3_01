@@ -29,7 +29,7 @@ class TraineeListFormation extends Controller
 
         
 
-        require_once('../resources/includes/header.php');
+        include resource_path('includes/header.php');
         
 
         $formation = Formation::findOrFail($request->input('FOR_ID'));
