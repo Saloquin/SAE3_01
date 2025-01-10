@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class AddUser
  *
@@ -17,43 +18,44 @@ use App\Models\Level;
 use App\Mail\UserCreatedMail;
 use Illuminate\Support\Facades\Mail;
 
-Class AddUser extends Controller{
+class AddUser extends Controller
+{
 
     /**
-      * Display the add user form.
-      *
-      * This method starts a session, checks if the user is authenticated,
-      * includes the appropriate navbar based on the user's role, retrieves
-      * the club ID and levels, and returns the add user view.
-      *
-      * @return \Illuminate\View\View
-      */
+     * Display the add user form.
+     *
+     * This method starts a session, checks if the user is authenticated,
+     * includes the appropriate navbar based on the user's role, retrieves
+     * the club ID and levels, and returns the add user view.
+     *
+     * @return \Illuminate\View\View
+     */
     public function show()
     {
-        
 
-        
+
+
 
         include resource_path('includes/header.php');
-        
+
 
         $clubId = Uti::find(session('id'))->CLU_ID;
         $levels = Level::whereNotNull('NIV_DESCRIPTION')->get();
-        return view('adduser', compact('clubId','levels'));
+        return view('adduser', compact('clubId', 'levels'));
     }
 
 
     /**
-      * Insert a new user into the database.
-      *
-      * This method validates the request data, checks specific conditions,
-      * generates a unique license number and a random password, creates a new
-      * user record in the database, sends a welcome email to the new user, and
-      * redirects back with a success message.
-      *
-      * @param \Illuminate\Http\Request $request
-      * @return \Illuminate\Http\RedirectResponse
-      */
+     * Insert a new user into the database.
+     *
+     * This method validates the request data, checks specific conditions,
+     * generates a unique license number and a random password, creates a new
+     * user record in the database, sends a welcome email to the new user, and
+     * redirects back with a success message.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function insertUser(Request $request)
     {
 
@@ -73,7 +75,6 @@ Class AddUser extends Controller{
 
         if ($validated['lvl'] < 2 && $validated['init'] == 1) {
             return redirect()->route('directeur.ajouter-utilisateur')->with('failed', "L'utilisateur ne peut pas être un initiateur si son niveau est inférieur à 2.");
-
         }
 
         if (!ctype_digit($validated['UTI_CODE_POSTAL'])) {
@@ -81,7 +82,7 @@ Class AddUser extends Controller{
         }
 
         do {
-            $license = 'A' .'-'. rand(10, 99) .'-'. rand(100000, 999999);
+            $license = 'A' . '-' . rand(10, 99) . '-' . rand(100000, 999999);
         } while (Uti::where('UTI_LICENCE', $license)->exists());
 
 
@@ -103,18 +104,23 @@ Class AddUser extends Controller{
             'UTI_RUE' => $validated['UTI_RUE'],
             'UTI_LICENCE' => $license,
         ]);
+        try {
+            Mail::to($validated['UTI_MAIL'])->send(new UserCreatedMail([
+                'name' => $validated['UTI_PRENOM'] . ' ' . $validated['UTI_NOM'],
+                'email' => $validated['UTI_MAIL'],
+                'password' => $password,
+            ]));
+        } catch (\Exception $e) {
+            $fileContent = "Mot de passe temporaire : " . $password;
+            $fileName = 'mot_de_passe_' . $validated['UTI_NOM'] . '.txt';
 
-       Mail::to($validated['UTI_MAIL'])->send(new UserCreatedMail([
-            'name' => $validated['UTI_PRENOM'] . ' ' . $validated['UTI_NOM'],
-            'email' => $validated['UTI_MAIL'],
-            'password' => $password,
-        ]));
-
+            return response()->stream(function () use ($fileContent) {
+                echo $fileContent;
+            }, 200, [
+                'Content-Type' => 'text/plain',
+                'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+            ]);
+        }
         return redirect()->route('directeur.ajouter-utilisateur')->with('success', "L'utilisateur a été créé.");
     }
-
 }
-
-
-
- 

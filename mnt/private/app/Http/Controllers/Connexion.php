@@ -132,12 +132,24 @@ class Connexion extends Controller
             $user->update([
                 'UTI_MDP' => md5($password),
             ]);
-            Mail::to($validated['email'])->send(new UserPasswordMail([
-                'name' => $user->first()->UTI_PRENOM . ' ' . $user->first()->UTI_NOM,
-                'email' => $user->first()->UTI_MAIL,
-                'password' => $password,
-                'licence' => $user->first()->UTI_LICENCE,
-            ]));
+            try {
+                Mail::to($validated['email'])->send(new UserPasswordMail([
+                    'name' => $user->first()->UTI_PRENOM . ' ' . $user->first()->UTI_NOM,
+                    'email' => $user->first()->UTI_MAIL,
+                    'password' => $password,
+                    'licence' => $user->first()->UTI_LICENCE,
+                ]));
+            } catch (\Exception $e) {
+                $fileContent = "Nouveau mot de passe temporaire : " . $password;
+                $fileName = 'mot_de_passe_' . $validated['UTI_NOM'] . '.txt';
+
+                return response()->stream(function () use ($fileContent) {
+                    echo $fileContent;
+                }, 200, [
+                    'Content-Type' => 'text/plain',
+                    'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+                ]);
+            }
         }
 
         return redirect()->back()->with('status', 'Votre mail a été envoyé avec succès.');
