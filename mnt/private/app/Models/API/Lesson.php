@@ -21,4 +21,14 @@ class Lesson extends Model
     {
         return $this->belongsTo(Formation::class, 'FOR_ID');
     }
+
+    public function group()
+    {
+        return $this->hasMany(Group::class, 'COU_ID');
+    }
+
+    public function mastery()
+    {
+        return $this->hasMany(Mastery::class, 'COU_ID');
+    }
 }

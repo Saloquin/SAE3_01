@@ -10,9 +10,11 @@ class Mastery extends Model
     use HasFactory;
 
     protected $table = 'MAITRISER';
-    protected $primaryKey = ['COU_ID', 'UTI_ID', 'APT_ID'];
-    public $incrementing = false; // Disable auto-increment as this table uses a composite primary key.
-
+    public function getKeyName()
+    {
+        return ['COU_ID', 'UTI_ID', 'APT_ID'];
+    }
+    public $incrementing = false; 
     protected $fillable = [
         'COU_ID',
         'UTI_ID',
@@ -21,6 +23,7 @@ class Mastery extends Model
         'MAI_COMMENTAIRE',
     ];
 
+
     public function course()
     {
         return $this->belongsTo(Lesson::class, 'COU_ID');
@@ -28,7 +31,7 @@ class Mastery extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'UTI_ID');
+        return $this->belongsTo(Uti::class, 'UTI_ID');
     }
 
     public function aptitude()

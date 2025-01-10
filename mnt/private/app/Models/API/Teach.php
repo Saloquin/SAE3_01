@@ -11,7 +11,10 @@ class Teach extends Model
 
     protected $table = 'INITIER';
     public $timestamps = false;
-
+    public function getKeyName()
+    {
+        return ['FOR_ID', 'UTI_ID'];
+    }
     protected $fillable = [
         'UTI_ID',
         'FOR_ID',

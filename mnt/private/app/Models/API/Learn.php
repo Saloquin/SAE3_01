@@ -17,6 +17,11 @@ class Learn extends Model
         'FOR_ID',
     ];
 
+    public function getKeyName()
+    {
+        return ['FOR_ID', 'UTI_ID'];
+    }
+
     public function student()
     {
         return $this->belongsTo(Uti::class, 'UTI_ID');
