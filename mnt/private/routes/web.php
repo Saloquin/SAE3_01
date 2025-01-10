@@ -95,7 +95,7 @@ Route::middleware(['isConnected'])->group(function () {
     });
     // Trainer
     Route::middleware(['isInitiator'])->group(function () {
-        Route::get('initiateur', [Initiator::class, 'show'])->name('initiateur.show');
+        Route::get('initiateur', [Initiator::class, 'show'])->name('initiateur');
         Route::get('initiateur/evaluation-seance', [SessionRating::class, 'show'])->name('initiateur.evaluation-seance');
         Route::get('initiateur/liste-eleves', [TrainingDetails::class, 'show'])->name('initiateur.liste-eleves');
         Route::post('initiateur/liste-eleves', [TraineeList::class, 'show'])->name('initiateur.liste-eleves');
@@ -127,15 +127,22 @@ Route::post('/superadmin/modifaptitude/form', [UpdtAptController::class, 'updt']
 Route::post('directeur/gestion-eleve', [TraineeListFormation::class, 'show'])->name('directeur.gestion-eleve');
 Route::post('directeur/ajoute-eleve-formation', [TraineeListFormation::class, 'add'])->name('directeur.ajoute-eleve-formation');
 Route::post('directeur/supprime-eleve-formation', [TraineeListFormation::class, 'remove'])->name('directeur.supprime-eleve-formation');
+
 Route::post('directeur/gestion-initiateur', [InitiatorListFormation::class, 'show'])->name('directeur.gestion-initiateur');
 Route::post('directeur/ajoute-initiateur-formation', [InitiatorListFormation::class, 'add'])->name('directeur.ajoute-initiateur-formation');
 Route::post('directeur/supprime-initiateur-formation', [InitiatorListFormation::class, 'remove'])->name('directeur.supprime-initiateur-formation');
+
 Route::post('directeur/ajoute-formation', [AddTraining::class, 'add'])->name('directeur.ajoute-formation');
-Route::post('directeur/modifier-utilisateur', [EditUser::class, 'show'])->name('directeur.modifier-utilisateur');
-Route::post('directeur/gestion-responsable', [Director::class, 'editResponsable'])->name('directeur.gestion-responsable');
 Route::post('directeur/supprimer-formation', [Director::class, 'delete'])->name('directeur.supprimer-formation');
-Route::get('directeur/generer-csv', [Director::class, 'generateCsv'])->name('director.generer-csv');
+Route::post('directeur/gestion-responsable', [Director::class, 'editResponsable'])->name('directeur.gestion-responsable');
+
+Route::post('directeur/modifier-utilisateur', [EditUser::class, 'show'])->name('directeur.modifier-utilisateur');
+Route::post('editUser', [EditUser::class, 'edit'])->name('editUser');
+
 Route::post('addStudent', [AddUser::class, 'insertUser'])->name('addStudent');
+
+Route::get('directeur/generer-csv', [Director::class, 'generateCsv'])->name('director.generer-csv');
+
 Route::post('/director/levelconfirmation', [LevelConfirmation::class, 'accept'])->name('acceptStudent');
 
 // Training Manager
