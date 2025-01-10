@@ -27,7 +27,7 @@ class Lesson extends Model
     public static function insertGroup($uti_id_elv1, $uti_id_elv2, $uti_id_init, $aptitudes1, $aptitudes2, $cou_id)
     { 
         if($cou_id === null){
-            $cou_id = intval(DB::table('COURS')->max('COU_ID'));
+            $cou_id = intval(DB::table('cours')->max('COU_ID'));
         }else{
             DB::table('groupe')->where('COU_ID', $cou_id)->delete();
             DB::table('maitriser')->where('COU_ID', $cou_id)->delete();
@@ -49,7 +49,7 @@ class Lesson extends Model
 
         if ($uti_id_elv2) {
             foreach ($aptitudes2 as $aptitude) {
-                DB::table('MAITRISER')->insert([
+                DB::table('maitriser')->insert([
                     'COU_ID' => $cou_id,
                     'UTI_ID' => $uti_id_elv2,
                     'APT_ID' => $aptitude,
@@ -61,7 +61,7 @@ class Lesson extends Model
 
     public static function insertLesson($for_id, $cou_date)
     {
-        $cou_id = intval(DB::table('COURS')->max('COU_ID')) + 1;
+        $cou_id = intval(DB::table('cours')->max('COU_ID')) + 1;
 
         DB::table('COURS')->insert([
             'COU_ID' => $cou_id,
@@ -94,7 +94,7 @@ class Lesson extends Model
             return array();
         }
 
-        $skills = DB::select("select * from MAITRISER join APTITUDE using(apt_id) where cou_id = ? and uti_id = ?", [$cou_id, $uti_id]);
+        $skills = DB::select("select * from maitriser join APTITUDE using(apt_id) where cou_id = ? and uti_id = ?", [$cou_id, $uti_id]);
 
         /*
         $skills = array();
@@ -113,7 +113,7 @@ class Lesson extends Model
         if (!$cou_id) {
             return array();
         }
-        $res = DB::select("select * from GROUPE where cou_id = ? and uti_id_init = ?", [$cou_id, $uti_id_init])[0];
+        $res = DB::select("select * from groupe where cou_id = ? and uti_id_init = ?", [$cou_id, $uti_id_init])[0];
         
         return [$res->UTI_ID_ELV1, $res->UTI_ID_ELV2];
     }
@@ -123,15 +123,15 @@ class Lesson extends Model
             return null;
         }
 
-        $session = DB::select('select * from COURS where cou_id = ?', [$cou_id])[0];
+        $session = DB::select('select * from cours where cou_id = ?', [$cou_id])[0];
 
         return $session;
     }
 
     public static function updateStudentSkillsAtSession($cou_id, $uti_id, $apt_id, $mai_progress, $mai_commentaire) {
-        DB::update("update MAITRISER set mai_progress = ?, mai_commentaire = ? where cou_id = ? and uti_id = ? and apt_id = ?", [$mai_progress, $mai_commentaire, $cou_id, $uti_id, $apt_id]);
+        DB::update("update maitriser set mai_progress = ?, mai_commentaire = ? where cou_id = ? and uti_id = ? and apt_id = ?", [$mai_progress, $mai_commentaire, $cou_id, $uti_id, $apt_id]);
 
-        $res = DB::select("select val_statut from VALIDER where uti_id = ? and apt_id = ?", [$uti_id, $apt_id]);
+        $res = DB::select("select val_statut from valider where uti_id = ? and apt_id = ?", [$uti_id, $apt_id]);
 
         if ($res && $res[0]->val_statut != 1) {
             $lastProgress = DB::select("select MAI_PROGRESS from maitriser
@@ -142,7 +142,7 @@ class Lesson extends Model
             
             if (count($lastProgress) === 3) {
                 if ($lastProgress[0]->MAI_PROGRESS === "Acquis" && $lastProgress[1]->MAI_PROGRESS === "Acquis" && $lastProgress[2]->MAI_PROGRESS === "Acquis") {
-                    DB::update("update VALIDER set val_statut = 1 where uti_id = ? and apt_id = ?", [$uti_id, $apt_id]);
+                    DB::update("update valider set val_statut = 1 where uti_id = ? and apt_id = ?", [$uti_id, $apt_id]);
                 }
             }
         }
