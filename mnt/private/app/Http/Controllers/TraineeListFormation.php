@@ -98,7 +98,7 @@ class TraineeListFormation extends Controller
 
         $learnCount = Learn::where('FOR_ID', $formationId)->count();
         $studentCount=Learn::where('FOR_ID', $formationId)->count();
-        $initCount = DB::select('select count(*) as aggregate from `INITIER` where `FOR_ID` = 3')[0]->aggregate;
+        $initCount = DB::select('select count(*) as aggregate from initier where `FOR_ID` = 3')[0]->aggregate;
         if ($learnCount >= 10) {
             return $this->show($request);
         }
