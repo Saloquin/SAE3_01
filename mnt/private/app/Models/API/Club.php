@@ -22,4 +22,14 @@ class Club extends Model
     {
         return $this->belongsTo(Uti::class, 'UTI_ID');
     }
+
+    public function formation()
+    {
+        return $this->hasMany(Formation::class, 'CLU_ID');
+    }
+
+    public function membre()
+    {
+        return $this->hasMany(Uti::class, 'CLU_ID');
+    }
 }

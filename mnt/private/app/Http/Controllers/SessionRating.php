@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Class SessionRating
+ * 
+ * This controller handles the session rating functionalities, including displaying session details and updating student skills for a session.
+ * 
+ * @package App\Http\Controllers
+ */
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -8,20 +14,21 @@ use App\Models\Lesson;
 use Illuminate\Support\Facades\DB;
 
 Class SessionRating extends Controller{
-
+    /**
+     * Show the session rating page.
+     * 
+     * This method displays the session rating page based on the session ID provided in the request. It checks if the user is logged in and has the necessary permissions. It also verifies the session date and previous progress of the students before displaying the session details.
+     * 
+     * @param Request $request The HTTP request object containing the session ID.
+     * @return \Illuminate\View\View The view for the session rating page.
+     */
     public function show(Request $request) {
-        session_start();
+        
 
-        if(!isset($_SESSION['id'])){
-            header('Location: /connexion');
-            exit;
-        }
+    
 
-        require_once('../resources/includes/header.php');
-        if(isset($_SESSION['director'])){ require_once('../resources/includes/navbar/navbar_director.php'); }
-        if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
-        if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
-        if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
+        include resource_path('includes/header.php');
+        
 
         $sessionId = $request->input('cou_id');
 
@@ -36,22 +43,22 @@ Class SessionRating extends Controller{
         }
         
         $allOldProgress = DB::select(" select mai_progress from COURS
-                                    join GROUPE using(cou_id)
-                                    join MAITRISER on GROUPE.cou_id = MAITRISER.cou_id and GROUPE.uti_id_elv1 = MAITRISER.uti_id
+                                    join groupe using(cou_id)
+                                    join maitriser on groupe.cou_id = maitriser.cou_id and groupe.uti_id_elv1 = maitriser.uti_id
                                     where cou_date < ? and uti_id_init = ?
                                     union
-                                    select mai_progress from COURS
-                                    join GROUPE using(cou_id)
-                                    join MAITRISER on GROUPE.cou_id = MAITRISER.cou_id and GROUPE.uti_id_elv2 = MAITRISER.uti_id
-                                    where cou_date < ? and uti_id_init = ?", [$session->COU_DATE, $_SESSION['id'], $session->COU_DATE, $_SESSION['id']]);
+                                    select mai_progress from cours
+                                    join groupe using(cou_id)
+                                    join maitriser on groupe.cou_id = maitriser.cou_id and groupe.uti_id_elv2 = maitriser.uti_id
+                                    where cou_date < ? and uti_id_init = ?", [$session->COU_DATE, session('id'), $session->COU_DATE, session('id')]);
 
         foreach ($allOldProgress as $oldProgress) {
-            if ($oldProgress->mai_progress == 'non évaluée' || $oldProgress->mai_progress == 'Non évaluée') {
+            if ($oldProgress->mai_progress == 'non évaluée' || $oldProgress->mai_progress == 'Non évaluée' || $oldProgress->mai_progress == 'non évalué' || $oldProgress->mai_progress == 'Non évalué') {
                 return view('valider_aptitudes', ['sessionId' => -3]);
             }
         }
 
-        $studentsIds = Lesson::getStudentsOfInitiatorAtSession($sessionId, $_SESSION['id']);
+        $studentsIds = Lesson::getStudentsOfInitiatorAtSession($sessionId, session('id'));
         $studentId1 = $studentsIds[0];
         $studentId2 = $studentsIds[1];
         $student1 = Uti::getStudentById($studentId1);
@@ -62,7 +69,14 @@ Class SessionRating extends Controller{
         return view('valider_aptitudes', ['sessionId' => $sessionId, 'session' => $session, 'studentId1' => $studentId1, 'studentId2' => $studentId2,
                                           'student1' => $student1, 'student2' => $student2, 'skills1' => $skills1, 'skills2' => $skills2]);
     }
-
+    /**
+     * Update student skills for a session.
+     * 
+     * This method updates the skills of students for a specific session based on the input provided in the request. It iterates through the skills of each student and updates their progress and comments.
+     * 
+     * @param Request $request The HTTP request object containing the session ID, student IDs, and their respective skills and comments.
+     * @return \Illuminate\Http\RedirectResponse A redirect response to the initiator page with a success message.
+     */
     public function updateStudentSkillForSession(Request $request) {
         $sessionId = $request->input('sessionId');
         $studentId1 = $request->input('studentId1');

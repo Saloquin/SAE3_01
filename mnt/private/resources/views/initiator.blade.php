@@ -16,7 +16,6 @@
 
 <body class="flex flex-col items-center triomphe">
 <p class=" triomphe text-[6vw] lg:text-[2vw]">Panel initiateur</p>
-<p class="mb-[7vh] triomphe text-[6vw] lg:text-[2vw]">Titouan JEAN</p>
 
 <div class="flex">
     <div class="calendar">
@@ -54,7 +53,7 @@
     <script src="{{ asset('js/tt.js') }}"></script>
 
 <?php
-require_once('../resources/includes/footer.php');
+include resource_path('includes/footer.php');
 ?>
 </body>
 </html>

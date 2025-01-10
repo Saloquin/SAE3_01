@@ -36,5 +36,17 @@ class Formation extends Model
         return $this->belongsTo(Club::class, 'CLU_ID');
     }
 
-    
+    public function eleve()
+    {
+        return $this->hasMany(Learn::class, 'FOR_ID');
+    }
+
+    public function initiator()
+    {
+        return $this->hasMany(Teach::class, 'FOR_ID');
+    }
+    public function lesson()
+    {
+        return $this->hasMany(Lesson::class, 'FOR_ID');
+    }
 }

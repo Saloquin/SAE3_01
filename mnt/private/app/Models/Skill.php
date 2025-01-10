@@ -20,13 +20,13 @@ class Skill extends Model
 
 
     public static function getAllSkill() {
-        $users = DB::select('select * from APTITUDE');
+        $users = DB::select('select * from aptitude');
 
         return $users;
     }
 
     public static function getSkillWithLvl() {
-        $users = DB::select('select niv_id, com_libelle, apt_libelle from APTITUDE a join COMPETENCE c on a.com_id = c.com_id');
+        $users = DB::select('select niv_id, com_libelle, apt_libelle from aptitude a join competence c on a.com_id = c.com_id');
 
         return $users;
     }
@@ -41,6 +41,7 @@ class Skill extends Model
 
     public static function getSkillByFormationLevel($formationLevel){
         $users = DB::select('select * from APTITUDE where COM_ID in (SELECT COM_ID FROM COMPETENCE WHERE NIV_ID = ?)', [$formationLevel]);
+
         return $users;
     }
 

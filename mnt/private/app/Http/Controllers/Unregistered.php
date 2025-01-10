@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers;
 
-Class AbilitiesList extends Controller{
+use Illuminate\Support\Facades\DB;
 
-    public function show(){
+Class Unregistered extends Controller{
+
+    public function show() {
+
         session_start();
 
+        // Checks whether the user is connected
         if(!isset($_SESSION['id'])){
             header('Location: /connexion');
             exit;
         }
 
+        // Adds the header
         require_once('../resources/includes/header.php');
-        require_once('../resources/includes/navbar/navbar_admin.php');
-        return view('abilitieslist');
+
+        return view('unregistered');
     }
 
 }

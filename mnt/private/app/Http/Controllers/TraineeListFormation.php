@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * TraineeListFormation Controller
+ * 
+ * This controller handles the display, addition, and removal of trainees from formations.
+ * 
+ * @package App\Http\Controllers
+ */
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -11,29 +17,20 @@ use App\Models\Validate;
 
 class TraineeListFormation extends Controller
 {
-
+    /**
+      * Display the list of trainees for a specific formation.
+      * 
+      * @param Request $request The HTTP request object.
+      * @return \Illuminate\View\View The view displaying the list of trainees.
+      */
     public function show(Request $request)
     {
-        session_start();
+        
 
-        if (!isset($_SESSION['id'])) {
-            header('Location: /connexion');
-            exit;
-        }
+        
 
-        require_once('../resources/includes/header.php');
-        if (isset($_SESSION['director'])) {
-            require_once('../resources/includes/navbar/navbar_director.php');
-        }
-        if (isset($_SESSION['manager'])) {
-            require_once('../resources/includes/navbar/navbar_manager.php');
-        }
-        if (isset($_SESSION['teacher'])) {
-            require_once('../resources/includes/navbar/navbar_teacher.php');
-        }
-        if (isset($_SESSION['student'])) {
-            require_once('../resources/includes/navbar/navbar_student.php');
-        }
+        include resource_path('includes/header.php');
+        
 
         $formation = Formation::findOrFail($request->input('FOR_ID'));
 
@@ -61,7 +58,7 @@ class TraineeListFormation extends Controller
                 }
             })
             ->where('UTI_EST_INIT', 0)
-            ->where('CLU_ID', Uti::find($_SESSION["id"])->CLU_ID)
+            ->where('CLU_ID', Uti::find(session('id'))->CLU_ID)
             ->whereNotIn('UTI_ID', function ($query)  {
                 $query->select('UTI_ID')
                     ->from('apprendre');
@@ -72,13 +69,18 @@ class TraineeListFormation extends Controller
     }
 
 
-
+    /**
+      * Add a trainee to a formation.
+      * 
+      * @param Request $request The HTTP request object.
+      * @return \Illuminate\View\View The view displaying the updated list of trainees.
+      */
     public function add(Request $request)
     {
 
         $validated = $request->validate([
-            'FOR_ID' => 'required|exists:FORMATION,FOR_ID',
-            'UTI_ID' => 'required|exists:UTILISATEUR,UTI_ID',
+            'FOR_ID' => 'required|exists:formation,FOR_ID',
+            'UTI_ID' => 'required|exists:utilisateur,UTI_ID',
         ]);
 
 
@@ -108,30 +110,43 @@ class TraineeListFormation extends Controller
 
 
         $formation = Formation::find($formationId);
-        $listSkills = DB::select("select apt_id, apt_libelle from APTITUDE join COMPETENCE using(com_id) where niv_id = ? order by com_id, apt_id", [$formation->NIV_ID]);
+        $listSkills = DB::select("select apt_id, apt_libelle from aptitude join competence using(com_id) where niv_id = ? order by com_id, apt_id", [$formation->NIV_ID]);
         foreach ($listSkills as $skill) {
             if (Validate::where('UTI_ID', $studentId)->where('APT_ID', $skill->apt_id)->doesntExist()) {
-                DB::table('VALIDER')->insert([
+                DB::table('valider')->insert([
                     'UTI_ID' => $studentId,
                     'APT_ID' => $skill->apt_id,
-                    'VAL_STATUT' => 'En cours',
+                    'VAL_STATUT' => 0,
                 ]);
             }
         }
         return $this->show($request);
     }
 
-
+    /**
+      * Remove a trainee from a formation.
+      * 
+      * @param Request $request The HTTP request object.
+      * @return \Illuminate\View\View The view displaying the updated list of trainees.
+      */
     public function remove(Request $request)
     {
-
+        dd($request);
         $validated = $request->validate([
-            'FOR_ID' => 'required|exists:FORMATION,FOR_ID',
-            'UTI_ID' => 'required|exists:UTILISATEUR,UTI_ID',
+            'FOR_ID' => 'required|exists:formation,FOR_ID',
+            'UTI_ID' => 'required|exists:utilisateur,UTI_ID',
         ]);
-
+        
         $formationId = $validated['FOR_ID'];
         $userId = $validated['UTI_ID'];
+
+        $existingLearn = Learn::where('FOR_ID', $formationId)
+            ->where('UTI_ID', $userId)
+            ->first();
+
+        if (!$existingLearn) {
+            return $this->show($request);
+        }
 
         DB::table('apprendre')
             ->where('FOR_ID', $formationId)
@@ -142,3 +157,5 @@ class TraineeListFormation extends Controller
         return $this->show($request);
     }
 }
+
+    

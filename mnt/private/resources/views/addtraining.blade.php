@@ -16,8 +16,8 @@
 
     <form action="{{route('directeur.ajoute-formation')}}" method="post" class="mb-[5vh]">
         @csrf
-        <div class="flex flex-row mb-[2vh]">
-            <label for="level" class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Niveau</label>
+        <div class="flex flex-col mb-[2vh addtraining-container">
+            <label for="level" class=" text-[3vw] lg:text-[1.3vw] mr-[5vw] addtraining-label">Niveau</label>
             <select name="level" value=""
                 class="lg:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] pl-[0.5vw] py-[0.5vh] ml-[0.5vw] min-w-[15vw] bg-white"
                 required>
@@ -27,15 +27,15 @@
             </select>
         </div>
 
-        <div class="flex flex-row mb-[2vh]">
-            <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Date de départ</p>
+        <div class="flex flex-col mb-[2vh] addtraining-container">
+            <p class=" text-[3vw] lg:text-[1.3vw] mr-[5vw] addtraining-label">Date de départ</p>
             <input type="date" name="start"
                 class="lg:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] pl-[0.5vw] py-[0.5vh] ml-[0.5vw] min-w-[15vw]"
                 min="{{  now() }}" required>
         </div>
 
-        <div class="flex flex-row mb-[2vh]">
-            <label for="init" class=" text-[3vw] lg:text-[1.3vw] mr-[5vw]">Responsable</label>
+        <div class="flex flex-col mb-[2vh] addtraining-container">
+            <label for="init" class=" text-[3vw] lg:text-[1.3vw] mr-[5vw] addtraining-label">Responsable</label>
             <select name="init" value=""
                 class="lg:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] pl-[0.5vw] py-[0.5vh] ml-[0.5vw] min-w-[15vw] bg-white"
                 required>
@@ -47,11 +47,11 @@
 
         <div class="flex flex-row mb-[2vh] items-center"></div>
         <input type="checkbox" id="recurrent" name="recurrent"
-            class="lg:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] mr-[1vw]">
+            class="lg:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] mr-[1vw] addtraining-checkbox">
         <label for="recurrent" class="text-[3vw] lg:text-[1.3vw]">Définir un horaire récurrent pour les séances</label>
         </div>
 
-        <div id="recurrent-schedule" class="flex flex-row mb-[2vh] items-center hidden">
+        <div id="recurrent-schedule" class="flex flex-row mb-[2vh] items-center hidden addtraining-container">
             <label for="day" class="text-[3vw] lg:text-[1.3vw] mr-[5vw]">Jour</label>
             <select name="day" id="day"
                 class="lg:text-[0.8vw] text-[2vw] border-[0.05vw] rounded border-[#C6C6C6] pl-[0.5vw] py-[0.5vh] ml-[0.5vw] min-w-[15vw] bg-white">
@@ -79,14 +79,14 @@
 
         <div class="flex justify-center">
             <button type="submit"
-                class=" lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Créer</button>
+                class=" lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white addtraining-button">Créer</button>
         </div>
     </form>
 
 </body>
 
 <?php
-require_once('../resources/includes/footer.php');
+include resource_path('includes/footer.php');
 ?>
 
 </html>

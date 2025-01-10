@@ -17,7 +17,6 @@
 
 <body class="flex flex-col items-center triomphe">
 <p class=" triomphe text-[6vw] lg:text-[2vw]">Panel de responsable de formation</p>
-<p class="mb-[7vh] triomphe text-[6vw] lg:text-[2vw]">Titouan JEAN</p>
 
     @if(session('error'))
         <div class="bg-red-500 text-white px-4 py-3 mb-6 rounded">
@@ -67,7 +66,7 @@
     <script src="{{ asset('js/tt.js') }}"></script>
 
 <?php
-require_once('../resources/includes/footer.php');
+include resource_path('includes/footer.php');
 ?>
 </body>
 </html>

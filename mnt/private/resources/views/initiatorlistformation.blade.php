@@ -45,6 +45,7 @@
                         @csrf
                         <input type="hidden" name="FOR_ID" value="{{ $formation->FOR_ID }}">
                         <input type="hidden" name="UTI_ID" value="{{ $init->UTI_ID }}">
+                        
                         <button type="submit" class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#C80000] px-[1vw] py-[0.8vh] text-white">X</button>
                     </form>
                 </td>
@@ -72,7 +73,7 @@
 </body>
 
 <?php
-require_once('../resources/includes/footer.php');
+include resource_path('includes/footer.php');
 ?>
 
 </html>

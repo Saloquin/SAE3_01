@@ -11,12 +11,13 @@ class LevelConf extends Model
 {
     use HasFactory;
     public static function getStudentConf(){
-        return DB::select("select u.uti_id, uti_licence, uti_nom, uti_prenom, uti_mail, u.niv_id, uti_date_certif, uti_date_naiss from utilisateur u
-        join valider v on u.uti_id = v.uti_id
-        join formation f on u.uti_id = f.uti_id
-        where u.uti_id not in(
-        select uti_id from valider where VAL_STATUT = 'en cours')
-        and u.niv_id < f.niv_id;");
+        return DB::select("select DISTINCT u.uti_id, uti_licence, uti_nom, uti_prenom, uti_mail, u.niv_id, uti_date_certif, uti_date_naiss from utilisateur u
+            join valider v on u.uti_id = v.uti_id
+            join apprendre a on a.uti_id = u.uti_id
+            join formation f on a.FOR_ID = f.for_id
+            where u.uti_id not in(
+            select uti_id from valider where VAL_STATUT = 0)
+            and u.niv_id < f.niv_id");
     }
     public static function acceptForm($id){
         DB::update("update utilisateur

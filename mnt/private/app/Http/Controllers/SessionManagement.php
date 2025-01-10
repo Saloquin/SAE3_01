@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Class SessionManagement
+ * 
+ * This controller handles session management for different user roles and manages course sessions.
+ * 
+ * @package App\Http\Controllers
+ */
 namespace App\Http\Controllers;
 
 use App\Models\Lesson;
@@ -11,26 +17,31 @@ use Illuminate\Support\Facades\DB;
 
 class SessionManagement extends Controller
 {
+    /**
+      * Display the session management page.
+      * 
+      * This method handles the display of the session management page based on the user's role.
+      * It retrieves course and student data based on the provided date and formation level.
+      * 
+      * @param Request $request The HTTP request instance.
+      * @return \Illuminate\View\View|\Illuminate\Http\JsonResponse The view for session management or JSON response for AJAX requests.
+      */
     public function show(Request $request)
     {
-        session_start();
-        require_once('../resources/includes/header.php');
-        if(isset($_SESSION['director'])){ require_once('../resources/includes/navbar/navbar_director.php'); }
-        if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
-        if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
-        if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
+        
+        include resource_path('includes/header.php');
+        
 
         $date = $request->input('cou_date');
         $course = null;
-        $studentsData = []; 
-        
+        $studentsData = [];         
         if ($date) {
             $course = Lesson::where('COU_DATE', $date)
-                            ->where('FOR_ID', $_SESSION['formation_level'])
+                            ->where('FOR_ID', session('formation_level'))
                             ->first();
             
             if ($course) {
-                $groups = DB::table('GROUPE')
+                $groups = DB::table('groupe')
                             ->where('COU_ID', $course->COU_ID)
                             ->get();
 
@@ -40,12 +51,12 @@ class SessionManagement extends Controller
 
                     $initiator = Uti::find($group->UTI_ID_INIT);
                     
-                    $aptitudesStudent1 = DB::table('MAITRISER')
+                    $aptitudesStudent1 = DB::table('maitriser')
                                     ->where('COU_ID', $course->COU_ID)
                                     ->where('UTI_ID', $group->UTI_ID_ELV1)
                                     ->pluck('APT_ID');
 
-                    $aptitudesStudent2 = DB::table('MAITRISER')
+                    $aptitudesStudent2 = DB::table('maitriser')
                                     ->where('COU_ID', $course->COU_ID)
                                     ->where('UTI_ID', $group->UTI_ID_ELV2)
                                     ->pluck('APT_ID');
@@ -78,9 +89,9 @@ class SessionManagement extends Controller
             ]);
         }
 
-        $skills = Skill::getSkillByFormationLevel($_SESSION['formation_level']);
-        $students = Uti::getStudentByFormation($_SESSION['formation_level']);
-        $initiators = Uti::getTeacherByFormation($_SESSION['formation_level']);
+        $skills = Skill::getSkillByFormationLevel(session('formation_level'));
+        $students = Uti::getStudentByFormation(session('formation_level'));
+        $initiators = Uti::getTeacherByFormation(session('formation_level'));
 
         $validatedSkillsForStudents = [];
 
@@ -101,10 +112,17 @@ class SessionManagement extends Controller
             'students_data' => $studentsData 
         ]);
     }
-
+    /**
+      * Execute the request to manage session data.
+      * 
+      * This method handles the execution of session data management, including validation and insertion of course and group data.
+      * 
+      * @param Request $request The HTTP request instance.
+      * @return \Illuminate\Http\RedirectResponse The redirect response after processing the request.
+      */
     public function executeRequest(Request $request)
     {
-        session_start();
+        
         $studentIds = $request->input('student');
         $initiatorIds = $request->input('initiator');
         $competences = $request->input('competences');
@@ -142,7 +160,7 @@ class SessionManagement extends Controller
             }
         }
         
-        $for_id =  $_SESSION['formation_level'];
+        $for_id =  session('formation_level');
 
         if ($courseId === null) {
             Lesson::insertLesson($for_id, $date);
@@ -180,4 +198,4 @@ class SessionManagement extends Controller
     }
 
 
-}
+} 

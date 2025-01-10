@@ -16,14 +16,12 @@
 
 <body class="flex flex-col items-center triomphe">
 <p class=" triomphe text-[6vw] lg:text-[2vw]">Panel élève</p>
-<p class="mb-[7vh] triomphe text-[6vw] lg:text-[2vw]">Titouan JEAN</p>
-
 <div class="flex">
     <div class="calendar">
         <div class="calendar-header">
-            <button id="prevMonth">&lt;</button>
+            <button id="prevMonth" class="mx-2">&lt;</button>
             <span id="monthYear">October 2025</span>
-            <button id="nextMonth">&gt;</button>
+            <button id="nextMonth" class="mx-2">&gt;</button>
         </div>
         <div class="calendar-body">
             <div class="days-of-week">
@@ -49,7 +47,7 @@
     <script src="{{ asset('js/tt.js') }}"></script>
 
 <?php
-require_once('../resources/includes/footer.php');
+include resource_path('includes/footer.php');
 ?>
 </body>
 </html>

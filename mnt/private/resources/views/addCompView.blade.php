@@ -8,9 +8,6 @@
     <script src="./js/tailwind.config.js"></script>
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
-<?php
-require_once('../resources/includes/header.php');
-?>
 
 <body class="flex flex-col items-center triomphe">
 <p class="  text-[6vw] lg:text-[2vw] mb-[8vh]">Création d'une compétence</p>
@@ -68,7 +65,7 @@ require_once('../resources/includes/header.php');
 @endif
 
 <?php
-require_once('../resources/includes/footer.php');
+include resource_path('includes/footer.php');
 ?>
 </body>
 </html>

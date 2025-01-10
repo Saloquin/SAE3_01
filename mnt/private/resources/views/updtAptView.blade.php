@@ -29,7 +29,7 @@
 
             <!-- Champ de texte -->
             <div class="mb-4">
-                <label for="texte" class="block text-sm font-medium text-gray-700">Entrez une description pour l'aptitude'</label>
+                <label for="texte" class="block text-sm font-medium text-gray-700">Entrez une description de l'aptitude</label>
                 <input type="text" id="texte" name="texte" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Entrez votre texte ici" />
             </div>
 
@@ -40,17 +40,17 @@
         </form>
 
         <script>
-            
+
             function updateForm() {
                 var select = document.getElementById('selection');
                 var selectedOption = select.options[select.selectedIndex];
                 var selectedText = selectedOption.text;
-            
-                
+
+
                 document.getElementById('selectionText').value = selectedText;
             }
 
-           
+
             document.getElementById('updateForm').addEventListener('submit', function() {
                 updateForm();
             });
@@ -64,7 +64,7 @@
 @endif
 
 <?php
-require_once('../resources/includes/footer.php');
+include resource_path('includes/footer.php');
 ?>
 </body>
 </html>

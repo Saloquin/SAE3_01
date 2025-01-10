@@ -8,9 +8,8 @@ use App\Models\Competence;
 class UpdtCompController extends Controller
 {
     public function show(){
-        session_start();
-        require_once('../resources/includes/header.php');
-        require_once('../resources/includes/navbar/navbar_admin.php');
+        
+        include resource_path('includes/header.php');
 
         $req = Competence::getCompetencies();
         $comp = [];
@@ -18,7 +17,7 @@ class UpdtCompController extends Controller
             $str = "Niveau : " . $row->niv_id . ", Compétence : " . $row->com_libelle;
             array_push($comp, $str);
         }
-        return view('UpdtCompView', compact('comp'));
+        return view('updtCompView', compact('comp'));
     }
 
     public function updt(Request $request){
