@@ -34,7 +34,9 @@ class SessionManagement extends Controller
 
         $date = $request->input('cou_date');
         $course = null;
+
         $studentsData = [];         
+
         if ($date) {
             $course = Lesson::where('COU_DATE', $date)
                             ->where('FOR_ID', session('formation_level'))
