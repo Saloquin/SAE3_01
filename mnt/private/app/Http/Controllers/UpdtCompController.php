@@ -17,7 +17,7 @@ class UpdtCompController extends Controller
             $str = "Niveau : " . $row->niv_id . ", Compétence : " . $row->com_libelle;
             array_push($comp, $str);
         }
-        return view('UpdtCompView', compact('comp'));
+        return view('updtCompView', compact('comp'));
     }
 
     public function updt(Request $request){
