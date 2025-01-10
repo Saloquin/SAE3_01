@@ -61,9 +61,9 @@ class Lesson extends Model
 
     public static function insertLesson($for_id, $cou_date)
     {
-        $cou_id = intval(DB::table('COURS')->max('COU_ID')) + 1;
+        $cou_id = intval(DB::table('cours')->max('COU_ID')) + 1;
 
-        DB::table('COURS')->insert([
+        DB::table('cours')->insert([
             'COU_ID' => $cou_id,
             'FOR_ID' => $for_id,
             'COU_DATE' => $cou_date,
@@ -77,14 +77,14 @@ class Lesson extends Model
     
         $cou_date = $cou_date->format('Y-m-d H:i:s');
     
-        DB::insert("insert into COURS (cou_id, for_id, cou_date) values (?, ?, ?)", [$cou_id, $for_id, $cou_date]);
-        DB::insert("insert into GROUPE (cou_id, uti_id_elv1, uti_id_elv2, uti_id_init) values (?, ?, ?, ?)", [$cou_id, $uti_id_elv1, $uti_id_elv2, $uti_id_init]);
+        DB::insert("insert into cours (cou_id, for_id, cou_date) values (?, ?, ?)", [$cou_id, $for_id, $cou_date]);
+        DB::insert("insert into groupe (cou_id, uti_id_elv1, uti_id_elv2, uti_id_init) values (?, ?, ?, ?)", [$cou_id, $uti_id_elv1, $uti_id_elv2, $uti_id_init]);
 
         foreach ($skillList as $skillId) {
-            DB::insert("insert into MAITRISER (cou_id, uti_id, apt_id, mai_progress, mai_commentaire) values (?, ?, ?, ?, ?)", [$cou_id, $uti_id_elv1, $skillId, 'non évaluée', '']);
+            DB::insert("insert into maitriser (cou_id, uti_id, apt_id, mai_progress, mai_commentaire) values (?, ?, ?, ?, ?)", [$cou_id, $uti_id_elv1, $skillId, 'non évaluée', '']);
 
             if ($uti_id_elv2) {
-                DB::insert("insert into MAITRISER (cou_id, uti_id, apt_id, mai_progress, mai_commentaire) values (?, ?, ?, ?, ?)", [$cou_id, $uti_id_elv2, $skillId, 'non évaluée', '']);
+                DB::insert("insert into maitriser (cou_id, uti_id, apt_id, mai_progress, mai_commentaire) values (?, ?, ?, ?, ?)", [$cou_id, $uti_id_elv2, $skillId, 'non évaluée', '']);
             }
         }
     }
@@ -94,7 +94,7 @@ class Lesson extends Model
             return array();
         }
 
-        $skills = DB::select("select * from MAITRISER join APTITUDE using(apt_id) where cou_id = ? and uti_id = ?", [$cou_id, $uti_id]);
+        $skills = DB::select("select * from maitriser join aptitude using(apt_id) where cou_id = ? and uti_id = ?", [$cou_id, $uti_id]);
 
         /*
         $skills = array();
@@ -113,7 +113,7 @@ class Lesson extends Model
         if (!$cou_id) {
             return array();
         }
-        $res = DB::select("select * from GROUPE where cou_id = ? and uti_id_init = ?", [$cou_id, $uti_id_init])[0];
+        $res = DB::select("select * from groupe where cou_id = ? and uti_id_init = ?", [$cou_id, $uti_id_init])[0];
         
         return [$res->UTI_ID_ELV1, $res->UTI_ID_ELV2];
     }
@@ -123,15 +123,15 @@ class Lesson extends Model
             return null;
         }
 
-        $session = DB::select('select * from COURS where cou_id = ?', [$cou_id])[0];
+        $session = DB::select('select * from cours where cou_id = ?', [$cou_id])[0];
 
         return $session;
     }
 
     public static function updateStudentSkillsAtSession($cou_id, $uti_id, $apt_id, $mai_progress, $mai_commentaire) {
-        DB::update("update MAITRISER set mai_progress = ?, mai_commentaire = ? where cou_id = ? and uti_id = ? and apt_id = ?", [$mai_progress, $mai_commentaire, $cou_id, $uti_id, $apt_id]);
+        DB::update("update maitriser set mai_progress = ?, mai_commentaire = ? where cou_id = ? and uti_id = ? and apt_id = ?", [$mai_progress, $mai_commentaire, $cou_id, $uti_id, $apt_id]);
 
-        $res = DB::select("select val_statut from VALIDER where uti_id = ? and apt_id = ?", [$uti_id, $apt_id]);
+        $res = DB::select("select val_statut from valider where uti_id = ? and apt_id = ?", [$uti_id, $apt_id]);
 
         if ($res && $res[0]->val_statut != 1) {
             $lastProgress = DB::select("select MAI_PROGRESS from maitriser
@@ -142,7 +142,7 @@ class Lesson extends Model
             
             if (count($lastProgress) === 3) {
                 if ($lastProgress[0]->MAI_PROGRESS === "Acquis" && $lastProgress[1]->MAI_PROGRESS === "Acquis" && $lastProgress[2]->MAI_PROGRESS === "Acquis") {
-                    DB::update("update VALIDER set val_statut = 1 where uti_id = ? and apt_id = ?", [$uti_id, $apt_id]);
+                    DB::update("update valider set val_statut = 1 where uti_id = ? and apt_id = ?", [$uti_id, $apt_id]);
                 }
             }
         }
