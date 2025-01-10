@@ -14,7 +14,7 @@
 
 <div class=" flex flex-col justify-between skills-table">
 
-<table class="border-[0.1vw] rounded-[0.5vw] border-[#1962A1] mb-[10vh] border-separate border-spacing-[0.5vw] border-collapse">
+<table class="border-[0.1vw] rounded-[0.5vw] border-[#1962A1] mb-[10vh] border-spacing-[0.5vw] border-collapse">
         <thead>
         <tr>
             <th rowspan="2"></th>

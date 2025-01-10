@@ -15,13 +15,13 @@
 
 <div class=" flex flex-col justify-between ">
 
-    <table class="border-[0.1vw] rounded-[0.5vw] border-[#1962A1] mb-[10vh] border-separate border-spacing-[0.5vw]">
+    <table class="border-[0.1vw] rounded-[0.5vw] border-[#1962A1] mb-[10vh] border-separate border-spacing-[0.5vw] border-collapse">
         <thead>
         <tr>
             <th rowspan="2"></th>
 
             <?php
-                $code = ''; 
+                $code = '';
                 $compIndex = 1;
                 foreach ($listCompetence as $comp) {
                     $code .= '<th class="table_header" ';
@@ -35,7 +35,7 @@
         </tr>
         <tr>
             <?php
-                $code = ''; 
+                $code = '';
                 $compIndex = 1;
                 foreach ($listCompetence as $comp) {
                     for ($i = 1; $i <= $comp->nb; $i++) {
@@ -68,7 +68,7 @@
                         $code .= 'bg-orange-300">';
                         $code .= "En cours";
                     }
-                    
+
                     $code .= '</td>';
                 }
 
