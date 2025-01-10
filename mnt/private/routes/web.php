@@ -132,7 +132,7 @@ Route::post('directeur/ajoute-formation', [AddTraining::class, 'add'])->name('di
 Route::post('directeur/modifier-utilisateur', [EditUser::class, 'show'])->name('directeur.modifier-utilisateur');
 Route::post('directeur/gestion-responsable', [Director::class, 'editResponsable'])->name('directeur.gestion-responsable');
 Route::post('directeur/supprimer-formation', [Director::class, 'delete'])->name('directeur.supprimer-formation');
-Route::get('directeur/generer-csv', [CsvGenerator::class, 'generateCsv'])->name('director.generer-csv');
+Route::get('directeur/generer-csv', [Director::class, 'generateCsv'])->name('director.generer-csv');
 Route::post('addStudent', [AddUser::class, 'insertUser'])->name('addStudent');
 Route::post('/director/levelconfirmation', [LevelConfirmation::class, 'accept'])->name('acceptStudent');
 

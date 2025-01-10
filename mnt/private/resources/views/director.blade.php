@@ -15,7 +15,7 @@
     <div class=" flex flex-col">
         <div class="flex lg:flex-row flex-col lg:justify-between items-center mb-[1vh]">
             <p class="triomphe text-[3vw] lg:text-[1.3vw]">Liste des formations</p>
-            <form action="{{route('director.genererCsv')}}" method="get">
+            <form action="{{route('director.generer-csv')}}" method="get">
                 @csrf
                 <button type="submit"
                     class="triomphe lg:text-[1vw] text-[3vw] rounded-[0.25vw] bg-[#1962A1] px-[1vw] py-[0.8vh] text-white">Résumé des formations 2024-2025</button>
