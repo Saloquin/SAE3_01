@@ -16,17 +16,17 @@ class IsManager
      */
     public function handle($request, Closure $next)
     {
-        if (!$request->session()->has('manager')) {
-            if ($request->session()->has('superadmin')) {
+        if (!session()->has('manager')) {
+            if (session()->has('superadmin')) {
                 return redirect()->route('superadmin.addcomp');
             }
-            if ($request->session()->has('director')) {
+            if (session()->has('director')) {
                 return redirect()->route('directeur');
             }
-            if ($request->session()->has('teacher')) {
+            if (session()->has('teacher')) {
                 return redirect()->route('initiateur');
             }
-            if ($request->session()->has('student')) {
+            if (session()->has('student')) {
                 return redirect()->route('eleve');
             }
         }

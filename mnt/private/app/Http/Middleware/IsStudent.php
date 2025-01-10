@@ -16,20 +16,21 @@ class IsStudent
      */
     public function handle($request, Closure $next)
     {
-        if (!auth()->check() || !auth()->user()->isStudent()) {
-            if (auth()->user()->isSuperAdmin()) {
+        if (!session()->has('student')) {
+            if (session()->has('superadmin')) {
                 return redirect()->route('superadmin.addcomp');
             }
-            if (auth()->user()->isDirector()) {
+            if (session()->has('director')) {
                 return redirect()->route('directeur');
             }
-            if (auth()->user()->isManager()) {
-                return redirect()->route('responsable-formation');
+            if (session()->has('manager')) {
+                return redirect()->route('responsable');
             }
-            if (auth()->user()->isTeacher()) {
+            if (session()->has('teacher')) {
                 return redirect()->route('initiateur');
             }
         }
         return $next($request);
     }
+    
 }
