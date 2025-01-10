@@ -53,7 +53,6 @@ Class EditUser extends Controller{
             'UTI_VILLE' => 'required|string',
             'UTI_RUE' => 'required|string',
         ]);
-        dd('test')  ;
         if ($validated['lvl'] < 2 && $validated['init'] == 1) {
             return $this->show($request);
         }
