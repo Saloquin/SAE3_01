@@ -86,7 +86,7 @@ Route::middleware(['isConnected'])->group(function () {
     });
     // Training Manager
     Route::middleware(['isManager'])->group(function () {
-        Route::get('responsable-formation', [Manager::class, 'show'])->name('responsable.show');
+        Route::get('responsable-formation', [Manager::class, 'show'])->name('responsable');
         Route::match(array('GET', 'POST'), 'responsable-formation/gestion-seance', [SessionManagement::class, 'show']);    //Creation session
         Route::get('responsable-formation/gestion-aptitude', [SkillsManagement::class, 'show'])->name('responsable.gestion-aptitude');
         Route::get('responsable-formation/details-formation', [TrainingDetails::class, 'show'])->name('responsable.details-formation');

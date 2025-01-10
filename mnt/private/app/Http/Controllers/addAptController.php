@@ -9,10 +9,6 @@ use Illuminate\Http\Request;
 class addAptController extends Controller
 {
     public function show(){
-        
-
-        
-
         include resource_path('includes/header.php');
 
         $req = Competence::getCompetencies();

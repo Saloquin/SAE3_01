@@ -71,7 +71,7 @@ class Connexion extends Controller
                     if ($formation->UTI_ID == session('id')) {
                         session(['manager' => true]);
                         session(['formation_level' => $formation->NIV_ID]);
-                        return redirect()->route('responsable-formation');
+                        return redirect()->route('responsable');
                         // redirect to training manageur home
                     }
 
