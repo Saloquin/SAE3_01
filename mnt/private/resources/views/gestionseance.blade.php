@@ -10,19 +10,6 @@
 </head>
 <body class="flex items-center flex-col bg-blue-50 p-6">
     <h1 class="mb-10 text-4xl font-bold text-blue-700">Création d'une séance de plongée</h1>
-
-    @if(session('error'))
-        <div class="bg-red-500 text-white px-4 py-3 mb-6 rounded">
-            {{ session('error') }}
-        </div>
-    @endif
-
-    @if(session('success'))
-        <div class="bg-green-500 text-white px-4 py-3 mb-6 rounded">
-            {{ session('success') }}
-        </div>
-    @endif   
-
     <form action="{{ url('responsable-formation/TraitementCreationSession') }}" method="post" class="bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 w-full max-w-4xl">
         <input type="hidden" name="course_id" value="{{ $course ? $course->COU_ID : '' }}">
         @csrf
@@ -31,7 +18,7 @@
             <input type="text" 
                    id="session_date" 
                    name="session_date" 
-                   value="{{ $date }}" 
+                   value="{{ old('session_date', $date)  }}" 
                    class="bg-gray-100 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5"
                    readonly>
         </div>
@@ -67,6 +54,7 @@
     <script id="oldCompetences" type="application/json">@json(old('competences', []))</script>
     <script id="oldInitiators" type="application/json">@json(old('initiator', []))</script>
     <script id="studentDataExisting" type="application/json">@json($students_data)</script>
+    <script id="validatedSkillsForStudentsData" type="application/json">@json($validatedSkillsForStudents)</script>
     <script>
         function updateSessionData() {
             var date = document.getElementById('date').value;
@@ -111,6 +99,8 @@
 
             const buttonStudent = document.getElementById('addStudentButton');
             buttonStudent.addEventListener('click', () => addStudentRow());
+
+            const validatedSkillsForStudents = JSON.parse(document.getElementById('validatedSkillsForStudentsData').textContent);
 
             updateTableHeaderVisibility();
 
@@ -240,6 +230,7 @@
 
             function addAptitude(cell, studentId, aptitudeId = null) {
                 const existingAptitudes = cell.querySelectorAll('select[name^="competences["]');
+                console.log(validatedSkillsForStudents)
                 if (existingAptitudes.length >= 3) {
                     alert("Un élève ne peut avoir que 3 aptitudes au maximum.");
                     return;
@@ -257,6 +248,10 @@
                     option.value = skill.APT_ID;
                     option.textContent = skill.APT_LIBELLE;
 
+                    if (validatedSkillsForStudents[studentId] && validatedSkillsForStudents[studentId][skill.APT_ID]) {
+                        option.disabled = true;
+                    }
+
                     if (aptitudeId && skill.APT_ID == aptitudeId) {
                         option.selected = true;
                     }
@@ -264,6 +259,8 @@
                     const alreadySelected = Array.from(cell.querySelectorAll('select')).some(existingSelect => 
                         existingSelect.value == skill.APT_ID && skill.APT_ID != aptitudeId
                     );
+
+
                     option.disabled = alreadySelected;
 
                     select.appendChild(option);
@@ -291,6 +288,8 @@
 
 
             function updateAptitudeOptions(cell, studentId) {
+                console.log("updateAptitudeOptions");
+
                 const selectedAptitudes = Array.from(cell.querySelectorAll('select[name^="competences["]')).map(select => select.value);
 
                 cell.querySelectorAll('select[name^="competences["]').forEach(select => {
@@ -304,6 +303,7 @@
 
 
             function updateStudentOptions() {
+                console.log("updateStudentOptions");
                 const studentSelects = document.querySelectorAll('select[name="student[]"]');
                 studentSelects.forEach(studentSelect => {
                     let selected = studentSelect.selectedOptions[0].value;
@@ -316,6 +316,7 @@
             }
 
             function updateInitiatorOptions() {
+                console.log("updateInitiatorOptions");
                 const initiatorSelects = document.querySelectorAll('select[name="initiator[]"]');
                 initiatorSelects.forEach(initiatorSelect => {
                     const selectedValue = initiatorSelect.value;
@@ -356,36 +357,14 @@
                             addAptitude(aptitudeCell, index, aptitudeId);
                         }
                     });
-
+                    updateAptitudeOptions();
+                    updateInitiatorOptions();
+                    updateStudentOptions();
                     
                 });
 
                 
             }
-
-
-
-
-
-            oldStudents.forEach((studentId, index) => {
-                addStudentRow();
-                const studentSelect = document.querySelectorAll('select[name="student[]"]')[index];
-                const initiatorSelect = document.querySelectorAll('select[name="initiator[]"]')[index];
-                const studentCompetences = oldCompetences[studentId] || [];
-                const initiatorId = oldInitiators[index] || "";
-
-                studentSelect.value = studentId;
-                initiatorSelect.value = initiatorId;
-
-                if (initiatorId) {
-                    initiatorCounts[initiatorId] = (initiatorCounts[initiatorId] || 0) + 1;
-                }
-
-                studentCompetences.forEach(competence => {
-                    const cell = studentSelect.closest('tr').children[1];
-                    addAptitude(cell, studentId);
-                });
-            });
 
             updateStudentOptions();
             updateInitiatorOptions();

@@ -18,7 +18,7 @@ class UpdtAptController extends Controller
             $str = "Niveau : " . $row->niv_id . ", Compétence : " . $row->com_libelle . ", Aptitude : " . $row->apt_libelle;
             array_push($comp, $str);
         }
-        return view('UpdtAptView', compact('comp'));
+        return view('updtAptView', compact('comp'));
     }
 
     public function updt(Request $request){

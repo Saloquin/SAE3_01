@@ -13,10 +13,6 @@
 <p class=" triomphe text-[6vw] lg:text-[2vw] mb-[10vh]">Validation des formations</p>
 
 <div class=" flex flex-col lg:w-auto w-[90%]">
-    <div class="flex lg:flex-row flex-col lg:justify-center items-center mb-[1vh]">
-        <p class="triomphe text-[3vw] lg:text-[1.3vw] text-center">Liste des élèves de la formation N1 ayant acquis toutes les compétences</p>
-    </div>
-
     <table class="border-[0.1vw] rounded-[0.5vw] border-[#1962A1] mb-[10vh] border-separate border-spacing-[0.5vw]">
         <thead>
         <tr>
@@ -24,8 +20,7 @@
             <th class="table_header">Nom</th>
             <th class="table_header">Prénom</th>
             <th class="table_header">Mail</th>
-            <th class="table_header lg:table-cell hidden">Mail</th>
-            <th class="table_header">Niveau en cours</th>
+            <th class="table_header lg:table-cell hidden">Niveau en cours</th>
             <th class="table_header">Certif.</th>
             <th class="table_header">Nais.</th>
         </tr>
