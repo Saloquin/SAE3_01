@@ -99,13 +99,17 @@ footer {
 footer small {
     height: 30px;
     line-height: 30px;
-    font-size: 8px;
+    font-size: 10px;
     text-justify: auto;
     letter-spacing: 1px;
 }
 
 iframe[seamless] {
     border: none;
+}
+
+#github-icon {
+    max-height: 30px;
 }
 
 /*********************** TYPOGRAPHY ***********************/
