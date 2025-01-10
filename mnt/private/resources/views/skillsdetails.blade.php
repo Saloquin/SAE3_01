@@ -51,44 +51,46 @@
 
             $code = "";
             $j = 0;
-            foreach ($listCours as $cours) {
-                $code .= '<tr class=""> <th class="table_cell">';
-                $code .= $cours->cou_date;
-                $code .= '</th>';
-                for ($i = 0; $i < count($listSkills); $i++) {
-                    $code .= '<td class="table_cell ';
-                    $find = false;
-                    foreach($tab[$i] as $mark){
+            if(!empty($listCours)){
+                foreach ($listCours as $cours) {
+                    $code .= '<tr class=""> <th class="table_cell">';
+                    $code .= $cours->cou_date;
+                    $code .= '</th>';
+                    for ($i = 0; $i < count($listSkills); $i++) {
+                        $code .= '<td class="table_cell ';
+                        $find = false;
+                        foreach($tab[$i] as $mark){
 
-                        if($mark->cou_date == $cours->cou_date) {
-                            if ($mark->mai_progress == 'Acquis') {
-                                $code .= 'bg-green-400">';
-                                $code .= $mark->mai_progress;
-                            } else if($mark->mai_progress == 'En cours'){
-                                $code .= 'bg-orange-300">';
-                                $code .= $mark->mai_progress;
-                            } else if($mark->mai_progress == 'Absent'){
-                                $code .= 'bg-[#DD281F]">';
-                                $code .= $mark->mai_progress;
-                            } else {
-                                $code .= '';
-                                $code .= $mark->mai_progress;
+                            if($mark->cou_date == $cours->cou_date) {
+                                if ($mark->mai_progress == 'Acquis') {
+                                    $code .= 'bg-green-400">';
+                                    $code .= $mark->mai_progress;
+                                } else if($mark->mai_progress == 'En cours'){
+                                    $code .= 'bg-orange-300">';
+                                    $code .= $mark->mai_progress;
+                                } else if($mark->mai_progress == 'Absent'){
+                                    $code .= 'bg-[#DD281F]">';
+                                    $code .= $mark->mai_progress;
+                                } else {
+                                    $code .= '';
+                                    $code .= $mark->mai_progress;
+                                }
+                                $find = true;
                             }
-                            $find = true;
                         }
+                        if($find) {
+                            $code .= '</td>';
+                        }else{
+                            $code .= '"></td>';
+                        }
+                    
+                    //iteration et affichage des acquis
                     }
-                    if($find) {
-                        $code .= '</td>';
-                    }else{
-                        $code .= '"></td>';
-                    }
+                    
 
-                //iteration et affichage des acquis
+                    $code .= '</tr>';
+                    $j++;
                 }
-
-
-                $code .= '</tr>';
-                $j++;
             }
             echo $code;
             ?>
@@ -100,7 +102,7 @@
 </body>
 
 <?php
-require_once('../resources/includes/footer.php');
+include resource_path('includes/footer.php');
 ?>
 
 </html>

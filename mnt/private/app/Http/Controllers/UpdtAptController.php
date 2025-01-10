@@ -8,9 +8,9 @@ use App\Models\Skill;
 class UpdtAptController extends Controller
 {
     public function show(){
-        session_start();
-        require_once('../resources/includes/header.php');
-        require_once('../resources/includes/navbar/navbar_admin.php');
+        
+        include resource_path('includes/header.php');
+        include resource_path('includes/navbar/navbar_admin.php');
 
         $req = Skill::getSkillWithLvl();
         //var_dump($levels);

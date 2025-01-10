@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Class InitiatorListFormation
+ *
+ * Controller for managing the list of initiators for a formation.
+ *
+ * @package App\Http\Controllers
+ */
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -9,20 +15,18 @@ use App\Models\Uti;
 use Illuminate\Support\Facades\DB;
 
 Class InitiatorListFormation extends Controller{
-
+    /**
+      * Display the list of initiators for a specific formation.
+      *
+      * @param Request $request
+      * @return \Illuminate\View\View
+      */
     public function show(Request $request)
 {
-    session_start();
-    require_once('../resources/includes/header.php');
-        if(isset($_SESSION['director'])){ require_once('../resources/includes/navbar/navbar_director.php'); }
-        if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
-        if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
-        if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
+    
+    include resource_path('includes/header.php');
 
-    if(!isset($_SESSION['id'])){
-        header('Location: /connexion');
-        exit;
-    }
+    
 
     $formation = Formation::findOrFail($request->input('FOR_ID'));
 
@@ -56,13 +60,18 @@ Class InitiatorListFormation extends Controller{
 }
 
 
-
+    /**
+      * Add a new initiator to a formation.
+      *
+      * @param Request $request
+      * @return \Illuminate\View\View
+      */
     public function add(Request $request)
     {
 
         $validated = $request->validate([
-            'FOR_ID' => 'required|exists:FORMATION,FOR_ID',
-            'UTI_ID' => 'required|exists:UTILISATEUR,UTI_ID',
+            'FOR_ID' => 'required|exists:formation,FOR_ID',
+            'UTI_ID' => 'required|exists:utilisateur,UTI_ID',
         ]);
 
         $formation = $request->input('FOR_ID');
@@ -75,13 +84,18 @@ Class InitiatorListFormation extends Controller{
         return $this->show($request);
     }
 
-
+    /**
+      * Remove an initiator from a formation.
+      *
+      * @param Request $request
+      * @return \Illuminate\View\View
+      */
     public function remove(Request $request)
 {
 
     $validated = $request->validate([
-        'FOR_ID' => 'required|exists:FORMATION,FOR_ID',
-        'UTI_ID' => 'required|exists:UTILISATEUR,UTI_ID',
+        'FOR_ID' => 'required|exists:formation,FOR_ID',
+        'UTI_ID' => 'required|exists:utilisateur,UTI_ID',
     ]);
 
     $formationId = $validated['FOR_ID'];
@@ -108,4 +122,3 @@ Class InitiatorListFormation extends Controller{
 
 
 }
-

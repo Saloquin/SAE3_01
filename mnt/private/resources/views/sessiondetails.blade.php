@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 <?php
-require_once('../resources/includes/header.php');
+include resource_path('includes/header.php');
 ?>
 <body class="triomphe flex flex-col items-center">
 
@@ -38,6 +38,6 @@ require_once('../resources/includes/header.php');
 </body>
 
 <?php
-require_once('../resources/includes/footer.php');
+include resource_path('includes/footer.php');
 ?>
 </html>

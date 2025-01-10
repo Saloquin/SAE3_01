@@ -27,5 +27,22 @@
             </a>
         </div>
     </div>
+    <?php
+        if (session()->has('superadmin')) {
+            include resource_path('includes/navbar/navbar_admin.php');
+        }
+        if (session()->has('director')) {
+            include resource_path('includes/navbar/navbar_director.php');
+        } 
+        if (session()->has('manager')) {
+            include resource_path('includes/navbar/navbar_manager.php');
+        } 
+        if (session()->has('teacher')) {
+            include resource_path('includes/navbar/navbar_teacher.php');
+        } 
+        if (session()->has('student')) {
+            include resource_path('includes/navbar/navbar_student.php');
+        }
+    ?>
 </body>
 </html>

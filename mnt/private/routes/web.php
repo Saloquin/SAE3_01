@@ -55,47 +55,60 @@ use App\Http\Controllers\EditUser;
 
 //_______________________NAVIGATION_______________________
 
-Route::get('', [Connexion::class, 'show']);
-Route::get('connexion', [Connexion::class, 'show'])->name('connexion');
-Route::get('profile', [Profile::class, 'show'])->name('profile');
-Route::get('edit-profile', [EditProfile::class, 'show'])->name('edit-profile');
 
-Route::get('non-inscrit', [Unregistered::class, 'show'])->name('non-inscrit');
-
-// SuperAdmin
-Route::get('superadmin', [addCompController::class, 'show'])->name('superadmin.addcomp');
-Route::get('/superadmin/ajoutaptitude', [addAptController::class, 'show'])->name('superadmin.addapt');
-Route::get('/superadmin/modifcompetence', [UpdtCompController::class, 'show'])->name('superadmin.updtcomp');
-Route::get('/superadmin/modifaptitude', [UpdtAptController::class, 'show'])->name('superadmin.updtapt');
-
-// Director
-Route::get('directeur', [Director::class, 'show'])->name('directeur');
-Route::get('directeur/gestion-formation', [Director::class, 'show'])->name('directeur.gestion-formation');
-Route::get('directeur/valider-niveau', [LevelConfirmation::class, 'show'])->name('directeur.valider-niveau');
-Route::get('directeur/gestion-utilisateur', [UserManagement::class, 'show'])->name('directeur.gestion-utilisateur');
-Route::get('directeur/ajouter-utilisateur', [AddUser::class, 'show'])->name('directeur.ajouter-utilisateur');
-Route::get('directeur/ajouter-formation', [AddTraining::class, 'show'])->name('directeur.ajouter-formation');
-
-// Training Manager
-Route::get('responsable-formation', [Manager::class, 'show'])->name('responsable.show');
-Route::match(array('GET','POST'), 'responsable-formation/gestion-seance', [SessionManagement::class, 'show']);    //Creation session
-Route::get('responsable-formation/gestion-aptitude', [SkillsManagement::class, 'show'])->name('responsable.gestion-aptitude');
-Route::get('responsable-formation/details-formation', [TrainingDetails::class, 'show'])->name('responsable.details-formation');
-
-// Trainer
-Route::get('initiateur', [Initiator::class, 'show'])->name('initiateur.show');
-Route::get('initiateur/evaluation-seance', [SessionRating::class, 'show'])->name('initiateur.evaluation-seance');
-Route::get('initiateur/liste-eleves', [TrainingDetails::class, 'show'])->name('initiateur.liste-eleves');
-Route::post('initiateur/liste-eleves', [TraineeList::class, 'show'])->name('initiateur.liste-eleves');
-Route::post('initiateur/evaluation-seance', [SessionRating::class, 'show']);
-Route::post('/traitement_validation_aptitudes', [SessionRating::class, 'updateStudentSkillForSession']); // ne pas supprimer PITIÉ
-
-// Trainee
-Route::get('eleve', [Trainee::class, 'show'])->name('eleve.show');
-Route::get('eleve/details-seance', [SessionDetails::class, 'show'])->name('eleve.details-seance');
-Route::get('eleve/details-aptitudes', [SkillsDetails::class, 'show'])->name('eleve.details-aptitudes');
+//page for not connected users
+Route::middleware(['isNotConnected'])->group(function () {
+    Route::get('', [Connexion::class, 'show']);
+    Route::get('connexion', [Connexion::class, 'show'])->name('connexion');
+});
 
 
+//page for connected users
+Route::middleware(['isConnected'])->group(function () {
+
+    Route::get('profile', [Profile::class, 'show'])->name('profile');
+    Route::get('edit-profile', [EditProfile::class, 'show'])->name('edit-profile');
+    Route::get('non-inscrit', [Unregistered::class, 'show'])->name('non-inscrit');
+
+    // SuperAdmin
+    Route::middleware(['isSuperAdmin'])->group(function () {
+        Route::get('superadmin', [addCompController::class, 'show'])->name('superadmin.addcomp');
+        Route::get('/superadmin/ajoutaptitude', [addAptController::class, 'show'])->name('superadmin.addapt');
+        Route::get('/superadmin/modifcompetence', [UpdtCompController::class, 'show'])->name('superadmin.updtcomp');
+        Route::get('/superadmin/modifaptitude', [UpdtAptController::class, 'show'])->name('superadmin.updtapt');
+    });
+    // Director
+    Route::middleware(['isDirector'])->group(function () {
+        Route::get('directeur', [Director::class, 'show'])->name('directeur');
+        Route::get('directeur/gestion-formation', [Director::class, 'show'])->name('directeur.gestion-formation');
+        Route::get('directeur/valider-niveau', [LevelConfirmation::class, 'show'])->name('directeur.valider-niveau');
+        Route::get('directeur/gestion-utilisateur', [UserManagement::class, 'show'])->name('directeur.gestion-utilisateur');
+        Route::get('directeur/ajouter-utilisateur', [AddUser::class, 'show'])->name('directeur.ajouter-utilisateur');
+        Route::get('directeur/ajouter-formation', [AddTraining::class, 'show'])->name('directeur.ajouter-formation');
+    });
+    // Training Manager
+    Route::middleware(['isManager'])->group(function () {
+        Route::get('responsable-formation', [Manager::class, 'show'])->name('responsable.show');
+        Route::match(array('GET', 'POST'), 'responsable-formation/gestion-seance', [SessionManagement::class, 'show']);    //Creation session
+        Route::get('responsable-formation/gestion-aptitude', [SkillsManagement::class, 'show'])->name('responsable.gestion-aptitude');
+        Route::get('responsable-formation/details-formation', [TrainingDetails::class, 'show'])->name('responsable.details-formation');
+    });
+    // Trainer
+    Route::middleware(['isInitiator'])->group(function () {
+        Route::get('initiateur', [Initiator::class, 'show'])->name('initiateur.show');
+        Route::get('initiateur/evaluation-seance', [SessionRating::class, 'show'])->name('initiateur.evaluation-seance');
+        Route::get('initiateur/liste-eleves', [TrainingDetails::class, 'show'])->name('initiateur.liste-eleves');
+        Route::post('initiateur/liste-eleves', [TraineeList::class, 'show'])->name('initiateur.liste-eleves');
+        Route::post('initiateur/evaluation-seance', [SessionRating::class, 'show']);
+        Route::post('/traitement_validation_aptitudes', [SessionRating::class, 'updateStudentSkillForSession']); // ne pas supprimer PITIÉ
+    });
+    // Trainee
+    Route::middleware(['isStudent'])->group(function () {
+        Route::get('eleve', [Trainee::class, 'show'])->name('eleve.show');
+        Route::get('eleve/details-seance', [SessionDetails::class, 'show'])->name('eleve.details-seance');
+        Route::get('eleve/details-aptitudes', [SkillsDetails::class, 'show'])->name('eleve.details-aptitudes');
+    });
+});
 
 //_______________________BACK-END_______________________
 

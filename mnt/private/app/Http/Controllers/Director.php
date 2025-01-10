@@ -23,21 +23,12 @@ Class Director extends Controller{
     * @return \Illuminate\View\View
     */
     public function show(){
-        session_start();
 
-        if(!isset($_SESSION['id'])){
-            header('Location: /connexion');
-            exit;
-        }
-
-        require_once('../resources/includes/header.php');
-        if(isset($_SESSION['director'])){ require_once('../resources/includes/navbar/navbar_director.php'); }
-        if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
-        if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
-        if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
-
-        $clubId = Uti::find($_SESSION["id"])->CLU_ID;
-        $me = Uti::find($_SESSION["id"]);
+        include resource_path('includes/header.php');
+        
+        session()->put('id', 1);
+        $clubId = Uti::find(session('id'))->CLU_ID;
+        $me = Uti::find(session('id'));
 
         $formations = Formation::where('CLU_ID', $clubId)
             ->whereRaw('DATEDIFF(SYSDATE(), FOR_ANNEE) BETWEEN 0 AND 365.25')
@@ -55,11 +46,10 @@ Class Director extends Controller{
     * @return \Illuminate\Http\RedirectResponse
     */
     public function editResponsable(Request $request){
-        $request->validate([
-            'formation' => 'required|exists:FORMATION,FOR_ID',
-            'responsable' => 'required|exists:UTILISATEUR,UTI_ID',
+        $validated=$request->validate([
+            'formation' => 'required|exists:formation,FOR_ID',
+            'responsable' => 'required|exists:utilisateur,UTI_ID',
         ]);
-
         $formation = Formation::find($request->formation);
         $formation->UTI_ID = $request->responsable;
         $formation->save();
@@ -75,7 +65,7 @@ Class Director extends Controller{
   */
     public function delete(Request $request){
         $validated = $request->validate([
-            'FOR_ID' => 'required|exists:FORMATION,FOR_ID',
+            'FOR_ID' => 'required|exists:formation,FOR_ID',
         ]);
 
         $formationId = $validated['FOR_ID'];

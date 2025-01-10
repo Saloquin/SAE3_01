@@ -18,98 +18,78 @@ use App\Mail\UserPasswordMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Uti;
 
-Class Connexion extends Controller{
+class Connexion extends Controller
+{
     /**
-      * Show the login page.
-      *
-      * This method starts a session, unsets any existing session variables, and checks if the user is already logged in.
-      * If the user is a superadmin, they are redirected to the superadmin page.
-      * Otherwise, the user is redirected based on their role.
-      *
-      * @return \Illuminate\View\View
-      */
-    public function show(){
-        session_start();
-        if(isset($_SESSION['id'])){
-            if($_SESSION['id'] == "A-00-000000"){
-
-                header('Location: superadmin');
-                exit;
-            }
-            $this->redirect();
-        }
+     * Show the login page.
+     *
+     * This method starts a session, unsets any existing session variables, and checks if the user is already logged in.
+     * If the user is a superadmin, they are redirected to the superadmin page.
+     * Otherwise, the user is redirected based on their role.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function show()
+    {
         return view('connexion');
     }
-    /**
-      * Redirect the user based on their role.
-      *
-      * This private method checks the user's role and redirects them to the appropriate page.
-      * It sets session variables based on the user's role and redirects to the corresponding home page.
-      *
-      * @return void
-      */
-    private function redirect(){
-        if(DB::select('select count(*) as nb from CLUB where uti_id = ?',[$_SESSION['id']])[0]->nb){
-            $_SESSION['director'] = true;
-            header('location: directeur');
-            exit;
-        }
-        foreach ($_SESSION['active_formations'] as $formation) {
-            if($formation->UTI_ID == $_SESSION['id']){
-                $_SESSION['manager'] = true;
-                $_SESSION['formation_level'] = $formation->NIV_ID;
-                header('Location: responsable-formation');
-                exit;
-                // redirect to training manageur home
-            }
 
-            $res = DB::select('select count(*) as nb from INITIER where for_id = ? and uti_id = ?',[$formation->FOR_ID,$_SESSION['id']]);
-            if($res[0]->nb){
-                $_SESSION['teacher'] = true;
-                header('Location: initiateur');
-                exit;
-                // redirect to initiator home
-            }
-            $res = DB::select('select count(*) as nb from APPRENDRE where for_id = ? and uti_id = ?',[$formation->FOR_ID,$_SESSION['id']]);
-            if($res[0]->nb){
-                $_SESSION['student'] = true;
-                header('Location: eleve');
-                exit;
-                // redirect to student home
-            }
-        }
-        // renvoyer vers page pas de formation
-        header('Location: non-inscrit');
-        exit;
-    }
     /**
-      * Handle the login request.
-      *
-      * This method starts a session and validates the login credentials.
-      * If the credentials are valid, the user is redirected based on their role.
-      * If the credentials are invalid, an error message is displayed.
-      *
-      * @param \Illuminate\Http\Request $request
-      * @return void
-      */
-    public function login(Request $request){
-        session_start();
+     * Handle the login request.
+     *
+     * This method starts a session and validates the login credentials.
+     * If the credentials are valid, the user is redirected based on their role.
+     * If the credentials are invalid, an error message is displayed.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return void
+     */
+    public function login(Request $request)
+    {
+        //
 
         $licence = $request->input('licence');
         $password = $request->input('password');
-        if(isset($licence) && isset($password)){
+        if (isset($licence) && isset($password)) {
 
-            $res = DB::select('select * from UTILISATEUR where uti_licence = ? and uti_mdp = ?',[$licence,md5($password)]);
-            if($licence == "A-00-000000"){
-
-                $_SESSION['id'] = $res[0]->UTI_ID;
-                header('Location: superadmin');
-                exit;
+            $res = DB::select('select * from utilisateur where uti_licence = ? and uti_mdp = ?', [$licence, md5($password)]);
+            if ($licence == "A-00-000000") {
+                session(['superadmin' => true]);
+                session(['id' => $res[0]->UTI_ID]);
+                return redirect()->route('superadmin.addcomp');
             }
-            if(isset($res[0])){
-                $_SESSION['active_formations'] = DB::select('select * from FORMATION where clu_id = ? and datediff(sysdate(), for_annee) between 0 and 365.25', [$res[0]->CLU_ID]);
-                $_SESSION['id'] = $res[0]->UTI_ID;
-                $this->redirect();
+            if (isset($res[0])) {
+                session(['active_formations' => DB::select('select * from formation where clu_id = ? and datediff(sysdate(), for_annee) between 0 and 365.25', [$res[0]->CLU_ID])]);
+                session(['id' => $res[0]->UTI_ID]);
+                if (DB::select('select count(*) as nb from club where uti_id = ?', [session('id')])[0]->nb) {
+
+                    session(['director' => true]);
+                    //dd(session()->all());
+                    return redirect()->route('directeur');
+                }
+                foreach (session('active_formations') as $formation) {
+                    if ($formation->UTI_ID == session('id')) {
+                        session(['manager' => true]);
+                        session(['formation_level' => $formation->NIV_ID]);
+                        return redirect()->route('responsable-formation');
+                        // redirect to training manageur home
+                    }
+
+                    $res = DB::select('select count(*) as nb from initier where for_id = ? and uti_id = ?', [$formation->FOR_ID, session('id')]);
+                    if ($res[0]->nb) {
+                        session(['teacher' => true]);
+                        return redirect()->route('initiateur');
+                        // redirect to initiator home
+                    }
+                    $res = DB::select('select count(*) as nb from apprendre where for_id = ? and uti_id = ?', [$formation->FOR_ID, session('id')]);
+                    if ($res[0]->nb) {
+                        session(['student' => true]);
+                        return redirect()->route('eleve');
+                        // redirect to student home
+                    }
+                }
+                // renvoyer vers page pas de formation
+                header('Location: non-inscrit');
                 exit;
             }
             header('Location: connexion');
@@ -120,19 +100,19 @@ Class Connexion extends Controller{
     }
 
     /**
-      * Handle password recovery.
-      *
-      * This method validates the email input and checks if the user exists.
-      * If the user exists, a new password is generated and sent to the user's email.
-      *
-      * @param \Illuminate\Http\Request $request
-      * @return \Illuminate\Http\RedirectResponse
-      */
+     * Handle password recovery.
+     *
+     * This method validates the email input and checks if the user exists.
+     * If the user exists, a new password is generated and sent to the user's email.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function recupMdp(Request $request)
     {
 
 
-        $validated=$request->validate([
+        $validated = $request->validate([
             'email' => 'required|email',
         ]);
 
@@ -147,7 +127,8 @@ Class Connexion extends Controller{
             Mail::to($validated['email'])->send(new UserPasswordMail([
                 'name' => $user->first()->UTI_PRENOM . ' ' . $user->first()->UTI_NOM,
                 'email' => $user->first()->UTI_MAIL,
-                'password' => $password,'licence' => $user->first()->UTI_LICENCE,
+                'password' => $password,
+                'licence' => $user->first()->UTI_LICENCE,
             ]));
         }
 

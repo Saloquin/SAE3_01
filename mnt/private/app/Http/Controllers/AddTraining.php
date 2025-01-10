@@ -26,20 +26,14 @@ Class AddTraining extends Controller{
       * @return \Illuminate\View\View
       */
     public function show(){
-        session_start();
+        
 
-        if(!isset($_SESSION['id'])){
-            header('Location: /connexion');
-            exit;
-        }
+        
 
-        require_once('../resources/includes/header.php');
-        if(isset($_SESSION['director'])){ require_once('../resources/includes/navbar/navbar_director.php'); }
-        if (isset($_SESSION['manager'])){ require_once('../resources/includes/navbar/navbar_manager.php'); }
-        if (isset($_SESSION['teacher'])){ require_once('../resources/includes/navbar/navbar_teacher.php'); }
-        if (isset($_SESSION['student'])){ require_once('../resources/includes/navbar/navbar_student.php'); }
+        include resource_path('includes/header.php');
+        
 
-        $clubId = Uti::find($_SESSION["id"])->CLU_ID;
+        $clubId = Uti::find(session('id'))->CLU_ID;
         $levels = Level::whereNotNull('NIV_DESCRIPTION')->whereBetween('NIV_ID', [1, 3])->get();
         $init = Uti::getTeacher();
         return view('addtraining', compact('clubId', 'levels', 'init'));
@@ -55,7 +49,7 @@ Class AddTraining extends Controller{
       */
     public function add(Request $request)
     {
-        session_start();
+        
         $validated = $request->validate([
             'level' => 'required|exists:niveau,NIV_ID',
             'init' => 'required|exists:utilisateur,UTI_ID',
@@ -66,7 +60,7 @@ Class AddTraining extends Controller{
             'NIV_ID' => $validated['level'],
             'UTI_ID' => $validated['init'],
             'FOR_ANNEE' => $validated['start'],
-            'CLU_ID' => Uti::find($_SESSION["id"])->CLU_ID,
+            'CLU_ID' => Uti::find(session('id'))->CLU_ID,
         ]);
 
         $formationId = $formation->FOR_ID;
