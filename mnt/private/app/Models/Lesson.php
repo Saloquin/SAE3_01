@@ -28,10 +28,8 @@ class Lesson extends Model
     { 
         if($cou_id === null){
             $cou_id = intval(DB::table('cours')->max('COU_ID'));
-        }else{
-            DB::table('groupe')->where('COU_ID', $cou_id)->delete();
-            DB::table('maitriser')->where('COU_ID', $cou_id)->delete();
         }
+
         DB::table('groupe')->insert([
             'COU_ID' => $cou_id,
             'UTI_ID_ELV1' => $uti_id_elv1,
@@ -70,6 +68,11 @@ class Lesson extends Model
         ]);
 
        
+    }
+
+    public static function deleteLesson($courseId){
+        DB::table('groupe')->where('COU_ID', $courseId)->delete();
+        DB::table('maitriser')->where('COU_ID', $courseId)->delete();
     }
 
     public static function insertSession($for_id, $cou_date, $uti_id_elv1, $uti_id_elv2, $uti_id_init, $skillList) {
