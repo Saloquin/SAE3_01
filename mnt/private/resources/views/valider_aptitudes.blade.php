@@ -41,7 +41,7 @@
             <?php endforeach; ?>
         </select>
 
-        <div class="students-section mb-4">
+        <div class="students-section" class="mb-4">
             <label class="block text-gray-700 font-bold mb-2">Élève 1</label>
             <div class="student-entry flex flex-col mb-4" data-student-index="0">
                 <div class="flex items-center space-x-2 mb-2">
@@ -49,21 +49,22 @@
                 </div>
                 <div class="competencies-for-student flex flex-col space-y-2">
                     <label class="text-gray-700">Aptitudes :</label>
-                    <div class="flex space-x-2 apti text-[3vw] lg:text-[1vw]">
+                    <div class="flex space-x-2 apti">
                         <?php foreach ($skills1 as $skill): ?>
                             <div>
-                                <div class="ability-name"><?= $skill->APT_LIBELLE; ?></div>
-                                <select class="shadow border rounded w-full py-2 px-3 text-gray-700" name="mai_progress_student1_apt_<?= $skill->APT_ID; ?>">
-                                    <option value="En cours" <?= $skill->MAI_PROGRESS == "En cours" ? 'selected' : '' ?>>En cours</option>
-                                    <option value="Acquis" <?= $skill->MAI_PROGRESS == 'Acquis' ? 'selected' : '' ?>>Acquis</option>
-                                    <option value="Absent" <?= $skill->MAI_PROGRESS == 'Absent' ? 'selected' : '' ?>>Absent</option>
-                                </select>
+                                <div>
+                                    <div class="ability-name"><?= $skill->APT_LIBELLE; ?></div>
+                                    <select class="shadow border rounded w-full py-2 px-3 text-gray-700" name="mai_progress_student2_apt_<?= $skill->APT_ID; ?>">
+                                        <option value="En cours" <?= $skill->MAI_PROGRESS == "En cours" ? 'selected' : '' ?>>En cours</option>
+                                        <option value="Acquis" <?= $skill->MAI_PROGRESS == 'Acquis' ? 'selected' : '' ?>>Acquis</option>
+                                        <option value="Absent" <?= $skill->MAI_PROGRESS == 'Absent' ? 'selected' : '' ?>>Absent</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="commentary2" class="block text-gray-700 font-bold">Commentaire</label>
+                                    <input type="text" id="commentary2" name="commentary_student2_apt_<?= $skill->APT_ID; ?>" class="shadow border rounded w-full px-3 text-gray-700" value="<?= $skill->MAI_COMMENTAIRE ?>">
+                                </div>
                             </div>
-                            <div>
-                                <label for="commentary1" class="block text-gray-700 font-bold">Commentaire</label>
-                                <input type="text" id="commentar1" name="commentary_student1_apt_<?= $skill->APT_ID; ?>" class="shadow border rounded w-full px-3 text-gray-700" value="<?= $skill->MAI_COMMENTAIRE ?>">
-                            </div>
-                        </div>
                         <?php endforeach; ?>
                     </div>
                 </div>
