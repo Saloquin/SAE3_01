@@ -41,7 +41,6 @@
             <td class="table_cell">{{ $user->niv_id }}</td>
             <td class="table_cell">{{ $user->uti_date_certif }}</td>
             <td class="table_cell">{{ $user->uti_date_naiss }}</td>
-            <td><button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#C80000] px-[1vw] py-[0.8vh] text-white">X</button></td>
         </tr>
         @endforeach
         </tbody>
@@ -78,7 +77,6 @@
                         <td class="table_cell">{{ $user->niv_id }}</td>
                         <td class="table_cell">{{ $user->uti_date_certif }}</td>
                         <td class="table_cell">{{ $user->uti_date_naiss }}</td>
-                        <td><button class="triomphe lg:text-[0.8vw] text-[2vw] rounded-[0.25vw] bg-[#C80000] px-[1vw] py-[0.8vh] text-white">X</button></td>
                     </tr>
                 @endforeach
             </tbody>
