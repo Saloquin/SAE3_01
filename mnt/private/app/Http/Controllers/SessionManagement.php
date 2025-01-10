@@ -198,7 +198,7 @@ class SessionManagement extends Controller
         }
 
         return redirect('/responsable-formation')
-                ->with('success', 'Votre cours a était crée/modifier avec succes.');
+                ->with('success', 'Votre cours a été créé/modifié avec succès.');
     }
 
 

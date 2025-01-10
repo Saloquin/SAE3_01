@@ -69,7 +69,6 @@ class TraineeListFormation extends Controller
         return view('traineelistformation', compact('users', 'formation', 'usersPossible'));
     }
 
-
     /**
       * Add a trainee to a formation.
       * 
