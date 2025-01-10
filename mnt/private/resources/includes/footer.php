@@ -9,7 +9,8 @@
 </head>
 <body>
     <footer>
-        <small> Copyright @ Journal de Plongée. </small>
+        <small> Journal de Plongée. </small>
+        <a href="https://github.com/Saloquin/SAE3_01"><img src="/assets/github_icon.png" id="github-icon" class="mx-auto"></a>
     </footer>
 </body>
 </html>
