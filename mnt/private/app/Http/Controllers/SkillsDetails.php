@@ -64,7 +64,7 @@ Class SkillsDetails extends Controller{
 
         $listCompetence = DB::select("select com_id, com_libelle ,count(*) as nb from aptitude join competence using(com_id) where niv_id = ?  group by com_id, com_libelle order by com_id",[$formation->NIV_ID]);
 
-        $listCours = DB::select("select distinct cou_date from COURS join maitriser using (cou_id) join utilisateur using (uti_id) where uti_id = ? and for_id = ? order by cou_date", [session('id'), $formation->FOR_ID]);
+        $listCours = DB::select("select distinct cou_date from cours join maitriser using (cou_id) join utilisateur using (uti_id) where uti_id = ? and for_id = ? order by cou_date", [session('id'), $formation->FOR_ID]);
         
         $tab = [];
         foreach ($listSkills as $skill){

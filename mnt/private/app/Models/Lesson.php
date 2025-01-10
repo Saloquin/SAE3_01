@@ -63,7 +63,7 @@ class Lesson extends Model
     {
         $cou_id = intval(DB::table('cours')->max('COU_ID')) + 1;
 
-        DB::table('COURS')->insert([
+        DB::table('cours')->insert([
             'COU_ID' => $cou_id,
             'FOR_ID' => $for_id,
             'COU_DATE' => $cou_date,
@@ -77,14 +77,14 @@ class Lesson extends Model
     
         $cou_date = $cou_date->format('Y-m-d H:i:s');
     
-        DB::insert("insert into COURS (cou_id, for_id, cou_date) values (?, ?, ?)", [$cou_id, $for_id, $cou_date]);
-        DB::insert("insert into GROUPE (cou_id, uti_id_elv1, uti_id_elv2, uti_id_init) values (?, ?, ?, ?)", [$cou_id, $uti_id_elv1, $uti_id_elv2, $uti_id_init]);
+        DB::insert("insert into cours (cou_id, for_id, cou_date) values (?, ?, ?)", [$cou_id, $for_id, $cou_date]);
+        DB::insert("insert into groupe (cou_id, uti_id_elv1, uti_id_elv2, uti_id_init) values (?, ?, ?, ?)", [$cou_id, $uti_id_elv1, $uti_id_elv2, $uti_id_init]);
 
         foreach ($skillList as $skillId) {
-            DB::insert("insert into MAITRISER (cou_id, uti_id, apt_id, mai_progress, mai_commentaire) values (?, ?, ?, ?, ?)", [$cou_id, $uti_id_elv1, $skillId, 'non évaluée', '']);
+            DB::insert("insert into maitriser (cou_id, uti_id, apt_id, mai_progress, mai_commentaire) values (?, ?, ?, ?, ?)", [$cou_id, $uti_id_elv1, $skillId, 'non évaluée', '']);
 
             if ($uti_id_elv2) {
-                DB::insert("insert into MAITRISER (cou_id, uti_id, apt_id, mai_progress, mai_commentaire) values (?, ?, ?, ?, ?)", [$cou_id, $uti_id_elv2, $skillId, 'non évaluée', '']);
+                DB::insert("insert into maitriser (cou_id, uti_id, apt_id, mai_progress, mai_commentaire) values (?, ?, ?, ?, ?)", [$cou_id, $uti_id_elv2, $skillId, 'non évaluée', '']);
             }
         }
     }
@@ -94,7 +94,9 @@ class Lesson extends Model
             return array();
         }
 
+
         $skills = DB::select("select * from maitriser join APTITUDE using(apt_id) where cou_id = ? and uti_id = ?", [$cou_id, $uti_id]);
+
 
         /*
         $skills = array();
